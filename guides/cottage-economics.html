@@ -10,6 +10,86 @@ commercial license. The recurring requirements across states:</p>
 usual dividing line is <strong>water activity (aw) of 0.85 or below</strong>, the threshold below
 which pathogenic growth isn’t supported. Properly freeze-dried candy clears this
 easily; the process removes the overwhelming majority of moisture.</p>
+<p>The 0.85 line is a legal cutoff, not a quality target. General food-science guidance
+places the growth floor for any microorganism at roughly 0.60 aw, and well-run
+freeze-drying is engineered to land far below either number: typically 0.10–0.25 aw
+once the product has cooled, which is also where crunch and color hold up best. The
+diagram below maps the full scale.</p>
+<figure class="diagram-figure"><div class="table-scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 512" role="img" aria-labelledby="wa-title wa-desc">
+  <title id="wa-title">Water activity scale for freeze-dried food, from 0 to 1.0</title>
+  <desc id="wa-desc">Horizontal scale of water activity. Zero to 0.25 is the freeze-dried target zone. Up to 0.60 nothing grows but quality fades. From 0.60 the driest molds wake up, from 0.70 molds and yeasts grow, and above 0.85 bacteria including dangerous ones. A good batch meters between 0.10 and 0.25.</desc>
+  <style>
+    .bg{fill:var(--sp-paper);}
+    .title{font:700 23px var(--sp-font-display);fill:var(--sp-ink);}
+    .sub{font:13px var(--sp-font-body);fill:var(--sp-ink2);}
+    .b{font:12.5px var(--sp-font-body);fill:var(--sp-ink2);}
+    .cap{font:11px var(--sp-font-body);fill:var(--sp-ink3);}
+    .num{font:600 11.5px var(--sp-font-body);fill:var(--sp-ink3);}
+    .thr{font:700 11px var(--sp-font-body);fill:var(--sp-ink);}
+    .zin{font:700 10.5px var(--sp-font-body);letter-spacing:0.8px;}
+    .leg{font:12px var(--sp-font-body);fill:var(--sp-ink2);}
+  </style>
+
+  <rect class="bg" width="920" height="512"/>
+
+  <text class="title" x="24" y="42">Water activity (a<tspan baseline-shift="sub" font-size="14">w</tspan>) — the number that proves a batch</text>
+  <text class="sub" x="24" y="66">a<tspan baseline-shift="sub" font-size="9">w</tspan> measures the free water microbes can actually use — not the same thing as moisture percent. One reading decides: store it, or dry it more.</text>
+
+  <!-- meter chip at 0.18 -->
+  <text class="b" x="204" y="128" text-anchor="middle" style="font-weight:700;fill:var(--sp-ink);">a good batch meters here</text>
+  <text class="cap" x="204" y="144" text-anchor="middle">0.10 – 0.25 after cooling</text>
+  <g>
+    <rect x="180" y="154" width="48" height="26" rx="13" fill="var(--sp-good)"/>
+    <path d="M197 179 L211 179 L204 205 z" fill="var(--sp-good)"/>
+    <text x="204" y="171.5" text-anchor="middle" style="font:700 12.5px var(--sp-font-body);fill:#FFFFFF;">0.18</text>
+  </g>
+
+  <!-- threshold callouts -->
+  <text class="thr" x="540" y="178" text-anchor="middle">0.60 — the growth floor</text>
+  <line x1="540" y1="186" x2="540" y2="264" stroke="var(--sp-ink2)" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text class="thr" x="740" y="178" text-anchor="middle">0.85 — the danger line</text>
+  <line x1="740" y1="186" x2="740" y2="264" stroke="var(--sp-danger)" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- band: zones with 2px gaps -->
+  <g>
+    <rect x="60"  y="210" width="198" height="52" rx="6" fill="var(--sp-good)"/>
+    <rect x="262" y="210" width="276" height="52" fill="var(--sp-panel-alt)" stroke="var(--sp-line)"/>
+    <rect x="542" y="210" width="76"  height="52" fill="var(--sp-gold-t)" stroke="var(--sp-warn)" stroke-opacity="0.5"/>
+    <rect x="622" y="210" width="116" height="52" fill="#EFD9A9" stroke="var(--sp-warn)" stroke-opacity="0.7"/>
+    <rect x="742" y="210" width="118" height="52" rx="6" fill="var(--sp-red-t)" stroke="var(--sp-danger)" stroke-opacity="0.6"/>
+    <text class="zin" x="159" y="240" text-anchor="middle" fill="#FFFFFF">FREEZE-DRIED TARGET</text>
+    <text class="zin" x="400" y="233" text-anchor="middle" fill="var(--sp-ink2)" style="letter-spacing:0.2px;">nothing grows —</text>
+    <text class="zin" x="400" y="249" text-anchor="middle" fill="var(--sp-ink2)" style="letter-spacing:0.2px;">quality slowly fades</text>
+  </g>
+
+  <!-- axis numbers -->
+  <text class="num" x="60"  y="284" text-anchor="middle">0</text>
+  <text class="num" x="260" y="284" text-anchor="middle">0.25</text>
+  <text class="num" x="540" y="284" text-anchor="middle">0.60</text>
+  <text class="num" x="620" y="284" text-anchor="middle">0.70</text>
+  <text class="num" x="740" y="284" text-anchor="middle">0.85</text>
+  <text class="num" x="860" y="284" text-anchor="middle">1.0</text>
+  <text class="cap" x="98"  y="306">← drier</text>
+  <text class="cap" x="822" y="306" text-anchor="end">wetter →</text>
+
+  <!-- legend for warn/danger zones -->
+  <g transform="translate(542,318)">
+    <rect x="0" y="0" width="12" height="12" fill="var(--sp-gold-t)" stroke="var(--sp-warn)" stroke-opacity="0.5"/>
+    <text class="leg" x="20" y="10.5"><tspan style="font-weight:700;">0.60–0.70</tspan>  the driest molds wake up</text>
+    <rect x="0" y="24" width="12" height="12" fill="#EFD9A9" stroke="var(--sp-warn)" stroke-opacity="0.7"/>
+    <text class="leg" x="20" y="34.5"><tspan style="font-weight:700;">0.70–0.85</tspan>  molds &amp; yeasts grow</text>
+    <rect x="0" y="48" width="12" height="12" fill="var(--sp-red-t)" stroke="var(--sp-danger)" stroke-opacity="0.6"/>
+    <text class="leg" x="20" y="58.5"><tspan style="font-weight:700;">0.85+</tspan>  bacteria — including the dangerous ones</text>
+  </g>
+
+  <!-- footer -->
+  <g transform="translate(24,414)">
+    <rect width="872" height="66" rx="10" fill="var(--sp-panel)" stroke="var(--sp-line)"/>
+    <text class="b" x="20" y="27" style="font-weight:700;fill:var(--sp-ink);">Below 0.60 nothing can grow — but freeze-drying aims far lower (≤ 0.25) for crunch, color, and decade-scale storage.</text>
+    <text class="b" x="20" y="49">a<tspan baseline-shift="sub" font-size="9">w</tspan> isn’t moisture %: a piece can pass a squeeze test and still read 0.45. Meter it, then write it in the batch log.</text>
+  </g>
+</svg>
+</div><figcaption class="article-meta">Water activity scale from 0 to 1.0: freeze-dried target zone up to 0.25, no microbial growth below 0.60, molds from 0.60, bacteria above 0.85. A good batch meters between 0.10 and 0.25.</figcaption></figure>
 <p><strong>Categorical exclusions still apply.</strong> Minnesota Extension’s guidance, a good
 model for how regulators think, allows freeze-dried candy and properly pre-treated
 whole produce, but prohibits freeze-dried <strong>meat, poultry, fish, and seafood</strong>

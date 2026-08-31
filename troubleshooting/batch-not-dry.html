@@ -2,6 +2,138 @@
 most common, and most consequential, home freeze-drying failure, because moisture
 left in a sealed bag ruins texture within weeks and undermines shelf stability
 entirely. Work through these causes in order.</p>
+<figure class="diagram-figure"><div class="table-scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 880" role="img" aria-labelledby="bnd-title bnd-desc">
+  <title id="bnd-title">Troubleshooting flowchart: batch finished but food is not dry</title>
+  <desc id="bnd-desc">Decision tree. Only tray centers wet: overloaded or uneven trays. Visible ice left: sublimation cut short, add dry time. High-sugar or dense food: expect longer dries. Vacuum stuck above 500 millitorr: check for leaks. Every path ends with adding two to six hours of final dry time and re-testing.</desc>
+  <style>
+    .bg{fill:var(--sp-paper);}
+    .title{font:700 23px var(--sp-font-display);fill:var(--sp-ink);}
+    .sub{font:13px var(--sp-font-body);fill:var(--sp-ink2);}
+    .node{fill:var(--sp-panel);stroke:var(--sp-line2);stroke-width:1.5;}
+    .diamond{fill:var(--sp-blue-t);stroke:var(--sp-blue);stroke-width:1.5;}
+    .qt{font:600 12.5px var(--sp-font-body);fill:var(--sp-ink);}
+    .card{fill:var(--sp-panel);stroke:var(--sp-line);stroke-width:1;}
+    .ct{font:700 13.5px var(--sp-font-body);fill:var(--sp-terra);}
+    .cb{font:12px var(--sp-font-body);fill:var(--sp-ink2);}
+    .cf{font:600 12px var(--sp-font-body);fill:var(--sp-good);}
+    .edge{stroke:var(--sp-ink3);stroke-width:2;fill:none;}
+    .edgelbl{font:700 11px var(--sp-font-body);fill:var(--sp-ink3);letter-spacing:0.5px;}
+    .b{font:12.5px var(--sp-font-body);fill:var(--sp-ink2);}
+  </style>
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#8A7F70"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="920" height="880"/>
+
+  <text class="title" x="24" y="42">Batch not dry? Work down this list</text>
+  <text class="sub" x="24" y="66">Checks are ordered by how often they’re the culprit. Whatever you find, the last box always applies.</text>
+
+  <!-- start -->
+  <rect class="node" x="80" y="92" width="280" height="42" rx="21"/>
+  <text class="qt" x="220" y="118" text-anchor="middle">Cycle finished, but food isn’t dry</text>
+
+  <!-- D1 -->
+  <path class="edge" d="M220 134 L220 162" marker-end="url(#arr)"/>
+  <polygon class="diamond" points="220,166 356,214 220,262 84,214"/>
+  <text class="qt" x="220" y="209" text-anchor="middle">Only tray centers or the</text>
+  <text class="qt" x="220" y="226" text-anchor="middle">thickest pieces still wet?</text>
+
+  <!-- card 1 -->
+  <path class="edge" d="M356 214 L430 214" marker-end="url(#arr)"/>
+  <text class="edgelbl" x="380" y="206">YES</text>
+  <g transform="translate(438,166)">
+    <rect class="card" width="458" height="96" rx="10"/>
+    <rect x="0" y="0" width="5" height="96" rx="2.5" fill="var(--sp-terra)"/>
+    <text class="ct" x="20" y="26">Overloaded or uneven trays — the most common cause</text>
+    <text class="cb" x="20" y="47">Ice retreats to the middle of thick loads; edges always finish first.</text>
+    <text class="cf" x="20" y="72">Fix: stay under the machine’s per-batch weight, level ½-inch layers,</text>
+    <text class="cf" x="20" y="88">cut dense foods small before freezing.</text>
+  </g>
+
+  <!-- D2 -->
+  <path class="edge" d="M220 262 L220 296" marker-end="url(#arr)"/>
+  <text class="edgelbl" x="228" y="284">NO</text>
+  <polygon class="diamond" points="220,300 356,348 220,396 84,348"/>
+  <text class="qt" x="220" y="343" text-anchor="middle">Visible ice left on the</text>
+  <text class="qt" x="220" y="360" text-anchor="middle">food or trays?</text>
+
+  <!-- card 2 -->
+  <path class="edge" d="M356 348 L430 348" marker-end="url(#arr)"/>
+  <text class="edgelbl" x="380" y="340">YES</text>
+  <g transform="translate(438,300)">
+    <rect class="card" width="458" height="96" rx="10"/>
+    <rect x="0" y="0" width="5" height="96" rx="2.5" fill="var(--sp-terra)"/>
+    <text class="ct" x="20" y="26">Sublimation got cut short</text>
+    <text class="cb" x="20" y="47">Power blip, a warm room, or simply more ice than the cycle allowed for.</text>
+    <text class="cf" x="20" y="72">Fix: restart with added dry time; keep the machine cool and give the</text>
+    <text class="cf" x="20" y="88">pump real airflow — garage heat quietly stretches every cycle.</text>
+  </g>
+
+  <!-- D3 -->
+  <path class="edge" d="M220 396 L220 430" marker-end="url(#arr)"/>
+  <text class="edgelbl" x="228" y="418">NO</text>
+  <polygon class="diamond" points="220,434 356,482 220,530 84,482"/>
+  <text class="qt" x="220" y="477" text-anchor="middle">High-sugar or dense food?</text>
+  <text class="qt" x="220" y="494" text-anchor="middle">(candy, purées, meat chunks)</text>
+
+  <!-- card 3 -->
+  <path class="edge" d="M356 482 L430 482" marker-end="url(#arr)"/>
+  <text class="edgelbl" x="380" y="474">YES</text>
+  <g transform="translate(438,434)">
+    <rect class="card" width="458" height="96" rx="10"/>
+    <rect x="0" y="0" width="5" height="96" rx="2.5" fill="var(--sp-terra)"/>
+    <text class="ct" x="20" y="26">The slow foods hold water longest</text>
+    <text class="cb" x="20" y="47">Sugar binds water; density blocks vapor paths. Default cycles undershoot.</text>
+    <text class="cf" x="20" y="72">Fix: thinner pieces, a full 24 h pre-freeze, and extra dry time planned</text>
+    <text class="cf" x="20" y="88">in from the start — see the chewy-candy breakdown.</text>
+  </g>
+
+  <!-- D4 -->
+  <path class="edge" d="M220 530 L220 564" marker-end="url(#arr)"/>
+  <text class="edgelbl" x="228" y="552">NO</text>
+  <polygon class="diamond" points="220,568 356,616 220,664 84,616"/>
+  <text class="qt" x="220" y="611" text-anchor="middle">Vacuum stuck above</text>
+  <text class="qt" x="220" y="628" text-anchor="middle">~500 mTorr during dry?</text>
+
+  <!-- card 4 -->
+  <path class="edge" d="M356 616 L430 616" marker-end="url(#arr)"/>
+  <text class="edgelbl" x="380" y="608">YES</text>
+  <g transform="translate(438,568)">
+    <rect class="card" width="458" height="96" rx="10"/>
+    <rect x="0" y="0" width="5" height="96" rx="2.5" fill="var(--sp-terra)"/>
+    <text class="ct" x="20" y="26">Weak vacuum = slow sublimation</text>
+    <text class="cb" x="20" y="47">Air in the chamber carries heat but not vapor. Food “cooks slow,” never dries.</text>
+    <text class="cf" x="20" y="72">Fix: drain valve fully closed, gasket clean and seated, hose snug,</text>
+    <text class="cf" x="20" y="88">pump oil clear — the vacuum-error guide walks all four.</text>
+  </g>
+
+  <!-- no-path caption -->
+  <path class="edge" d="M220 664 L220 714" marker-end="url(#arr)"/>
+  <text class="edgelbl" x="228" y="688">NO — RARE</text>
+  <text class="b" x="248" y="704">still add time; then meter a piece before trusting it</text>
+
+  <!-- convergence from cards -->
+  <path class="edge" d="M896 214 L908 214 L908 690" fill="none"/>
+  <path class="edge" d="M896 348 L908 348" fill="none"/>
+  <path class="edge" d="M896 482 L908 482" fill="none"/>
+  <path class="edge" d="M896 616 L908 616" fill="none"/>
+  <path class="edge" d="M908 690 L700 690 L700 712" marker-end="url(#arr)"/>
+
+  <!-- final box -->
+  <g transform="translate(24,720)">
+    <rect width="872" height="82" rx="10" fill="var(--sp-green-t)" stroke="var(--sp-green)" stroke-opacity="0.35"/>
+    <circle cx="30" cy="41" r="12" fill="var(--sp-good)"/>
+    <path d="M24 41 l4.5 4.5 l8 -9" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="56" y="34" style="font:700 13.5px var(--sp-font-body);fill:var(--sp-ink);">Whatever the cause: return the trays, add 2–6 hours of final dry, and re-run the dryness test before bagging.</text>
+    <text class="b" x="56" y="56">Then log it — food, load weight, hours added. Three logged batches turn this chart into your own dial-in numbers.</text>
+  </g>
+
+  <text class="sub" x="24" y="844" style="font-size:11.5px;fill:var(--sp-ink3);">Rule of thumb: re-running a suspect batch costs pennies in power; one moldy jar costs a customer.</text>
+</svg>
+</div><figcaption class="article-meta">Troubleshooting flowchart for a batch that finished but isn't dry: wet tray centers point to overloaded trays, leftover ice to a cut-short cycle, high-sugar or dense foods to longer dries, and a vacuum stuck above 500 mTorr to a leak. Every path ends with added dry time and a re-test.</figcaption></figure>
 <h2 id="first-confirm-it-with-the-cut-test">First: confirm it with the cut test</h2>
 <p>Take the thickest pieces from the center trays, cut them in half, and inspect the
 middle. Extension guidance is specific: look for dark, cold, or moist spots. Done
