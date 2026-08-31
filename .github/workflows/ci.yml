@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check internal links and JSON-LD validity
+        run: python3 .github/scripts/check-links.py
+
+      - name: Check for accidentally committed secrets
+        run: |
+          if grep -RInE '(AKIA[0-9A-Z]{16}|-----BEGIN [A-Z ]*PRIVATE KEY-----|sk-[a-zA-Z0-9]{20,})' \
+              --exclude-dir=.git --exclude-dir=node_modules .; then
+            echo "Potential secret found in committed files."
+            exit 1
+          fi
+          echo "No obvious secret patterns found."
