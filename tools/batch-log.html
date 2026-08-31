@@ -1,0 +1,142 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Batch Log &amp; Cost Tracker | Sublime Pantry</title><meta name="description" content="Free freeze-drying batch log: record food, load, cycle hours, costs, and water-activity readings. See your real cost per batch and per bag. Data stays in your browser; export CSV anytime."><link rel="canonical" href="https://sublimepantry.netlify.app/tools/batch-log.html"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate" type="application/rss+xml" title="Sublime Pantry" href="https://sublimepantry.netlify.app/rss.xml"><link rel="sitemap" href="/sitemap-index.xml"><meta property="og:title" content="Batch Log &amp; Cost Tracker"><meta property="og:description" content="Free freeze-drying batch log: record food, load, cycle hours, costs, and water-activity readings. See your real cost per batch and per bag. Data stays in your browser; export CSV anytime."><meta property="og:type" content="website"><meta property="og:url" content="https://sublimepantry.netlify.app/tools/batch-log.html"><meta property="og:site_name" content="Sublime Pantry"><meta name="generator" content="Astro v7.2.9"><style>#log-table[data-astro-cid-qeedrksp] th[data-astro-cid-qeedrksp],#log-table[data-astro-cid-qeedrksp] td[data-astro-cid-qeedrksp]{border:1px solid var(--mist);text-align:left;padding:.45rem .55rem}#log-table[data-astro-cid-qeedrksp] th[data-astro-cid-qeedrksp]{background:var(--frost-tint);color:var(--frost-deep)}#log-table[data-astro-cid-qeedrksp] .del-btn[data-astro-cid-qeedrksp]{color:#8a2f2f;cursor:pointer;background:0 0;border:0;padding:0;font-size:.85rem;text-decoration:underline}
+</style><link rel="stylesheet" href="/_astro/BaseLayout.CYb0mGgp.css"></head><body><a class="skip-link" href="#main">Skip to content</a><header class="site-header"><div class="wrap"><a href="/" class="brand"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="7" y="8" width="18" height="20" rx="3" stroke="#1d3f56" stroke-width="2" fill="#e7eef3"></rect><rect x="9" y="4" width="14" height="4" rx="1.5" fill="#9a6115"></rect><g stroke="#2c5d7c" stroke-width="1.6" stroke-linecap="round"><line x1="16" y1="12" x2="16" y2="24"></line><line x1="10.8" y1="15" x2="21.2" y2="21"></line><line x1="21.2" y1="15" x2="10.8" y2="21"></line></g></svg>Sublime Pantry</a><nav class="site-nav" aria-label="Main"><ul><li><a href="/guides">Guides</a></li><li><a href="/troubleshooting">Troubleshooting</a></li><li><a href="/compare">Comparisons</a></li><li><a href="/tools/batch-log">Batch Log</a></li><li><a href="/start-selling">Start Selling</a></li><li><a href="/about">About</a></li></ul></nav></div></header><main id="main"><div class="wrap" style="padding-top:2.2rem;" data-astro-cid-qeedrksp><span class="kicker" data-astro-cid-qeedrksp>Free tool</span><h1 data-astro-cid-qeedrksp>Batch Log &amp; Cost Tracker</h1><p style="max-width:62ch;color:var(--ink-soft);" data-astro-cid-qeedrksp>Every batch you log makes your machine more predictable and your pricing more honest. Data is stored <strong data-astro-cid-qeedrksp>only in this browser</strong> — we never see it. Export to CSV for backup or your cottage-food records.</p><div class="tool-panel" data-astro-cid-qeedrksp><form id="batch-form" novalidate data-astro-cid-qeedrksp><fieldset data-astro-cid-qeedrksp><legend data-astro-cid-qeedrksp>The batch</legend><div class="field-grid" data-astro-cid-qeedrksp><div data-astro-cid-qeedrksp><label for="f-date" data-astro-cid-qeedrksp>Date</label><input type="date" id="f-date" required data-astro-cid-qeedrksp></div><div data-astro-cid-qeedrksp><label for="f-food" data-astro-cid-qeedrksp>Food</label><input type="text" id="f-food" placeholder="e.g. Skittles, strawberries" required data-astro-cid-qeedrksp></div><div data-astro-cid-qeedrksp><label for="f-load" data-astro-cid-qeedrksp>Load (lb fresh)</label><input type="number" id="f-load" min="0" step="0.1" placeholder="12" data-astro-cid-qeedrksp></div><div data-astro-cid-qeedrksp><label for="f-hours" data-astro-cid-qeedrksp>Total cycle hours</label><input type="number" id="f-hours" min="0" step="0.5" placeholder="28" data-astro-cid-qeedrksp></div></div></fieldset><fieldset data-astro-cid-qeedrksp><legend data-astro-cid-qeedrksp>Costs &amp; output</legend><div class="field-grid" data-astro-cid-qeedrksp><div data-astro-cid-qeedrksp><label for="f-ingcost" data-astro-cid-qeedrksp>Ingredient cost ($)</label><input type="number" id="f-ingcost" min="0" step="0.01" placeholder="15.00" data-astro-cid-qeedrksp></div><div data-astro-cid-qeedrksp><label for="f-eleccost" data-astro-cid-qeedrksp>Electricity ($)</label><input type="number" id="f-eleccost" min="0" step="0.01" placeholder="1.50" data-astro-cid-qeedrksp></div><div data-astro-cid-qeedrksp><label for="f-packcost" data-astro-cid-qeedrksp>Packaging ($)</label><input type="number" id="f-packcost" min="0" step="0.01" placeholder="10.50" data-astro-cid-qeedrksp></div><div data-astro-cid-qeedrksp><label for="f-bags" data-astro-cid-qeedrksp>Bags/jars produced</label><input type="number" id="f-bags" min="0" step="1" placeholder="30" data-astro-cid-qeedrksp></div></div></fieldset><fieldset data-astro-cid-qeedrksp><legend data-astro-cid-qeedrksp>Quality record (for sellers)</legend><div class="field-grid" data-astro-cid-qeedrksp><div data-astro-cid-qeedrksp><label for="f-aw" data-astro-cid-qeedrksp>Water activity (aw)</label><input type="number" id="f-aw" min="0" max="1" step="0.001" placeholder="0.28" data-astro-cid-qeedrksp></div><div data-astro-cid-qeedrksp><label for="f-check" data-astro-cid-qeedrksp>24-hour seal check</label><select id="f-check" data-astro-cid-qeedrksp><option value="" data-astro-cid-qeedrksp>Not checked</option><option value="pass" data-astro-cid-qeedrksp>Pass</option><option value="fail" data-astro-cid-qeedrksp>Fail</option></select></div><div style="grid-column:1 / -1;" data-astro-cid-qeedrksp><label for="f-notes" data-astro-cid-qeedrksp>Notes (settings, spacing, what you'd change)</label><input type="text" id="f-notes" placeholder="Extra 2h dry time; center tray marginal" data-astro-cid-qeedrksp></div></div></fieldset><button class="btn btn-primary" type="submit" style="border:0;cursor:pointer;" data-sp-event="tool_batch_logged" data-astro-cid-qeedrksp>Log this batch</button></form></div><h2 data-astro-cid-qeedrksp>Your numbers</h2><div class="stat-row" id="stats" aria-live="polite" data-astro-cid-qeedrksp><div class="stat" data-astro-cid-qeedrksp><div class="label" data-astro-cid-qeedrksp>Batches logged</div><div class="value" id="s-count" data-astro-cid-qeedrksp>0</div></div><div class="stat" data-astro-cid-qeedrksp><div class="label" data-astro-cid-qeedrksp>Avg cycle hours</div><div class="value" id="s-hours" data-astro-cid-qeedrksp>–</div></div><div class="stat" data-astro-cid-qeedrksp><div class="label" data-astro-cid-qeedrksp>Avg cost / batch</div><div class="value" id="s-batchcost" data-astro-cid-qeedrksp>–</div></div><div class="stat" data-astro-cid-qeedrksp><div class="label" data-astro-cid-qeedrksp>Avg cost / bag</div><div class="value" id="s-bagcost" data-astro-cid-qeedrksp>–</div></div></div><h2 data-astro-cid-qeedrksp>Log</h2><div class="table-scroll" data-astro-cid-qeedrksp><table id="log-table" class="tool-table" style="border-collapse:collapse;width:100%;font-size:0.88rem;" data-astro-cid-qeedrksp><thead data-astro-cid-qeedrksp><tr data-astro-cid-qeedrksp><th data-astro-cid-qeedrksp>Date</th><th data-astro-cid-qeedrksp>Food</th><th data-astro-cid-qeedrksp>Load lb</th><th data-astro-cid-qeedrksp>Hours</th><th data-astro-cid-qeedrksp>Cost $</th><th data-astro-cid-qeedrksp>Bags</th><th data-astro-cid-qeedrksp>$/bag</th><th data-astro-cid-qeedrksp>aw</th><th data-astro-cid-qeedrksp>24h</th><th data-astro-cid-qeedrksp>Notes</th><th data-astro-cid-qeedrksp></th></tr></thead><tbody id="log-body" data-astro-cid-qeedrksp></tbody></table></div><p id="empty-note" style="color:var(--ink-soft);" data-astro-cid-qeedrksp>No batches yet. Log your first one above.</p><p style="margin-top:1.2rem;" data-astro-cid-qeedrksp><button class="btn btn-ghost" id="export-btn" type="button" style="cursor:pointer;" data-sp-event="tool_csv_export" data-astro-cid-qeedrksp>Export CSV</button><button class="btn btn-ghost" id="clear-btn" type="button" style="cursor:pointer;color:#8a2f2f;border-color:#8a2f2f;" data-astro-cid-qeedrksp>Delete all data</button></p><div class="notice notice-info" role="note" style="margin-top:2rem;" data-astro-cid-qeedrksp><strong data-astro-cid-qeedrksp>Want this as a real app?</strong> We're exploring a cross-device batch-log app with cloud backup, per-food cycle predictions, and printable cottage-food records. <a href="/contact" data-astro-cid-qeedrksp>Tell us</a> if you'd use it — reader interest decides whether we build it.</div><section class="newsletter" aria-labelledby="newsletter-heading"><h2 id="newsletter-heading">The Dry Batch — twice a month</h2><p>One drying answer, one storage or packaging finding, and one cottage-selling insight per issue. No filler, unsubscribe anytime.</p><form name="dry-batch-signup" method="POST" action="/thanks" data-netlify="true" netlify-honeypot="bot-field" data-sp-event="newsletter_signup"><input type="hidden" name="form-name" value="dry-batch-signup"><p hidden aria-hidden="true"><label>Don't fill this out: <input name="bot-field"></label></p><label for="newsletter-email" class="sr-only" style="position:absolute;left:-9999px;">Email address</label><input id="newsletter-email" type="email" name="email" required placeholder="you@example.com" autocomplete="email"><button type="submit">Subscribe</button></form><p class="fine">We only use your email to send the newsletter. See our <a href="/privacy" style="color:#d5e2ec;">privacy policy</a>.</p></section></div><script>
+    (function () {
+      'use strict';
+      var KEY = 'sp-batch-log-v1';
+
+      function load() {
+        try { return JSON.parse(localStorage.getItem(KEY) || '[]'); }
+        catch (e) { return []; }
+      }
+      function save(rows) {
+        try { localStorage.setItem(KEY, JSON.stringify(rows)); } catch (e) { /* storage unavailable */ }
+      }
+      function num(id) {
+        var v = parseFloat(document.getElementById(id).value);
+        return isNaN(v) ? null : v;
+      }
+      function money(v) { return v == null ? '–' : '$' + v.toFixed(2); }
+
+      function totalCost(r) {
+        var t = 0, any = false;
+        [r.ingCost, r.elecCost, r.packCost].forEach(function (c) {
+          if (c != null) { t += c; any = true; }
+        });
+        return any ? t : null;
+      }
+
+      function render() {
+        var rows = load();
+        var body = document.getElementById('log-body');
+        body.textContent = '';
+        document.getElementById('empty-note').hidden = rows.length > 0;
+
+        rows.forEach(function (r, i) {
+          var tr = document.createElement('tr');
+          var cost = totalCost(r);
+          var perBag = cost != null && r.bags ? cost / r.bags : null;
+          var cells = [
+            r.date || '', r.food || '',
+            r.load != null ? r.load : '', r.hours != null ? r.hours : '',
+            cost != null ? cost.toFixed(2) : '', r.bags != null ? r.bags : '',
+            perBag != null ? perBag.toFixed(2) : '',
+            r.aw != null ? r.aw : '', r.check || '', r.notes || ''
+          ];
+          cells.forEach(function (c) {
+            var td = document.createElement('td');
+            td.textContent = String(c);
+            tr.appendChild(td);
+          });
+          var tdDel = document.createElement('td');
+          var btn = document.createElement('button');
+          btn.className = 'del-btn';
+          btn.type = 'button';
+          btn.textContent = 'delete';
+          btn.setAttribute('aria-label', 'Delete batch from ' + (r.date || 'unknown date'));
+          btn.addEventListener('click', function () {
+            var all = load();
+            all.splice(i, 1);
+            save(all);
+            render();
+          });
+          tdDel.appendChild(btn);
+          tr.appendChild(tdDel);
+          body.appendChild(tr);
+        });
+
+        // Stats
+        document.getElementById('s-count').textContent = String(rows.length);
+        var hrs = rows.map(function (r) { return r.hours; }).filter(function (v) { return v != null; });
+        var costs = rows.map(totalCost).filter(function (v) { return v != null; });
+        var perBags = rows.map(function (r) {
+          var c = totalCost(r);
+          return c != null && r.bags ? c / r.bags : null;
+        }).filter(function (v) { return v != null; });
+        function avg(a) { return a.length ? a.reduce(function (x, y) { return x + y; }, 0) / a.length : null; }
+        var ah = avg(hrs), ac = avg(costs), ab = avg(perBags);
+        document.getElementById('s-hours').textContent = ah == null ? '–' : ah.toFixed(1);
+        document.getElementById('s-batchcost').textContent = money(ac);
+        document.getElementById('s-bagcost').textContent = money(ab);
+      }
+
+      document.getElementById('batch-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var food = document.getElementById('f-food').value.trim();
+        var date = document.getElementById('f-date').value;
+        if (!food || !date) {
+          if (!date) document.getElementById('f-date').focus();
+          else document.getElementById('f-food').focus();
+          return;
+        }
+        var rows = load();
+        rows.unshift({
+          date: date,
+          food: food,
+          load: num('f-load'),
+          hours: num('f-hours'),
+          ingCost: num('f-ingcost'),
+          elecCost: num('f-eleccost'),
+          packCost: num('f-packcost'),
+          bags: num('f-bags'),
+          aw: num('f-aw'),
+          check: document.getElementById('f-check').value,
+          notes: document.getElementById('f-notes').value.trim()
+        });
+        save(rows);
+        e.target.reset();
+        render();
+      });
+
+      document.getElementById('export-btn').addEventListener('click', function () {
+        var rows = load();
+        var header = ['date','food','load_lb','total_hours','ingredient_cost','electricity_cost','packaging_cost','total_cost','bags','cost_per_bag','water_activity','seal_check_24h','notes'];
+        function esc(v) {
+          var s = v == null ? '' : String(v);
+          return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+        }
+        var lines = [header.join(',')].concat(rows.map(function (r) {
+          var cost = totalCost(r);
+          var perBag = cost != null && r.bags ? (cost / r.bags).toFixed(4) : '';
+          return [r.date, r.food, r.load, r.hours, r.ingCost, r.elecCost, r.packCost,
+                  cost != null ? cost.toFixed(2) : '', r.bags, perBag, r.aw, r.check, r.notes]
+            .map(esc).join(',');
+        }));
+        var blob = new Blob([lines.join('\n')], { type: 'text/csv' });
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'sublime-pantry-batch-log.csv';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      });
+
+      document.getElementById('clear-btn').addEventListener('click', function () {
+        if (confirm('Delete all logged batches from this browser? Export a CSV first if you want a backup.')) {
+          try { localStorage.removeItem(KEY); } catch (e) { /* ignore */ }
+          render();
+        }
+      });
+
+      render();
+    })();
+  </script></main><footer class="site-footer"><div class="wrap"><ul class="footer-links"><li><a href="/about">About</a></li><li><a href="/editorial-standards">Editorial Standards</a></li><li><a href="/review-methodology">Review Methodology</a></li><li><a href="/affiliate-disclosure">Affiliate Disclosure</a></li><li><a href="/privacy">Privacy</a></li><li><a href="/contact">Contact</a></li><li><a href="/corrections">Corrections</a></li><li><a href="/rss.xml">RSS</a></li></ul><p>Sublime Pantry publishes educational information about home freeze-drying and cottage food businesses. It is not medical, legal, or regulatory advice. Food safety and cottage food rules vary by jurisdiction — always confirm with your state or local authority.</p><p>&copy; 2026 Sublime Pantry. All rights reserved.</p></div></footer><script src="/events.js" defer></script></body></html>

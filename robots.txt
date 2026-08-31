@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sublimepantry.netlify.app/sitemap-index.xml
