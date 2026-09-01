@@ -1,0 +1,39 @@
+{
+  "slug": "freeze-dried-eggs-storage",
+  "title": "How long do freeze-dried eggs actually last in storage?",
+  "description": "What determines how long freeze-dried eggs stay good in storage, and the prep and packaging steps that get you there.",
+  "kicker": "Troubleshooting",
+  "pillar": "troubleshooting",
+  "riskClass": "elevated",
+  "author": "Jack Ferrence",
+  "disclosure": "Sublime Pantry has no affiliate relationships as of publication. No link in this article earns us money.",
+  "sources": [
+    {
+      "title": "Preserving food at home: Freeze-drying",
+      "url": "https://extension.umn.edu/preserve-your-own-food/freeze-drying",
+      "publisher": "University of Minnesota Extension",
+      "tier": "primary",
+      "accessDate": "2026-08-30"
+    },
+    {
+      "title": "Freeze Drying Eggs: What You Need to Know",
+      "url": "https://harvestright.com/blogs/freeze-drying-learning-center/freeze-drying-eggs",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-08-30"
+    },
+    {
+      "title": "Freeze-Dried Egg Storage Tips",
+      "url": "https://backyardhomesteadhq.com/freeze-dried-egg-storage/",
+      "publisher": "Backyard Homestead HQ",
+      "tier": "secondary",
+      "accessDate": "2026-08-30"
+    }
+  ],
+  "bodyHtml": "<p>Eggs must be fully cooked, scrambled, before they go into the freeze dryer — raw eggs are not recommended for home freeze-drying, per manufacturer guidance.</p><h2 id=\"how-long-storage-lasts\">How long storage actually lasts</h2><p>University extension guidance is consistent on this: properly freeze-dried, packaged food stored cool, dark, and dry can last for extended periods, though the exact number depends on your dryness and packaging.</p><h2 id=\"packaging-that-works\">Packaging that works</h2><p>Mylar bags with oxygen absorbers are the most common home storage method reported for freeze-dried eggs.</p>",
+  "claimSourceMap": [
+    { "claimId": "c1", "excerptFromBody": "Eggs must be fully cooked, scrambled, before they go into the freeze dryer" },
+    { "claimId": "c2", "excerptFromBody": "properly freeze-dried, packaged food stored cool, dark, and dry can last for extended periods" },
+    { "claimId": "c3", "excerptFromBody": "Mylar bags with oxygen absorbers are the most common home storage method" }
+  ]
+}

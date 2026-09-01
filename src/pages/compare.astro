@@ -10,9 +10,12 @@ const listingDescription: Record<string, string> = {
   'home-freeze-dryers': 'Price, capacity, power, pump, and warranty. Every figure comes from manufacturer documentation, with access dates.',
   'storage-containers': 'The three legitimate storage systems for freeze-dried food, compared on barrier quality, cost per unit, resealability, and fitness for selling vs. pantry use.',
 };
-const entries = (await getCollection('articles', ({ data }) => data.pillar === 'compare')).sort(
-  (a, b) => order.indexOf(a.id) - order.indexOf(b.id),
-);
+const allEntries = await getCollection('articles', ({ data }) => data.pillar === 'compare');
+const known = order.map((id) => allEntries.find((e) => e.id === id)).filter((e): e is (typeof allEntries)[number] => Boolean(e));
+const unknown = allEntries
+  .filter((e) => !order.includes(e.id))
+  .sort((a, b) => b.data.publishedDate.localeCompare(a.data.publishedDate));
+const entries = [...known, ...unknown];
 
 const jsonLd = [
   {
@@ -41,10 +44,10 @@ const jsonLd = [
 
   {entries.map((entry) => (
     <a class="card" style="display:flex;gap:1.5rem;align-items:baseline;flex-wrap:wrap;margin:1.4rem 0;padding:1.5rem 1.7rem;text-decoration:none;" href={`/compare/${entry.id}`}>
-      <span class="kicker" style="flex:0 0 auto;">{listingKicker[entry.id]}</span>
+      <span class="kicker" style="flex:0 0 auto;">{listingKicker[entry.id] ?? entry.data.kicker}</span>
       <div style="flex:1 1 24rem;">
         <h2 style="margin:.1rem 0 .5rem;color:var(--frost-deep);">{entry.data.title}</h2>
-        <p style="color:var(--ink-soft);margin-bottom:0;">{listingDescription[entry.id]}</p>
+        <p style="color:var(--ink-soft);margin-bottom:0;">{listingDescription[entry.id] ?? entry.data.description}</p>
       </div>
     </a>
   ))}

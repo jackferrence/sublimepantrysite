@@ -1,0 +1,106 @@
+# Sublime Pantry — editorial automation configuration.
+# Read by scripts/editorial-controller.mjs and the daily-editorial workflow.
+# Changing thresholds/policy here changes production behavior — treat edits
+# to this file with the same care as a code change to the controller.
+
+brand:
+  name: "Sublime Pantry"
+  domain: "https://www.sublimepantry.com"
+  voice: >
+    Practical, intelligent, calm, candid, slightly editorial. An experienced
+    operator explaining something at a clean workbench — with evidence
+    nearby and nothing to prove.
+  bannedLanguage:
+    - unlock
+    - revolutionize
+    - game-changing
+    - ultimate
+    - elevate your journey
+    - delve into
+    - "whether you're a beginner or an expert"
+    - best
+    - perfect
+    - guaranteed
+
+pillars:
+  - guides
+  - troubleshooting
+  - compare
+
+# Topics/claim categories that require the elevated riskClass and therefore
+# the strictest verification + always render EducationalNotice.
+elevatedRiskTopics:
+  - food safety
+  - shelf life
+  - water activity
+  - pathogen
+  - cottage food law
+  - legal advice
+  - ingestible product safety
+
+editorialRules:
+  neverImplyPathogenKill: true
+  neverFabricateFirstPartyTesting: true
+  neverFabricateReviewsOrTestimonials: true
+  maxNewOrSubstantiveArticlesPerRun: 1
+  requireHumanApprovalBeforePublish: true
+  requireSourcesWithAccessDate: true
+  minSourcesPerArticle: 2
+
+scoring:
+  # Deterministic 0-100 opportunity score. See scripts/lib/scoring.mjs for
+  # the exact formula — this block only carries tunable weights/thresholds.
+  weights:
+    searchDemand: 30 # GSC impressions/queries signal for the topic
+    positionOpportunity: 20 # ranking on page 2-3 (positions 11-30) scores highest
+    evidenceStrength: 25 # primary-source density and citation count in the evidence packet
+    contentGap: 15 # topic not yet covered, or existing coverage is stale
+    freshnessUrgency: 10 # time-sensitive (recent regulatory/manufacturer change)
+  thresholds:
+    noAction: 65 # score < 65 -> NO_ACTION
+    briefOrRecommendation: 80 # 65-79 -> SOURCED_BRIEF or REFRESH_RECOMMENDATION
+    draftEligible: 80 # >= 80 -> DRAFT_PR eligible (subject to risk downgrade)
+
+risk:
+  # Any rule matching downgrades the outcome regardless of score.
+  downgradeRules:
+    - id: elevated-topic-single-source
+      description: "Elevated-risk topic with fewer than 2 primary-tier sources"
+      downgradeTo: SOURCED_BRIEF
+    - id: no-primary-source
+      description: "No primary-tier (government/university/manufacturer) source in evidence packet"
+      downgradeTo: SOURCED_BRIEF
+    - id: unverified-claims-present
+      description: "Independent claim verification found any unsupported claim"
+      downgradeTo: SOURCED_BRIEF
+    - id: pillar-quota-reached
+      description: "An article has already been published or drafted today"
+      downgradeTo: NO_ACTION
+
+searchConsole:
+  property: "sc-domain:sublimepantry.com"
+  lookbackDays: 90
+  workloadIdentity:
+    provider: "projects/914157631016/locations/global/workloadIdentityPools/github-actions/providers/sublime-pantry-github"
+    serviceAccount: "search-console-reader@project-8035de1c-ed23-4c73-af0.iam.gserviceaccount.com"
+
+anthropic:
+  # Workload Identity Federation — no ANTHROPIC_API_KEY. See
+  # scripts/lib/anthropic-client.mjs for how these are consumed.
+  federationRuleId: "fdrl_01WRVJBcYMmpd8a4m93xthJZ"
+  organizationId: "4afd80ba-5956-4fa9-845b-fc7bb3ca8a65"
+  serviceAccountId: "svac_01Y7Ncrm8QDx9Gmh3LpdWu53"
+  workspaceId: "wrkspc_01LV1QsCkWHt5McRkF2SasnP"
+  audience: "https://api.anthropic.com"
+  models:
+    research: "claude-opus-5"
+    draft: "claude-opus-5"
+    verify: "claude-opus-5"
+
+paths:
+  contentCollection: "src/content/articles"
+  evidencePacketArtifact: "artifacts/evidence-packet.json"
+  decisionArtifact: "artifacts/editorial-decision.json"
+  draftArtifact: "artifacts/draft-content.json"
+  verificationArtifact: "artifacts/verification.json"
+  runLogArtifact: "artifacts/run-log.json"

@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://www.sublimepantry.com/schemas/verification.schema.json",
+  "title": "Verification",
+  "description": "Output of the independent claim-verification phase, run by a separate Claude call given only the evidence packet and the draft (no web access). Checks that every factual claim in the draft is actually supported by the cited evidence.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["runId", "generatedAt", "checkedClaims", "unsupportedClaims", "bannedLanguageHits", "editorialRuleViolations", "passed"],
+  "properties": {
+    "runId": { "type": "string" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "checkedClaims": { "type": "number", "minimum": 0 },
+    "unsupportedClaims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["excerpt", "reason"],
+        "properties": {
+          "excerpt": { "type": "string" },
+          "reason": { "type": "string" }
+        }
+      }
+    },
+    "bannedLanguageHits": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "editorialRuleViolations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "passed": { "type": "boolean" }
+  }
+}

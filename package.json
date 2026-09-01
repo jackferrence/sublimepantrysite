@@ -8,12 +8,22 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "check-links": "python3 .github/scripts/check-links.py dist"
+    "check-links": "python3 .github/scripts/check-links.py dist",
+    "test": "node --test tests/*.test.mjs",
+    "editorial:dry-run": "node scripts/editorial-controller.mjs dry-run",
+    "editorial:research": "node scripts/editorial-controller.mjs research",
+    "editorial:draft": "node scripts/editorial-controller.mjs draft"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.122.0",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.2.1",
-    "astro": "^7.2.9"
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1",
+    "astro": "^7.2.9",
+    "google-auth-library": "^11.0.2",
+    "googleapis": "^178.0.0",
+    "js-yaml": "^5.4.1"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",

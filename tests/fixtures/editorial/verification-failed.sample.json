@@ -1,0 +1,14 @@
+{
+  "runId": "fixture-run",
+  "generatedAt": "2026-08-31T12:05:00.000Z",
+  "checkedClaims": 3,
+  "unsupportedClaims": [
+    {
+      "excerpt": "can last for extended periods",
+      "reason": "Body overstates the evidence packet claim, which only says storage duration 'depends on your dryness and packaging' without a specific claim of extended shelf life."
+    }
+  ],
+  "bannedLanguageHits": [],
+  "editorialRuleViolations": [],
+  "passed": false
+}

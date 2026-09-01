@@ -1,0 +1,9 @@
+{
+  "runId": "fixture-run",
+  "generatedAt": "2026-08-31T12:05:00.000Z",
+  "checkedClaims": 3,
+  "unsupportedClaims": [],
+  "bannedLanguageHits": [],
+  "editorialRuleViolations": [],
+  "passed": true
+}

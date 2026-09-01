@@ -1,0 +1,142 @@
+name: Daily editorial research
+
+on:
+  schedule:
+    - cron: "17 14 * * *" # 14:17 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  id-token: write
+
+env:
+  # Anthropic Workload Identity Federation — organization/rule/service-account
+  # identifiers, not credentials. No ANTHROPIC_API_KEY anywhere in this file.
+  ANTHROPIC_FEDERATION_RULE_ID: fdrl_01WRVJBcYMmpd8a4m93xthJZ
+  ANTHROPIC_ORGANIZATION_ID: 4afd80ba-5956-4fa9-845b-fc7bb3ca8a65
+  ANTHROPIC_SERVICE_ACCOUNT_ID: svac_01Y7Ncrm8QDx9Gmh3LpdWu53
+  ANTHROPIC_WORKSPACE_ID: wrkspc_01LV1QsCkWHt5McRkF2SasnP
+
+jobs:
+  research:
+    # Restrict inference to workflows running against main — a fork PR or a
+    # stray branch dispatch must never mint production credentials.
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    outputs:
+      outcome: ${{ steps.decide.outputs.outcome }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Mint Anthropic OIDC token
+        id: anthropic-oidc
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const fs = require('fs');
+            const token = await core.getIDToken('https://api.anthropic.com');
+            core.setSecret(token);
+            const path = `${process.env.RUNNER_TEMP}/anthropic-identity-token`;
+            fs.writeFileSync(path, token, { mode: 0o600 });
+            core.exportVariable('ANTHROPIC_IDENTITY_TOKEN_FILE', path);
+            // Never log the token itself — only confirm the file was written.
+            core.info('Anthropic OIDC token written to a runner-local file.');
+
+      - name: Authenticate to Google Cloud (Search Console, read-only)
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: projects/914157631016/locations/global/workloadIdentityPools/github-actions/providers/sublime-pantry-github
+          service_account: search-console-reader@project-8035de1c-ed23-4c73-af0.iam.gserviceaccount.com
+          # google-github-actions/auth writes an ephemeral external_account
+          # credential config (no private key material) and exports
+          # GOOGLE_APPLICATION_CREDENTIALS to point at it.
+
+      - name: Run research phase
+        id: research
+        run: npm run editorial:research
+
+      - name: Record outcome
+        id: decide
+        run: |
+          outcome=$(node -e "console.log(JSON.parse(require('fs').readFileSync('artifacts/editorial-decision.json','utf8')).outcome)")
+          echo "outcome=$outcome" >> "$GITHUB_OUTPUT"
+          echo "Research phase outcome: $outcome"
+
+      - name: Upload research artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: editorial-research-${{ github.run_id }}
+          path: |
+            artifacts/evidence-packet.json
+            artifacts/editorial-decision.json
+            artifacts/run-log.json
+          retention-days: 90
+          if-no-files-found: warn
+
+  draft:
+    needs: research
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download research artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: editorial-research-${{ github.run_id }}
+          path: artifacts
+
+      - name: Mint Anthropic OIDC token
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const fs = require('fs');
+            const token = await core.getIDToken('https://api.anthropic.com');
+            core.setSecret(token);
+            const path = `${process.env.RUNNER_TEMP}/anthropic-identity-token`;
+            fs.writeFileSync(path, token, { mode: 0o600 });
+            core.exportVariable('ANTHROPIC_IDENTITY_TOKEN_FILE', path);
+            core.info('Anthropic OIDC token written to a runner-local file.');
+
+      - name: Configure git identity for the automation commit
+        run: |
+          git config user.name "sublime-pantry-editorial-bot"
+          git config user.email "editorial-bot@users.noreply.github.com"
+
+      - name: Run draft/verify/QA/PR phase
+        id: draft
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: npm run editorial:draft
+
+      - name: Upload final run log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: editorial-run-${{ github.run_id }}
+          path: |
+            artifacts/run-log.json
+            artifacts/editorial-decision.json
+          retention-days: 90
+          if-no-files-found: warn
