@@ -54,12 +54,35 @@ done items `[x]` with the date/PR that closed them.
 - [x] `npm test` passes (14/14).
 - [x] `npm run build` + link/JSON-LD checker pass with the automation
       code present (no regression to the site itself).
-- [ ] Automation infrastructure PR opened, CI green, Netlify preview
-      healthy, merged to `main`.
-- [ ] First `Daily editorial research` workflow run triggered manually
-      after merge.
+- [x] Automation infrastructure PR opened, CI green, Netlify preview
+      healthy, merged to `main` (PR #3, `6398b12`).
+- [x] First `Daily editorial research` workflow run triggered manually
+      after merge — run
+      [33464315465](https://github.com/jackferrence/sublimepantrysite/actions/runs/33464315465)
+      failed at the Anthropic OIDC token exchange (401
+      `authentication_error`): the federation rule's subject-claim matcher
+      didn't yet recognize `daily-editorial.yml`'s token. **Fixed by the
+      user** (federation rule subject pattern updated to
+      `repo:jackferrence@185302965/sublimepantrysite@1352014196:ref:refs/heads/main`).
+- [x] Re-triggered: run
+      [33464959105](https://github.com/jackferrence/sublimepantrysite/actions/runs/33464959105)
+      — **WIF token exchange succeeded** (confirms the whole
+      GitHub-OIDC → Anthropic-WIF chain works end to end), but the run
+      then failed on the first live Claude API call: `400
+      invalid_request_error` — "Your credit balance is too low to access
+      the Anthropic API." No evidence packet/decision was produced (the
+      call failed before anything was written); PR #4 (merged,
+      `711df47`) fixed a related gap so a research-phase failure now
+      always writes `artifacts/run-log.json` for debugging, even when it
+      fails this early.
+- [ ] **Blocked on Anthropic credits** for workspace
+      `wrkspc_01LV1QsCkWHt5McRkF2SasnP` / service account
+      `svac_01Y7Ncrm8QDx9Gmh3LpdWu53` — add credits or fix billing in the
+      Anthropic Console (Plans & Billing) for that workspace specifically,
+      then re-run `gh workflow run daily-editorial.yml --ref main`.
 - [ ] First run's outcome verified (evidence packet / decision / run log
-      / final status) — `NO_ACTION` is a valid, successful result.
+      / final status) — `NO_ACTION` is a valid, successful result. Not yet
+      reached — blocked on the credits item above.
 - [ ] If the first run produces a `DRAFT_PR`, the PR is left as a draft
       for human review — **never merged by automation**.
 
