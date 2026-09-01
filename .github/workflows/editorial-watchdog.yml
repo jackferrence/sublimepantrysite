@@ -1,0 +1,61 @@
+name: Editorial watchdog
+
+on:
+  schedule:
+    - cron: "43 16 * * *" # 16:43 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  actions: read
+  issues: write
+
+jobs:
+  check-recent-run:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for a successful daily-editorial run in the last 36 hours
+        id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          cutoff=$(date -u -d '36 hours ago' +%Y-%m-%dT%H:%M:%SZ 2>/dev/null || date -u -v-36H +%Y-%m-%dT%H:%M:%SZ)
+          runs=$(gh api "repos/$REPO/actions/workflows/daily-editorial.yml/runs?status=success&per_page=10" --jq '.workflow_runs')
+          recent=$(echo "$runs" | jq --arg cutoff "$cutoff" '[.[] | select(.created_at >= $cutoff)] | length')
+          echo "recent_successful_runs=$recent" >> "$GITHUB_OUTPUT"
+          echo "Successful daily-editorial runs since $cutoff: $recent"
+
+      - name: Check for an existing open watchdog issue (idempotency)
+        id: existing
+        if: steps.check.outputs.recent_successful_runs == '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          count=$(gh issue list --repo "$REPO" --label editorial-watchdog --state open --json number --jq 'length')
+          echo "open_count=$count" >> "$GITHUB_OUTPUT"
+
+      - name: Open a watchdog issue
+        if: steps.check.outputs.recent_successful_runs == '0' && steps.existing.outputs.open_count == '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          gh issue create \
+            --repo "$REPO" \
+            --title "Daily editorial automation: no successful run in 36+ hours" \
+            --label editorial-watchdog \
+            --body "The \`daily-editorial\` workflow has not completed successfully in the last 36 hours. Check the [workflow runs](https://github.com/$REPO/actions/workflows/daily-editorial.yml) for the failure. This issue is opened idempotently — it will not be duplicated while one is already open with the \`editorial-watchdog\` label; close it once the pipeline is healthy again."
+
+      - name: Already alerted — skip
+        if: steps.check.outputs.recent_successful_runs == '0' && steps.existing.outputs.open_count != '0'
+        run: echo "A watchdog issue is already open — not creating a duplicate."
+
+      - name: Healthy — no action
+        if: steps.check.outputs.recent_successful_runs != '0'
+        run: echo "At least one successful daily-editorial run in the last 36 hours — no alert needed."
