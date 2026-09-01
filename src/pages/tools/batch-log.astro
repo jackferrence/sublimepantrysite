@@ -1,0 +1,302 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Newsletter from '../../components/Newsletter.astro';
+---
+<BaseLayout
+  title="Batch Log & Cost Tracker"
+  description="Free freeze-drying batch log: record food, load, cycle hours, costs, and water-activity readings. See your real cost per batch and per bag. Data stays in your browser; export CSV anytime."
+  path="/tools/batch-log"
+>
+  <div class="wrap" style="padding-top:2.2rem;">
+    <span class="kicker">Free tool</span>
+    <h1>Batch Log &amp; Cost Tracker</h1>
+    <p style="max-width:62ch;color:var(--ink-soft);">Every batch you log makes your machine more predictable and your pricing more honest. Data is stored <strong>only in this browser</strong> — we never see it. Export to CSV for backup or your cottage-food records.</p>
+
+    <div class="tool-panel">
+      <form id="batch-form" novalidate>
+        <fieldset>
+          <legend>The batch</legend>
+          <div class="field-grid">
+            <div><label for="f-date">Date</label><input type="date" id="f-date" required /></div>
+            <div><label for="f-food">Food</label><input type="text" id="f-food" placeholder="e.g. Skittles, strawberries" required /></div>
+            <div><label for="f-load">Load (lb fresh)</label><input type="number" id="f-load" min="0" step="0.1" placeholder="12" /></div>
+            <div><label for="f-hours">Total cycle hours</label><input type="number" id="f-hours" min="0" step="0.5" placeholder="28" /></div>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Costs &amp; output</legend>
+          <div class="field-grid">
+            <div><label for="f-ingcost">Ingredient cost ($)</label><input type="number" id="f-ingcost" min="0" step="0.01" placeholder="15.00" /></div>
+            <div><label for="f-eleccost">Electricity ($)</label><input type="number" id="f-eleccost" min="0" step="0.01" placeholder="1.50" /></div>
+            <div><label for="f-packcost">Packaging ($)</label><input type="number" id="f-packcost" min="0" step="0.01" placeholder="10.50" /></div>
+            <div><label for="f-bags">Bags/jars produced</label><input type="number" id="f-bags" min="0" step="1" placeholder="30" /></div>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Quality record (for sellers)</legend>
+          <div class="field-grid">
+            <div><label for="f-aw">Water activity (aw)</label><input type="number" id="f-aw" min="0" max="1" step="0.001" placeholder="0.28" /></div>
+            <div>
+              <label for="f-check">24-hour seal check</label>
+              <select id="f-check">
+                <option value="">Not checked</option>
+                <option value="pass">Pass</option>
+                <option value="fail">Fail</option>
+              </select>
+            </div>
+            <div style="grid-column:1 / -1;">
+              <label for="f-notes">Notes (settings, spacing, what you'd change)</label>
+              <input type="text" id="f-notes" placeholder="Extra 2h dry time; center tray marginal" />
+            </div>
+          </div>
+        </fieldset>
+        <button class="btn btn-primary" type="submit" style="border:0;cursor:pointer;" data-sp-event="tool_batch_logged">Log this batch</button>
+      </form>
+    </div>
+
+    <h2>Your numbers</h2>
+    <div class="stat-row" id="stats" aria-live="polite">
+      <div class="stat"><div class="label">Batches logged</div><div class="value" id="s-count">0</div></div>
+      <div class="stat"><div class="label">Avg cycle hours</div><div class="value" id="s-hours">–</div></div>
+      <div class="stat"><div class="label">Avg cost / batch</div><div class="value" id="s-batchcost">–</div></div>
+      <div class="stat"><div class="label">Avg cost / bag</div><div class="value" id="s-bagcost">–</div></div>
+    </div>
+
+    <h2>Log</h2>
+    <div class="table-scroll">
+      <table id="log-table" class="tool-table" style="border-collapse:collapse;width:100%;min-width:640px;font-size:0.88rem;">
+        <thead>
+          <tr>
+            <th>Date</th><th>Food</th><th>Load lb</th><th>Hours</th><th>Cost $</th><th>Bags</th><th>$/bag</th><th>aw</th><th>24h</th><th>Notes</th><th></th>
+          </tr>
+        </thead>
+        <tbody id="log-body"></tbody>
+      </table>
+    </div>
+    <p id="empty-note" style="color:var(--ink-soft);">No batches yet. Log your first one above.</p>
+    <p style="margin-top:1.2rem;">
+      <button class="btn btn-ghost" id="export-btn" type="button" style="cursor:pointer;" data-sp-event="tool_csv_export">Export CSV</button>
+      <button class="btn btn-ghost" id="clear-btn" type="button" style="cursor:pointer;color:#8a2f2f;border-color:#8a2f2f;">Delete all data</button>
+    </p>
+
+    <div class="notice notice-info" role="note" style="margin-top:2rem;">
+      <strong>Want this as a real app?</strong> We're exploring a cross-device batch-log app with cloud backup, per-food cycle predictions, and printable cottage-food records. <a href="/contact">Tell us</a> if you'd use it — reader interest decides whether we build it.
+    </div>
+
+    <Newsletter />
+  </div>
+
+  <style>
+    #log-table th,
+    #log-table td {
+      border: 1px solid var(--mist);
+      text-align: left;
+      padding: 0.45rem 0.55rem;
+    }
+    #log-table th {
+      background: var(--frost-tint);
+      color: var(--frost-deep);
+    }
+    #log-table .del-btn {
+      color: #8a2f2f;
+      cursor: pointer;
+      background: none;
+      border: 0;
+      padding: 0;
+      font-size: 0.85rem;
+      text-decoration: underline;
+    }
+  </style>
+
+  <script>
+    (function () {
+      'use strict';
+      const KEY = 'sp-batch-log-v1';
+
+      interface BatchRow {
+        date: string;
+        food: string;
+        load: number | null;
+        hours: number | null;
+        ingCost: number | null;
+        elecCost: number | null;
+        packCost: number | null;
+        bags: number | null;
+        aw: number | null;
+        check: string;
+        notes: string;
+      }
+
+      function load(): BatchRow[] {
+        try {
+          return JSON.parse(localStorage.getItem(KEY) || '[]');
+        } catch {
+          return [];
+        }
+      }
+      function save(rows: BatchRow[]) {
+        try {
+          localStorage.setItem(KEY, JSON.stringify(rows));
+        } catch {
+          /* storage unavailable */
+        }
+      }
+      function num(id: string): number | null {
+        const el = document.getElementById(id) as HTMLInputElement | null;
+        const v = parseFloat(el?.value ?? '');
+        return isNaN(v) ? null : v;
+      }
+      function money(v: number | null) {
+        return v == null ? '–' : '$' + v.toFixed(2);
+      }
+
+      function totalCost(r: BatchRow) {
+        let t = 0;
+        let any = false;
+        [r.ingCost, r.elecCost, r.packCost].forEach((c) => {
+          if (c != null) {
+            t += c;
+            any = true;
+          }
+        });
+        return any ? t : null;
+      }
+
+      function render() {
+        const rows = load();
+        const body = document.getElementById('log-body')!;
+        body.textContent = '';
+        (document.getElementById('empty-note') as HTMLElement).hidden = rows.length > 0;
+
+        rows.forEach((r, i) => {
+          const tr = document.createElement('tr');
+          const cost = totalCost(r);
+          const perBag = cost != null && r.bags ? cost / r.bags : null;
+          const cells = [
+            r.date || '',
+            r.food || '',
+            r.load != null ? r.load : '',
+            r.hours != null ? r.hours : '',
+            cost != null ? cost.toFixed(2) : '',
+            r.bags != null ? r.bags : '',
+            perBag != null ? perBag.toFixed(2) : '',
+            r.aw != null ? r.aw : '',
+            r.check || '',
+            r.notes || '',
+          ];
+          cells.forEach((c) => {
+            const td = document.createElement('td');
+            td.textContent = String(c);
+            tr.appendChild(td);
+          });
+          const tdDel = document.createElement('td');
+          const btn = document.createElement('button');
+          btn.className = 'del-btn';
+          btn.type = 'button';
+          btn.textContent = 'delete';
+          btn.setAttribute('aria-label', 'Delete batch from ' + (r.date || 'unknown date'));
+          btn.addEventListener('click', () => {
+            const all = load();
+            all.splice(i, 1);
+            save(all);
+            render();
+          });
+          tdDel.appendChild(btn);
+          tr.appendChild(tdDel);
+          body.appendChild(tr);
+        });
+
+        document.getElementById('s-count')!.textContent = String(rows.length);
+        const hrs = rows.map((r) => r.hours).filter((v): v is number => v != null);
+        const costs = rows.map(totalCost).filter((v): v is number => v != null);
+        const perBags = rows
+          .map((r) => {
+            const c = totalCost(r);
+            return c != null && r.bags ? c / r.bags : null;
+          })
+          .filter((v): v is number => v != null);
+        function avg(a: number[]) {
+          return a.length ? a.reduce((x, y) => x + y, 0) / a.length : null;
+        }
+        const ah = avg(hrs);
+        const ac = avg(costs);
+        const ab = avg(perBags);
+        document.getElementById('s-hours')!.textContent = ah == null ? '–' : ah.toFixed(1);
+        document.getElementById('s-batchcost')!.textContent = money(ac);
+        document.getElementById('s-bagcost')!.textContent = money(ab);
+      }
+
+      document.getElementById('batch-form')!.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const foodEl = document.getElementById('f-food') as HTMLInputElement;
+        const dateEl = document.getElementById('f-date') as HTMLInputElement;
+        const food = foodEl.value.trim();
+        const date = dateEl.value;
+        if (!food || !date) {
+          if (!date) dateEl.focus();
+          else foodEl.focus();
+          return;
+        }
+        const rows = load();
+        rows.unshift({
+          date,
+          food,
+          load: num('f-load'),
+          hours: num('f-hours'),
+          ingCost: num('f-ingcost'),
+          elecCost: num('f-eleccost'),
+          packCost: num('f-packcost'),
+          bags: num('f-bags'),
+          aw: num('f-aw'),
+          check: (document.getElementById('f-check') as HTMLSelectElement).value,
+          notes: (document.getElementById('f-notes') as HTMLInputElement).value.trim(),
+        });
+        save(rows);
+        (e.target as HTMLFormElement).reset();
+        render();
+      });
+
+      document.getElementById('export-btn')!.addEventListener('click', () => {
+        const rows = load();
+        const header = [
+          'date', 'food', 'load_lb', 'total_hours', 'ingredient_cost', 'electricity_cost',
+          'packaging_cost', 'total_cost', 'bags', 'cost_per_bag', 'water_activity', 'seal_check_24h', 'notes',
+        ];
+        function esc(v: unknown) {
+          const s = v == null ? '' : String(v);
+          return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+        }
+        const lines = [header.join(',')].concat(
+          rows.map((r) => {
+            const cost = totalCost(r);
+            const perBag = cost != null && r.bags ? (cost / r.bags).toFixed(4) : '';
+            return [
+              r.date, r.food, r.load, r.hours, r.ingCost, r.elecCost, r.packCost,
+              cost != null ? cost.toFixed(2) : '', r.bags, perBag, r.aw, r.check, r.notes,
+            ].map(esc).join(',');
+          }),
+        );
+        const blob = new Blob([lines.join('\n')], { type: 'text/csv' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'sublime-pantry-batch-log.csv';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      });
+
+      document.getElementById('clear-btn')!.addEventListener('click', () => {
+        if (confirm('Delete all logged batches from this browser? Export a CSV first if you want a backup.')) {
+          try {
+            localStorage.removeItem(KEY);
+          } catch {
+            /* ignore */
+          }
+          render();
+        }
+      });
+
+      render();
+    })();
+  </script>
+</BaseLayout>

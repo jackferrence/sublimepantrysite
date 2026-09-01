@@ -1,0 +1,86 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../layouts/PageLayout.astro';
+
+const duringCycle = ['batch-not-dry', 'chewy-candy', 'vacuum-error'];
+const afterBatch = ['rehydration-problems', 'storage-failure'];
+const order = [...duringCycle, ...afterBatch];
+
+const entries = (await getCollection('articles', ({ data }) => data.pillar === 'troubleshooting')).sort(
+  (a, b) => order.indexOf(a.id) - order.indexOf(b.id),
+);
+const byId = Object.fromEntries(entries.map((e) => [e.id, e]));
+
+// The listing page uses its own curated symptom copy, distinct from each
+// article's own title/description (which lead with the diagnosis, not the
+// symptom a reader searches for).
+const listing: Record<string, { title: string; description: string }> = {
+  'batch-not-dry': {
+    title: "Food isn't fully dry, especially on the center trays",
+    description: 'Why center-tray food comes out cool, flexible, or dark in the middle, and the checks that fix it, in the order to try them.',
+  },
+  'chewy-candy': {
+    title: "Candy is chewy, melted, or didn't puff",
+    description: "Chewy centers, melted puddles, or candy that never puffed: each failure has a distinct cause, whether that's spacing, settings, or a candy that fundamentally won't work.",
+  },
+  'vacuum-error': {
+    title: "Machine shows a vacuum error or won't pull down",
+    description: "A vacuum error means the chamber can't reach or hold pressure. Here's the leak hunt in order of likelihood: door gasket, drain valve, hose, then pump.",
+  },
+  'rehydration-problems': {
+    title: 'Rehydrated food is tough, mushy, or tastes flat',
+    description: "Rehydration failures trace back to three places: how the food was dried, how it's being rehydrated, and what that food can ever be again, plus the food-safety rule that applies.",
+  },
+  'storage-failure': {
+    title: 'Stored food went soft, stale, or off',
+    description: 'Freeze-dried food that went soft, stale, or off in storage failed at one of five points: dryness, packaging, absorber, seal, or environment. Find yours.',
+  },
+};
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Fix this batch',
+    description: 'One symptom per page, with the likely causes in order and the fix for each.',
+    url: 'https://www.sublimepantry.com/troubleshooting.html',
+    isPartOf: { '@id': 'https://www.sublimepantry.com/#website' },
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: entries.map((e, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        url: `https://www.sublimepantry.com/troubleshooting/${e.id}`,
+        name: listing[e.id]?.title ?? e.data.title,
+      })),
+    },
+  },
+];
+---
+<PageLayout title="Freeze Dryer Troubleshooting" description="Narrow, specific fixes for common home freeze-drying failures: batches that aren't dry, vacuum errors, chewy candy, rehydration problems, and storage failures." path="/troubleshooting" jsonLd={jsonLd}>
+  <span class="kicker">Troubleshooting</span>
+  <h1>Fix this batch</h1>
+  <p style="max-width:60ch;color:var(--ink-soft);">One symptom per page, with the likely causes in order and the fix for each.</p>
+
+  <h2 style="margin-top:2rem;">During the cycle</h2>
+  <ul class="card-grid">
+    {duringCycle.map((id) => byId[id] && (
+      <li class="card">
+        <span class="kicker">Symptom</span>
+        <h3><a href={`/troubleshooting/${id}`}>{listing[id].title}</a></h3>
+        <p>{listing[id].description}</p>
+      </li>
+    ))}
+  </ul>
+
+  <h2 style="margin-top:2rem;">After the batch</h2>
+  <ul class="card-grid">
+    {afterBatch.map((id) => byId[id] && (
+      <li class="card">
+        <span class="kicker">Symptom</span>
+        <h3><a href={`/troubleshooting/${id}`}>{listing[id].title}</a></h3>
+        <p>{listing[id].description}</p>
+      </li>
+    ))}
+  </ul>
+</PageLayout>

@@ -1,0 +1,111 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Newsletter from '../components/Newsletter.astro';
+import EducationalNotice from '../components/EducationalNotice.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'articles'>;
+  path: string;
+}
+
+const { entry, path } = Astro.props;
+const d = entry.data;
+const site = 'https://www.sublimepantry.com';
+const publishedIso = `${d.publishedDate}T00:00:00.000Z`;
+const publishedDisplay = new Date(publishedIso).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC',
+});
+
+const canonicalPath = path.replace(/\/$/, '');
+const pageUrl = `${site}${canonicalPath}.html`;
+
+const jsonLd: Record<string, unknown>[] = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: d.title,
+    description: d.description,
+    author: { '@type': 'Person', name: d.author },
+    publisher: { '@type': 'Organization', name: 'Sublime Pantry', url: site },
+    datePublished: publishedIso,
+    dateModified: d.updatedDate ? `${d.updatedDate}T00:00:00.000Z` : publishedIso,
+    mainEntityOfPage: pageUrl,
+  },
+];
+
+if (d.howTo && d.howTo.length) {
+  jsonLd.push({
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: d.title,
+    description: d.description,
+    mainEntityOfPage: pageUrl,
+    step: d.howTo.map((s) => ({ '@type': 'HowToStep', name: s.name, text: s.text })),
+  });
+}
+
+if (d.faq && d.faq.length) {
+  jsonLd.push({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: d.faq.map((f) => ({
+      '@type': 'Question',
+      name: f.question,
+      acceptedAnswer: { '@type': 'Answer', text: f.answer },
+    })),
+  });
+}
+
+if (d.pillar === 'compare' && d.comparisonCriteria) {
+  jsonLd.push({
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: d.title,
+    description: d.description,
+    url: pageUrl,
+    isPartOf: { '@id': `${site}/#website` },
+  });
+}
+---
+<BaseLayout title={d.title} description={d.description} path={path} ogType="article" jsonLd={jsonLd}>
+  <article class="prose" style="padding-top:2.2rem;">
+    <header class="article-header">
+      <span class="kicker">{d.kicker}</span>
+      <h1>{d.title}</h1>
+      <p class="article-meta">
+        Reviewed by <strong>{d.author}, Sublime Pantry Editorial</strong><br />
+        Published <time datetime={publishedIso}>{publishedDisplay}</time>
+      </p>
+    </header>
+
+    {d.riskClass === 'elevated' && <EducationalNotice />}
+
+    <div class="article-body" set:html={d.bodyHtml} />
+
+    <p class="disclosure-line">{d.disclosure}</p>
+
+    {d.faq && d.faq.map((f) => (
+      <div class="notice notice-info" style="margin:2.2rem 0;">
+        <p style="margin:0 0 .3rem;font-weight:700;color:var(--frost-deep);">{f.question}</p>
+        <p style="margin:0;">{f.answer}</p>
+      </div>
+    ))}
+
+    <section class="sources" aria-labelledby="sources-heading">
+      <h2 id="sources-heading">Sources</h2>
+      <ol>
+        {d.sources.map((s) => (
+          <li>
+            <a href={s.url} rel="nofollow noopener">{s.title}</a> — {s.publisher} <span class="tier-tag">{s.tier}</span> · accessed {s.accessDate}
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <Newsletter />
+  </article>
+</BaseLayout>

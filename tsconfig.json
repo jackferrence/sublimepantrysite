@@ -1,0 +1,8 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist", "node_modules", "geo-brief-sublimepantry-netlify-app", "geo-tracking-sublimepantry-netlify-app"],
+  "compilerOptions": {
+    "strictNullChecks": true
+  }
+}

@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sublime Pantry -- Claims Ledger</title>
+<style>
+  :root{
+    --paper:#faf7f1; --surface:#fff; --ink:#22303c; --ink-soft:#4d5a66;
+    --frost:#2c5d7c; --frost-deep:#1d3f56; --frost-tint:#e7eef3;
+    --amber:#9a6115; --amber-tint:#f6ecd9; --mist:#e4dccd; --ok:#2e6b45;
+    --font-serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    --font-sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-sans);line-height:1.6;padding-bottom:6rem}
+  .wrap{max-width:52rem;margin:0 auto;padding:2.5rem 1.5rem}
+  h1{font-family:var(--font-serif);color:var(--frost-deep);font-size:clamp(1.8rem,5vw,2.6rem);margin:0 0 .4rem;line-height:1.1}
+  .lede{color:var(--ink-soft);font-size:1.05rem;max-width:44rem;margin:0 0 1.8rem}
+  .intro{background:var(--frost-tint);border-radius:10px;padding:1.2rem 1.4rem;color:var(--frost-deep);font-size:.95rem;margin-bottom:2rem}
+  .progress{position:sticky;top:0;background:var(--paper);padding:.8rem 0;border-bottom:1px solid var(--mist);font-size:.85rem;color:var(--ink-soft);z-index:5;margin-bottom:1.5rem}
+  .progress strong{color:var(--frost-deep)}
+  .bar{height:6px;border-radius:3px;background:var(--mist);margin-top:.4rem;overflow:hidden}
+  .bar-fill{height:100%;width:100%;background:var(--amber);transform:scaleX(0);transform-origin:left center;transition:transform .2s ease}
+  section.group{margin-bottom:2.2rem}
+  section.group > h2{font-family:var(--font-serif);color:var(--frost-deep);font-size:1.3rem;margin:0 0 .8rem}
+  .card{background:var(--surface);border:1px solid var(--mist);border-radius:10px;padding:1.3rem 1.4rem;margin-bottom:1rem}
+  .card .quote{font-style:italic;color:var(--amber);font-size:.85rem;margin:0 0 .3rem}
+  .card .loc{color:var(--ink-soft);font-size:.78rem;margin:0 0 .7rem}
+  .card label.q{display:block;font-weight:700;color:var(--ink);margin-bottom:.3rem;font-size:.98rem}
+  .card .why{color:var(--ink-soft);font-size:.82rem;margin:.3rem 0 .7rem}
+  .card input[type=text], .card textarea{width:100%;border:1px solid var(--mist);border-radius:6px;padding:.6rem .7rem;font-family:inherit;font-size:.95rem;color:var(--ink);background:#fff}
+  .card textarea{min-height:4.5rem;resize:vertical}
+  .remove-row{display:flex;align-items:center;gap:.5rem;margin-top:.6rem;font-size:.85rem;color:var(--ink-soft)}
+  .actions{position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--mist);padding:1rem 1.5rem;display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap}
+  button{border-radius:8px;border:2px solid var(--frost-deep);padding:.75rem 1.4rem;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit}
+  .btn-primary{background:var(--frost-deep);color:#fff}
+  .btn-ghost{background:#fff;color:var(--frost-deep)}
+  @media print{.actions,.progress{display:none}}
+</style>
+</head>
+<body>
+<div class="progress wrap" style="padding-left:1.5rem;padding-right:1.5rem;max-width:52rem;margin:0 auto">
+  <span><strong id="answeredCount">0</strong> of <strong id="totalCount">0</strong> answered</span>
+  <div class="bar"><div class="bar-fill" id="barFill"></div></div>
+</div>
+<div class="wrap">
+  <h1>Sublime Pantry -- Claims Ledger</h1>
+  <p class="lede">Assessed August 31, 2026. A short form, on purpose -- your site's copy is already unusually disciplined about not overclaiming. What's below fills in the handful of facts AI search engines need but can't currently find on the site.</p>
+  <div class="intro">Your answers replace missing facts with specifics that AI search engines can quote directly. Skip anything you're unsure of -- never guess. When you're done, use the buttons at the bottom to download your answers or print/save a copy.</div>
+
+  <section class="group" id="always-ask">
+    <h2>Always-ask: the basics</h2>
+    <div class="card">
+      <label class="q" for="cl-goal">In one sentence, in your own words: what is Sublime Pantry's main goal right now?</label>
+      <p class="why">Why this matters: this becomes the anchor sentence for the site's Organization/About schema and the "what is Sublime Pantry" answer AI engines give.</p>
+      <textarea id="cl-goal" data-id="cl-goal"></textarea>
+    </div>
+    <div class="card">
+      <label class="q" for="cl-audience">Describe your ideal reader in one or two sentences.</label>
+      <p class="why">Sharpens audience targeting in schema and helps prioritize which prompts matter most.</p>
+      <textarea id="cl-audience" data-id="cl-audience"></textarea>
+    </div>
+    <div class="card">
+      <label class="q" for="cl-topquestions">What are the top 5 questions readers actually ask you (email, comments, forums, in person)?</label>
+      <p class="why">Real reader questions are the highest-signal source for FAQ schema and new content -- better than guessed keywords.</p>
+      <textarea id="cl-topquestions" data-id="cl-topquestions" placeholder="One per line"></textarea>
+    </div>
+    <div class="card">
+      <label class="q" for="cl-stale">Is there any claim currently on the site that's no longer accurate?</label>
+      <p class="why">Stale claims quietly poison trust with both readers and AI engines. If none, just write "none."</p>
+      <textarea id="cl-stale" data-id="cl-stale"></textarea>
+    </div>
+  </section>
+
+  <section class="group" id="entity">
+    <h2>Entity facts (the About page and byline)</h2>
+    <div class="card">
+      <p class="quote">Current: no founding date appears anywhere on the site</p>
+      <p class="loc">Location: /about</p>
+      <label class="q" for="cl-001">What year did Sublime Pantry start, and is there a short founding story worth telling (why you started it)?</label>
+      <p class="why">The About page is the entity anchor AI engines use to build a profile of the brand. A founding date and story are the single highest-leverage addition available right now.</p>
+      <textarea id="cl-001" data-id="cl-001"></textarea>
+      <div class="remove-row"><input type="checkbox" data-remove-for="cl-001" id="rm-001"><label for="rm-001">Not applicable / skip this one</label></div>
+    </div>
+    <div class="card">
+      <p class="quote">Current: "Reviewed by Jack Ferrence, Sublime Pantry Editorial" (no bio, credentials, or background given anywhere)</p>
+      <p class="loc">Location: byline on every guide/troubleshooting/comparison page</p>
+      <label class="q" for="cl-002">What is your background with freeze drying and/or cottage food selling -- years, hands-on experience, relevant credentials, or professional background? Even 2-3 concrete facts help.</label>
+      <p class="why">AI engines weight named, credentialed authors far more than an unelaborated byline. This also lets us add real Person schema instead of a bare name.</p>
+      <textarea id="cl-002" data-id="cl-002"></textarea>
+      <div class="remove-row"><input type="checkbox" data-remove-for="cl-002" id="rm-002"><label for="rm-002">Not applicable / skip this one</label></div>
+    </div>
+    <div class="card">
+      <p class="quote">Current: zero external profile links found anywhere on the site (no LinkedIn, no social, nothing)</p>
+      <p class="loc">Location: sitewide</p>
+      <label class="q" for="cl-003">Do you have a LinkedIn profile, a professional/social profile, or any other public page we should link to as corroboration?</label>
+      <p class="why">"sameAs" links to real external profiles are one of the strongest, cheapest trust signals for entity disambiguation -- and there's currently none at all.</p>
+      <textarea id="cl-003" data-id="cl-003"></textarea>
+      <div class="remove-row"><input type="checkbox" data-remove-for="cl-003" id="rm-003"><label for="rm-003">None to add right now</label></div>
+    </div>
+    <div class="card">
+      <p class="quote">Current: About page states editorial method but gives no reviewer credential beyond a name</p>
+      <p class="loc">Location: /about, /editorial-standards, /review-methodology</p>
+      <label class="q" for="cl-004">Is there a second person (co-editor, food-safety reviewer, etc.) involved in review, or is it solely you? If solely you, is that worth stating plainly?</label>
+      <p class="why">Precision here (named single-reviewer vs. team) is more trustworthy than implying a team that doesn't exist, and more citable than staying vague.</p>
+      <textarea id="cl-004" data-id="cl-004"></textarea>
+      <div class="remove-row"><input type="checkbox" data-remove-for="cl-004" id="rm-004"><label for="rm-004">Not applicable / skip this one</label></div>
+    </div>
+  </section>
+
+  <section class="group" id="pricing-scale">
+    <h2>Scale and pricing (for future commerce pages)</h2>
+    <div class="card">
+      <p class="quote">Current: no pricing, revenue, or scale figures published anywhere (correct for a pre-commerce site, but worth capturing now for when it changes)</p>
+      <p class="loc">Location: N/A yet -- forward-looking</p>
+      <label class="q" for="cl-005">When commerce launches (affiliate or owned product), what real numbers will you be willing to publish -- price ranges, subscriber count, batch counts, anything concrete?</label>
+      <p class="why">Capturing this now means repair work won't stall later waiting on the same question. Skip if genuinely too early to answer.</p>
+      <textarea id="cl-005" data-id="cl-005"></textarea>
+      <div class="remove-row"><input type="checkbox" data-remove-for="cl-005" id="rm-005"><label for="rm-005">Too early to answer</label></div>
+    </div>
+  </section>
+</div>
+
+<div class="actions">
+  <button class="btn-ghost" onclick="window.print()">Print / Save as PDF</button>
+  <button class="btn-primary" id="downloadBtn">Download my answers</button>
+</div>
+
+<script>
+(function(){
+  var STORAGE_KEY = 'sp-claims-ledger-2026-08-31';
+  var fields = Array.prototype.slice.call(document.querySelectorAll('[data-id]'));
+  var checks = Array.prototype.slice.call(document.querySelectorAll('[data-remove-for]'));
+  var total = fields.length;
+  document.getElementById('totalCount').textContent = total;
+
+  function load(){
+    try {
+      var saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      fields.forEach(function(f){ if (saved[f.dataset.id] != null) f.value = saved[f.dataset.id]; });
+      checks.forEach(function(c){ if (saved['remove_' + c.dataset.removeFor]) c.checked = true; });
+    } catch(e) {}
+  }
+
+  function save(){
+    var data = {};
+    fields.forEach(function(f){ data[f.dataset.id] = f.value; });
+    checks.forEach(function(c){ data['remove_' + c.dataset.removeFor] = c.checked; });
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e) {}
+    updateProgress();
+  }
+
+  function updateProgress(){
+    var answered = fields.filter(function(f){ return f.value.trim().length > 0; }).length;
+    document.getElementById('answeredCount').textContent = answered;
+    document.getElementById('barFill').style.transform = 'scaleX(' + (total ? (answered/total) : 0) + ')';
+  }
+
+  fields.forEach(function(f){ f.addEventListener('input', save); });
+  checks.forEach(function(c){ c.addEventListener('change', save); });
+
+  document.getElementById('downloadBtn').addEventListener('click', function(){
+    var items = fields.map(function(f){
+      var removeEl = document.querySelector('[data-remove-for="' + f.dataset.id + '"]');
+      return { id: f.dataset.id, answer: f.value.trim() || null, remove: removeEl ? removeEl.checked : false };
+    });
+    var payload = { domain: 'sublimepantry.netlify.app', exported: new Date().toISOString(), items: items };
+    var blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'claims-answers-sublimepantry-netlify-app.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+
+  load();
+  updateProgress();
+})();
+</script>
+</body>
+</html>

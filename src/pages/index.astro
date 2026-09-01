@@ -1,0 +1,100 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Newsletter from '../components/Newsletter.astro';
+---
+<BaseLayout
+  title="Home freeze-drying, batch by batch"
+  description="Sublime Pantry helps home freeze-drying enthusiasts and cottage sellers run better batches: machine decisions, troubleshooting, storage that lasts, and the economics of selling what you dry."
+  path="/"
+>
+  <div class="hero">
+    <div class="wrap hero-inner">
+      <div class="hero-content">
+        <span class="kicker">For home freeze-driers &amp; cottage sellers</span>
+        <h1>Home freeze-drying, batch by batch</h1>
+        <p class="lede">Machine decisions, batch troubleshooting, storage that actually lasts, and the real economics of selling what you dry. Every claim is sourced, nothing invented.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="/guides/which-freeze-dryer">Which freeze dryer should you buy?</a>
+          <a class="btn btn-ghost" href="/tools/batch-log">Open the free Batch Log</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <canvas id="sublimation-canvas" width="440" height="440"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Flagship guides</h2>
+      <a href="/guides">All guides →</a>
+    </div>
+    <ul class="card-grid">
+      <li class="card">
+        <span class="kicker">storage</span>
+        <h3><a href="/guides/complete-batch-workflow">The complete batch workflow: from tray prep to sealed mylar</a></h3>
+        <p>The full home freeze-drying process done right: prep, cycle stages, the dryness test, and packaging within the window that keeps food crisp for decades.</p>
+      </li>
+      <li class="card">
+        <span class="kicker">cottage business</span>
+        <h3><a href="/guides/cottage-economics">Selling freeze-dried food from home: rules, testing, and real unit economics</a></h3>
+        <p>What cottage food laws generally allow, the 0.85 water-activity line, sub-$100 testing, and labeling, plus a worked cost model for pricing a bag of freeze-dried candy.</p>
+      </li>
+      <li class="card">
+        <span class="kicker">machines</span>
+        <h3><a href="/guides/which-freeze-dryer">Which home freeze dryer should you buy? A decision framework</a></h3>
+        <p>A $1,700–$5,000 decision made systematically: size, brand, power, placement, and running cost, with every spec sourced from manufacturer documentation.</p>
+      </li>
+    </ul>
+
+    <div class="section-head">
+      <h2>Fix this batch</h2>
+      <a href="/troubleshooting">All troubleshooting →</a>
+    </div>
+    <ul class="card-grid">
+      <li class="card">
+        <span class="kicker">Symptom</span>
+        <h3><a href="/troubleshooting/batch-not-dry">Food isn't fully dry, especially on the center trays</a></h3>
+        <p>Why center-tray food comes out cool, flexible, or dark in the middle, and the checks that fix it, in the order to try them.</p>
+      </li>
+      <li class="card">
+        <span class="kicker">Symptom</span>
+        <h3><a href="/troubleshooting/chewy-candy">Candy is chewy, melted, or didn't puff</a></h3>
+        <p>Chewy centers, melted puddles, or candy that never puffed: each failure has a distinct cause, whether that's spacing, settings, or a candy that fundamentally won't work.</p>
+      </li>
+      <li class="card">
+        <span class="kicker">Symptom</span>
+        <h3><a href="/troubleshooting/rehydration-problems">Rehydrated food is tough, mushy, or tastes flat</a></h3>
+        <p>Rehydration failures trace back to three places: how the food was dried, how it's being rehydrated, and what that food can ever be again, plus the food-safety rule that applies.</p>
+      </li>
+    </ul>
+
+    <div class="section-head">
+      <h2>Comparisons with stated criteria</h2>
+      <a href="/compare">All comparisons →</a>
+    </div>
+    <ul class="card-grid">
+      <li class="card">
+        <span class="kicker">machines</span>
+        <h3><a href="/compare/home-freeze-dryers">Harvest Right vs. Blue Alpine vs. Stay Fresh: the spec comparison</a></h3>
+        <p>The three main US home freeze dryer brands compared on price, capacity, power, pump, and warranty. Every figure comes from manufacturer documentation, with access dates.</p>
+      </li>
+      <li class="card">
+        <span class="kicker">storage</span>
+        <h3><a href="/compare/storage-containers">Mylar bags vs. mason jars vs. PETE: freeze-dried storage compared</a></h3>
+        <p>The three legitimate storage systems for freeze-dried food, compared on barrier quality, cost per unit, resealability, and fitness for selling vs. pantry use.</p>
+      </li>
+    </ul>
+
+    <section class="card" style="margin:2.5rem 0 0;padding:1.6rem;">
+      <span class="kicker">Free tool</span>
+      <h2 style="margin-top:0.3rem;">The Batch Log &amp; Cost Tracker</h2>
+      <p style="color:var(--ink-soft);max-width:60ch;">Log every batch: food, load weight, cycle hours, packaging, and water-activity readings. See your real cost per batch and per bag. Data stays in your browser; export to CSV anytime.</p>
+      <a class="btn btn-primary" href="/tools/batch-log" data-sp-event="tool_promo_click">Start logging batches</a>
+    </section>
+
+    <Newsletter />
+  </div>
+
+  <script is:inline src="/hero-sublimation.js" defer></script>
+</BaseLayout>

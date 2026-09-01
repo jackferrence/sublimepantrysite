@@ -1,0 +1,59 @@
+{
+  "title": "Bags lost their crunch: diagnosing storage failures",
+  "description": "Freeze-dried food that went soft, stale, or off in storage failed at one of five points: dryness, packaging, absorber, seal, or environment. Find yours.",
+  "kicker": "Troubleshooting",
+  "pillar": "troubleshooting",
+  "riskClass": "elevated",
+  "publishedDate": "2026-08-31",
+  "author": "Jack Ferrence",
+  "disclosure": "Sublime Pantry has no affiliate relationships as of publication. No link in this article earns us money.",
+  "sources": [
+    {
+      "url": "https://wallabygoods.com/blogs/news/how-to-store-freeze-dried-food-in-mylar-bags",
+      "title": "How to Store Freeze-Dried Food in Mylar Bags",
+      "publisher": "Wallaby Goods",
+      "tier": "secondary",
+      "accessDate": "2026-08-31"
+    },
+    {
+      "url": "https://extension.umn.edu/preserve-your-own-food/freeze-drying",
+      "title": "Preserving food at home: Freeze-drying",
+      "publisher": "University of Minnesota Extension",
+      "tier": "primary",
+      "accessDate": "2026-08-31"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Why did my stored freeze-dried food go soft, stale, or off?",
+      "answer": "Freeze-dried food that went soft, stale, or off in storage failed at one of five points: dryness, packaging, absorber, seal, or environment. Find yours."
+    }
+  ],
+  "howTo": [
+    {
+      "name": "1. The food was never dry enough",
+      "text": "The most common root cause hides upstream of packaging. Food that passed a casual glance but not a real cut test carries moisture into the bag, where it equalizes and softens everything. Check: open a suspect bag and cut-test several pieces. Uniform slight softness across the bag points to residual moisture, not a leak. Fix: re-dry, re-test, re-bag; then tighten your end-of-cycle dryness testing ."
+    },
+    {
+      "name": "2. The packaging wasn’t a real barrier",
+      "text": "Zip-top bags, thin food-saver plastic, and decorative pouches are not long-term freeze-dry storage — they pass moisture and oxygen slowly but relentlessly. The standard is mylar in the 5–7.5 mil range with a metallized barrier layer, mason jars vacuum-sealed, or PETE with absorbers. Thin printed pouches sold for candy resale are fine for weeks of retail turnover, not years of pantry. Fix: match packaging to intended life: barrier mylar for storage, and inform retail customers of a realistic best-by window."
+    },
+    {
+      "name": "3. The oxygen absorber was spent or undersized",
+      "text": "Absorbers die in open air: a bowl of absorbers left out during a long bagging session is a bowl of warm iron filings. Sizing matters too: roughly 100 cc per quart of container volume (300–500 cc for a one-gallon bag), erring high because freeze-dried food is airy. Check: healthy sealed bags tighten slightly within 24 hours as the absorber works; a bag that stayed pillowy never had a working absorber (or has a leak — see #4). Fix: buy absorbers in small sealed packs, open one pack per session, and reseal spares immediately."
+    },
+    {
+      "name": "4. The seal itself leaked",
+      "text": "A wrinkle, a crumb, or a stray thread of candy in the seal line is a slow leak with a years-long fuse. Check: press gently on the bag and watch the seal line; inspect for channels. Fix: seal wide and wrinkle-free, wipe the seal area before closing, double-seal high-value bags, and spot-check each session’s output the next day."
+    },
+    {
+      "name": "5. The environment beat the packaging",
+      "text": "Even good packaging loses eventually to heat and light. Guidance converges on storage below 70 °F, dark, and dry : a closet, not a garage that hits 95 °F all summer. High-fat foods deserve special mention: fat oxidizes regardless of moisture control, so bacon-adjacent experiments and oily leftovers have inherently short horizons; extension guidance flags high-fat foods as poor freeze-drying candidates in the first place."
+    },
+    {
+      "name": "The one-day-later habit that catches almost everything",
+      "text": "Twenty-four hours after packaging, walk the day’s bags: each should be slightly drawn in, seals clean, contents audibly crisp when tilted. That single check catches spent absorbers, seal channels, and wet batches while they’re still one batch — log it as a pass/fail in your Batch Log and storage failures become rare events instead of sad discoveries."
+    }
+  ],
+  "bodyHtml": "<p>A batch that was perfect on packaging day and soft three months later failed at one\nof exactly five points. Work down the list, and if you sell, treat every failed bag\nas a process defect to trace, because your customers’ bags came off the same table.</p>\n<h2 id=\"1-the-food-was-never-dry-enough\">1. The food was never dry enough</h2>\n<p>The most common root cause hides upstream of packaging. Food that passed a casual\nglance but not a real cut test carries moisture into the bag, where it equalizes and\nsoftens everything. <strong>Check:</strong> open a suspect bag and cut-test several pieces.\nUniform slight softness across the bag points to residual moisture, not a leak.\n<strong>Fix:</strong> re-dry, re-test, re-bag; then tighten your end-of-cycle\n<a href=\"/troubleshooting/batch-not-dry\">dryness testing</a>.</p>\n<h2 id=\"2-the-packaging-wasnt-a-real-barrier\">2. The packaging wasn’t a real barrier</h2>\n<p>Zip-top bags, thin food-saver plastic, and decorative pouches are not long-term\nfreeze-dry storage — they pass moisture and oxygen slowly but relentlessly. The\nstandard is mylar in the <strong>5–7.5 mil</strong> range with a metallized barrier layer, mason\njars vacuum-sealed, or PETE with absorbers. Thin printed pouches sold for candy\nresale are fine for weeks of retail turnover, not years of pantry. <strong>Fix:</strong> match\npackaging to intended life: barrier mylar for storage, and inform retail customers\nof a realistic best-by window.</p>\n<h2 id=\"3-the-oxygen-absorber-was-spent-or-undersized\">3. The oxygen absorber was spent or undersized</h2>\n<p>Absorbers die in open air: a bowl of absorbers left out during a long bagging\nsession is a bowl of warm iron filings. Sizing matters too: roughly <strong>100 cc per\nquart</strong> of container volume (300–500 cc for a one-gallon bag), erring high because\nfreeze-dried food is airy. <strong>Check:</strong> healthy sealed bags tighten slightly within\n24 hours as the absorber works; a bag that stayed pillowy never had a working\nabsorber (or has a leak — see #4). <strong>Fix:</strong> buy absorbers in small sealed packs,\nopen one pack per session, and reseal spares immediately.</p>\n<h2 id=\"4-the-seal-itself-leaked\">4. The seal itself leaked</h2>\n<p>A wrinkle, a crumb, or a stray thread of candy in the seal line is a slow leak with\na years-long fuse. <strong>Check:</strong> press gently on the bag and watch the seal line;\ninspect for channels. <strong>Fix:</strong> seal wide and wrinkle-free, wipe the seal area before\nclosing, double-seal high-value bags, and spot-check each session’s output the next\nday.</p>\n<h2 id=\"5-the-environment-beat-the-packaging\">5. The environment beat the packaging</h2>\n<p>Even good packaging loses eventually to heat and light. Guidance converges on\nstorage <strong>below 70 °F, dark, and dry</strong>: a closet, not a garage that hits 95 °F all\nsummer. High-fat foods deserve special mention: fat oxidizes regardless of moisture\ncontrol, so bacon-adjacent experiments and oily leftovers have inherently short\nhorizons; extension guidance flags high-fat foods as poor freeze-drying candidates\nin the first place.</p>\n<h2 id=\"the-one-day-later-habit-that-catches-almost-everything\">The one-day-later habit that catches almost everything</h2>\n<p>Twenty-four hours after packaging, walk the day’s bags: each should be slightly\ndrawn in, seals clean, contents audibly crisp when tilted. That single check catches\nspent absorbers, seal channels, and wet batches while they’re still one batch — log\nit as a pass/fail in your <a href=\"/tools/batch-log\">Batch Log</a> and storage failures become\nrare events instead of sad discoveries.</p>\n"
+}
