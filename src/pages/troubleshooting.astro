@@ -6,10 +6,17 @@ const duringCycle = ['batch-not-dry', 'chewy-candy', 'vacuum-error'];
 const afterBatch = ['rehydration-problems', 'storage-failure'];
 const order = [...duringCycle, ...afterBatch];
 
-const entries = (await getCollection('articles', ({ data }) => data.pillar === 'troubleshooting')).sort(
-  (a, b) => order.indexOf(a.id) - order.indexOf(b.id),
-);
+const allEntries = await getCollection('articles', ({ data }) => data.pillar === 'troubleshooting');
+const unknownIds = allEntries.map((e) => e.id).filter((id) => !order.includes(id))
+  .sort((a, b) => byPublishedDateDesc(allEntries, a, b));
+const entries = [...order, ...unknownIds].map((id) => allEntries.find((e) => e.id === id)).filter((e): e is (typeof allEntries)[number] => Boolean(e));
 const byId = Object.fromEntries(entries.map((e) => [e.id, e]));
+
+function byPublishedDateDesc(list: typeof allEntries, aId: string, bId: string) {
+  const a = list.find((e) => e.id === aId);
+  const b = list.find((e) => e.id === bId);
+  return (b?.data.publishedDate ?? '').localeCompare(a?.data.publishedDate ?? '');
+}
 
 // The listing page uses its own curated symptom copy, distinct from each
 // article's own title/description (which lead with the diagnosis, not the
@@ -83,4 +90,19 @@ const jsonLd = [
       </li>
     ))}
   </ul>
+
+  {unknownIds.length > 0 && (
+    <>
+      <h2 style="margin-top:2rem;">More</h2>
+      <ul class="card-grid">
+        {unknownIds.map((id) => byId[id] && (
+          <li class="card">
+            <span class="kicker">Symptom</span>
+            <h3><a href={`/troubleshooting/${id}`}>{byId[id].data.title}</a></h3>
+            <p>{byId[id].data.description}</p>
+          </li>
+        ))}
+      </ul>
+    </>
+  )}
 </PageLayout>
