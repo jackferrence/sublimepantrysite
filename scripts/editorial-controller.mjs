@@ -113,32 +113,41 @@ async function runResearchMode() {
   const runLog = new RunLog(runId);
   console.log(`[editorial-controller] research run ${runId}`);
 
-  assertNoServiceAccountKey();
+  try {
+    assertNoServiceAccountKey();
 
-  let topQueries = [];
-  if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
-    const client = await getSearchConsoleClient();
-    topQueries = await fetchTopQueries(client, {});
-  } else {
-    console.warn('[editorial-controller] GOOGLE_APPLICATION_CREDENTIALS not set — proceeding with empty Search Console signal.');
+    let topQueries = [];
+    if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+      const client = await getSearchConsoleClient();
+      topQueries = await fetchTopQueries(client, {});
+    } else {
+      console.warn('[editorial-controller] GOOGLE_APPLICATION_CREDENTIALS not set — proceeding with empty Search Console signal.');
+    }
+
+    const existingArticles = listExistingArticles();
+    const evidencePacket = await runResearch({ topQueries, existingArticles, runId });
+    runLog.set('evidencePacket', evidencePacket);
+    runLog.recordCitations(evidencePacket);
+    writeFileSync(artifactPath('evidencePacketArtifact'), JSON.stringify(evidencePacket, null, 2) + '\n');
+
+    const decision = scoreOpportunity(evidencePacket, { alreadyPublishedToday: alreadyPublishedToday() });
+    validateAgainstSchema('editorial-decision', { runId, generatedAt: new Date().toISOString(), ...decision });
+    runLog.set('decision', decision);
+    writeFileSync(
+      artifactPath('decisionArtifact'),
+      JSON.stringify({ runId, generatedAt: new Date().toISOString(), ...decision }, null, 2) + '\n',
+    );
+
+    console.log(`[editorial-controller] score=${decision.score} outcome=${decision.outcome}`);
+    runLog.finalize(decision.outcome);
+  } catch (err) {
+    // Write a run log even on failure (e.g. token exchange, billing, or a
+    // malformed model response) so the artifact/log trail isn't empty for
+    // the run that actually needs debugging.
+    runLog.set('error', String(err?.message ?? err));
+    runLog.finalize('FAILED');
+    throw err;
   }
-
-  const existingArticles = listExistingArticles();
-  const evidencePacket = await runResearch({ topQueries, existingArticles, runId });
-  runLog.set('evidencePacket', evidencePacket);
-  runLog.recordCitations(evidencePacket);
-  writeFileSync(artifactPath('evidencePacketArtifact'), JSON.stringify(evidencePacket, null, 2) + '\n');
-
-  const decision = scoreOpportunity(evidencePacket, { alreadyPublishedToday: alreadyPublishedToday() });
-  validateAgainstSchema('editorial-decision', { runId, generatedAt: new Date().toISOString(), ...decision });
-  runLog.set('decision', decision);
-  writeFileSync(
-    artifactPath('decisionArtifact'),
-    JSON.stringify({ runId, generatedAt: new Date().toISOString(), ...decision }, null, 2) + '\n',
-  );
-
-  console.log(`[editorial-controller] score=${decision.score} outcome=${decision.outcome}`);
-  runLog.finalize(decision.outcome);
 }
 
 async function runDraftMode() {
