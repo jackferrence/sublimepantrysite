@@ -1,0 +1,12 @@
+<section class="newsletter" aria-labelledby="newsletter-heading">
+  <h2 id="newsletter-heading">The Dry Batch — twice a month</h2>
+  <p>One drying answer, one storage or packaging finding, and one cottage-selling insight per issue. No filler, unsubscribe anytime.</p>
+  <form name="dry-batch-signup" method="POST" action="/thanks" data-netlify="true" netlify-honeypot="bot-field" data-sp-event="newsletter_signup">
+    <input type="hidden" name="form-name" value="dry-batch-signup" />
+    <p hidden aria-hidden="true"><label>Don't fill this out: <input name="bot-field" /></label></p>
+    <label for="newsletter-email" class="sr-only" style="position:absolute;left:-9999px;">Email address</label>
+    <input id="newsletter-email" type="email" name="email" required placeholder="you@example.com" autocomplete="email" />
+    <button type="submit">Subscribe</button>
+  </form>
+  <p class="fine">We only use your email to send the newsletter. See our <a href="/privacy" style="color:#d5e2ec;">privacy policy</a>.</p>
+</section>

@@ -1,0 +1,21 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+---
+<PageLayout title="Contact" description="Contact Sublime Pantry: report an error, ask a batch question, or suggest a topic." path="/contact">
+  <span class="kicker">Contact</span>
+  <h1>Get in touch</h1>
+  <p>Report an error, ask about a batch problem we haven't covered, or tell us what to research next. Reader questions drive our editorial queue.</p>
+  <div class="tool-panel">
+    <form name="contact" method="POST" action="/thanks" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="contact" />
+      <p hidden aria-hidden="true"><label>Don't fill this out: <input name="bot-field" /></label></p>
+      <div class="field-grid" style="margin-bottom:1rem;">
+        <div><label for="c-name">Name</label><input id="c-name" name="name" type="text" required autocomplete="name" /></div>
+        <div><label for="c-email">Email</label><input id="c-email" name="email" type="email" required autocomplete="email" /></div>
+      </div>
+      <label for="c-message" style="display:block;font-size:0.85rem;font-weight:600;color:var(--ink-soft);margin-bottom:0.2rem;">Message</label>
+      <textarea id="c-message" name="message" rows="6" required style="width:100%;padding:0.5rem 0.6rem;border:1px solid var(--mist);border-radius:6px;font-family:inherit;font-size:0.95rem;"></textarea>
+      <button class="btn btn-primary" type="submit" style="margin-top:1rem;border:0;cursor:pointer;">Send message</button>
+    </form>
+  </div>
+</PageLayout>

@@ -1,0 +1,18 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  ogType?: 'website' | 'article';
+  jsonLd?: Record<string, unknown>[];
+}
+
+const { title, description, path, ogType = 'website', jsonLd = [] } = Astro.props;
+---
+<BaseLayout title={title} description={description} path={path} ogType={ogType} jsonLd={jsonLd}>
+  <div class="prose" style="padding-top:2.2rem;">
+    <slot />
+  </div>
+</BaseLayout>

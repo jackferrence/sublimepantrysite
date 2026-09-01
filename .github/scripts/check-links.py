@@ -7,7 +7,8 @@ import re
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
+REPO_ROOT = Path(__file__).resolve().parents[2]
+ROOT = (REPO_ROOT / sys.argv[1]) if len(sys.argv) > 1 else REPO_ROOT
 HTML_FILES = sorted(ROOT.glob("**/*.html"))
 
 LINK_RE = re.compile(r'(?:href|src)="(/[^"#?]*)')

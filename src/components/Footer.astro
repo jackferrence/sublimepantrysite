@@ -1,0 +1,21 @@
+---
+const footerLinks = [
+  { href: '/about', label: 'About' },
+  { href: '/editorial-standards', label: 'Editorial Standards' },
+  { href: '/review-methodology', label: 'Review Methodology' },
+  { href: '/affiliate-disclosure', label: 'Affiliate Disclosure' },
+  { href: '/privacy', label: 'Privacy' },
+  { href: '/contact', label: 'Contact' },
+  { href: '/corrections', label: 'Corrections' },
+  { href: '/rss.xml', label: 'RSS' },
+];
+---
+<footer class="site-footer">
+  <div class="wrap">
+    <ul class="footer-links">
+      {footerLinks.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+    </ul>
+    <p>Sublime Pantry publishes educational information about home freeze-drying and cottage food businesses. It is not medical, legal, or regulatory advice. Food safety and cottage food rules vary by jurisdiction. Always confirm with your state or local authority.</p>
+    <p>&copy; 2026 Sublime Pantry. All rights reserved.</p>
+  </div>
+</footer>

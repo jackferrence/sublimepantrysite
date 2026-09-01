@@ -13,13 +13,26 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Check internal links and JSON-LD validity
-        run: python3 .github/scripts/check-links.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build the Astro site
+        env:
+          CI: "1"
+          ASTRO_TELEMETRY_DISABLED: "1"
+        run: npm run build
+
+      - name: Check internal links and JSON-LD validity (built output)
+        run: python3 .github/scripts/check-links.py dist
 
       - name: Check for accidentally committed secrets
         run: |
           if grep -RInE '(AKIA[0-9A-Z]{16}|-----BEGIN [A-Z ]*PRIVATE KEY-----|sk-[a-zA-Z0-9]{20,})' \
-              --exclude-dir=.git --exclude-dir=node_modules .; then
+              --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=dist .; then
             echo "Potential secret found in committed files."
             exit 1
           fi

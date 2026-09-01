@@ -1,0 +1,39 @@
+{
+  "assessed": "2026-08-31",
+  "domain": "sublimepantry.netlify.app",
+  "systems": {
+    "server_or_cdn_logs": {
+      "status": "unknown",
+      "notes": "Hosted on Netlify. Netlify Analytics (server-side, no client JS) or Log Drains are not confirmable from outside; ask the owner whether Netlify Analytics is enabled on the site's dashboard."
+    },
+    "ga4": {
+      "status": "absent",
+      "ai_referral_segment": false,
+      "notes": "No gtag.js, GTM container, or any measurement-ID pattern found in homepage source. events.js is a hand-rolled client-side event stub (article engagement, tool use, newsletter signup, affiliate click, scroll) that explicitly logs to console only -- 'Swap send() for your privacy-respecting analytics provider when one is chosen.' No provider is wired in yet."
+    },
+    "bing_webmaster_tools": {
+      "status": "absent",
+      "notes": "No msvalidate.01 meta tag in <head>; /BingSiteAuth.xml returns 404. ChatGPT and Copilot retrieval both depend on Bing's index, making this the single highest-priority tracking gap."
+    },
+    "google_search_console": {
+      "status": "absent",
+      "notes": "No google-site-verification meta tag found in <head>. Could still be verified via DNS TXT record (not checkable from outside), but unconfirmed -- treat as absent until the owner confirms otherwise."
+    },
+    "indexnow": {
+      "status": "absent",
+      "notes": "No IndexNow key file found at the conventional /<key>.txt path. Cheap to add given the site already has a valid sitemap and is on Netlify (can be a build-time static file plus a small Netlify function or post-deploy hook to ping on publish)."
+    },
+    "prompt_tracking_baseline": {
+      "status": "absent",
+      "notes": "This audit IS the first baseline capture. Site-level indexation check (2026-08-31): zero results for site:sublimepantry.netlify.app on web search, and zero results for the brand name Sublime Pantry plus freeze drying across general web search. The site is new (first commit dated within the audit window) and not yet indexed anywhere. This is expected for a pre-launch site, not a misconfiguration -- but it means every number in this brief's prompt-set citation check is currently zero, and that zero is the number to beat."
+    }
+  },
+  "tracking_ready": false,
+  "required_implementations": [
+    "Submit sitemap to Google Search Console and verify domain ownership",
+    "Submit sitemap to Bing Webmaster Tools and verify domain ownership (blocks ChatGPT + Copilot retrieval measurement until done)",
+    "Wire a real analytics provider into the existing events.js stub (Plausible or Fathom fit the site's privacy-first stance already stated in PRODUCT.md) and add a GA4 property with an AI-referral segment (chatgpt.com, perplexity.ai, copilot.microsoft.com, gemini.google.com, claude.ai) if GA4 is the chosen provider instead of or alongside a privacy analytics tool",
+    "Add an IndexNow key file and a publish-time ping (Netlify build hook or function)",
+    "Re-run the geo-prospect skill's prompt-set test in 2-4 weeks to get the first non-zero baseline reading"
+  ]
+}

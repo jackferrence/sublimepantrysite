@@ -1,0 +1,41 @@
+{
+  "domain": "sublimepantry.netlify.app",
+  "brand_names": ["Sublime Pantry"],
+  "assessed": "2026-08-31",
+  "baseline_note": "Zero-citation baseline. Site is not yet indexed by any engine (see tracking-status.json). Every prompt below currently returns no mention of Sublime Pantry -- re-test with geo-prospect after tracking goes live and 2-4 weeks pass.",
+  "competitors": [
+    { "name": "Trim Leaf", "domain": "trimleaf.com", "note": "Publishes freeze-dryer buying guides and brand comparisons; cited as a source in Sublime Pantry's own which-freeze-dryer and home-freeze-dryers pages" },
+    { "name": "Practical Self Reliance", "domain": "practicalselfreliance.com", "note": "Homesteading/preservation content publisher; cited in the chewy-candy troubleshooting page" },
+    { "name": "Backyard Homestead HQ", "domain": "backyardhomesteadhq.com", "note": "Harvest Right troubleshooting content publisher; cited in batch-not-dry and vacuum-error pages" },
+    { "name": "Get Frizzle", "domain": "getfrizzle.com", "note": "Candy freeze-drying content and (implied) commerce; cited in chewy-candy page" },
+    { "name": "Wallaby Goods", "domain": "wallabygoods.com", "note": "Mylar/storage supply seller with an educational blog; cited in storage-related pages" },
+    { "name": "Harvest Right", "domain": "harvestright.com", "note": "Dominant home freeze-dryer manufacturer; owns a large learning-center content library that competes for the same informational queries even though it is also a cited primary source" }
+  ],
+  "prompts": [
+    { "id": "p01", "text": "what is freeze drying", "stage": "awareness", "engines": ["chatgpt", "perplexity", "claude", "ai_overviews", "copilot"] },
+    { "id": "p02", "text": "is a home freeze dryer worth it", "stage": "awareness", "engines": ["chatgpt", "perplexity", "ai_overviews"] },
+    { "id": "p03", "text": "how much does a home freeze dryer cost to run", "stage": "awareness", "engines": ["chatgpt", "perplexity", "ai_overviews", "copilot"] },
+    { "id": "p04", "text": "best home freeze dryer for beginners", "stage": "consideration", "engines": ["chatgpt", "perplexity", "ai_overviews", "copilot"] },
+    { "id": "p05", "text": "Harvest Right vs Blue Alpine vs Stay Fresh freeze dryer comparison", "stage": "consideration", "engines": ["chatgpt", "perplexity", "claude"] },
+    { "id": "p06", "text": "which size freeze dryer should I buy", "stage": "consideration", "engines": ["chatgpt", "perplexity", "ai_overviews"] },
+    { "id": "p07", "text": "why is my freeze dried food not fully dry", "stage": "decision", "engines": ["chatgpt", "perplexity", "ai_overviews", "copilot"] },
+    { "id": "p08", "text": "freeze dried candy is chewy how to fix", "stage": "decision", "engines": ["chatgpt", "perplexity", "ai_overviews"] },
+    { "id": "p09", "text": "how to know if freeze dried food is dry enough", "stage": "decision", "engines": ["chatgpt", "perplexity", "claude", "ai_overviews"] },
+    { "id": "p10", "text": "vacuum error on freeze dryer troubleshooting", "stage": "decision", "engines": ["chatgpt", "perplexity", "ai_overviews"] },
+    { "id": "p11", "text": "rehydrated freeze dried food tastes bad why", "stage": "decision", "engines": ["chatgpt", "perplexity", "ai_overviews"] },
+    { "id": "p12", "text": "mylar bags vs mason jars for freeze dried food storage", "stage": "consideration", "engines": ["chatgpt", "perplexity", "ai_overviews"] },
+    { "id": "p13", "text": "how long does freeze dried food actually last", "stage": "awareness", "engines": ["chatgpt", "perplexity", "ai_overviews", "copilot"] },
+    { "id": "p14", "text": "can I sell freeze dried food from home legally", "stage": "awareness", "engines": ["chatgpt", "perplexity", "ai_overviews"] },
+    { "id": "p15", "text": "cottage food law freeze dried candy water activity requirement", "stage": "consideration", "engines": ["chatgpt", "perplexity", "claude"] },
+    { "id": "p16", "text": "how much can you make selling freeze dried candy", "stage": "consideration", "engines": ["chatgpt", "perplexity", "ai_overviews"] },
+    { "id": "p17", "text": "water activity testing for cottage food freeze drying", "stage": "decision", "engines": ["chatgpt", "perplexity", "claude"] },
+    { "id": "p18", "text": "freeze dryer batch log or cost tracking spreadsheet", "stage": "decision", "engines": ["chatgpt", "perplexity"] },
+    { "id": "p19", "text": "Harvest Right vs Blue Alpine reliability", "stage": "consideration", "engines": ["chatgpt", "perplexity", "ai_overviews"] },
+    { "id": "p20", "text": "freeze dryer running cost per batch electricity", "stage": "consideration", "engines": ["chatgpt", "perplexity", "ai_overviews", "copilot"] },
+    { "id": "p21", "text": "how to prep food for freeze drying tray load thickness", "stage": "decision", "engines": ["chatgpt", "perplexity", "ai_overviews"] },
+    { "id": "p22", "text": "freeze dryer storage failure food went soft after sealing", "stage": "decision", "engines": ["chatgpt", "perplexity", "ai_overviews"] },
+    { "id": "p23", "text": "Sublime Pantry freeze drying reviews", "stage": "decision", "engines": ["chatgpt", "perplexity", "claude", "ai_overviews", "copilot"] },
+    { "id": "p24", "text": "Sublime Pantry vs Trim Leaf freeze dryer guide", "stage": "decision", "engines": ["chatgpt", "perplexity"] },
+    { "id": "p25", "text": "what is Sublime Pantry", "stage": "decision", "engines": ["chatgpt", "perplexity", "claude", "ai_overviews", "copilot"] }
+  ]
+}

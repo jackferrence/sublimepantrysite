@@ -1,0 +1,60 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../layouts/PageLayout.astro';
+
+const order = ['complete-batch-workflow', 'which-freeze-dryer', 'cottage-economics'];
+const entries = (await getCollection('articles', ({ data }) => data.pillar === 'guides')).sort(
+  (a, b) => order.indexOf(a.id) - order.indexOf(b.id),
+);
+const [flagship, ...rest] = entries;
+const listingKicker: Record<string, string> = {
+  'complete-batch-workflow': 'storage',
+  'which-freeze-dryer': 'machines',
+  'cottage-economics': 'cottage business',
+};
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Freeze-drying guides',
+    description: 'Long-form, source-cited guides that define how we think about machines, batches, and the cottage business behind them.',
+    url: 'https://www.sublimepantry.com/guides.html',
+    isPartOf: { '@id': 'https://www.sublimepantry.com/#website' },
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: entries.map((e, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        url: `https://www.sublimepantry.com/guides/${e.id}`,
+        name: e.data.title,
+      })),
+    },
+  },
+];
+---
+<PageLayout title="Freeze-Drying Guides" description="Flagship guides for home freeze-drying: choosing a machine, running clean batches, and turning your freeze dryer into a cottage business." path="/guides" jsonLd={jsonLd}>
+  <span class="kicker">Guides</span>
+  <h1>Freeze-drying guides</h1>
+  <p style="max-width:60ch;color:var(--ink-soft);">Long-form, source-cited guides that define how we think about machines, batches, and the cottage business behind them.</p>
+
+  {flagship && (
+    <a class="card" style="display:block;margin:1.4rem 0;padding:1.6rem 1.8rem;text-decoration:none;" href={`/guides/${flagship.id}`}>
+      <span class="kicker">Start here &middot; {listingKicker[flagship.id]}</span>
+      <h2 style="margin:.2rem 0 .5rem;"><span style="color:var(--frost-deep);">{flagship.data.title}</span></h2>
+      <p style="color:var(--ink-soft);max-width:64ch;margin-bottom:.3rem;">{flagship.data.description}</p>
+      <p class="meta">{new Date(`${flagship.data.publishedDate}T00:00:00.000Z`).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' })}</p>
+    </a>
+  )}
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(17rem,1fr));gap:1.1rem;margin:1.1rem 0;">
+    {rest.map((entry) => (
+      <a class="card" style="display:block;text-decoration:none;" href={`/guides/${entry.id}`}>
+        <span class="kicker">{listingKicker[entry.id]}</span>
+        <h3 style="margin-top:.2rem;"><span style="color:var(--frost-deep);">{entry.data.title}</span></h3>
+        <p style="color:var(--ink-soft);">{entry.data.description}</p>
+        <p class="meta">{new Date(`${entry.data.publishedDate}T00:00:00.000Z`).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' })}</p>
+      </a>
+    ))}
+  </div>
+</PageLayout>

@@ -1,0 +1,37 @@
+{
+  "domain": "sublimepantry.netlify.app",
+  "ga4": {
+    "installed": false,
+    "property_id": "",
+    "ai_segment_regex_saved": false,
+    "export_method": "manual",
+    "notes": "Not installed. Plausible was wired instead per PRODUCT.md's privacy-first analytics stance -- see plausible entry below. Revisit GA4 only if the owner specifically wants Google's AI-referral segment tooling alongside Plausible."
+  },
+  "plausible": {
+    "installed": true,
+    "script_present_on_all_pages": true,
+    "domain_registered_on_plausible_io": false,
+    "notes": "Script tag (script.outbound-links.js) is live in <head> on all 25 pages, and events.js now forwards every existing custom event (article engagement, tool use, newsletter signup, affiliate click, scroll-complete) to window.plausible(). OWNER ACTION NEEDED: create a Plausible account and add sublimepantry.netlify.app as a site -- until that's done, the script loads but has nowhere to send data."
+  },
+  "bing_wmt": {
+    "verified": false,
+    "export_method": "manual",
+    "notes": "OWNER ACTION NEEDED -- see brief.md Section 2 for exact steps. Blocks ChatGPT + Copilot measurement until done."
+  },
+  "gsc": {
+    "verified": false,
+    "notes": "OWNER ACTION NEEDED -- see brief.md Section 2 for exact steps."
+  },
+  "logs": {
+    "source": "unknown",
+    "notes": "Netlify Analytics (paid, server-side) status unconfirmed -- ask the owner to check the Netlify dashboard."
+  },
+  "indexnow": {
+    "key_hosted": true,
+    "key_location": "https://sublimepantry.netlify.app/a7366f75afb9a795378933d753c283a6.txt",
+    "ping_script": "scripts/indexnow-ping.sh",
+    "notes": "Key file and ping script are ready in the repo. NOT yet pinged -- these changes are not deployed yet. Run scripts/indexnow-ping.sh once this batch of fixes ships to production."
+  },
+  "baseline_captured": "2026-08-31",
+  "baseline_notes": "Captured in geo-brief-sublimepantry-netlify-app/brief.md Section 10 before any repair shipped: zero results for site:sublimepantry.netlify.app and zero results for the brand name across web search. Every prompt in prompt-set.json currently returns zero Sublime Pantry mentions. Re-run via geo-prospect 2-4 weeks after this batch of fixes deploys AND Bing/GSC are verified."
+}
