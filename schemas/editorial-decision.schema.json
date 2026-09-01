@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://www.sublimepantry.com/schemas/editorial-decision.schema.json",
+  "title": "EditorialDecision",
+  "description": "Deterministic scoring output. Produced by scripts/lib/scoring.mjs — never by an LLM.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["runId", "generatedAt", "score", "scoreBreakdown", "outcome", "appliedRiskRules"],
+  "properties": {
+    "runId": { "type": "string" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "score": { "type": "number", "minimum": 0, "maximum": 100 },
+    "scoreBreakdown": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["searchDemand", "positionOpportunity", "evidenceStrength", "contentGap", "freshnessUrgency"],
+      "properties": {
+        "searchDemand": { "type": "number" },
+        "positionOpportunity": { "type": "number" },
+        "evidenceStrength": { "type": "number" },
+        "contentGap": { "type": "number" },
+        "freshnessUrgency": { "type": "number" }
+      }
+    },
+    "outcome": {
+      "type": "string",
+      "enum": ["NO_ACTION", "SOURCED_BRIEF", "REFRESH_RECOMMENDATION", "NEWS_ALERT", "GROWTH_EXPERIMENT", "DRAFT_PR"]
+    },
+    "preDowngradeOutcome": {
+      "type": "string",
+      "enum": ["NO_ACTION", "SOURCED_BRIEF", "REFRESH_RECOMMENDATION", "NEWS_ALERT", "GROWTH_EXPERIMENT", "DRAFT_PR"]
+    },
+    "appliedRiskRules": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "rationale": { "type": "string" }
+  }
+}

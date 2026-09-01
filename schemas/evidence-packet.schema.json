@@ -1,0 +1,92 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://www.sublimepantry.com/schemas/evidence-packet.schema.json",
+  "title": "EvidencePacket",
+  "description": "Output of the read-only research phase. Every factual claim traces to a dated, tiered source with a citation. Nothing in here is prose for the article — it is the evidence the draft phase is allowed to use.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["runId", "generatedAt", "topic", "pillar", "riskClass", "sources", "claims", "searchSignal"],
+  "properties": {
+    "runId": { "type": "string" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "model": { "type": "string" },
+    "topic": { "type": "string", "minLength": 3 },
+    "pillar": { "type": "string", "enum": ["guides", "troubleshooting", "compare"] },
+    "riskClass": { "type": "string", "enum": ["standard", "elevated"] },
+    "candidateSlug": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "title", "url", "publisher", "tier", "accessDate"],
+        "properties": {
+          "id": { "type": "string" },
+          "title": { "type": "string" },
+          "url": { "type": "string", "format": "uri" },
+          "publisher": { "type": "string" },
+          "tier": { "type": "string", "enum": ["primary", "secondary"] },
+          "accessDate": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+          "excerpt": { "type": "string" }
+        }
+      }
+    },
+    "claims": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "text", "sourceIds"],
+        "properties": {
+          "id": { "type": "string" },
+          "text": { "type": "string" },
+          "sourceIds": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string" }
+          },
+          "elevatedRisk": { "type": "boolean", "default": false }
+        }
+      }
+    },
+    "comparisonCriteria": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label"],
+        "properties": {
+          "label": { "type": "string" },
+          "note": { "type": "string" }
+        }
+      }
+    },
+    "searchSignal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source"],
+      "properties": {
+        "source": { "type": "string", "enum": ["search-console", "manual", "none"] },
+        "topQueries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["query", "impressions", "clicks", "position"],
+            "properties": {
+              "query": { "type": "string" },
+              "impressions": { "type": "number", "minimum": 0 },
+              "clicks": { "type": "number", "minimum": 0 },
+              "position": { "type": "number", "minimum": 0 }
+            }
+          }
+        },
+        "existingCoverageUrl": { "type": ["string", "null"] },
+        "existingCoverageAgeDays": { "type": ["number", "null"] }
+      }
+    },
+    "notes": { "type": "string" }
+  }
+}

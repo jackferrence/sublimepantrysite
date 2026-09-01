@@ -1,0 +1,67 @@
+{
+  "runId": "fixture-run",
+  "generatedAt": "2026-08-31T12:00:00.000Z",
+  "model": "claude-opus-5",
+  "topic": "Storing freeze-dried eggs long-term",
+  "pillar": "troubleshooting",
+  "riskClass": "elevated",
+  "candidateSlug": "freeze-dried-eggs-storage",
+  "sources": [
+    {
+      "id": "s1",
+      "title": "Preserving food at home: Freeze-drying",
+      "url": "https://extension.umn.edu/preserve-your-own-food/freeze-drying",
+      "publisher": "University of Minnesota Extension",
+      "tier": "primary",
+      "accessDate": "2026-08-30",
+      "excerpt": "Properly freeze-dried and packaged foods can be stored for extended periods when kept cool, dark, and dry."
+    },
+    {
+      "id": "s2",
+      "title": "Freeze Drying Eggs: What You Need to Know",
+      "url": "https://harvestright.com/blogs/freeze-drying-learning-center/freeze-drying-eggs",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-08-30",
+      "excerpt": "Eggs should be fully scrambled and cooked before freeze-drying; raw eggs are not recommended."
+    },
+    {
+      "id": "s3",
+      "title": "Freeze-Dried Egg Storage Tips",
+      "url": "https://backyardhomesteadhq.com/freeze-dried-egg-storage/",
+      "publisher": "Backyard Homestead HQ",
+      "tier": "secondary",
+      "accessDate": "2026-08-30",
+      "excerpt": "Mylar with oxygen absorbers is the most common storage method reported by home users."
+    }
+  ],
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Eggs must be fully cooked (scrambled) before freeze-drying; raw eggs are not recommended for home freeze-drying.",
+      "sourceIds": ["s2"],
+      "elevatedRisk": true
+    },
+    {
+      "id": "c2",
+      "text": "Properly freeze-dried, packaged food stored cool, dark, and dry can last for extended periods, per university extension guidance.",
+      "sourceIds": ["s1"],
+      "elevatedRisk": true
+    },
+    {
+      "id": "c3",
+      "text": "Mylar bags with oxygen absorbers are the most common home storage method reported for freeze-dried eggs.",
+      "sourceIds": ["s3"]
+    }
+  ],
+  "searchSignal": {
+    "source": "search-console",
+    "topQueries": [
+      { "query": "how long do freeze dried eggs last", "impressions": 1400, "clicks": 12, "position": 18.4 },
+      { "query": "freeze dried eggs storage", "impressions": 620, "clicks": 4, "position": 22.1 }
+    ],
+    "existingCoverageUrl": null,
+    "existingCoverageAgeDays": null
+  },
+  "notes": "Fixture packet for editorial:dry-run — not real research output."
+}
