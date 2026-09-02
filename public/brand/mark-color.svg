@@ -1,0 +1,11 @@
+<svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <title>Sublime Pantry mark</title>
+  
+    <rect x="56" y="64" width="144" height="160" rx="24" fill="#e7eef3" stroke="#1d3f56" stroke-width="14"/>
+    <rect x="72" y="32" width="112" height="32" rx="12" fill="#ac5216"/>
+    <g stroke="#2c5d7c" stroke-width="13" stroke-linecap="round">
+      <line x1="128" y1="96" x2="128" y2="192"/>
+      <line x1="86.4" y1="120" x2="169.6" y2="168"/>
+      <line x1="169.6" y1="120" x2="86.4" y2="168"/>
+    </g>
+</svg>
