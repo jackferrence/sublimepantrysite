@@ -4,8 +4,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const shopifyDomain = 'zd-store-01m146jmxxhw739y7t7y11s669-paky1ta3.myshopify.com';
 const activeProducts = [
   {
+    handle: 'freeze-dryer-packaging-starter-kit-100',
+    eyebrow: 'Validation launch',
+    note: '100 assorted 7 mil Mylar bags, matched oxygen absorbers, 100 labels, and PackFreshUSA’s storage guide. Sold at current retail source cost while we validate demand.',
+  },
+  {
     handle: 'quart-mylar-bags-300cc-oxygen-absorbers-50',
-    eyebrow: 'Packaging system',
+    eyebrow: 'Packaging refill',
     note: 'Quart-size Mylar bags paired with appropriately sized oxygen absorbers for dry, shelf-stable foods.',
   },
 ];
@@ -22,8 +27,14 @@ const activeProducts = [
     <header class="shop-hero">
       <span class="kicker">Sublime Pantry Shop</span>
       <h1>Freeze-drying supplies, without the junk drawer.</h1>
-      <p class="lede">A deliberately small catalog for packaging and storing freeze-dried food. We publish products only when the specifications are ready; incomplete products stay off the shelf.</p>
+      <p class="lede">A deliberately small catalog for packaging and storing freeze-dried food. Our starter kit is currently being sold at its retail source cost while we validate the product and fulfillment workflow.</p>
     </header>
+
+    <section class="validation-note card" aria-label="Validation launch details">
+      <span class="kicker">Early validation</span>
+      <strong>No markup on the starter kit right now.</strong>
+      <p>The starter kit is sourced directly from PackFreshUSA at its current retail price and manually ordered to the customer after purchase. This lets us validate demand before moving to bulk inventory and branded fulfillment.</p>
+    </section>
 
     <section aria-labelledby="available-now">
       <div class="section-head">
@@ -66,9 +77,9 @@ const activeProducts = [
     </section>
 
     <section class="shop-coming card" aria-labelledby="coming-next">
-      <span class="kicker">Coming next</span>
-      <h2 id="coming-next">The starter kit is being finished before it goes live.</h2>
-      <p>The Freeze-Dryer Packaging Starter Kit and additional replenishment products are already being organized in Shopify, but they will stay unpublished until their product specifications, sourcing, imagery, and fulfillment details are ready.</p>
+      <span class="kicker">Next after validation</span>
+      <h2 id="coming-next">Refills and expanded packaging.</h2>
+      <p>Additional oxygen absorber refills, gallon packaging, and candy pouches are already staged in Shopify. They will remain draft until each source configuration and fulfillment detail is verified.</p>
       <a class="btn btn-ghost" href="/guides/complete-batch-workflow">Read the packaging workflow</a>
     </section>
   </div>
@@ -77,8 +88,11 @@ const activeProducts = [
 
   <style>
     .shop-page { padding-top: 3.5rem; padding-bottom: 4rem; }
-    .shop-hero { max-width: 760px; margin-bottom: 3rem; }
+    .shop-hero { max-width: 760px; margin-bottom: 1.5rem; }
     .shop-hero h1 { margin: .35rem 0 .8rem; }
+    .validation-note { margin-bottom: 3rem; padding: 1.2rem 1.35rem; max-width: 760px; }
+    .validation-note strong { display: block; margin: .35rem 0 .4rem; }
+    .validation-note p { margin: 0; color: var(--ink-soft); }
     .shop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
     .shop-card { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--paper, #fff); height: 100%; }
     .shop-card-media { aspect-ratio: 1; background: #f4f6f7; display: grid; place-items: center; overflow: hidden; }
