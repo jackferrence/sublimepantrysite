@@ -1,0 +1,96 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const shopifyDomain = 'zd-store-01m146jmxxhw739y7t7y11s669-paky1ta3.myshopify.com';
+const activeProducts = [
+  {
+    handle: 'quart-mylar-bags-300cc-oxygen-absorbers-50',
+    eyebrow: 'Packaging system',
+    note: 'Quart-size Mylar bags paired with appropriately sized oxygen absorbers for dry, shelf-stable foods.',
+  },
+];
+---
+<BaseLayout
+  title="Freeze-drying supplies"
+  description="Shop Sublime Pantry freeze-drying packaging supplies. Product pricing and availability come directly from Shopify; checkout is securely handled by Shopify."
+  path="/shop"
+>
+  <script type="module" src="https://cdn.shopify.com/storefront/web-components.js"></script>
+  <shopify-store id="sublime-pantry-store" store-domain={shopifyDomain} country="US" language="en"></shopify-store>
+
+  <div class="wrap shop-page">
+    <header class="shop-hero">
+      <span class="kicker">Sublime Pantry Shop</span>
+      <h1>Freeze-drying supplies, without the junk drawer.</h1>
+      <p class="lede">A deliberately small catalog for packaging and storing freeze-dried food. We publish products only when the specifications are ready; incomplete products stay off the shelf.</p>
+    </header>
+
+    <section aria-labelledby="available-now">
+      <div class="section-head">
+        <div>
+          <span class="kicker">Available now</span>
+          <h2 id="available-now">Packaging essentials</h2>
+        </div>
+        <button class="btn btn-ghost" type="button" onclick="document.getElementById('sublime-cart').showModal()">View cart</button>
+      </div>
+
+      <div class="shop-grid">
+        {activeProducts.map((product) => (
+          <shopify-context type="product" handle={product.handle}>
+            <template>
+              <article class="shop-card">
+                <div class="shop-card-media">
+                  <shopify-media query="product.selectedOrFirstAvailableVariant.image" width="640" height="640"></shopify-media>
+                </div>
+                <div class="shop-card-body">
+                  <span class="kicker">{product.eyebrow}</span>
+                  <h2><shopify-data query="product.title"></shopify-data></h2>
+                  <p>{product.note}</p>
+                  <div class="shop-price"><shopify-money query="product.selectedOrFirstAvailableVariant.price" format="money_with_currency"></shopify-money></div>
+                  <button
+                    class="btn btn-primary"
+                    type="button"
+                    onclick="document.getElementById('sublime-cart').addLine(event).showModal();"
+                    shopify-attr--disabled="!product.selectedOrFirstAvailableVariant.availableForSale"
+                    data-sp-event="shop_add_to_cart"
+                  >
+                    Add to cart
+                  </button>
+                </div>
+              </article>
+            </template>
+            <div class="shop-loading" shopify-loading-placeholder>Loading current product details…</div>
+          </shopify-context>
+        ))}
+      </div>
+    </section>
+
+    <section class="shop-coming card" aria-labelledby="coming-next">
+      <span class="kicker">Coming next</span>
+      <h2 id="coming-next">The starter kit is being finished before it goes live.</h2>
+      <p>The Freeze-Dryer Packaging Starter Kit and additional replenishment products are already being organized in Shopify, but they will stay unpublished until their product specifications, sourcing, imagery, and fulfillment details are ready.</p>
+      <a class="btn btn-ghost" href="/guides/complete-batch-workflow">Read the packaging workflow</a>
+    </section>
+  </div>
+
+  <shopify-cart id="sublime-cart" target="_top"></shopify-cart>
+
+  <style>
+    .shop-page { padding-top: 3.5rem; padding-bottom: 4rem; }
+    .shop-hero { max-width: 760px; margin-bottom: 3rem; }
+    .shop-hero h1 { margin: .35rem 0 .8rem; }
+    .shop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
+    .shop-card { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--paper, #fff); height: 100%; }
+    .shop-card-media { aspect-ratio: 1; background: #f4f6f7; display: grid; place-items: center; overflow: hidden; }
+    .shop-card-media shopify-media { width: 100%; height: 100%; }
+    .shop-card-body { padding: 1.35rem; }
+    .shop-card-body h2 { margin: .35rem 0 .65rem; font-size: 1.35rem; }
+    .shop-card-body p { color: var(--ink-soft); }
+    .shop-price { font-weight: 700; font-size: 1.15rem; margin: 1rem 0; }
+    .shop-loading { padding: 2rem; border: 1px solid var(--line); border-radius: 14px; color: var(--ink-soft); }
+    .shop-coming { margin-top: 2.5rem; padding: 1.6rem; }
+    .shop-coming h2 { margin: .35rem 0 .7rem; }
+    .shop-coming p { max-width: 70ch; color: var(--ink-soft); }
+    shopify-cart::part(primary-button) { border-radius: 4px; }
+  </style>
+</BaseLayout>
