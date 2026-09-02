@@ -74,8 +74,8 @@ if (d.pillar === 'compare' && d.comparisonCriteria) {
 <BaseLayout title={d.title} description={d.description} path={path} ogType="article" jsonLd={jsonLd}>
   <article class="prose" style="padding-top:2.2rem;">
     <header class="article-header">
-      <span class="kicker">{d.kicker}</span>
-      <h1>{d.title}</h1>
+      <span class="kicker">{d.section ?? d.kicker}</span>
+      <h1 transition:name={`sp-title-${entry.id}`}>{d.title}</h1>
       <p class="article-meta">
         Reviewed by <strong>{d.author}, Sublime Pantry Editorial</strong><br />
         Published <time datetime={publishedIso}>{publishedDisplay}</time>
@@ -90,7 +90,7 @@ if (d.pillar === 'compare' && d.comparisonCriteria) {
 
     {d.faq && d.faq.map((f) => (
       <div class="notice notice-info" style="margin:2.2rem 0;">
-        <p style="margin:0 0 .3rem;font-weight:700;color:var(--frost-deep);">{f.question}</p>
+        <p style="margin:0 0 .3rem;font-weight:700;color:var(--heading);">{f.question}</p>
         <p style="margin:0;">{f.answer}</p>
       </div>
     ))}

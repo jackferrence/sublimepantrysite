@@ -74,8 +74,9 @@ const jsonLd = [
     {duringCycle.map((id) => byId[id] && (
       <li class="card">
         <span class="kicker">Symptom</span>
-        <h3><a href={`/troubleshooting/${id}`}>{listing[id].title}</a></h3>
+        <h3><a href={`/troubleshooting/${id}`} transition:name={`sp-title-${id}`}>{listing[id].title}</a></h3>
         <p>{listing[id].description}</p>
+        {byId[id].data.riskClass === 'elevated' && <p class="meta symptom-risk">Food-safety check</p>}
       </li>
     ))}
   </ul>
@@ -85,8 +86,9 @@ const jsonLd = [
     {afterBatch.map((id) => byId[id] && (
       <li class="card">
         <span class="kicker">Symptom</span>
-        <h3><a href={`/troubleshooting/${id}`}>{listing[id].title}</a></h3>
+        <h3><a href={`/troubleshooting/${id}`} transition:name={`sp-title-${id}`}>{listing[id].title}</a></h3>
         <p>{listing[id].description}</p>
+        {byId[id].data.riskClass === 'elevated' && <p class="meta symptom-risk">Food-safety check</p>}
       </li>
     ))}
   </ul>
@@ -98,8 +100,9 @@ const jsonLd = [
         {unknownIds.map((id) => byId[id] && (
           <li class="card">
             <span class="kicker">Symptom</span>
-            <h3><a href={`/troubleshooting/${id}`}>{byId[id].data.title}</a></h3>
+            <h3><a href={`/troubleshooting/${id}`} transition:name={`sp-title-${id}`}>{byId[id].data.title}</a></h3>
             <p>{byId[id].data.description}</p>
+            {byId[id].data.riskClass === 'elevated' && <p class="meta symptom-risk">Food-safety check</p>}
           </li>
         ))}
       </ul>

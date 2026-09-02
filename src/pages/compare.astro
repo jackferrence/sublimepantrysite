@@ -3,7 +3,6 @@ import { getCollection } from 'astro:content';
 import PageLayout from '../layouts/PageLayout.astro';
 
 const order = ['home-freeze-dryers', 'storage-containers'];
-const listingKicker: Record<string, string> = { 'home-freeze-dryers': 'machines', 'storage-containers': 'storage' };
 // The listing page uses shorter curated blurbs, distinct from each article's
 // full meta description.
 const listingDescription: Record<string, string> = {
@@ -43,11 +42,14 @@ const jsonLd = [
   <p style="max-width:60ch;color:var(--ink-soft);">Every comparison declares its criteria and its evidence, and is explicit about what we have and haven't tested ourselves.</p>
 
   {entries.map((entry) => (
-    <a class="card" style="display:flex;gap:1.5rem;align-items:baseline;flex-wrap:wrap;margin:1.4rem 0;padding:1.5rem 1.7rem;text-decoration:none;" href={`/compare/${entry.id}`}>
-      <span class="kicker" style="flex:0 0 auto;">{listingKicker[entry.id] ?? entry.data.kicker}</span>
+    <a class="card compare-card" href={`/compare/${entry.id}`}>
+      <span class="kicker" style="flex:0 0 auto;">{entry.data.section ?? entry.data.kicker}</span>
       <div style="flex:1 1 24rem;">
-        <h2 style="margin:.1rem 0 .5rem;color:var(--frost-deep);">{entry.data.title}</h2>
-        <p style="color:var(--ink-soft);margin-bottom:0;">{listingDescription[entry.id] ?? entry.data.description}</p>
+        <h2 style="margin:.1rem 0 .5rem;color:var(--heading);" transition:name={`sp-title-${entry.id}`}>{entry.data.title}</h2>
+        <p style="color:var(--ink-soft);margin-bottom:.5rem;">{listingDescription[entry.id] ?? entry.data.description}</p>
+        {entry.data.comparisonCriteria && entry.data.comparisonCriteria.length > 0 && (
+          <p class="meta compare-criteria">Compared on: {entry.data.comparisonCriteria.map((c) => c.label).join(', ')}</p>
+        )}
       </div>
     </a>
   ))}

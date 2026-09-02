@@ -1,6 +1,16 @@
 (() => {
+  // Astro's client-side router may not re-execute this script tag when
+  // navigating back to "/" (it dedupes identical `<script src>` tags across
+  // navigations), which would otherwise leave a fresh canvas element with
+  // no animation attached to it. `astro:page-load` fires on the first load
+  // and every navigation after it, so the whole setup lives in there and
+  // re-runs against whatever canvas element currently exists.
+  document.addEventListener('astro:page-load', mount);
+
+  function mount() {
   const canvas = document.getElementById('sublimation-canvas');
-  if (!canvas || !canvas.getContext) return;
+  if (!canvas || !canvas.getContext || canvas.dataset.spMounted) return;
+  canvas.dataset.spMounted = '1';
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
 
@@ -187,5 +197,6 @@
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(resize, 150);
     });
+  }
   }
 })();

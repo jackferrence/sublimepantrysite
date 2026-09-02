@@ -13,12 +13,12 @@ import Newsletter from '../../components/Newsletter.astro';
     <p style="max-width:62ch;color:var(--ink-soft);">Every batch you log makes your machine more predictable and your pricing more honest. Data is stored <strong>only in this browser</strong> — we never see it. Export to CSV for backup or your cottage-food records.</p>
 
     <div class="tool-panel">
-      <form id="batch-form" novalidate>
+      <form id="batch-form" novalidate data-astro-reload>
         <fieldset>
           <legend>The batch</legend>
           <div class="field-grid">
-            <div><label for="f-date">Date</label><input type="date" id="f-date" required /></div>
-            <div><label for="f-food">Food</label><input type="text" id="f-food" placeholder="e.g. Skittles, strawberries" required /></div>
+            <div><label for="f-date">Date</label><input type="date" id="f-date" required aria-describedby="f-date-error" /><p class="field-error" id="f-date-error" hidden>Enter the date this batch ran.</p></div>
+            <div><label for="f-food">Food</label><input type="text" id="f-food" placeholder="e.g. Skittles, strawberries" required aria-describedby="f-food-error" /><p class="field-error" id="f-food-error" hidden>Enter what you dried.</p></div>
             <div><label for="f-load">Load (lb fresh)</label><input type="number" id="f-load" min="0" step="0.1" placeholder="12" /></div>
             <div><label for="f-hours">Total cycle hours</label><input type="number" id="f-hours" min="0" step="0.5" placeholder="28" /></div>
           </div>
@@ -76,7 +76,7 @@ import Newsletter from '../../components/Newsletter.astro';
     <p id="empty-note" style="color:var(--ink-soft);">No batches yet. Log your first one above.</p>
     <p style="margin-top:1.2rem;">
       <button class="btn btn-ghost" id="export-btn" type="button" style="cursor:pointer;" data-sp-event="tool_csv_export">Export CSV</button>
-      <button class="btn btn-ghost" id="clear-btn" type="button" style="cursor:pointer;color:#8a2f2f;border-color:#8a2f2f;">Delete all data</button>
+      <button class="btn btn-ghost" id="clear-btn" type="button" style="cursor:pointer;color:var(--sp-danger);border-color:var(--sp-danger);">Delete all data</button>
     </p>
 
     <div class="notice notice-info" role="note" style="margin-top:2rem;">
@@ -95,16 +95,26 @@ import Newsletter from '../../components/Newsletter.astro';
     }
     #log-table th {
       background: var(--frost-tint);
-      color: var(--frost-deep);
+      color: var(--heading);
     }
     #log-table .del-btn {
-      color: #8a2f2f;
+      color: var(--sp-danger);
       cursor: pointer;
       background: none;
       border: 0;
-      padding: 0;
+      padding: 0.4rem 0.3rem;
+      margin: -0.4rem -0.3rem;
       font-size: 0.85rem;
       text-decoration: underline;
+      min-height: 24px;
+    }
+    .field-error {
+      color: var(--sp-danger);
+      margin: 0.3rem 0 0;
+      font-size: 0.82rem;
+    }
+    .field-grid input.has-error {
+      border-color: var(--sp-danger);
     }
   </style>
 
@@ -148,6 +158,16 @@ import Newsletter from '../../components/Newsletter.astro';
       }
       function money(v: number | null) {
         return v == null ? '–' : '$' + v.toFixed(2);
+      }
+
+      function withTransition(fn: () => void) {
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const doc = document as Document & { startViewTransition?: (cb: () => void) => void };
+        if (!reduceMotion && typeof doc.startViewTransition === 'function') {
+          doc.startViewTransition(fn);
+        } else {
+          fn();
+        }
       }
 
       function totalCost(r: BatchRow) {
@@ -199,7 +219,7 @@ import Newsletter from '../../components/Newsletter.astro';
             const all = load();
             all.splice(i, 1);
             save(all);
-            render();
+            withTransition(render);
           });
           tdDel.appendChild(btn);
           tr.appendChild(tdDel);
@@ -230,8 +250,14 @@ import Newsletter from '../../components/Newsletter.astro';
         e.preventDefault();
         const foodEl = document.getElementById('f-food') as HTMLInputElement;
         const dateEl = document.getElementById('f-date') as HTMLInputElement;
+        const foodError = document.getElementById('f-food-error') as HTMLElement;
+        const dateError = document.getElementById('f-date-error') as HTMLElement;
         const food = foodEl.value.trim();
         const date = dateEl.value;
+        dateError.hidden = Boolean(date);
+        foodError.hidden = Boolean(food);
+        dateEl.classList.toggle('has-error', !date);
+        foodEl.classList.toggle('has-error', !food);
         if (!food || !date) {
           if (!date) dateEl.focus();
           else foodEl.focus();
@@ -253,7 +279,7 @@ import Newsletter from '../../components/Newsletter.astro';
         });
         save(rows);
         (e.target as HTMLFormElement).reset();
-        render();
+        withTransition(render);
       });
 
       document.getElementById('export-btn')!.addEventListener('click', () => {
@@ -292,8 +318,17 @@ import Newsletter from '../../components/Newsletter.astro';
           } catch {
             /* ignore */
           }
-          render();
+          withTransition(render);
         }
+      });
+
+      document.getElementById('f-date')!.addEventListener('input', (e) => {
+        (document.getElementById('f-date-error') as HTMLElement).hidden = true;
+        (e.target as HTMLElement).classList.remove('has-error');
+      });
+      document.getElementById('f-food')!.addEventListener('input', (e) => {
+        (document.getElementById('f-food-error') as HTMLElement).hidden = true;
+        (e.target as HTMLElement).classList.remove('has-error');
       });
 
       render();

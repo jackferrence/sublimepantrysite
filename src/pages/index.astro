@@ -18,8 +18,11 @@ import Newsletter from '../components/Newsletter.astro';
           <a class="btn btn-ghost" href="/tools/batch-log">Open the free Batch Log</a>
         </div>
       </div>
-      <div class="hero-visual" aria-hidden="true">
-        <canvas id="sublimation-canvas" width="440" height="440"></canvas>
+      <div class="hero-visual">
+        <div class="hero-visual-frame" aria-hidden="true">
+          <canvas id="sublimation-canvas" width="440" height="440"></canvas>
+        </div>
+        <p class="hero-visual-caption">Sublimation: solid to vapor, no liquid stage in between &mdash; the same process behind every batch you run.</p>
       </div>
     </div>
   </div>
@@ -32,17 +35,17 @@ import Newsletter from '../components/Newsletter.astro';
     <ul class="card-grid">
       <li class="card">
         <span class="kicker">storage</span>
-        <h3><a href="/guides/complete-batch-workflow">The complete batch workflow: from tray prep to sealed mylar</a></h3>
+        <h3><a href="/guides/complete-batch-workflow" transition:name="sp-title-complete-batch-workflow">The complete batch workflow: from tray prep to sealed mylar</a></h3>
         <p>The full home freeze-drying process done right: prep, cycle stages, the dryness test, and packaging within the window that keeps food crisp for decades.</p>
       </li>
       <li class="card">
         <span class="kicker">cottage business</span>
-        <h3><a href="/guides/cottage-economics">Selling freeze-dried food from home: rules, testing, and real unit economics</a></h3>
+        <h3><a href="/guides/cottage-economics" transition:name="sp-title-cottage-economics">Selling freeze-dried food from home: rules, testing, and real unit economics</a></h3>
         <p>What cottage food laws generally allow, the 0.85 water-activity line, sub-$100 testing, and labeling, plus a worked cost model for pricing a bag of freeze-dried candy.</p>
       </li>
       <li class="card">
         <span class="kicker">machines</span>
-        <h3><a href="/guides/which-freeze-dryer">Which home freeze dryer should you buy? A decision framework</a></h3>
+        <h3><a href="/guides/which-freeze-dryer" transition:name="sp-title-which-freeze-dryer">Which home freeze dryer should you buy? A decision framework</a></h3>
         <p>A $1,700–$5,000 decision made systematically: size, brand, power, placement, and running cost, with every spec sourced from manufacturer documentation.</p>
       </li>
     </ul>
@@ -54,17 +57,17 @@ import Newsletter from '../components/Newsletter.astro';
     <ul class="card-grid">
       <li class="card">
         <span class="kicker">Symptom</span>
-        <h3><a href="/troubleshooting/batch-not-dry">Food isn't fully dry, especially on the center trays</a></h3>
+        <h3><a href="/troubleshooting/batch-not-dry" transition:name="sp-title-batch-not-dry">Food isn't fully dry, especially on the center trays</a></h3>
         <p>Why center-tray food comes out cool, flexible, or dark in the middle, and the checks that fix it, in the order to try them.</p>
       </li>
       <li class="card">
         <span class="kicker">Symptom</span>
-        <h3><a href="/troubleshooting/chewy-candy">Candy is chewy, melted, or didn't puff</a></h3>
+        <h3><a href="/troubleshooting/chewy-candy" transition:name="sp-title-chewy-candy">Candy is chewy, melted, or didn't puff</a></h3>
         <p>Chewy centers, melted puddles, or candy that never puffed: each failure has a distinct cause, whether that's spacing, settings, or a candy that fundamentally won't work.</p>
       </li>
       <li class="card">
         <span class="kicker">Symptom</span>
-        <h3><a href="/troubleshooting/rehydration-problems">Rehydrated food is tough, mushy, or tastes flat</a></h3>
+        <h3><a href="/troubleshooting/rehydration-problems" transition:name="sp-title-rehydration-problems">Rehydrated food is tough, mushy, or tastes flat</a></h3>
         <p>Rehydration failures trace back to three places: how the food was dried, how it's being rehydrated, and what that food can ever be again, plus the food-safety rule that applies.</p>
       </li>
     </ul>
@@ -76,12 +79,12 @@ import Newsletter from '../components/Newsletter.astro';
     <ul class="card-grid">
       <li class="card">
         <span class="kicker">machines</span>
-        <h3><a href="/compare/home-freeze-dryers">Harvest Right vs. Blue Alpine vs. Stay Fresh: the spec comparison</a></h3>
+        <h3><a href="/compare/home-freeze-dryers" transition:name="sp-title-home-freeze-dryers">Harvest Right vs. Blue Alpine vs. Stay Fresh: the spec comparison</a></h3>
         <p>The three main US home freeze dryer brands compared on price, capacity, power, pump, and warranty. Every figure comes from manufacturer documentation, with access dates.</p>
       </li>
       <li class="card">
         <span class="kicker">storage</span>
-        <h3><a href="/compare/storage-containers">Mylar bags vs. mason jars vs. PETE: freeze-dried storage compared</a></h3>
+        <h3><a href="/compare/storage-containers" transition:name="sp-title-storage-containers">Mylar bags vs. mason jars vs. PETE: freeze-dried storage compared</a></h3>
         <p>The three legitimate storage systems for freeze-dried food, compared on barrier quality, cost per unit, resealability, and fitness for selling vs. pantry use.</p>
       </li>
     </ul>

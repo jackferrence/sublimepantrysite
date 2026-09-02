@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
@@ -64,14 +65,15 @@ const organizationGraph = [
     <script is:inline type="application/ld+json" set:html={JSON.stringify({ "@context": "https://schema.org", "@graph": organizationGraph })} />
     {jsonLd.map((block) => <script is:inline type="application/ld+json" set:html={JSON.stringify(block)} />)}
     <script is:inline defer data-domain="www.sublimepantry.com" src="https://plausible.io/js/script.outbound-links.js"></script>
+    <ClientRouter />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
-    <Header />
-    <main id="main">
+    <Header transition:persist />
+    <main id="main" transition:animate="fade">
       <slot />
     </main>
-    <Footer />
+    <Footer transition:persist />
     <script is:inline src="/events.js" defer></script>
     <script is:inline src="/header-nav.js" defer></script>
   </body>
