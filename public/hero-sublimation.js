@@ -15,9 +15,13 @@
   if (!ctx) return;
 
   const root = getComputedStyle(document.documentElement);
+  // The crystal's solid structure is rendered in the brand's dominant warm
+  // ink; the vapor drifting off it stays the cooler, minor frost blue —
+  // a solid warm object dissolving into cool mist, matching what
+  // sublimation actually is.
   const colorFrost = root.getPropertyValue('--frost').trim() || '#2c5d7c';
-  const colorFrostDeep = root.getPropertyValue('--frost-deep').trim() || '#1d3f56';
-  const colorAmber = root.getPropertyValue('--amber').trim() || '#9a6115';
+  const colorFrostDeep = root.getPropertyValue('--heading').trim() || '#8a3d10';
+  const colorAmber = root.getPropertyValue('--amber').trim() || '#ac5216';
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
