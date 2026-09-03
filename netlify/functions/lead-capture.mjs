@@ -6,9 +6,26 @@
  * metafields. Netlify Forms remains the system of record; this function is
  * additive and must never be the reason a lead is lost.
  *
+ * Authentication supports both of Shopify's paths, because which one a store
+ * can use depends on how it was created:
+ *
+ *  1. Client credentials grant (preferred, and the current path for new apps).
+ *     Set SHOPIFY_CLIENT_ID + SHOPIFY_CLIENT_SECRET. The function exchanges
+ *     them for a token at runtime. Tokens last 24h (expires_in 86399), so they
+ *     are cached in module scope and renewed a minute before expiry. Requires
+ *     the app and the store to be in the same Shopify organization, else
+ *     Shopify returns `shop_not_permitted`.
+ *
+ *  2. A long-lived Admin API token. Set SHOPIFY_ADMIN_API_TOKEN. This covers
+ *     legacy admin-created custom apps and custom-distribution apps installed
+ *     via the authorization code grant. Takes precedence when both are set.
+ *
+ * Shopify retired admin-created custom apps on 2026-01-01, so path 1 is the
+ * likely one for this store. See docs/SHOPIFY-ADMIN-SETUP.md §8.
+ *
  * Security invariants:
- *  - The Admin API token lives only in this function's environment. It is never
- *    sent to the browser and never logged.
+ *  - Credentials live only in this function's environment. They are never sent
+ *    to the browser and never logged.
  *  - A customer is only ever marked SUBSCRIBED when the submission carried an
  *    explicit marketing_consent === true. Absent consent, the request is
  *    rejected outright rather than written without consent.
@@ -26,6 +43,53 @@ const LIFECYCLE_STAGES = new Set([
   'active-owner',
   'cottage-seller',
 ]);
+
+/**
+ * Cached client-credentials token. Module scope persists across invocations on
+ * a warm Lambda, so a burst of signups costs one token exchange, not one each.
+ * A cold start simply fetches a new one.
+ */
+let cachedToken = null;
+
+async function getAccessToken(shop) {
+  const staticToken = process.env.SHOPIFY_ADMIN_API_TOKEN;
+  if (staticToken) return staticToken;
+
+  const clientId = process.env.SHOPIFY_CLIENT_ID;
+  const clientSecret = process.env.SHOPIFY_CLIENT_SECRET;
+  if (!clientId || !clientSecret) return null;
+
+  // Renew a minute early so a token cannot expire mid-request.
+  if (cachedToken && cachedToken.expiresAt - 60_000 > Date.now()) {
+    return cachedToken.value;
+  }
+
+  const res = await fetch(`https://${shop}/admin/oauth/access_token`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      grant_type: 'client_credentials',
+      client_id: clientId,
+      client_secret: clientSecret,
+    }),
+  });
+
+  if (!res.ok) {
+    // The body names the cause (commonly shop_not_permitted, when the app and
+    // store are not in the same Shopify organization). It contains no secret.
+    const detail = await res.text();
+    throw new Error(`Token exchange failed (${res.status}): ${detail.slice(0, 200)}`);
+  }
+
+  const body = await res.json();
+  if (!body.access_token) throw new Error('Token exchange returned no access_token');
+
+  cachedToken = {
+    value: body.access_token,
+    expiresAt: Date.now() + (Number(body.expires_in) || 86_399) * 1000,
+  };
+  return cachedToken.value;
+}
 
 const CUSTOMER_UPSERT = `
   mutation LeadUpsert($input: CustomerInput!) {
@@ -109,10 +173,21 @@ export default async (request) => {
   }
 
   const shop = process.env.SHOPIFY_SHOP_DOMAIN;
-  const token = process.env.SHOPIFY_ADMIN_API_TOKEN;
-  if (!shop || !token) {
+  if (!shop) {
     // Documented no-op: Netlify Forms already captured this lead.
-    console.info('[lead-capture] Shopify env vars absent; skipping customer sync.');
+    console.info('[lead-capture] SHOPIFY_SHOP_DOMAIN absent; skipping customer sync.');
+    return new Response(null, { status: 204 });
+  }
+
+  let token;
+  try {
+    token = await getAccessToken(shop);
+  } catch (error) {
+    console.error('[lead-capture] Could not obtain an access token:', error.message);
+    return new Response(null, { status: 202 });
+  }
+  if (!token) {
+    console.info('[lead-capture] No Shopify credentials configured; skipping customer sync.');
     return new Response(null, { status: 204 });
   }
 

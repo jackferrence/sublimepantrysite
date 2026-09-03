@@ -162,20 +162,31 @@ Set the internal email recipient on Flows 1 and 5 to an address you actually wat
 
 | Variable | Used by | Scope | Value |
 |---|---|---|---|
-| `SHOPIFY_SHOP_DOMAIN` | `netlify/functions/lead-capture.mjs` | Functions (runtime) | `zd-store-01m146jmxxhw739y7t7y11s669-paky1ta3.myshopify.com` |
-| `SHOPIFY_ADMIN_API_TOKEN` | `netlify/functions/lead-capture.mjs` | Functions (runtime) | `shpat_…` — see below |
+| `SHOPIFY_SHOP_DOMAIN` | `lead-capture.mjs` | Functions (runtime) | `zd-store-01m146jmxxhw739y7t7y11s669-paky1ta3.myshopify.com` |
+| `SHOPIFY_CLIENT_ID` | `lead-capture.mjs` | Functions (runtime) | Dev Dashboard app Client ID |
+| `SHOPIFY_CLIENT_SECRET` | `lead-capture.mjs` | Functions (runtime) | Dev Dashboard app Client secret |
+| `SHOPIFY_ADMIN_API_TOKEN` | `lead-capture.mjs` | Functions (runtime) | *Only if you already have a long-lived `shpat_…` token. Takes precedence.* |
 | `JUDGEME_SHOP_DOMAIN` | `src/lib/reviews.ts` | **Build** | same myshopify domain |
 | `JUDGEME_PRIVATE_TOKEN` | `src/lib/reviews.ts` | **Build** | Judge.me private token |
 
-### Creating the Shopify Admin token
+### Getting Shopify credentials — the flow changed on 2026-01-01
 
-**Settings → Apps and sales channels → Develop apps → Create an app** → name it `Sublime Pantry site bridge`.
+**The old route is gone.** Settings → Apps and sales channels → *Develop apps* no longer creates new apps; Shopify retired admin-created custom apps on 1 January 2026. There is no token to copy out of the Shopify admin any more. An earlier version of this document told you to use that route — it was wrong.
 
-- **Admin API scopes — grant exactly these two:**
-  - `read_customers`
-  - `write_customers`
-- Nothing else. The function only upserts customers. Do not grant order, product, or payment scopes it never uses.
-- Install the app, reveal the **Admin API access token** (`shpat_…`), paste it into Netlify. **It is shown once.**
+The current route produces a **Client ID and Client secret**, and the function exchanges them for a 24-hour token at runtime (cached, renewed a minute before expiry). You never copy a token.
+
+1. Go to **https://dev.shopify.com/dashboard** → **Apps** → **Create app** → **Start from Dev Dashboard**. Name it `Sublime Pantry site bridge`.
+2. **Versions** tab → set access scopes to exactly **`read_customers`** and **`write_customers`** → **Release**.
+   The function only upserts customers. Do not grant order, product, or payment scopes it never uses.
+3. **Home** → **Install app** → select the Sublime Pantry store → **Install**.
+4. **Settings** → copy the **Client ID** and **Client secret**.
+5. Put them in Netlify as `SHOPIFY_CLIENT_ID` and `SHOPIFY_CLIENT_SECRET`. Leave `SHOPIFY_ADMIN_API_TOKEN` unset.
+
+**If you hit `shop_not_permitted`:** the client credentials grant only works when the app and the store are in the **same Shopify organization** in the Dev Dashboard. This store was not created from the Dev Dashboard, so this is a real possibility. Check **Dev Dashboard → Stores** and confirm Sublime Pantry is listed.
+
+If it is not, use **custom distribution** instead: in the app's distribution settings choose *Custom distribution*, generate the install link for this store, install it, and complete the authorization code grant once to obtain a long-lived `shpat_…` offline token. Set that as `SHOPIFY_ADMIN_API_TOKEN` and leave the client credentials unset — the function supports both and prefers the static token when present. (Custom apps are exempt from Shopify's expiring-token mandate, so this token does not need refreshing.)
+
+**Verify either path** after deploying, by submitting the real form and checking the customer appears in Shopify. A failed token exchange logs `Could not obtain an access token: …` in the Netlify function log and returns 202 — the lead is still safe in Netlify Forms.
 
 None of these use Astro's `PUBLIC_` prefix, so none can reach the browser.
 
