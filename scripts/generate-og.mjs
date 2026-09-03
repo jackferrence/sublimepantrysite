@@ -15,11 +15,14 @@ import { readFileSync, readdirSync, writeFileSync, mkdirSync, existsSync } from 
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import satori from 'satori';
-import { Resvg } from '@resvg/resvg-js';
+import sharp from 'sharp';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const assets = join(root, 'scripts', 'assets');
 const outDir = join(root, 'public', 'og');
+
+const WIDTH = 1200;
+const HEIGHT = 630;
 
 const PAPER = '#faf7f1';
 const INK = '#221d19';
@@ -127,9 +130,13 @@ function card({ title, kicker }) {
 }
 
 async function render(spec, file) {
-  const svg = await satori(card(spec), { width: 1200, height: 630, fonts });
-  const png = new Resvg(svg, { fitTo: { mode: 'width', value: 1200 } }).render().asPng();
-  writeFileSync(file, png);
+  const svg = await satori(card(spec), { width: WIDTH, height: HEIGHT, fonts });
+  // Pinned explicitly: sharp scales SVG input by its DPI setting, so the output
+  // size is stated rather than inherited. Open Graph wants exactly 1200x630.
+  await sharp(Buffer.from(svg), { density: 72 })
+    .resize(WIDTH, HEIGHT, { fit: 'fill' })
+    .png()
+    .toFile(file);
 }
 
 /** Static pages that are not content entries. */
