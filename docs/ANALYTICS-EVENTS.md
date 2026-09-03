@@ -40,9 +40,17 @@ Analytics provider: **Plausible** (cookieless, `script.outbound-links.js`, loade
 | `starter_kit_add_to_cart` | Cart | Add to cart on the product page | `product_handle`, `sku`, `path` | Site (cart of record: Shopify) |
 | `cart_open` | Cart | "View cart" / "View your cart" buttons | `placement`, `path` | Site |
 | `checkout_handoff` | Checkout | Click on the checkout link inside `<shopify-cart>` | `path` | Site — **handoff only, not a purchase** |
+| `storefront_unavailable` | Reliability | Shopify's purchase block failed to render within 6s | `product_handle`, `path` | Site — **watch this one** |
+| `storefront_fallback_click` | Reliability | Reader takes the fallback link to the Shopify product page | `product_handle`, `sku`, `destination`, `path` | Site |
 | `affiliate_outbound_click` | Monetisation | Click on any `rel="sponsored"` link | `destination`, `path` | Site |
 | `tool_promo_click` | Engagement | Batch Log promo on the homepage | `destination`, `path` | Site |
 | `scroll_complete` | Engagement | Reader reaches 90% of the page, once | `path` | Site |
+
+## Reliability events
+
+`storefront_unavailable` is the alarm. A non-zero count means the Storefront API failed for real visitors and they saw a fallback link instead of a buy button — the site keeps working, but purchases are being lost.
+
+This is not hypothetical: it is the store's current state (`docs/SHOPIFY-ADMIN-SETUP.md` §0). Once the storefront is unlocked, this event should be at or near zero. If it rises, check the Storefront API before assuming a conversion-rate problem.
 
 ## Deliberate gaps
 
