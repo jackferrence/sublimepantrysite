@@ -2,6 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 import Newsletter from '../components/Newsletter.astro';
 import EducationalNotice from '../components/EducationalNotice.astro';
+import StarterKitCTA from '../components/StarterKitCTA.astro';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -19,6 +20,15 @@ const publishedDisplay = new Date(publishedIso).toLocaleDateString('en-US', {
   day: 'numeric',
   timeZone: 'UTC',
 });
+
+const starterKitArticles = new Set([
+  'complete-batch-workflow',
+  'storage-containers',
+  'storage-failure',
+  'batch-not-dry',
+  'home-freeze-dryers',
+]);
+const showStarterKit = starterKitArticles.has(entry.id);
 
 const canonicalPath = path.replace(/\/$/, '');
 const pageUrl = `${site}${canonicalPath}.html`;
@@ -85,6 +95,8 @@ if (d.pillar === 'compare' && d.comparisonCriteria) {
     {d.riskClass === 'elevated' && <EducationalNotice />}
 
     <div class="article-body" set:html={d.bodyHtml} />
+
+    {showStarterKit && <StarterKitCTA source={`article-${entry.id}`} />}
 
     <p class="disclosure-line">{d.disclosure}</p>
 

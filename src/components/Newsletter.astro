@@ -1,12 +1,51 @@
+---
+const sourcePath = Astro.url.pathname;
+---
 <section class="newsletter" aria-labelledby="newsletter-heading">
-  <h2 id="newsletter-heading">The Dry Batch — twice a month</h2>
-  <p>One drying answer, one storage or packaging finding, and one cottage-selling insight per issue. No filler, unsubscribe anytime.</p>
-  <form name="dry-batch-signup" method="POST" action="/thanks" data-netlify="true" netlify-honeypot="bot-field" data-sp-event="newsletter_signup" data-astro-reload>
-    <input type="hidden" name="form-name" value="dry-batch-signup" />
+  <span class="kicker newsletter-kicker">Free starter checklist</span>
+  <h2 id="newsletter-heading">Run cleaner batches from day one.</h2>
+  <p>Get immediate access to the printable Freeze-Drying Starter Checklist, then receive <strong>The Dry Batch</strong> twice a month: one drying answer, one packaging/storage finding, and one practical operator note.</p>
+
+  <form name="freeze-drying-checklist" method="POST" action="/freeze-drying-starter-checklist" data-netlify="true" netlify-honeypot="bot-field" data-sp-event="newsletter_signup" data-astro-reload>
+    <input type="hidden" name="form-name" value="freeze-drying-checklist" />
+    <input type="hidden" name="lead_magnet" value="freeze-drying-starter-checklist" />
+    <input type="hidden" name="source_path" value={sourcePath} />
     <p hidden aria-hidden="true"><label>Don't fill this out: <input name="bot-field" /></label></p>
-    <label for="newsletter-email" class="sr-only" style="position:absolute;left:-9999px;">Email address</label>
-    <input id="newsletter-email" type="email" name="email" required placeholder="you@example.com" autocomplete="email" />
-    <button type="submit">Subscribe</button>
+
+    <div class="newsletter-fields">
+      <div>
+        <label for="newsletter-email">Email address</label>
+        <input id="newsletter-email" type="email" name="email" required placeholder="you@example.com" autocomplete="email" />
+      </div>
+      <div>
+        <label for="freeze-dryer-stage">Where are you right now?</label>
+        <select id="freeze-dryer-stage" name="stage" required>
+          <option value="" selected disabled>Select one</option>
+          <option value="considering">Considering a freeze dryer</option>
+          <option value="new-owner">New owner / first batches</option>
+          <option value="active-owner">Already freeze-drying regularly</option>
+          <option value="cottage-seller">Selling or planning to sell</option>
+        </select>
+      </div>
+    </div>
+
+    <label class="consent">
+      <input type="checkbox" name="marketing_consent" value="yes" required />
+      <span>Yes, send me The Dry Batch and relevant freeze-drying resources. I can unsubscribe anytime.</span>
+    </label>
+
+    <button type="submit">Get the free checklist</button>
   </form>
-  <p class="fine">We only use your email to send the newsletter. See our <a href="/privacy" style="color:#d5e2ec;">privacy policy</a>.</p>
+  <p class="fine">Submitting unlocks the checklist immediately. We use your email only for the content described above. See our <a href="/privacy">privacy policy</a>.</p>
 </section>
+
+<style>
+  .newsletter-kicker { color: #d5e2ec; }
+  .newsletter-fields { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin: 1rem 0; }
+  .newsletter-fields label { display: block; margin-bottom: .35rem; font-size: .86rem; font-weight: 700; }
+  .newsletter-fields input, .newsletter-fields select { width: 100%; min-height: 44px; }
+  .consent { display: flex; gap: .6rem; align-items: flex-start; margin: .8rem 0 1rem; font-size: .88rem; line-height: 1.4; }
+  .consent input { margin-top: .2rem; }
+  .fine a { color: #d5e2ec; }
+  @media (max-width: 680px) { .newsletter-fields { grid-template-columns: 1fr; } }
+</style>
