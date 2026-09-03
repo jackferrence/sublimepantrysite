@@ -7,11 +7,13 @@ const activeProducts = [
     handle: 'freeze-dryer-packaging-starter-kit-100',
     eyebrow: 'Validation launch',
     note: '100 assorted 7 mil Mylar bags, matched oxygen absorbers, 100 labels, and PackFreshUSA’s storage guide. Sold at current retail source cost while we validate demand.',
+    detailsHref: '/shop/freeze-dryer-packaging-starter-kit',
   },
   {
     handle: 'quart-mylar-bags-300cc-oxygen-absorbers-50',
     eyebrow: 'Packaging refill',
     note: 'Quart-size Mylar bags paired with appropriately sized oxygen absorbers for dry, shelf-stable foods.',
+    detailsHref: null,
   },
 ];
 ---
@@ -58,15 +60,18 @@ const activeProducts = [
                   <h2><shopify-data query="product.title"></shopify-data></h2>
                   <p>{product.note}</p>
                   <div class="shop-price"><shopify-money query="product.selectedOrFirstAvailableVariant.price" format="money_with_currency"></shopify-money></div>
-                  <button
-                    class="btn btn-primary"
-                    type="button"
-                    onclick="document.getElementById('sublime-cart').addLine(event).showModal();"
-                    shopify-attr--disabled="!product.selectedOrFirstAvailableVariant.availableForSale"
-                    data-sp-event="shop_add_to_cart"
-                  >
-                    Add to cart
-                  </button>
+                  <div class="shop-actions">
+                    <button
+                      class="btn btn-primary"
+                      type="button"
+                      onclick="document.getElementById('sublime-cart').addLine(event).showModal();"
+                      shopify-attr--disabled="!product.selectedOrFirstAvailableVariant.availableForSale"
+                      data-sp-event="shop_add_to_cart"
+                    >
+                      Add to cart
+                    </button>
+                    {product.detailsHref && <a class="btn btn-ghost" href={product.detailsHref}>See details</a>}
+                  </div>
                 </div>
               </article>
             </template>
@@ -101,6 +106,7 @@ const activeProducts = [
     .shop-card-body h2 { margin: .35rem 0 .65rem; font-size: 1.35rem; }
     .shop-card-body p { color: var(--ink-soft); }
     .shop-price { font-weight: 700; font-size: 1.15rem; margin: 1rem 0; }
+    .shop-actions { display: flex; gap: .65rem; flex-wrap: wrap; }
     .shop-loading { padding: 2rem; border: 1px solid var(--line); border-radius: 14px; color: var(--ink-soft); }
     .shop-coming { margin-top: 2.5rem; padding: 1.6rem; }
     .shop-coming h2 { margin: .35rem 0 .7rem; }
