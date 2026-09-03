@@ -30,19 +30,20 @@ Legend: ⬜ not done · 🟡 partial · ✅ verified · 🔒 blocked
 
 | # | Check | What "pass" means | Status |
 |---|---|---|---|
-| 13a | **Storefront API reachable** | `POST shop.sublimepantry.com/api/2026-01/graphql.json` returns data, not `Online Store channel is locked` | 🔒 **storefront is password protected** |
-| 14 | Current Shopify price shows | Live price replaces the static placeholder | 🔒 blocked by 13a |
+| 13a | **Storefront API reachable** | Returns data, not `Online Store channel is locked` | ✅ verified 2026-09-03 |
+| 14 | Current Shopify price shows | Live price replaces the static placeholder | ✅ verified live |
 | 15 | Current inventory respected | Add-to-cart disables when unavailable; out-of-stock note shows | ⬜ |
 | 16 | Product image loads | On `/shop` and the product page, both breakpoints | ⬜ |
 | 16a | Storefront failure fallback | With the API unreachable, no raw error text is visible and the fallback link appears | ✅ verified in browser on this branch |
-| 17 | Add to cart | Item lands in the Shopify cart with the right variant | 🔒 blocked by 13a |
+| 17 | Add to cart | Item lands in the Shopify cart with the right variant | ✅ verified via Storefront cartCreate |
 | 18 | Cart opens | "View cart" opens the dialog; ESC closes it | ⬜ |
 | 19 | Quantity change / remove | Works inside the Shopify cart component | ⬜ |
 | 20 | Checkout handoff | Checkout button reaches Shopify checkout, top-level, not framed | ⬜ |
-| 21 | `WELCOME10` applies | 10% comes off at checkout | 🔒 discount does not exist yet |
-| 22 | Free shipping combines | Order discount **and** shipping discount both apply on one order | 🔒 |
+| 21 | `WELCOME10` applies | 10% comes off at checkout | ✅ verified live: $59.99 → $54.00 |
+| 21a | **`WELCOME10` usable more than once** | `usageLimit` is `null`, not `1` | 🚨 **FAILING — capped at 1 total use** |
+| 22 | Free shipping applies alongside the discount | Cart at $54.00 returns one `Standard` option at $0.00 | ✅ verified live |
 | 23 | Checkout branding | Logo/colours read as Sublime Pantry, not a default store | ⬜ |
-| 24 | Shipping rates | **Fix first:** the Domestic zone currently has two rates both named "Standard" ($6.25 and $0.00). A customer sees two identical labels and always picks free. Resolve before launch | ⬜ |
+| 24 | Shipping rates | One `Standard` rate at $6.25 with a free-over-$45 condition. Correct — an earlier note here wrongly called these duplicates | ✅ verified |
 | 25 | International | No rates exist outside Domestic — international customers cannot check out. Either accept US-only and say so, or add a zone | ⬜ |
 | 26 | Taxes | Tax settings configured for the selling nexus | ⬜ |
 | 27 | Payment | Live payment provider enabled and test transaction authorised | ⬜ |
@@ -93,7 +94,7 @@ Set `window.spDebug = true` in the console and walk the funnel. Each event must 
 | 55 | Add to cart | `starter_kit_add_to_cart` / `shop_add_to_cart` | ⬜ |
 | 56 | Cart open | `cart_open` | ⬜ |
 | 57 | Checkout | `checkout_handoff` | ⬜ |
-| 58 | Promo | `promo_view` + `promo_click` | 🔒 offer disabled |
+| 58 | Promo | `promo_view` + `promo_click` | ⬜ offer now enabled — re-test |
 | 59 | **No PII leakage** | Inspect the Plausible network payloads: no email, no name anywhere | ⬜ |
 | 60 | No duplicate events | Navigate client-side between pages and re-check — view transitions must not double-bind | ⬜ |
 | 61 | Shopify analytics | Sessions/carts/checkouts/orders recording in Shopify | ⬜ |
@@ -114,12 +115,13 @@ Set `window.spDebug = true` in the console and walk the funnel. Each event must 
 
 ## Known launch blockers as of this branch
 
-0. **The Shopify storefront is password protected.** This locks the Online Store
-   channel, which disables the Storefront API, which means `/shop` currently
-   renders no products and **nobody can buy anything**. Verified 2026-09-03
-   against the live store. One toggle in Online Store → Preferences.
-   See `docs/SHOPIFY-ADMIN-SETUP.md` §0. Everything below is downstream of it.
-1. `WELCOME10` and the automatic free-shipping discount **do not exist** in Shopify. The offer UI is built but disabled.
+0. ~~Storefront password protection~~ — **RESOLVED 2026-09-03.** Storefront API
+   returns data; `/shop` renders live price and an enabled Add to cart.
+0a. **`WELCOME10` has a store-wide total usage limit of 1.** The first customer
+   to use it burns it for everyone. Uncheck "Limit number of times this discount
+   can be used in total". See `docs/SHOPIFY-ADMIN-SETUP.md` §2a. **This is now
+   the top blocker.**
+1. ~~`WELCOME10` and the automatic free-shipping discount **do not exist** in Shopify. The offer UI is built but disabled.
 2. Duplicate `$6.25` / `$0.00` "Standard" shipping rates in the Domestic zone.
 3. No shipping rates outside the Domestic zone.
 4. `SHOPIFY_ADMIN_API_TOKEN` not set — the lead → customer bridge is a documented no-op until it is.

@@ -8,11 +8,13 @@ Work top to bottom. Later sections depend on earlier ones.
 
 ---
 
-## 0. Unlock the storefront — **THE launch blocker, do this first**
+## 0. Unlock the storefront — ✅ DONE (2026-09-03)
 
-**Online Store → Preferences → Restrict access to visitors with the password → turn OFF.**
+Completed. The Storefront API now returns `{"data":{"shop":{"name":"Sublime Pantry"}}}` and `/shop` renders live product data.
 
-The storefront is currently **password protected** (`onlineStore.passwordProtection.enabled = true`, verified 2026-09-03). `shop.sublimepantry.com` redirects every visitor to `/password`.
+*Historical record of what was wrong:* **Online Store → Preferences → Restrict access to visitors with the password → OFF.**
+
+The storefront was **password protected** (`onlineStore.passwordProtection.enabled = true`, verified 2026-09-03). `shop.sublimepantry.com` redirects every visitor to `/password`.
 
 This does far more than hide the Shopify storefront. **Password protection locks the Online Store channel, which disables the Storefront API.** Every request from the Storefront Web Components on sublimepantry.com returns:
 
@@ -52,82 +54,65 @@ Nothing to install. Two other apps are present that are unrelated to this stack 
 
 ---
 
-## 2. Discounts — **launch blocker**
+## 2. Discounts — ✅ mostly done, **one defect to fix**
 
-Neither discount exists yet. The site's offer UI is built but switched off, and it must stay off until both of these exist and are tested together.
+### 2a. `WELCOME10` — created, working, but capped at ONE TOTAL USE 🚨
 
-One Shopify discount object cannot grant both a percentage off and free shipping. That is why this is two objects.
+Verified live against the Storefront API on 2026-09-03: the code applies and takes $59.99 to $54.00.
 
-### 2a. `WELCOME10` — 10% order discount
+**But `usageLimit` is set to `1`.** In Shopify that is the *store-wide total*, not per customer:
 
-**Discounts → Create discount → Amount off order**
+> "Limit number of times this discount can be used in total"
 
-| Field | Value |
-|---|---|
-| Method | Discount code |
-| Code | `WELCOME10` (exactly; the site renders this string) |
-| Type | Percentage |
-| Value | `10%` |
-| Applies to | Entire order |
-| Minimum requirements | None |
-| Customer eligibility | All customers |
-| Maximum uses | Limit to **one use per customer** ✅ |
-| Combinations | ✅ **Shipping discounts** · ❌ Order discounts · ❌ Product discounts |
-| Active dates | Starts today, no end date |
+**The first customer who uses WELCOME10 consumes it permanently. Customer #2 gets "this discount code isn't valid."**
 
-> **On "first order only":** Shopify Basic has no native new-customer-only condition for a code discount. "One use per customer" is the closest supported restriction and is what we use. It does not stop an existing customer's *first* use. A true first-order restriction needs a Shopify Function (Plus-oriented, and overkill here) or a customer segment of never-purchased customers with the discount limited to that segment — that segment does not auto-update for logged-out checkouts. **Accept the limitation and phrase marketing as "on your first order" without claiming enforcement.**
+**Fix:** Discounts → `welcome10` → **uncheck "Limit number of times this discount can be used in total"** → Save.
 
-### 2b. Automatic free shipping
+Leave **"Limit to one use per customer" checked** — that is `appliesOncePerCustomer`, which is already set correctly and is the restriction you actually want.
 
-**Discounts → Create discount → Free shipping**
+Verify afterwards — `usageLimit` must be `null`:
 
-| Field | Value |
-|---|---|
-| Method | **Automatic** (no code) |
-| Title | `Launch — free shipping` |
-| Applies to | All countries where you have rates (currently United States only) |
-| Minimum purchase | None |
-| Exclude shipping rates over | Leave unset |
-| Combinations | ✅ **Order discounts** · ✅ Product discounts |
-| Active dates | Starts today, no end date |
-
-### 2c. Verify the combination
-
-The two must be tested **together on one order**, because combinability is a property of both objects and a mismatch fails silently:
-
-1. Add the starter kit to the cart on `sublimepantry.com`.
-2. Go through to checkout.
-3. Enter `WELCOME10`.
-4. Confirm the order summary shows **both** a 10% reduction **and** $0.00 shipping.
-
-### 2d. Then, and only then, enable the offer on the site
-
-In `src/lib/commerce.ts`:
-
-```ts
-export const LAUNCH_OFFER = {
-  enabled: true,   // ← was false
-  ...
+```graphql
+{ codeDiscountNodes(first: 5) { edges { node { codeDiscount {
+  ... on DiscountCodeBasic { title usageLimit appliesOncePerCustomer } } } } } }
 ```
 
-Record the verification date in the comment above it. Commit and deploy. The offer then appears on the homepage, `/shop`, the product page and the checklist page, and `WELCOME10` is pre-applied to the Shopify cart component.
+### 2b. Two lower-priority notes on `WELCOME10`
 
----
+- **`combinesWith.shippingDiscounts` is `false`.** This blocks nothing today, because free shipping comes from a *rate condition*, not a discount (see §3). Set it to true anyway so a future shipping discount can stack. Discounts → `welcome10` → Combinations → tick "Shipping discounts".
+- **The discount is scoped to the starter kit specifically**, not to the whole order (`customerGets.items` is a product selection). Identical behaviour on a one-product catalog. But when you add products, `WELCOME10` will silently discount only the starter kit. Change to "Entire order" if you want it to cover everything.
+- The code is stored lowercase (`welcome10`). Harmless: Shopify matches discount codes case-insensitively, verified live with `WELCOME10`. The site renders the uppercase form.
 
-## 3. Shipping — **launch blocker**
+### 2c. Automatic free shipping — **not needed, do not create**
+
+The original plan called for a separate automatic free-shipping discount. It is unnecessary: the Domestic shipping rate already grants $0.00 above $45 (§3), and the discounted total of $54.00 clears it.
+
+Adding one would be a second mechanism doing the same job, with two ways to misconfigure it. Skip it.
+
+### 2d. Offer enabled on the site ✅
+
+`LAUNCH_OFFER.enabled` is now `true`, so the offer renders on the homepage, `/shop`, the product page and the checklist page, and `WELCOME10` is pre-applied to the cart component.
+
+**This depends on §2a being fixed.** If the usage cap stays at 1, the site will be advertising a code that dies after a single customer.
+
+## 3. Shipping — ✅ correctly configured (earlier guidance here was wrong)
 
 **Settings → Shipping and delivery → General profile → Domestic**
 
-Two rates currently exist, **both named "Standard"**: one at **$6.25** and one at **$0.00**. A customer sees two identical options and will always take the free one, which makes the free-shipping discount meaningless and looks broken.
+An earlier version of this document said there were two duplicate "Standard" rates and told you to delete the $0.00 one. **That was a misreading and the advice was wrong — do not delete anything.**
 
-Decide one:
+There is **one** rate definition:
 
-- **(A) Recommended:** delete the $0.00 rate. Keep `Standard — $6.25`. Free shipping then comes from the automatic discount in §2b, which is the behaviour the offer describes.
-- **(B)** Keep free shipping unconditional, rename the rate to `Free shipping`, delete the $6.25 rate, and drop "+ free shipping" from the offer copy since it is not an offer.
+| Rate | Price | Condition |
+|---|---|---|
+| Standard | $6.25 | none |
+| Standard | $0.00 | `TOTAL_PRICE >= $45.00` |
 
-Also: **no rates exist outside the Domestic zone**, so international customers cannot complete checkout. Either add a zone or state US-only shipping on the product page.
+Both rows share the same `DeliveryMethodDefinition` ID; the second is a **rate range condition** on the first, which is a normal free-shipping-threshold setup. Shopify presents the customer with **one** option, not two — confirmed live: a cart at $54.00 returns a single `Standard` option at `$0.00`.
 
----
+**The dependency to watch:** the threshold is evaluated on the **post-discount** total. At $59.99 less 10% = $54.00, there is $9.00 of headroom. If the starter kit price drops below ~$50, or a cheaper product becomes the main offer, the total falls under $45 and customers start paying $6.25 while the site still promises free shipping. Re-verify this whenever the price changes.
+
+**Still outstanding:** no rates exist outside the Domestic zone, so international customers cannot check out. Either add a zone or state US-only shipping on the product page.
 
 ## 4. Taxes, payments, checkout
 

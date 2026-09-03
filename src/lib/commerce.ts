@@ -62,20 +62,33 @@ export const STARTER_KIT = CATALOG[0];
 /**
  * Launch promotion.
  *
- * `enabled` MUST stay false until both discounts exist and have been verified
- * in Shopify Admin (see docs/SHOPIFY-ADMIN-SETUP.md). The site must never
- * advertise a code that would fail at checkout.
+ * `enabled` MUST stay false until the offer has been verified end to end
+ * against the live store. The site must never advertise a code that would fail
+ * at checkout.
  *
- * Verified in Shopify Admin on: (not yet — no discounts exist on the store)
+ * Verified 2026-09-03 against the live Storefront API with a real cart:
+ *   WELCOME10 → applicable: true
+ *   $59.99 → $54.00
+ *   delivery options → a single "Standard" at $0.00
+ *   cart total → $54.00
+ *
+ * Note on how free shipping is delivered: NOT by a shipping discount. The
+ * Domestic "Standard" rate ($6.25) carries a rate condition granting $0.00 when
+ * TOTAL_PRICE >= $45.00. The discounted total of $54.00 clears that threshold,
+ * so both halves of the offer are real. No automatic free-shipping discount is
+ * needed, and none exists.
+ *
+ * The $45 threshold is the dependency to watch: if the starter kit's price
+ * drops below $50, or a cheaper product becomes the primary offer, the
+ * post-discount total can fall under $45 and the "free shipping" half of this
+ * claim silently stops being true. Re-verify before changing price.
  */
 export const LAUNCH_OFFER = {
-  enabled: false,
+  enabled: true,
   code: 'WELCOME10',
-  /** Order discount: 10% off. Configured as a code discount in Shopify. */
+  /** 10% off, via a Shopify code discount scoped to the starter kit. */
   percentOff: 10,
-  /** Shipping benefit: a *separate* automatic free-shipping discount.
-   *  One Shopify discount object cannot grant both, so these are two objects
-   *  configured to combine. */
+  /** Delivered by the >= $45 free-shipping rate condition, not by a discount. */
   freeShipping: true,
   headline: 'New here? Get 10% off + free shipping on your first order.',
   detail: 'Use code WELCOME10 at checkout.',
