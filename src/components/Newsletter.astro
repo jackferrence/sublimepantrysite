@@ -1,12 +1,18 @@
 ---
-const sourcePath = Astro.url.pathname;
+import { normalizePath } from '../lib/paths';
+
+const sourcePath = normalizePath(Astro.url.pathname);
+const viewProps = JSON.stringify({
+  lead_magnet: 'freeze-drying-starter-checklist',
+  source_path: sourcePath,
+});
 ---
-<section class="newsletter" aria-labelledby="newsletter-heading">
+<section class="newsletter" aria-labelledby="newsletter-heading" data-sp-view="lead_magnet_view" data-sp-props={viewProps}>
   <span class="kicker newsletter-kicker">Free starter checklist</span>
   <h2 id="newsletter-heading">Run cleaner batches from day one.</h2>
   <p>Get immediate access to the printable Freeze-Drying Starter Checklist, then receive <strong>The Dry Batch</strong> twice a month: one drying answer, one packaging/storage finding, and one practical operator note.</p>
 
-  <form name="freeze-drying-checklist" method="POST" action="/freeze-drying-starter-checklist" data-netlify="true" netlify-honeypot="bot-field" data-sp-event="newsletter_signup" data-astro-reload>
+  <form name="freeze-drying-checklist" method="POST" action="/freeze-drying-starter-checklist" data-netlify="true" netlify-honeypot="bot-field" data-astro-reload>
     <input type="hidden" name="form-name" value="freeze-drying-checklist" />
     <input type="hidden" name="lead_magnet" value="freeze-drying-starter-checklist" />
     <input type="hidden" name="source_path" value={sourcePath} />
@@ -38,6 +44,42 @@ const sourcePath = Astro.url.pathname;
   </form>
   <p class="fine">Submitting unlocks the checklist immediately. We use your email only for the content described above. See our <a href="/privacy">privacy policy</a>.</p>
 </section>
+
+<!--
+  Lead capture bridge (progressive enhancement).
+
+  The form's own POST to Netlify Forms is untouched and remains the system of
+  record until the Shopify sync is proven in production. This listener
+  additionally mirrors the submission to a serverless function that upserts the
+  Shopify customer. It uses sendBeacon so the request survives the navigation
+  that the native form POST triggers, and it never blocks or intercepts that
+  POST — if this fails, or JS is off, the Netlify submission still succeeds.
+-->
+<script is:inline>
+  (function () {
+    if (window.__spLeadBridge) return;
+    window.__spLeadBridge = true;
+    document.addEventListener('submit', function (e) {
+      var form = e.target instanceof Element ? e.target.closest('form[name="freeze-drying-checklist"]') : null;
+      if (!form || !navigator.sendBeacon) return;
+      var data = new FormData(form);
+      if (data.get('bot-field')) return;
+      if (data.get('marketing_consent') !== 'yes') return;
+      var payload = JSON.stringify({
+        email: data.get('email'),
+        stage: data.get('stage'),
+        source_path: data.get('source_path'),
+        lead_magnet: data.get('lead_magnet'),
+        marketing_consent: true,
+      });
+      try {
+        navigator.sendBeacon('/.netlify/functions/lead-capture', new Blob([payload], { type: 'application/json' }));
+      } catch (err) {
+        /* Netlify Forms remains the fallback; never block the submission. */
+      }
+    });
+  })();
+</script>
 
 <style>
   .newsletter-kicker { color: #d5e2ec; }

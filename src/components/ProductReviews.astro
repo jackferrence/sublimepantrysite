@@ -1,0 +1,67 @@
+---
+/**
+ * Renders real Judge.me reviews, or nothing at all.
+ *
+ * There is no seeded, sample, or generated review content anywhere in this
+ * component. If Judge.me is unconfigured or has no published reviews for the
+ * product, the section is omitted entirely rather than showing an empty state
+ * that implies reviews are coming.
+ */
+import type { ProductReviews } from '../lib/reviews';
+
+interface Props {
+  reviews: ProductReviews;
+}
+
+const { reviews } = Astro.props;
+const { aggregate } = reviews;
+
+const dateFormat = new Intl.DateTimeFormat('en-US', {
+  year: 'numeric',
+  month: 'long',
+  timeZone: 'UTC',
+});
+---
+{aggregate && (
+  <section class="reviews" aria-labelledby="reviews-heading">
+    <div class="reviews-head">
+      <span class="kicker">Verified buyers</span>
+      <h2 id="reviews-heading">What customers say</h2>
+      <p class="reviews-summary">
+        <strong>{aggregate.ratingValue.toFixed(1)} out of 5</strong> from {aggregate.reviewCount}
+        {aggregate.reviewCount === 1 ? ' review' : ' reviews'} collected by Judge.me.
+      </p>
+    </div>
+    <ul class="reviews-list">
+      {reviews.reviews.map((review) => (
+        <li class="card review">
+          <p class="review-rating">
+            <span aria-hidden="true">{'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}</span>
+            <span class="sr-only">{review.rating} out of 5 stars</span>
+          </p>
+          {review.title && <h3>{review.title}</h3>}
+          {review.body && <p class="review-body">{review.body}</p>}
+          <p class="review-meta">
+            {review.reviewerName}
+            {review.verified && <span class="review-verified"> · Verified buyer</span>}
+            {review.createdAt && <span> · {dateFormat.format(new Date(review.createdAt))}</span>}
+          </p>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}
+
+<style>
+  .reviews { margin: 4rem 0 1rem; }
+  .reviews-head { max-width: 60ch; margin-bottom: 1.4rem; }
+  .reviews-head h2 { margin: .35rem 0 .6rem; }
+  .reviews-summary { margin: 0; color: var(--ink-soft); }
+  .reviews-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 1rem; }
+  .review { padding: 1.3rem; }
+  .review h3 { margin: .3rem 0 .55rem; font-size: 1.1rem; }
+  .review-rating { margin: 0; letter-spacing: .12em; }
+  .review-body { color: var(--ink-soft); margin: 0 0 .9rem; }
+  .review-meta { margin: 0; font-size: .85rem; color: var(--ink-soft); }
+  .review-verified { font-weight: 600; }
+</style>

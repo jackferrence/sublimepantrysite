@@ -21,12 +21,17 @@ const publishedDisplay = new Date(publishedIso).toLocaleDateString('en-US', {
   timeZone: 'UTC',
 });
 
+// Owner-stage articles only. Machine-selection content (which-freeze-dryer,
+// home-freeze-dryers) deliberately does NOT carry the packaging CTA: those
+// readers do not own a freeze dryer yet, so packaging is the wrong next step.
+// They are routed to the lead magnet instead. See
+// docs/COMMERCIAL-INTERNAL-LINKING.md.
 const starterKitArticles = new Set([
   'complete-batch-workflow',
   'storage-containers',
   'storage-failure',
   'batch-not-dry',
-  'home-freeze-dryers',
+  'rehydration-problems',
 ]);
 const showStarterKit = starterKitArticles.has(entry.id);
 
