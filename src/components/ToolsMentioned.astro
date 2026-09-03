@@ -1,0 +1,50 @@
+---
+/**
+ * Products from our own catalog that this article actually mentions.
+ *
+ * Nothing is inserted editorially: the body HTML is scanned for a catalog
+ * handle or a link into /shop/, and only what is genuinely referenced appears.
+ * If the article mentions none, this renders nothing at all.
+ */
+import Card from './Card.astro';
+import { CATALOG } from '../lib/commerce';
+
+interface Props {
+  bodyHtml: string;
+  /** Handles declared in front matter, merged with what the body mentions. */
+  declared?: string[];
+}
+
+const { bodyHtml, declared = [] } = Astro.props;
+
+const mentioned = CATALOG.filter((product) => {
+  if (declared.includes(product.handle)) return true;
+  if (bodyHtml.includes(product.handle)) return true;
+  return Boolean(product.detailsHref && bodyHtml.includes(product.detailsHref));
+}).slice(0, 3);
+---
+{mentioned.length > 0 && (
+  <section class="tools-mentioned" aria-labelledby="tools-mentioned-heading">
+    <h2 id="tools-mentioned-heading">Tools mentioned in this guide</h2>
+    <div class="card-grid">
+      {mentioned.map((product) => (
+        <Card
+          href={product.detailsHref ?? `/shop`}
+          title={product.title}
+          dek={product.note}
+          kicker="Sold by Sublime Pantry"
+          image={product.image}
+          imageAlt={product.imageAlt}
+          ratio="4/5"
+          fit="contain"
+          price={product.displayPrice}
+          meta="Ships free · US"
+        />
+      ))}
+    </div>
+  </section>
+)}
+
+<style>
+  .tools-mentioned { margin: var(--s5) 0; }
+</style>

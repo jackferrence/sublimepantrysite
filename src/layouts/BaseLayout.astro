@@ -2,6 +2,9 @@
 import { ClientRouter } from 'astro:transitions';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import CartDrawer from '../components/CartDrawer.astro';
+import ShopifyStore from '../components/ShopifyStore.astro';
+import { ogImagePath } from '../lib/og';
 
 interface Props {
   title: string;
@@ -9,15 +12,18 @@ interface Props {
   path: string; // e.g. "/" or "/guides/complete-batch-workflow"
   ogType?: 'website' | 'article';
   jsonLd?: Record<string, unknown>[];
+  /** True on pages that must paint live Shopify prices (shop, product page). */
+  commerce?: boolean;
 }
 
-const { title, description, path, ogType = 'website', jsonLd = [] } = Astro.props;
+const { title, description, path, ogType = 'website', jsonLd = [], commerce = false } = Astro.props;
 
 const site = 'https://www.sublimepantry.com';
 const canonicalPath = path === '/' ? '/' : `${path.replace(/\/$/, '')}/`;
 const canonical = new URL(canonicalPath, site).href;
 const pageUrl = canonical;
 const pageTitle = `${title} | Sublime Pantry`;
+const ogImage = new URL(ogImagePath(path), site).href;
 
 const organizationGraph = [
   {
@@ -55,13 +61,15 @@ const organizationGraph = [
     <meta property="og:type" content={ogType} />
     <meta property="og:url" content={pageUrl} />
     <meta property="og:site_name" content="Sublime Pantry" />
+    <link rel="preload" href="/fonts/source-sans-3-latin-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/ibarra-variable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/styles/base.css" />
-    <meta property="og:image" content={`${site}/og-image.png`} />
+    <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Sublime Pantry -- Home freeze-drying, batch by batch" />
+    <meta property="og:image:alt" content={`${title} — Sublime Pantry`} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content={`${site}/og-image.png`} />
+    <meta name="twitter:image" content={ogImage} />
     <script is:inline type="application/ld+json" set:html={JSON.stringify({ "@context": "https://schema.org", "@graph": organizationGraph })} />
     {jsonLd.map((block) => <script is:inline type="application/ld+json" set:html={JSON.stringify(block)} />)}
     <script is:inline defer data-domain="www.sublimepantry.com" src="https://plausible.io/js/script.outbound-links.js"></script>
@@ -70,10 +78,12 @@ const organizationGraph = [
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
     <Header transition:persist />
-    <main id="main" transition:animate="fade">
+    <main id="main" data-pagefind-body transition:animate="fade">
       <slot />
     </main>
     <Footer transition:persist />
+    <ShopifyStore eager={commerce} />
+    <CartDrawer />
     <script is:inline src="/events.js" defer></script>
     <script is:inline src="/header-nav.js" defer></script>
   </body>

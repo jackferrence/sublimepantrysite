@@ -1,4 +1,12 @@
 ---
+/**
+ * Lead capture. Email and consent, nothing else.
+ *
+ * The qualifying question ("where are you right now?") used to sit here and
+ * cost a field on the highest-intent moment on the page. It now lives on
+ * /thanks, after the address is already captured, posting to the same Netlify
+ * form.
+ */
 import { normalizePath } from '../lib/paths';
 
 const sourcePath = normalizePath(Astro.url.pathname);
@@ -7,32 +15,27 @@ const viewProps = JSON.stringify({
   source_path: sourcePath,
 });
 ---
-<section class="newsletter" aria-labelledby="newsletter-heading" data-sp-view="lead_magnet_view" data-sp-props={viewProps}>
-  <span class="kicker newsletter-kicker">Free starter checklist</span>
+<section class="newsletter card" aria-labelledby="newsletter-heading" data-sp-view="lead_magnet_view" data-sp-props={viewProps}>
+  <span class="kicker">Free starter checklist</span>
   <h2 id="newsletter-heading">Run cleaner batches from day one.</h2>
-  <p>Get immediate access to the printable Freeze-Drying Starter Checklist, then receive <strong>The Dry Batch</strong> twice a month: one drying answer, one packaging/storage finding, and one practical operator note.</p>
+  <p class="newsletter-lede">Get the printable Starter Checklist and 10% off + free shipping on your first order, then <strong>The Dry Batch</strong> twice a month.</p>
 
-  <form name="freeze-drying-checklist" method="POST" action="/freeze-drying-starter-checklist" data-netlify="true" netlify-honeypot="bot-field" data-astro-reload>
+  <form
+    name="freeze-drying-checklist"
+    method="POST"
+    action="/thanks"
+    data-netlify="true"
+    netlify-honeypot="bot-field"
+    data-astro-reload
+  >
     <input type="hidden" name="form-name" value="freeze-drying-checklist" />
     <input type="hidden" name="lead_magnet" value="freeze-drying-starter-checklist" />
     <input type="hidden" name="source_path" value={sourcePath} />
     <p hidden aria-hidden="true"><label>Don't fill this out: <input name="bot-field" /></label></p>
 
-    <div class="newsletter-fields">
-      <div>
-        <label for="newsletter-email">Email address</label>
-        <input id="newsletter-email" type="email" name="email" required placeholder="you@example.com" autocomplete="email" />
-      </div>
-      <div>
-        <label for="freeze-dryer-stage">Where are you right now?</label>
-        <select id="freeze-dryer-stage" name="stage" required>
-          <option value="" selected disabled>Select one</option>
-          <option value="considering">Considering a freeze dryer</option>
-          <option value="new-owner">New owner / first batches</option>
-          <option value="active-owner">Already freeze-drying regularly</option>
-          <option value="cottage-seller">Selling or planning to sell</option>
-        </select>
-      </div>
+    <div class="newsletter-field">
+      <label for="newsletter-email">Email address</label>
+      <input id="newsletter-email" type="email" name="email" required placeholder="you@example.com" autocomplete="email" />
     </div>
 
     <label class="consent">
@@ -40,9 +43,10 @@ const viewProps = JSON.stringify({
       <span>Yes, send me The Dry Batch and relevant freeze-drying resources. I can unsubscribe anytime.</span>
     </label>
 
-    <button type="submit">Get the free checklist</button>
+    <button class="btn btn-primary" type="submit">Get the checklist</button>
   </form>
-  <p class="fine">Submitting unlocks the checklist immediately. We use your email only for the content described above. See our <a href="/privacy">privacy policy</a>.</p>
+
+  <p class="meta newsletter-fine">We use your email only for the content described above. See our <a href="/privacy">privacy policy</a>.</p>
 </section>
 
 <!--
@@ -54,6 +58,9 @@ const viewProps = JSON.stringify({
   Shopify customer. It uses sendBeacon so the request survives the navigation
   that the native form POST triggers, and it never blocks or intercepts that
   POST — if this fails, or JS is off, the Netlify submission still succeeds.
+
+  It also stashes the address for /thanks, so the follow-up question there can
+  post to the same Netlify form and stay attached to the same subscriber.
 -->
 <script is:inline>
   (function () {
@@ -61,12 +68,21 @@ const viewProps = JSON.stringify({
     window.__spLeadBridge = true;
     document.addEventListener('submit', function (e) {
       var form = e.target instanceof Element ? e.target.closest('form[name="freeze-drying-checklist"]') : null;
-      if (!form || !navigator.sendBeacon) return;
+      if (!form) return;
       var data = new FormData(form);
       if (data.get('bot-field')) return;
       if (data.get('marketing_consent') !== 'yes') return;
+
+      var email = data.get('email');
+      try {
+        if (email) sessionStorage.setItem('sp-lead-email', String(email));
+      } catch (err) {
+        /* private mode — /thanks will simply ask for the address again */
+      }
+
+      if (!navigator.sendBeacon) return;
       var payload = JSON.stringify({
-        email: data.get('email'),
+        email: email,
         stage: data.get('stage'),
         source_path: data.get('source_path'),
         lead_magnet: data.get('lead_magnet'),
@@ -82,12 +98,16 @@ const viewProps = JSON.stringify({
 </script>
 
 <style>
-  .newsletter-kicker { color: #d5e2ec; }
-  .newsletter-fields { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin: 1rem 0; }
-  .newsletter-fields label { display: block; margin-bottom: .35rem; font-size: .86rem; font-weight: 700; }
-  .newsletter-fields input, .newsletter-fields select { width: 100%; min-height: 44px; }
-  .consent { display: flex; gap: .6rem; align-items: flex-start; margin: .8rem 0 1rem; font-size: .88rem; line-height: 1.4; }
+  .newsletter { margin: var(--s5) 0; padding: var(--s4); }
+  .newsletter h2 { margin: 0 0 var(--s1); }
+  .newsletter-lede { color: var(--ink-soft); max-width: 58ch; }
+  .newsletter-field { margin: var(--s3) 0 var(--s2); max-width: 26rem; }
+  .newsletter-field label { display: block; margin-bottom: .35rem; font-size: .9rem; }
+  .consent {
+    display: flex; gap: .6rem; align-items: flex-start;
+    margin: 0 0 var(--s3); font-size: .9rem; font-weight: 400; line-height: 1.45;
+    max-width: 56ch;
+  }
   .consent input { margin-top: .2rem; }
-  .fine a { color: #d5e2ec; }
-  @media (max-width: 680px) { .newsletter-fields { grid-template-columns: 1fr; } }
+  .newsletter-fine { margin-top: var(--s2); }
 </style>

@@ -1,20 +1,15 @@
 ---
 import { getCollection } from 'astro:content';
 import PageLayout from '../layouts/PageLayout.astro';
+import Card from '../components/Card.astro';
+import { articleHref, newestFirst, formatDate, verifiedDate } from '../lib/articles';
 
-const order = ['home-freeze-dryers', 'storage-containers'];
-// The listing page uses shorter curated blurbs, distinct from each article's
-// full meta description.
 const listingDescription: Record<string, string> = {
   'home-freeze-dryers': 'Price, capacity, power, pump, and warranty. Every figure comes from manufacturer documentation, with access dates.',
   'storage-containers': 'The three legitimate storage systems for freeze-dried food, compared on barrier quality, cost per unit, resealability, and fitness for selling vs. pantry use.',
 };
-const allEntries = await getCollection('articles', ({ data }) => data.pillar === 'compare');
-const known = order.map((id) => allEntries.find((e) => e.id === id)).filter((e): e is (typeof allEntries)[number] => Boolean(e));
-const unknown = allEntries
-  .filter((e) => !order.includes(e.id))
-  .sort((a, b) => b.data.publishedDate.localeCompare(a.data.publishedDate));
-const entries = [...known, ...unknown];
+
+const entries = (await getCollection('articles', ({ data }) => data.pillar === 'compare')).sort(newestFirst);
 
 const jsonLd = [
   {
@@ -22,7 +17,7 @@ const jsonLd = [
     '@type': 'CollectionPage',
     name: 'Comparisons with stated criteria',
     description: "Every comparison declares its criteria and its evidence, and is explicit about what we have and haven't tested ourselves.",
-    url: 'https://www.sublimepantry.com/compare.html',
+    url: 'https://www.sublimepantry.com/compare/',
     isPartOf: { '@id': 'https://www.sublimepantry.com/#website' },
     mainEntity: {
       '@type': 'ItemList',
@@ -36,21 +31,35 @@ const jsonLd = [
   },
 ];
 ---
-<PageLayout title="Comparisons" description="Evidence-based freeze-drying comparisons with stated criteria: machines, packaging, and storage options, with every figure sourced." path="/compare" jsonLd={jsonLd}>
+<PageLayout
+  title="Comparisons"
+  description="Evidence-based freeze-drying comparisons with stated criteria: machines, packaging, and storage options, with every figure sourced."
+  path="/compare"
+  breadcrumbs={[{ label: 'Comparisons', href: '/compare' }]}
+  width="wrap"
+  jsonLd={jsonLd}
+>
   <span class="kicker">Comparisons</span>
   <h1>Comparisons with stated criteria</h1>
-  <p style="max-width:60ch;color:var(--ink-soft);">Every comparison declares its criteria and its evidence, and is explicit about what we have and haven't tested ourselves.</p>
+  <p class="lede">Every comparison declares its criteria and its evidence, and is explicit about what we have and haven't tested ourselves.</p>
 
-  {entries.map((entry) => (
-    <a class="card compare-card" href={`/compare/${entry.id}`}>
-      <span class="kicker" style="flex:0 0 auto;">{entry.data.section ?? entry.data.kicker}</span>
-      <div style="flex:1 1 24rem;">
-        <h2 style="margin:.1rem 0 .5rem;color:var(--heading);" transition:name={`sp-title-${entry.id}`}>{entry.data.title}</h2>
-        <p style="color:var(--ink-soft);margin-bottom:.5rem;">{listingDescription[entry.id] ?? entry.data.description}</p>
-        {entry.data.comparisonCriteria && entry.data.comparisonCriteria.length > 0 && (
-          <p class="meta compare-criteria">Compared on: {entry.data.comparisonCriteria.map((c) => c.label).join(', ')}</p>
-        )}
-      </div>
-    </a>
-  ))}
+  <div class="card-grid hub-grid">
+    {entries.map((entry) => (
+      <Card
+        href={articleHref(entry)}
+        title={entry.data.title}
+        dek={listingDescription[entry.id] ?? entry.data.description}
+        headingLevel={2}
+        kicker={entry.data.section ?? entry.data.kicker}
+        image={entry.data.image?.src}
+        imageAlt={entry.data.image?.alt}
+        meta={`${entry.data.comparisonCriteria?.length ?? 0} criteria · verified ${formatDate(verifiedDate(entry))}`}
+        transitionName={`sp-title-${entry.id}`}
+      />
+    ))}
+  </div>
 </PageLayout>
+
+<style>
+  .hub-grid { margin-top: var(--s4); }
+</style>

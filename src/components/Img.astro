@@ -1,0 +1,61 @@
+---
+/**
+ * The one image element on the site.
+ *
+ * Astro's <Image> optimises what it can reach: remote images on an authorised
+ * domain (Shopify's CDN) go through the image service. Photography that lives
+ * in `public/` is served as-is — but it still goes through here, so that
+ * `width`, `height`, `loading` and `sizes` are never optional and layout shift
+ * cannot creep back in.
+ */
+import { Image } from 'astro:assets';
+
+interface Props {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  sizes?: string;
+  loading?: 'lazy' | 'eager';
+  fetchpriority?: 'high' | 'auto' | 'low';
+  class?: string;
+}
+
+const {
+  src,
+  alt,
+  width,
+  height,
+  sizes,
+  loading = 'lazy',
+  fetchpriority,
+  class: className,
+} = Astro.props;
+
+const optimisable = src.startsWith('https://cdn.shopify.com/');
+---
+{optimisable ? (
+  <Image
+    src={src}
+    alt={alt}
+    width={width}
+    height={height}
+    sizes={sizes}
+    loading={loading}
+    decoding="async"
+    fetchpriority={fetchpriority}
+    class={className}
+  />
+) : (
+  <img
+    src={src}
+    alt={alt}
+    width={width}
+    height={height}
+    sizes={sizes}
+    loading={loading}
+    decoding="async"
+    fetchpriority={fetchpriority}
+    class={className}
+  />
+)}

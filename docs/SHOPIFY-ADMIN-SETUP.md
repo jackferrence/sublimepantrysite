@@ -222,3 +222,58 @@ None of these use Astro's `PUBLIC_` prefix, so none can reach the browser.
                                           └─ §6 email  ·  §7 Judge.me
                                                   └─ test order (SOFT-LAUNCH-CHECKLIST §62–64)
 ```
+
+---
+
+## 10. Shipping policy — ⚠️ TODO (human, 2 minutes)
+
+**Settings → Policies → Shipping policy.** Paste the HTML below and save.
+
+This is the only outstanding item from the visual restart. It could not be
+automated: the connected Shopify app is missing the `write_legal_policies`
+scope, so `shopPolicyUpdate` is denied. Everything else in Part I was verified
+by API on 2026-09-03 (see §11).
+
+The text below is the exact mirror of `/shipping-returns`. **If you change one,
+change the other in the same commit** — the page says the policy in Shopify
+governs, so the two disagreeing is a real problem, not a cosmetic one.
+
+```html
+<p><strong>Where we ship.</strong> United States only. We do not currently ship outside the US, and checkout will not accept an international address.</p>
+<p><strong>Shipping cost.</strong> Free shipping on US orders of $45.00 or more. Below $45.00, a flat Standard rate of $6.25 applies. The Freeze-Drying Packaging Starter Kit is priced above the threshold, so it always ships free &mdash; including after the WELCOME10 discount is applied.</p>
+<p><strong>Handling time.</strong> Orders are processed within 1&ndash;2 business days. Orders placed on a weekend or holiday are processed on the next business day. Handling time is the window before the parcel is handed to the carrier; carrier transit time is in addition to it.</p>
+<p><strong>Where it ships from.</strong> During our validation launch, the packaging starter kit is ordered from PackFreshUSA after your purchase and ships directly to you in the manufacturer's own packaging.</p>
+<p><strong>Tracking.</strong> Your tracking number is emailed to the address on the order as soon as the shipment is created. If it has not arrived, please check your spam folder before contacting us.</p>
+<p><strong>Delays.</strong> Delivery estimates are estimates, not guarantees. We are not responsible for delays caused by the carrier or by events outside our control. Once the parcel is handed to the carrier, title and risk of loss pass to you.</p>
+<p><strong>Returns.</strong> Our 30-day return terms are set out in our Refund policy.</p>
+<p><strong>Questions about an order?</strong> Email <a href="mailto:jackferrence11@gmail.com">jackferrence11@gmail.com</a> and include your order number.</p>
+```
+
+---
+
+## 11. Storefront configuration — verified by API 2026-09-03
+
+Re-run these before any pricing or offer change. Each was checked against the
+live Admin API during the visual restart.
+
+| What | Result |
+| --- | --- |
+| Starter kit product | `ACTIVE`, published to Online Store, inventory 5 |
+| Storefront reachability | `/shop` and the PDP hydrate live prices; no separate Headless channel is needed |
+| `WELCOME10` discount | `ACTIVE`, 10%, once per customer, scoped to `freeze-dryer-packaging-starter-kit-100`, all customers, no end date |
+| Free shipping | Delivery zone "Domestic" = US only. Two Standard rates: $6.25, and $0.00 conditioned on `TOTAL_PRICE >= $45.00` |
+| Refund policy | Set: 30 days, original condition and packaging, refund to original payment method within 10 business days of approval |
+| Shipping policy | **Not set** — see §10 |
+
+**On `combinesWith`:** the `WELCOME10` discount has
+`combinesWith.shippingDiscounts: false`, which looks alarming next to a
+"10% off **and** free shipping" claim. It is fine. Free shipping here is not a
+shipping *discount* — it is a rate condition on the Standard rate, so there is
+nothing to combine with. At $74.99 the discounted total is $67.49, comfortably
+above the $45.00 threshold. Confirmed end to end by real order #1001.
+
+**Product photography (Part I item 55):** when the shoot in
+`docs/ART-DIRECTION.md` is done, upload the starter-kit frames to the Shopify
+product, then add their CDN URLs to `images[]` in `src/lib/commerce.ts` with
+`source: 'own'`. The product page captions manufacturer images and leaves our
+own uncaptioned, so provenance stays honest automatically.

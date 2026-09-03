@@ -1,0 +1,37 @@
+---
+/**
+ * Three standing commitments, each linking to the page that documents it.
+ * Shown under the byline on every article.
+ */
+import Icon from './Icon.astro';
+
+const items = [
+  { icon: 'package', label: 'Sourced & dated', href: '/editorial-standards' },
+  { icon: 'shield-check', label: 'Human-reviewed', href: '/review-methodology' },
+  { icon: 'undo-2', label: 'Corrections logged', href: '/corrections' },
+] as const;
+---
+<ul class="trust-strip">
+  {items.map((item) => (
+    <li>
+      <a href={item.href}>
+        <Icon name={item.icon} size={15} />
+        {item.label}
+      </a>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .trust-strip {
+    list-style: none; margin: var(--s2) 0 0; padding: 0;
+    display: flex; flex-wrap: wrap; gap: var(--s1) var(--s3);
+    font-size: var(--kicker);
+  }
+  .trust-strip li { margin: 0; }
+  .trust-strip a {
+    display: inline-flex; align-items: center; gap: .4rem;
+    color: var(--ink-soft); text-decoration: none;
+  }
+  .trust-strip a:hover { color: var(--brand); text-decoration: underline; }
+</style>

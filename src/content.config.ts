@@ -20,7 +20,7 @@ const articles = defineCollection({
     title: z.string(),
     description: z.string(),
     kicker: z.string(),
-    pillar: z.enum(['guides', 'troubleshooting', 'compare']),
+    pillar: z.enum(['guides', 'troubleshooting', 'compare', 'recipes']),
     section: z.string().optional(),
     riskClass: z.enum(['standard', 'elevated']),
     publishedDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
@@ -33,6 +33,13 @@ const articles = defineCollection({
     howTo: z
       .array(z.object({ name: z.string(), text: z.string() }))
       .optional(),
+    /** Hero photograph. Optional: article heroes render nothing until a real
+     *  photo exists — never a placeholder standing in for reporting. */
+    image: z.object({ src: z.string(), alt: z.string(), credit: z.string().optional() }).optional(),
+    /** Hand-picked "keep reading" slugs; falls back to newest in the pillar. */
+    related: z.array(z.string()).optional(),
+    /** Catalog handles this article deliberately references. */
+    products: z.array(z.string()).optional(),
     bodyHtml: z.string(),
   }).refine(
     (data) => data.pillar !== 'compare' || (data.comparisonCriteria && data.comparisonCriteria.length > 0),

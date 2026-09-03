@@ -1,9 +1,21 @@
 ---
-const footerLinks = [
+import Mark from './Mark.astro';
+
+const learn = [
+  { href: '/guides', label: 'Guides' },
+  { href: '/troubleshooting', label: 'Troubleshooting' },
+  { href: '/compare', label: 'Comparisons' },
+  { href: '/recipes', label: 'Recipes' },
+  { href: '/tools/batch-log', label: 'Batch Log' },
+  { href: '/start-selling', label: 'Start Selling' },
+];
+
+const site = [
   { href: '/about', label: 'About' },
   { href: '/editorial-standards', label: 'Editorial Standards' },
   { href: '/review-methodology', label: 'Review Methodology' },
   { href: '/affiliate-disclosure', label: 'Affiliate Disclosure' },
+  { href: '/shipping-returns', label: 'Shipping & Returns' },
   { href: '/privacy', label: 'Privacy' },
   { href: '/contact', label: 'Contact' },
   { href: '/corrections', label: 'Corrections' },
@@ -12,14 +24,64 @@ const footerLinks = [
 ---
 <footer class="site-footer">
   <div class="wrap">
-    <a href="/" class="footer-brand">
-      <img src="/brand/mark-color.svg" alt="" width="28" height="28" />
-      Sublime Pantry
-    </a>
-    <ul class="footer-links">
-      {footerLinks.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
-    </ul>
-    <p>Sublime Pantry publishes educational information about home freeze-drying and cottage food businesses. It is not medical, legal, or regulatory advice. Food safety and cottage food rules vary by jurisdiction. Always confirm with your state or local authority.</p>
-    <p>&copy; 2026 Sublime Pantry. All rights reserved.</p>
+    <div class="footer-columns">
+      <div>
+        <a href="/" class="footer-brand">
+          <Mark size={40} />
+          <span>Sublime Pantry</span>
+        </a>
+        <p class="footer-line">Run by Jack Ferrence — <a href="/about">About →</a></p>
+      </div>
+
+      <nav aria-labelledby="footer-learn">
+        <h2 id="footer-learn" class="footer-heading">Learn</h2>
+        <ul>{learn.map((item) => <li><a href={item.href}>{item.label}</a></li>)}</ul>
+      </nav>
+
+      <nav aria-labelledby="footer-site">
+        <h2 id="footer-site" class="footer-heading">Site</h2>
+        <ul>{site.map((item) => <li><a href={item.href}>{item.label}</a></li>)}</ul>
+      </nav>
+    </div>
+
+    <p class="footer-fine">Sublime Pantry publishes educational information about home freeze-drying and cottage food businesses. It is not medical, legal, or regulatory advice. Food safety and cottage food rules vary by jurisdiction. Always confirm with your state or local authority.</p>
+    <p class="footer-fine">&copy; 2026 Sublime Pantry. All rights reserved.</p>
   </div>
 </footer>
+
+<style>
+  .site-footer {
+    margin-top: var(--s6);
+    padding-block: var(--s5);
+    background: var(--surface);
+    border-top: 1px solid var(--mist);
+  }
+
+  .footer-columns { display: grid; gap: var(--s4); }
+  @media (min-width: 760px) { .footer-columns { grid-template-columns: 1.2fr 1fr 1fr; } }
+
+  .footer-brand {
+    display: flex; align-items: center; gap: .6rem; min-height: 44px;
+    font-family: var(--font-display); font-size: 1.35rem; font-weight: 600;
+    color: var(--ink); text-decoration: none;
+  }
+  .footer-line { margin: var(--s2) 0 0; color: var(--ink-soft); font-size: .92rem; }
+
+  .footer-heading {
+    font-family: var(--font-body); font-size: var(--kicker); font-weight: 600;
+    text-transform: uppercase; letter-spacing: .08em; color: var(--brand);
+    margin: 0 0 var(--s1);
+  }
+  .site-footer ul { list-style: none; margin: 0; padding: 0; }
+  .site-footer li { margin: 0; }
+  .site-footer li a {
+    display: inline-flex; align-items: center; min-height: 32px;
+    color: var(--ink-soft); text-decoration: none; font-size: .92rem;
+  }
+  .site-footer li a:hover { color: var(--brand); text-decoration: underline; }
+
+  .footer-fine {
+    margin: var(--s3) 0 0; max-width: 70ch;
+    font-size: .85rem; color: var(--ink-soft);
+  }
+</style>

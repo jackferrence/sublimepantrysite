@@ -1,0 +1,40 @@
+---
+/**
+ * The Sublime Pantry mark, drawn from tokens.
+ *
+ * The shape matches /brand/mark-color.svg, but the on-site rendering is
+ * retinted to the two-colour palette (ink + brand) so the header, footer and
+ * placeholder tiles cannot drift from the design tokens. The exported brand
+ * files keep their own colours for off-site use.
+ */
+interface Props {
+  size?: number;
+  class?: string;
+}
+
+const { size = 32, class: className } = Astro.props;
+---
+<svg
+  class:list={['mark', className]}
+  width={size}
+  height={size}
+  viewBox="0 0 256 256"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-hidden="true"
+  focusable="false"
+>
+  <rect x="56" y="64" width="144" height="160" rx="24" class="mark-body" stroke-width="14" />
+  <rect x="72" y="32" width="112" height="32" rx="12" class="mark-lid" />
+  <g class="mark-flake" stroke-width="13" stroke-linecap="round">
+    <line x1="128" y1="96" x2="128" y2="192" />
+    <line x1="86.4" y1="120" x2="169.6" y2="168" />
+    <line x1="169.6" y1="120" x2="86.4" y2="168" />
+  </g>
+</svg>
+
+<style>
+  .mark { display: block; flex: none; }
+  .mark-body { fill: var(--brand-tint); stroke: var(--ink); }
+  .mark-lid { fill: var(--brand); }
+  .mark-flake { stroke: var(--brand); fill: none; }
+</style>
