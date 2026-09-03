@@ -8,6 +8,37 @@ Work top to bottom. Later sections depend on earlier ones.
 
 ---
 
+## 0. Unlock the storefront — **THE launch blocker, do this first**
+
+**Online Store → Preferences → Restrict access to visitors with the password → turn OFF.**
+
+The storefront is currently **password protected** (`onlineStore.passwordProtection.enabled = true`, verified 2026-09-03). `shop.sublimepantry.com` redirects every visitor to `/password`.
+
+This does far more than hide the Shopify storefront. **Password protection locks the Online Store channel, which disables the Storefront API.** Every request from the Storefront Web Components on sublimepantry.com returns:
+
+```
+400  {"errors":[{"message":"Online Store channel is locked.","extensions":{"code":"BAD_REQUEST"}}]}
+```
+
+Consequences right now, on the live site:
+
+- `www.sublimepantry.com/shop` renders **no products at all**.
+- No price, no availability, no add-to-cart, no cart, no checkout.
+- **Nobody can buy anything.** This is why the store shows sessions but zero carts and zero orders.
+
+Nothing else in this runbook matters until this is off. Verify afterwards with:
+
+```
+curl -s -X POST https://shop.sublimepantry.com/api/2026-01/graphql.json \
+  -H 'Content-Type: application/json' -d '{"query":"{shop{name}}"}'
+```
+
+It must return `{"data":{"shop":{"name":"Sublime Pantry"}}}`, not a `BAD_REQUEST`.
+
+Then reload `www.sublimepantry.com/shop` and confirm a live price and an enabled **Add to cart** button appear.
+
+---
+
 ## 1. Apps — already done ✅
 
 Verified installed via the Admin API on 2026-09-03:
@@ -186,8 +217,9 @@ None of these use Astro's `PUBLIC_` prefix, so none can reach the browser.
 ## Order of operations
 
 ```
-§1 apps (done)
-  └─ §3 shipping ─┬─ §2 discounts ── §2c verify ── §2d enable offer on site
+§0 UNLOCK STOREFRONT   ← nothing works until this is done
+  └─ §1 apps (done)
+      └─ §3 shipping ─┬─ §2 discounts ── §2c verify ── §2d enable offer on site
                   └─ §4 taxes/payments/checkout
                           └─ §5 Flow 1 + 5      ← required before any real order
                                   └─ §8 env vars ── §9 redeploy

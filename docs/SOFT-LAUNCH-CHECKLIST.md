@@ -30,10 +30,12 @@ Legend: ⬜ not done · 🟡 partial · ✅ verified · 🔒 blocked
 
 | # | Check | What "pass" means | Status |
 |---|---|---|---|
-| 14 | Current Shopify price shows | Live price replaces the static placeholder | ⬜ |
+| 13a | **Storefront API reachable** | `POST shop.sublimepantry.com/api/2026-01/graphql.json` returns data, not `Online Store channel is locked` | 🔒 **storefront is password protected** |
+| 14 | Current Shopify price shows | Live price replaces the static placeholder | 🔒 blocked by 13a |
 | 15 | Current inventory respected | Add-to-cart disables when unavailable; out-of-stock note shows | ⬜ |
 | 16 | Product image loads | On `/shop` and the product page, both breakpoints | ⬜ |
-| 17 | Add to cart | Item lands in the Shopify cart with the right variant | ⬜ |
+| 16a | Storefront failure fallback | With the API unreachable, no raw error text is visible and the fallback link appears | ✅ verified in browser on this branch |
+| 17 | Add to cart | Item lands in the Shopify cart with the right variant | 🔒 blocked by 13a |
 | 18 | Cart opens | "View cart" opens the dialog; ESC closes it | ⬜ |
 | 19 | Quantity change / remove | Works inside the Shopify cart component | ⬜ |
 | 20 | Checkout handoff | Checkout button reaches Shopify checkout, top-level, not framed | ⬜ |
@@ -112,6 +114,11 @@ Set `window.spDebug = true` in the console and walk the funnel. Each event must 
 
 ## Known launch blockers as of this branch
 
+0. **The Shopify storefront is password protected.** This locks the Online Store
+   channel, which disables the Storefront API, which means `/shop` currently
+   renders no products and **nobody can buy anything**. Verified 2026-09-03
+   against the live store. One toggle in Online Store → Preferences.
+   See `docs/SHOPIFY-ADMIN-SETUP.md` §0. Everything below is downstream of it.
 1. `WELCOME10` and the automatic free-shipping discount **do not exist** in Shopify. The offer UI is built but disabled.
 2. Duplicate `$6.25` / `$0.00` "Standard" shipping rates in the Domestic zone.
 3. No shipping rates outside the Domestic zone.
