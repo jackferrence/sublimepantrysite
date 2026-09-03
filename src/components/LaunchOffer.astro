@@ -1,0 +1,64 @@
+---
+/**
+ * Launch promotion notice.
+ *
+ * Renders nothing unless LAUNCH_OFFER.enabled is true, so the site cannot
+ * advertise a discount code that does not exist in Shopify. No countdowns,
+ * no scarcity, no modals — an editorial note, placed deliberately.
+ */
+import { LAUNCH_OFFER } from '../lib/commerce';
+
+interface Props {
+  /** Where this instance sits, for analytics attribution. */
+  placement: string;
+  /** 'inline' is the default card; 'slim' is a single-line variant. */
+  variant?: 'inline' | 'slim';
+}
+
+const { placement, variant = 'inline' } = Astro.props;
+const props = JSON.stringify({ placement, promo_code: LAUNCH_OFFER.code });
+---
+{LAUNCH_OFFER.enabled && (
+  <aside
+    class:list={['launch-offer', variant === 'slim' && 'launch-offer--slim']}
+    aria-label="Launch offer"
+    data-sp-view="promo_view"
+    data-sp-props={props}
+  >
+    <p class="launch-offer-text">
+      <strong>{LAUNCH_OFFER.headline}</strong>{' '}
+      <span class="launch-offer-detail">{LAUNCH_OFFER.detail}</span>
+    </p>
+    <p class="launch-offer-code">
+      <code data-sp-event="promo_click" data-sp-props={props}>{LAUNCH_OFFER.code}</code>
+    </p>
+  </aside>
+)}
+
+<style>
+  .launch-offer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .6rem 1.1rem;
+    align-items: baseline;
+    justify-content: space-between;
+    margin: 1.6rem 0;
+    padding: .95rem 1.15rem;
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent, #9a6115);
+    border-radius: 10px;
+    background: var(--paper, #fff);
+  }
+  .launch-offer-text { margin: 0; max-width: 62ch; line-height: 1.5; }
+  .launch-offer-detail { color: var(--ink-soft); }
+  .launch-offer-code { margin: 0; }
+  .launch-offer-code code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-weight: 700;
+    letter-spacing: .04em;
+    padding: .3rem .6rem;
+    border: 1px dashed var(--line);
+    border-radius: 6px;
+  }
+  .launch-offer--slim { margin: 1rem 0; padding: .7rem 1rem; font-size: .93rem; }
+</style>

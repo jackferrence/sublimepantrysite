@@ -1,0 +1,12 @@
+---
+/**
+ * Loads the Shopify Storefront Web Components runtime and declares the store.
+ *
+ * Included once per commerce page. Everything SEO-critical is server-rendered
+ * by the calling page; these components supply only live price, availability,
+ * cart, and the checkout handoff.
+ */
+import { SHOPIFY_STORE_DOMAIN } from '../lib/commerce';
+---
+<script type="module" src="https://cdn.shopify.com/storefront/web-components.js"></script>
+<shopify-store store-domain={SHOPIFY_STORE_DOMAIN} country="US" language="en"></shopify-store>

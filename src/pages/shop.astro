@@ -1,29 +1,20 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ShopifyStore from '../components/ShopifyStore.astro';
+import LaunchOffer from '../components/LaunchOffer.astro';
+import { CATALOG, LAUNCH_OFFER } from '../lib/commerce';
 
-const shopifyDomain = 'zd-store-01m146jmxxhw739y7t7y11s669-paky1ta3.myshopify.com';
-const activeProducts = [
-  {
-    handle: 'freeze-dryer-packaging-starter-kit-100',
-    eyebrow: 'Validation launch',
-    note: '100 assorted 7 mil Mylar bags, matched oxygen absorbers, 100 labels, and PackFreshUSA’s storage guide. Sold at current retail source cost while we validate demand.',
-    detailsHref: '/shop/freeze-dryer-packaging-starter-kit',
-  },
-  {
-    handle: 'quart-mylar-bags-300cc-oxygen-absorbers-50',
-    eyebrow: 'Packaging refill',
-    note: 'Quart-size Mylar bags paired with appropriately sized oxygen absorbers for dry, shelf-stable foods.',
-    detailsHref: null,
-  },
-];
+// Every card's title, image and copy is server-rendered. Shopify supplies only
+// live price, availability and the cart — so the page is complete and indexable
+// before (and without) the Storefront JS.
+const cartDiscountCodes = LAUNCH_OFFER.enabled ? LAUNCH_OFFER.code : undefined;
 ---
 <BaseLayout
   title="Freeze-drying supplies"
   description="Shop Sublime Pantry freeze-drying packaging supplies. Product pricing and availability come directly from Shopify; checkout is securely handled by Shopify."
   path="/shop"
 >
-  <script type="module" src="https://cdn.shopify.com/storefront/web-components.js"></script>
-  <shopify-store id="sublime-pantry-store" store-domain={shopifyDomain} country="US" language="en"></shopify-store>
+  <ShopifyStore />
 
   <div class="wrap shop-page">
     <header class="shop-hero">
@@ -31,6 +22,8 @@ const activeProducts = [
       <h1>Freeze-drying supplies, without the junk drawer.</h1>
       <p class="lede">A deliberately small catalog for packaging and storing freeze-dried food. Our starter kit is currently being sold at its retail source cost while we validate the product and fulfillment workflow.</p>
     </header>
+
+    <LaunchOffer placement="shop-hero" />
 
     <section class="validation-note card" aria-label="Validation launch details">
       <span class="kicker">Early validation</span>
@@ -44,22 +37,38 @@ const activeProducts = [
           <span class="kicker">Available now</span>
           <h2 id="available-now">Packaging essentials</h2>
         </div>
-        <button class="btn btn-ghost" type="button" onclick="document.getElementById('sublime-cart').showModal()">View cart</button>
+        <button
+          class="btn btn-ghost"
+          type="button"
+          data-sp-event="cart_open"
+          data-sp-props={JSON.stringify({ placement: 'shop-header' })}
+          onclick="document.getElementById('sublime-cart').showModal()"
+        >View cart</button>
       </div>
 
       <div class="shop-grid">
-        {activeProducts.map((product) => (
-          <shopify-context type="product" handle={product.handle}>
-            <template>
-              <article class="shop-card">
-                <div class="shop-card-media">
-                  <shopify-media query="product.selectedOrFirstAvailableVariant.image" width="640" height="640"></shopify-media>
-                </div>
-                <div class="shop-card-body">
-                  <span class="kicker">{product.eyebrow}</span>
-                  <h2><shopify-data query="product.title"></shopify-data></h2>
-                  <p>{product.note}</p>
-                  <div class="shop-price"><shopify-money query="product.selectedOrFirstAvailableVariant.price" format="money_with_currency"></shopify-money></div>
+        {CATALOG.map((product) => (
+          <article class="shop-card">
+            <div class="shop-card-media">
+              <img
+                src={product.image}
+                alt={product.imageAlt}
+                width="640"
+                height="640"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="shop-card-body">
+              <span class="kicker">{product.eyebrow}</span>
+              <h3>{product.title}</h3>
+              <p>{product.note}</p>
+
+              <shopify-context type="product" handle={product.handle}>
+                <template>
+                  <div class="shop-price">
+                    <shopify-money query="product.selectedOrFirstAvailableVariant.price" format="money_with_currency"></shopify-money>
+                  </div>
                   <div class="shop-actions">
                     <button
                       class="btn btn-primary"
@@ -67,16 +76,28 @@ const activeProducts = [
                       onclick="document.getElementById('sublime-cart').addLine(event).showModal();"
                       shopify-attr--disabled="!product.selectedOrFirstAvailableVariant.availableForSale"
                       data-sp-event="shop_add_to_cart"
-                    >
-                      Add to cart
-                    </button>
-                    {product.detailsHref && <a class="btn btn-ghost" href={product.detailsHref}>See details</a>}
+                      data-sp-props={JSON.stringify({ product_handle: product.handle, sku: product.sku })}
+                    >Add to cart</button>
                   </div>
+                </template>
+                <div shopify-loading-placeholder>
+                  <div class="shop-price shop-price--pending">{product.displayPrice}</div>
+                  <p class="shop-pending">Confirming current price and availability with Shopify…</p>
                 </div>
-              </article>
-            </template>
-            <div class="shop-loading" shopify-loading-placeholder>Loading current product details…</div>
-          </shopify-context>
+              </shopify-context>
+
+              {product.detailsHref && (
+                <p class="shop-details-link">
+                  <a
+                    class="text-link"
+                    href={product.detailsHref}
+                    data-sp-event="product_card_click"
+                    data-sp-props={JSON.stringify({ product_handle: product.handle })}
+                  >See what's included →</a>
+                </p>
+              )}
+            </div>
+          </article>
         ))}
       </div>
     </section>
@@ -84,12 +105,12 @@ const activeProducts = [
     <section class="shop-coming card" aria-labelledby="coming-next">
       <span class="kicker">Next after validation</span>
       <h2 id="coming-next">Refills and expanded packaging.</h2>
-      <p>Additional oxygen absorber refills, gallon packaging, and candy pouches are already staged in Shopify. They will remain draft until each source configuration and fulfillment detail is verified.</p>
+      <p>Additional oxygen absorber refills, quart and gallon packaging, and candy pouches are already staged in Shopify. They stay unlisted until each source configuration and fulfillment detail is verified.</p>
       <a class="btn btn-ghost" href="/guides/complete-batch-workflow">Read the packaging workflow</a>
     </section>
   </div>
 
-  <shopify-cart id="sublime-cart" target="_top"></shopify-cart>
+  <shopify-cart id="sublime-cart" target="_top" discountCodes={cartDiscountCodes}></shopify-cart>
 
   <style>
     .shop-page { padding-top: 3.5rem; padding-bottom: 4rem; }
@@ -98,16 +119,19 @@ const activeProducts = [
     .validation-note { margin-bottom: 3rem; padding: 1.2rem 1.35rem; max-width: 760px; }
     .validation-note strong { display: block; margin: .35rem 0 .4rem; }
     .validation-note p { margin: 0; color: var(--ink-soft); }
-    .shop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
-    .shop-card { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--paper, #fff); height: 100%; }
-    .shop-card-media { aspect-ratio: 1; background: #f4f6f7; display: grid; place-items: center; overflow: hidden; }
-    .shop-card-media shopify-media { width: 100%; height: 100%; }
+    .shop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 420px)); gap: 1.25rem; }
+    .shop-card { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--paper, #fff); }
+    .shop-card-media { aspect-ratio: 1; background: #f4f6f7; }
+    .shop-card-media img { width: 100%; height: 100%; object-fit: contain; display: block; }
     .shop-card-body { padding: 1.35rem; }
-    .shop-card-body h2 { margin: .35rem 0 .65rem; font-size: 1.35rem; }
+    .shop-card-body h3 { margin: .35rem 0 .65rem; font-size: 1.3rem; line-height: 1.25; }
     .shop-card-body p { color: var(--ink-soft); }
-    .shop-price { font-weight: 700; font-size: 1.15rem; margin: 1rem 0; }
+    .shop-price { font-weight: 700; font-size: 1.15rem; margin: 1rem 0 .85rem; }
+    .shop-price--pending { opacity: .6; }
+    .shop-pending { font-size: .85rem; color: var(--ink-soft); margin: 0; }
     .shop-actions { display: flex; gap: .65rem; flex-wrap: wrap; }
-    .shop-loading { padding: 2rem; border: 1px solid var(--line); border-radius: 14px; color: var(--ink-soft); }
+    .shop-details-link { margin: 1rem 0 0; }
+    .text-link { font-weight: 700; }
     .shop-coming { margin-top: 2.5rem; padding: 1.6rem; }
     .shop-coming h2 { margin: .35rem 0 .7rem; }
     .shop-coming p { max-width: 70ch; color: var(--ink-soft); }

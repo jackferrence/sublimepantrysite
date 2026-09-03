@@ -5,5 +5,12 @@
 [build.environment]
   NODE_VERSION = "22"
 
+# Serverless functions. lead-capture.mjs mirrors newsletter submissions into
+# Shopify as customers; it holds the only copy of the Admin API token and is
+# never bundled into the client. See docs/CUSTOMER-LIFECYCLE.md.
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
 # Security headers are defined in public/_headers (copied to dist/_headers
 # at build time) so there is a single source of truth.

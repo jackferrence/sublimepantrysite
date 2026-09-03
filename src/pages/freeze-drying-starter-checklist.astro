@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import StarterKitCTA from '../components/StarterKitCTA.astro';
+import LaunchOffer from '../components/LaunchOffer.astro';
 ---
 <BaseLayout
   title="Freeze-Drying Starter Checklist"
@@ -58,6 +59,8 @@ import StarterKitCTA from '../components/StarterKitCTA.astro';
 
     <StarterKitCTA source="starter-checklist" />
 
+    <LaunchOffer placement="starter-checklist" variant="slim" />
+
     <section class="next-reading">
       <h2>Use the checklist with the full workflow.</h2>
       <p>The checklist is intentionally short. The complete guide explains why each stage matters and what to do when a batch does not behave normally.</p>
@@ -82,7 +85,7 @@ import StarterKitCTA from '../components/StarterKitCTA.astro';
     .next-reading p { color: var(--ink-soft); }
     @media (max-width: 760px) { .checklist-grid { grid-template-columns: 1fr; } }
     @media print {
-      header, footer, nav, .print-button, .starter-kit-cta, .next-reading { display: none !important; }
+      header, footer, nav, .print-button, .starter-kit-cta, .launch-offer, .next-reading { display: none !important; }
       .checklist-page { padding: 0; }
       .checklist-grid { gap: .5rem; }
       .checklist-card { break-inside: avoid; }
