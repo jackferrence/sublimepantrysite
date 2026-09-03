@@ -47,13 +47,13 @@ export const CATALOG: CatalogProduct[] = [
     sku: 'MSMBS7MIL001',
     title: 'Freeze-Drying Packaging Starter Kit — 100 Bags + Absorbers + Labels',
     eyebrow: 'Validation launch',
-    note: '100 assorted 7 mil Mylar bags, 100 matched oxygen absorbers, 100 labels, and PackFreshUSA’s storage guide. Sold at current retail source cost while we validate demand.',
+    note: '100 assorted 7 mil Mylar bags, 100 matched oxygen absorbers, 100 labels, and PackFreshUSA’s storage guide. One matched set, shipped free.',
     image:
       'https://cdn.shopify.com/s/files/1/0883/4875/4197/files/packfreshusa-7mil-mylar-box-set-100-pack.jpg?v=1788393303',
     imageAlt:
       'PackFreshUSA 7 mil Mylar bag, oxygen absorber, and label box set used for the Sublime Pantry freeze-drying packaging starter kit',
     detailsHref: '/shop/freeze-dryer-packaging-starter-kit',
-    displayPrice: '$59.99 USD',
+    displayPrice: '$74.99 USD',
   },
 ];
 
@@ -68,9 +68,11 @@ export const STARTER_KIT = CATALOG[0];
  *
  * Verified 2026-09-03 against the live Storefront API with a real cart:
  *   WELCOME10 → applicable: true
- *   $59.99 → $54.00
+ *   $59.99 → $54.00 (list price has since moved to $74.99)
  *   delivery options → a single "Standard" at $0.00
  *   cart total → $54.00
+ *
+ * Re-confirmed by real order #1001 (2026-09-03): PAID, $54.00, $0.00 shipping.
  *
  * Note on how free shipping is delivered: NOT by a shipping discount. The
  * Domestic "Standard" rate ($6.25) carries a rate condition granting $0.00 when
@@ -82,6 +84,7 @@ export const STARTER_KIT = CATALOG[0];
  * drops below $50, or a cheaper product becomes the primary offer, the
  * post-discount total can fall under $45 and the "free shipping" half of this
  * claim silently stops being true. Re-verify before changing price.
+ * At the current $74.99 list, WELCOME10 leaves $67.49 — comfortably clear.
  */
 export const LAUNCH_OFFER = {
   enabled: true,
