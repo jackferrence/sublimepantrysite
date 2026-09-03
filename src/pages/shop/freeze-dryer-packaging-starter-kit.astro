@@ -32,6 +32,9 @@ if (reviews.aggregate) {
   };
 }
 
+// NOTE: the attribute is `discount-codes` (kebab-case). HTML lowercases
+// attribute names, so a camelCase `discountCodes` renders as `discountcodes`
+// and the component silently ignores it — the cart then opens at full price.
 const cartDiscountCodes = LAUNCH_OFFER.enabled ? LAUNCH_OFFER.code : undefined;
 const trackProps = JSON.stringify({
   product_handle: STARTER_KIT.handle,
@@ -146,7 +149,7 @@ const trackProps = JSON.stringify({
     </section>
   </div>
 
-  <shopify-cart id="starter-cart" target="_top" discountCodes={cartDiscountCodes}></shopify-cart>
+  <shopify-cart id="starter-cart" target="_top" discount-codes={cartDiscountCodes}></shopify-cart>
 
   <style>
     .product-page { padding-top: 2rem; padding-bottom: 4rem; }

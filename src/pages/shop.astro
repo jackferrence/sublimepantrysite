@@ -7,6 +7,9 @@ import { CATALOG, LAUNCH_OFFER, SHOPIFY_PUBLIC_DOMAIN } from '../lib/commerce';
 // Every card's title, image and copy is server-rendered. Shopify supplies only
 // live price, availability and the cart — so the page is complete and indexable
 // before (and without) the Storefront JS.
+// NOTE: the attribute is `discount-codes` (kebab-case). HTML lowercases
+// attribute names, so a camelCase `discountCodes` renders as `discountcodes`
+// and the component silently ignores it — the cart then opens at full price.
 const cartDiscountCodes = LAUNCH_OFFER.enabled ? LAUNCH_OFFER.code : undefined;
 ---
 <BaseLayout
@@ -117,7 +120,7 @@ const cartDiscountCodes = LAUNCH_OFFER.enabled ? LAUNCH_OFFER.code : undefined;
     </section>
   </div>
 
-  <shopify-cart id="sublime-cart" target="_top" discountCodes={cartDiscountCodes}></shopify-cart>
+  <shopify-cart id="sublime-cart" target="_top" discount-codes={cartDiscountCodes}></shopify-cart>
 
   <style>
     .shop-page { padding-top: 3.5rem; padding-bottom: 4rem; }
