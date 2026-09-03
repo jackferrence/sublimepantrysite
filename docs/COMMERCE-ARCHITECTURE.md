@@ -140,3 +140,44 @@ Do not run disconnected mailing lists indefinitely. Before migrating the current
 5. Replace the disconnected Netlify-only email path with the chosen lifecycle/segmentation architecture.
 6. Instrument the funnel: content view → product view → add to cart → checkout → purchase → repeat purchase.
 7. Only then expand paid acquisition and catalog breadth.
+
+## Implementation notes
+
+### Where the boundary is enforced in code
+
+| Concern | Lives in | File |
+|---|---|---|
+| Product handles, SKUs, merchandising copy, images | Repo | `src/lib/commerce.ts` |
+| Price, availability, cart, checkout | Shopify, at runtime | Storefront Web Components |
+| Reviews | Judge.me, at build time | `src/lib/reviews.ts` |
+| Customer identity and consent | Shopify | `netlify/functions/lead-capture.mjs` |
+| Funnel behaviour before checkout | Plausible | `public/events.js` |
+
+`src/lib/commerce.ts` holds identifiers and editorial copy only. It must never hold a price, an inventory count, or an availability flag — those would be a second copy of Shopify's state, and would be wrong the moment Shopify changed.
+
+The one exception is `displayPrice`, which is shown *only* inside the Storefront components' loading placeholder and is replaced by live data within a second. It is a rendering hint, not a source of truth. Update it when the price changes, or drop it.
+
+### Structured data and staleness
+
+`Product` JSON-LD on the starter-kit page deliberately **omits `offers`**. This is a statically built site: a price or availability baked into the HTML goes stale the moment it changes in Shopify, and stale price markup is both an SEO liability and a customer-trust problem.
+
+**Prerequisite before adding `offers`:** a Netlify build hook wired to a Shopify `products/update` webhook, so that any price or availability change triggers a rebuild. Once that exists, `offers` can be added with `price`, `priceCurrency`, `availability` and `url`. Until then, leave it out. See `docs/SHOPIFY-ADMIN-SETUP.md` §9.
+
+`aggregateRating` follows the same rule and is emitted only when real Judge.me reviews exist.
+
+### Adding a product to the site
+
+1. The Shopify product must be **ACTIVE and published to the Online Store**. Draft products are invisible to the Storefront API, so a card for one hangs on its loading placeholder forever.
+2. Add an entry to `CATALOG` in `src/lib/commerce.ts` with a server-rendered title, image, and copy.
+3. Add its Shopify numeric product ID to `SHOPIFY_PRODUCT_IDS` in `src/lib/reviews.ts`.
+4. Keep the catalog small. The starter kit is the offer; a long list dilutes it.
+
+### Related documents
+
+- `docs/SHOPIFY-ADMIN-SETUP.md` — the manual runbook (start here)
+- `docs/SOFT-LAUNCH-CHECKLIST.md` — the launch gate
+- `docs/CUSTOMER-LIFECYCLE.md` — identity, consent, tags, fallback behaviour
+- `docs/ANALYTICS-EVENTS.md` — event taxonomy
+- `docs/SHOPIFY-FLOW-WORKFLOWS.md` · `docs/EMAIL-AUTOMATIONS.md` · `docs/SHOPIFY-FORMS.md` · `docs/REVIEWS-INTEGRATION.md`
+- `docs/COMMERCIAL-INTERNAL-LINKING.md` — stage-based linking rules
+- `docs/MANUAL-FULFILLMENT.md` — PackFreshUSA SOP
