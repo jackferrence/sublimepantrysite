@@ -3,51 +3,73 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const shopifyDomain = 'zd-store-01m146jmxxhw739y7t7y11s669-paky1ta3.myshopify.com';
 const handle = 'freeze-dryer-packaging-starter-kit-100';
+const productImage = 'https://cdn.shopify.com/s/files/1/0883/4875/4197/files/packfreshusa-7mil-mylar-box-set-100-pack.jpg?v=1788393303';
+const productSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: 'Freeze-Drying Packaging Starter Kit — 100 Bags + Absorbers + Labels',
+  description: 'A first-batch packaging kit with 100 assorted 7 mil Mylar bags, 100 matched oxygen absorbers, 100 labels, and a food-storage guide.',
+  image: [productImage],
+  sku: 'MSMBS7MIL001',
+  brand: { '@type': 'Brand', name: 'PackFreshUSA' },
+};
 ---
 <BaseLayout
   title="Freeze-Dryer Packaging Starter Kit — 100 Bags"
   description="A simple first-batch packaging kit with 100 assorted 7 mil Mylar bags, 100 matched oxygen absorbers, 100 labels, and a storage guide."
   path="/shop/freeze-dryer-packaging-starter-kit"
 >
+  <script type="application/ld+json" set:html={JSON.stringify(productSchema)}></script>
   <script type="module" src="https://cdn.shopify.com/storefront/web-components.js"></script>
   <shopify-store id="sublime-pantry-store" store-domain={shopifyDomain} country="US" language="en"></shopify-store>
 
   <main class="wrap product-page">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/shop">Shop</a> <span aria-hidden="true">/</span> Starter kit</nav>
 
-    <shopify-context type="product" handle={handle}>
-      <template>
-        <section class="product-hero">
-          <div class="product-media">
-            <shopify-media query="product.featuredImage" width="900" height="900"></shopify-media>
+    <section class="product-hero">
+      <div class="product-media">
+        <img
+          src={productImage}
+          width="900"
+          height="900"
+          alt="PackFreshUSA 7 mil Mylar bag, oxygen absorber, and label box set used for the Sublime Pantry freeze-drying packaging starter kit"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+      <div class="product-copy">
+        <span class="kicker">Validation launch · current source-cost pricing</span>
+        <h1>Freeze-Drying Packaging Starter Kit</h1>
+        <p class="lede">Stop piecing together bags, absorber sizes, and labels one order at a time. This kit covers the packaging step for your first serious run of freeze-dried food with one matched set.</p>
+
+        <shopify-context type="product" handle={handle}>
+          <template>
+            <div class="commerce-block">
+              <div class="price"><shopify-money query="product.selectedOrFirstAvailableVariant.price" format="money_with_currency"></shopify-money></div>
+              <button
+                class="btn btn-primary buy-button"
+                type="button"
+                onclick="document.getElementById('starter-cart').addLine(event).showModal();"
+                shopify-attr--disabled="!product.selectedOrFirstAvailableVariant.availableForSale"
+                data-sp-event="starter_kit_add_to_cart"
+              >Add starter kit to cart</button>
+            </div>
+          </template>
+          <div class="commerce-loading" shopify-loading-placeholder>
+            <span class="price">$59.99 USD</span>
+            <span class="btn btn-primary buy-button disabled" aria-disabled="true">Loading purchase options…</span>
           </div>
-          <div class="product-copy">
-            <span class="kicker">Validation launch · current source-cost pricing</span>
-            <h1><shopify-data query="product.title"></shopify-data></h1>
-            <p class="lede">Stop piecing together bags, absorber sizes, and labels one order at a time. This kit covers the packaging step for your first serious run of freeze-dried food with one matched set.</p>
+        </shopify-context>
 
-            <div class="price"><shopify-money query="product.selectedOrFirstAvailableVariant.price" format="money_with_currency"></shopify-money></div>
-
-            <ul class="included">
-              <li><strong>100 heavy-duty 7 mil Mylar bags</strong>: 30 pint, 40 quart, 30 gallon</li>
-              <li><strong>100 matched oxygen absorbers</strong>: 30 × 100cc, 40 × 300cc, 30 × 500cc</li>
-              <li><strong>100 adhesive labels</strong> for batch/date identification</li>
-              <li><strong>PackFreshUSA food-storage guide</strong></li>
-            </ul>
-
-            <button
-              class="btn btn-primary buy-button"
-              type="button"
-              onclick="document.getElementById('starter-cart').addLine(event).showModal();"
-              shopify-attr--disabled="!product.selectedOrFirstAvailableVariant.availableForSale"
-              data-sp-event="starter_kit_add_to_cart"
-            >Add starter kit to cart</button>
-            <p class="fine">Checkout, taxes, payment, and order confirmation are handled securely by Shopify.</p>
-          </div>
-        </section>
-      </template>
-      <div class="loading" shopify-loading-placeholder>Loading current product details…</div>
-    </shopify-context>
+        <ul class="included">
+          <li><strong>100 heavy-duty 7 mil Mylar bags</strong>: 30 pint, 40 quart, 30 gallon</li>
+          <li><strong>100 matched oxygen absorbers</strong>: 30 × 100cc, 40 × 300cc, 30 × 500cc</li>
+          <li><strong>100 adhesive labels</strong> for batch/date identification</li>
+          <li><strong>PackFreshUSA food-storage guide</strong></li>
+        </ul>
+        <p class="fine">Checkout, taxes, payment, and order confirmation are handled securely by Shopify. Product availability is confirmed by Shopify before purchase.</p>
+      </div>
+    </section>
 
     <section class="proof-grid" aria-label="Why this kit exists">
       <article class="card"><span class="kicker">Matched sizes</span><h2>No absorber-size guessing.</h2><p>The bag mix is paired with 100cc, 300cc, and 500cc absorbers so the common sizes arrive together instead of as disconnected supplies.</p></article>
@@ -76,15 +98,16 @@ const handle = 'freeze-dryer-packaging-starter-kit-100';
     .crumbs span { margin: 0 .45rem; }
     .product-hero { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
     .product-media { aspect-ratio: 1; border-radius: 16px; overflow: hidden; background: #f4f6f7; display: grid; place-items: center; }
-    .product-media shopify-media { width: 100%; height: 100%; }
+    .product-media img { width: 100%; height: 100%; object-fit: contain; display: block; }
     .product-copy h1 { margin: .45rem 0 .85rem; }
     .product-copy .lede { color: var(--ink-soft); font-size: 1.1rem; max-width: 58ch; }
-    .price { margin: 1.2rem 0; font-size: 1.55rem; font-weight: 800; }
+    .commerce-block, .commerce-loading { margin: 1.2rem 0 1.4rem; }
+    .price { display: block; font-weight: 800; font-size: 1.55rem; margin-bottom: .75rem; }
     .included { padding-left: 1.25rem; }
     .included li { margin: .65rem 0; }
-    .buy-button { margin-top: .7rem; min-width: 230px; }
+    .buy-button { min-width: 230px; }
+    .disabled { opacity: .65; pointer-events: none; }
     .fine { color: var(--ink-soft); font-size: .85rem; }
-    .loading { padding: 3rem; border: 1px solid var(--line); border-radius: 14px; }
     .proof-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 4rem 0 1rem; }
     .proof-grid .card, .how { padding: 1.4rem; }
     .proof-grid h2, .how h2, .fit h2 { margin: .35rem 0 .65rem; font-size: 1.35rem; }
