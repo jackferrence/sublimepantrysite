@@ -1,18 +1,20 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageLayout from '../../layouts/PageLayout.astro';
 import Newsletter from '../../components/Newsletter.astro';
 ---
-<BaseLayout
+<PageLayout
   title="Batch Log & Cost Tracker"
   description="Free freeze-drying batch log: record food, load, cycle hours, costs, and water-activity readings. See your real cost per batch and per bag. Data stays in your browser; export CSV anytime."
   path="/tools/batch-log"
+  breadcrumbs={[{ label: 'Batch Log', href: '/tools/batch-log' }]}
+  width="wrap"
 >
-  <div class="wrap" style="padding-top:2.2rem;">
+  <div class="batch-log">
     <span class="kicker">Free tool</span>
     <h1>Batch Log &amp; Cost Tracker</h1>
-    <p style="max-width:62ch;color:var(--ink-soft);">Every batch you log makes your machine more predictable and your pricing more honest. Data is stored <strong>only in this browser</strong> — we never see it. Export to CSV for backup or your cottage-food records.</p>
+    <p class="lede">Every batch you log makes your machine more predictable and your pricing more honest. Data is stored <strong>only in this browser</strong> — we never see it. Export to CSV for backup or your cottage-food records.</p>
 
-    <div class="tool-panel">
+    <div class="card tool-panel">
       <form id="batch-form" novalidate data-astro-reload>
         <fieldset>
           <legend>The batch</legend>
@@ -44,13 +46,13 @@ import Newsletter from '../../components/Newsletter.astro';
                 <option value="fail">Fail</option>
               </select>
             </div>
-            <div style="grid-column:1 / -1;">
+            <div class="field-wide">
               <label for="f-notes">Notes (settings, spacing, what you'd change)</label>
               <input type="text" id="f-notes" placeholder="Extra 2h dry time; center tray marginal" />
             </div>
           </div>
         </fieldset>
-        <button class="btn btn-primary" type="submit" style="border:0;cursor:pointer;" data-sp-event="tool_batch_logged">Log this batch</button>
+        <button class="btn btn-primary" type="submit" data-sp-event="tool_batch_logged">Log this batch</button>
       </form>
     </div>
 
@@ -64,57 +66,92 @@ import Newsletter from '../../components/Newsletter.astro';
 
     <h2>Log</h2>
     <div class="table-scroll">
-      <table id="log-table" class="tool-table" style="border-collapse:collapse;width:100%;min-width:640px;font-size:0.88rem;">
+      <table id="log-table" class="tool-table">
         <thead>
           <tr>
-            <th>Date</th><th>Food</th><th>Load lb</th><th>Hours</th><th>Cost $</th><th>Bags</th><th>$/bag</th><th>aw</th><th>24h</th><th>Notes</th><th></th>
+            <th scope="col">Date</th><th scope="col">Food</th><th scope="col">Load lb</th><th scope="col">Hours</th><th scope="col">Cost $</th><th scope="col">Bags</th><th scope="col">$/bag</th><th scope="col">aw</th><th scope="col">24h</th><th scope="col">Notes</th><th scope="col"><span class="sr-only">Actions</span></th>
           </tr>
         </thead>
         <tbody id="log-body"></tbody>
       </table>
     </div>
-    <p id="empty-note" style="color:var(--ink-soft);">No batches yet. Log your first one above.</p>
-    <p style="margin-top:1.2rem;">
-      <button class="btn btn-ghost" id="export-btn" type="button" style="cursor:pointer;" data-sp-event="tool_csv_export">Export CSV</button>
-      <button class="btn btn-ghost" id="clear-btn" type="button" style="cursor:pointer;color:var(--sp-danger);border-color:var(--sp-danger);">Delete all data</button>
+    <p id="empty-note" class="meta empty-note">No batches yet. Log your first one above.</p>
+    <p class="tool-actions">
+      <button class="btn btn-secondary" id="export-btn" type="button" data-sp-event="tool_csv_export">Export CSV</button>
+      <button class="btn btn-secondary" id="clear-btn" type="button">Delete all data</button>
     </p>
 
-    <div class="notice notice-info" role="note" style="margin-top:2rem;">
+    <div class="notice" role="note">
       <strong>Want this as a real app?</strong> We're exploring a cross-device batch-log app with cloud backup, per-food cycle predictions, and printable cottage-food records. <a href="/contact">Tell us</a> if you'd use it — reader interest decides whether we build it.
     </div>
 
     <Newsletter />
   </div>
 
-  <style>
-    #log-table th,
-    #log-table td {
-      border: 1px solid var(--mist);
-      text-align: left;
-      padding: 0.45rem 0.55rem;
+  <style is:global>
+    .batch-log { padding-bottom: var(--s6); }
+    .tool-panel { padding: var(--s4); margin: var(--s4) 0; }
+    .tool-panel fieldset { border: 0; padding: 0; margin: 0 0 var(--s4); }
+    .tool-panel legend {
+      padding: 0; margin-bottom: var(--s2);
+      font-family: var(--font-body); font-size: var(--kicker); font-weight: 600;
+      text-transform: uppercase; letter-spacing: .08em; color: var(--brand);
     }
-    #log-table th {
-      background: var(--frost-tint);
-      color: var(--heading);
+    .field-grid { display: grid; gap: var(--s3); grid-template-columns: 1fr; }
+    @media (min-width: 620px) { .field-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    .field-grid label { display: block; margin-bottom: .35rem; font-size: .9rem; }
+    .field-wide { grid-column: 1 / -1; }
+
+    .stat-row { display: grid; gap: var(--s2); grid-template-columns: repeat(2, 1fr); margin: var(--s3) 0; }
+    @media (min-width: 720px) { .stat-row { grid-template-columns: repeat(4, 1fr); } }
+    .stat {
+      background: var(--surface); border: 1px solid var(--mist);
+      border-radius: var(--radius); padding: var(--s2);
     }
-    #log-table .del-btn {
-      color: var(--sp-danger);
-      cursor: pointer;
-      background: none;
-      border: 0;
-      padding: 0.4rem 0.3rem;
-      margin: -0.4rem -0.3rem;
-      font-size: 0.85rem;
-      text-decoration: underline;
-      min-height: 24px;
+    .stat .label { font-size: var(--kicker); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-soft); }
+    .stat .value {
+      font-family: var(--font-display); font-size: 1.6rem; line-height: 1.2;
+      font-variant-numeric: tabular-nums; color: var(--ink);
     }
-    .field-error {
-      color: var(--sp-danger);
-      margin: 0.3rem 0 0;
-      font-size: 0.82rem;
+
+    .tool-table { min-width: 44rem; font-size: .9rem; }
+    .del-btn {
+      background: none; border: 0; padding: .4rem .3rem; margin: -.4rem -.3rem;
+      color: var(--brand); font: inherit; font-size: .85rem;
+      text-decoration: underline; cursor: pointer; min-height: 24px;
     }
-    .field-grid input.has-error {
-      border-color: var(--sp-danger);
+    .empty-note[hidden] { display: none; }
+    .tool-actions { display: flex; flex-wrap: wrap; gap: var(--s2); margin-top: var(--s3); }
+
+    .field-error { color: var(--brand); margin: .3rem 0 0; font-size: .82rem; font-weight: 600; }
+    .field-grid input.has-error { border-color: var(--brand); }
+
+    /*
+      Under 640px the ten-column log stops being a table and becomes one card
+      per batch. Each cell keeps its column name in `data-label`, written by the
+      render function, and prints it as the row label.
+    */
+    @media (max-width: 639px) {
+      .table-scroll { overflow-x: visible; box-shadow: none; }
+      .tool-table { min-width: 0; }
+      .tool-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+      .tool-table tbody, .tool-table tr, .tool-table td { display: block; width: 100%; }
+      .tool-table tr {
+        background: var(--surface); border: 1px solid var(--mist);
+        border-radius: var(--radius); padding: var(--s2); margin-bottom: var(--s2);
+      }
+      .tool-table td {
+        border: 0; border-bottom: 1px solid var(--mist);
+        display: flex; justify-content: space-between; gap: var(--s2);
+        padding: .35rem 0; text-align: right;
+      }
+      .tool-table td:last-child { border-bottom: 0; }
+      .tool-table td::before {
+        content: attr(data-label);
+        font-size: var(--kicker); text-transform: uppercase; letter-spacing: .06em;
+        color: var(--ink-soft); text-align: left; flex: none;
+      }
+      .tool-table td:empty { display: none; }
     }
   </style>
 
@@ -204,12 +241,16 @@ import Newsletter from '../../components/Newsletter.astro';
             r.check || '',
             r.notes || '',
           ];
-          cells.forEach((c) => {
+          const labels = ['Date', 'Food', 'Load lb', 'Hours', 'Cost $', 'Bags', '$/bag', 'aw', '24h', 'Notes'];
+          cells.forEach((c, ci) => {
             const td = document.createElement('td');
+            // Read by the <640px stacked-card layout, which hides the header row.
+            td.dataset.label = labels[ci];
             td.textContent = String(c);
             tr.appendChild(td);
           });
           const tdDel = document.createElement('td');
+          tdDel.dataset.label = '';
           const btn = document.createElement('button');
           btn.className = 'del-btn';
           btn.type = 'button';
@@ -334,4 +375,4 @@ import Newsletter from '../../components/Newsletter.astro';
       render();
     })();
   </script>
-</BaseLayout>
+</PageLayout>

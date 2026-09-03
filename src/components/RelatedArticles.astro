@@ -1,0 +1,45 @@
+---
+/**
+ * Three more articles from the same pillar. An article's own `related` list
+ * wins when it declares one; otherwise the newest siblings fill the row.
+ */
+import { getCollection } from 'astro:content';
+import Card from './Card.astro';
+import { articleHref, newestFirst, type Article } from '../lib/articles';
+
+interface Props {
+  entry: Article;
+}
+
+const { entry } = Astro.props;
+
+const siblings = (await getCollection('articles', ({ data }) => data.pillar === entry.data.pillar))
+  .filter((e) => e.id !== entry.id);
+
+const declared = (entry.data.related ?? [])
+  .map((id) => siblings.find((e) => e.id === id))
+  .filter((e): e is Article => Boolean(e));
+
+const filler = siblings.filter((e) => !declared.includes(e)).sort(newestFirst);
+const picks = [...declared, ...filler].slice(0, 3);
+---
+{picks.length > 0 && (
+  <section class="related module" aria-labelledby="related-heading">
+    <div class="section-head">
+      <h2 id="related-heading">Keep reading</h2>
+      <a class="btn-text" href={`/${entry.data.pillar}`}>All {entry.data.pillar === 'compare' ? 'comparisons' : entry.data.pillar}</a>
+    </div>
+    <div class="card-grid">
+      {picks.map((e) => (
+        <Card
+          href={articleHref(e)}
+          title={e.data.title}
+          dek={e.data.description}
+          kicker={e.data.section ?? e.data.kicker}
+          image={e.data.image?.src}
+          imageAlt={e.data.image?.alt}
+        />
+      ))}
+    </div>
+  </section>
+)}

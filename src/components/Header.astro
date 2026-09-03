@@ -1,4 +1,16 @@
 ---
+/**
+ * Site header: sticky, static, and quiet.
+ *
+ * No hide-on-scroll, no condense, no blur, no sliding indicator. The active
+ * section is marked with `aria-current` on the server and underlined in CSS,
+ * so it is correct before any JavaScript runs.
+ */
+import Mark from './Mark.astro';
+import Icon from './Icon.astro';
+import SearchBox from './SearchBox.astro';
+import { normalizePath } from '../lib/paths';
+
 const navItems = [
   { href: '/shop', label: 'Shop' },
   { href: '/guides', label: 'Guides' },
@@ -8,33 +20,180 @@ const navItems = [
   { href: '/start-selling', label: 'Start Selling' },
   { href: '/about', label: 'About' },
 ];
-const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+const path = normalizePath(Astro.url.pathname);
+const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`);
 ---
-<header class="site-header" transition:name="site-header">
-  <div class="wrap">
+<header class="site-header">
+  <div class="wrap header-row">
     <a href="/" class="brand">
-      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <rect x="7" y="8" width="18" height="20" rx="3" stroke="#1d3f56" stroke-width="2" fill="#e7eef3"></rect>
-        <rect x="9" y="4" width="14" height="4" rx="1.5" fill="#9a6115"></rect>
-        <g stroke="#2c5d7c" stroke-width="1.6" stroke-linecap="round">
-          <line x1="16" y1="12" x2="16" y2="24"></line>
-          <line x1="10.8" y1="15" x2="21.2" y2="21"></line>
-          <line x1="21.2" y1="15" x2="10.8" y2="21"></line>
-        </g>
-      </svg>Sublime Pantry
+      <Mark size={32} />
+      <span>Sublime Pantry</span>
     </a>
+
     <nav class="site-nav" aria-label="Main">
-      <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav-list" hidden>
-        <span class="sr-only">Menu</span>
-        <span class="bar" aria-hidden="true"></span>
-        <span class="bar" aria-hidden="true"></span>
-        <span class="bar" aria-hidden="true"></span>
-      </button>
-      <ul id="site-nav-list">
+      <ul>
         {navItems.map((item) => (
-          <li><a href={item.href} aria-current={path === item.href ? 'page' : undefined}>{item.label}</a></li>
+          <li>
+            <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a>
+          </li>
         ))}
       </ul>
     </nav>
+
+    <div class="header-actions">
+      <button
+        type="button"
+        class="icon-button search-toggle"
+        aria-expanded="false"
+        aria-controls="site-search"
+        data-sp-overlay-open
+      >
+        <Icon name="search" size={20} label="Search" />
+      </button>
+
+      <button type="button" class="icon-button cart-button" data-sp-cart-open>
+        <Icon name="shopping-bag" size={20} label="Cart" />
+        <span class="cart-count" data-cart-count hidden>0</span>
+      </button>
+
+      <button
+        type="button"
+        class="icon-button nav-toggle"
+        aria-expanded="false"
+        aria-controls="site-drawer"
+        data-sp-overlay-open
+      >
+        <Icon name="menu" size={22} label="Menu" />
+      </button>
+    </div>
+  </div>
+
+  <div class="overlay search-panel" id="site-search" hidden>
+    <div class="wrap search-panel-inner">
+      <SearchBox id="header-search" />
+      <button type="button" class="icon-button" data-sp-overlay-close>
+        <Icon name="x" size={20} label="Close search" />
+      </button>
+    </div>
+  </div>
+
+  <div class="overlay nav-drawer" id="site-drawer" hidden>
+    <div class="nav-drawer-panel">
+      <div class="nav-drawer-head">
+        <span class="kicker">Menu</span>
+        <button type="button" class="icon-button" data-sp-overlay-close>
+          <Icon name="x" size={20} label="Close menu" />
+        </button>
+      </div>
+      <SearchBox id="drawer-search" />
+      <ul class="nav-drawer-list">
+        {navItems.map((item) => (
+          <li>
+            <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a>
+          </li>
+        ))}
+      </ul>
+      <a class="btn btn-primary nav-drawer-cta" href="/tools/batch-log">Open the Batch Log</a>
+    </div>
   </div>
 </header>
+
+<style>
+  .site-header {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--surface);
+    border-bottom: 1px solid var(--mist);
+  }
+
+  .header-row {
+    display: flex; align-items: center; gap: var(--s3);
+    min-height: 60px;
+  }
+
+  .brand {
+    display: flex; align-items: center; gap: .55rem;
+    min-height: 44px;
+    font-family: var(--font-display); font-size: clamp(1.15rem, 4.5vw, 1.35rem); font-weight: 600;
+    color: var(--ink); text-decoration: none; white-space: nowrap;
+  }
+
+  /* Below the drawer breakpoint the search box is the first thing in the
+     drawer, so a second search control in the bar is redundant — and at 360px
+     it is what pushes the header past the viewport. */
+  .search-toggle { display: none; }
+  @media (min-width: 900px) { .search-toggle { display: inline-flex; } }
+
+  .site-nav { display: none; margin-inline-start: auto; }
+  .site-nav ul { display: flex; gap: var(--s3); list-style: none; margin: 0; padding: 0; }
+  .site-nav li { margin: 0; }
+  .site-nav a {
+    display: block; padding: .5rem 0;
+    color: var(--ink-soft); text-decoration: none; font-size: .95rem;
+    border-bottom: 2px solid transparent;
+  }
+  .site-nav a:hover { color: var(--ink); }
+  .site-nav a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--brand); }
+
+  .header-actions { display: flex; align-items: center; gap: .25rem; margin-inline-start: auto; }
+  @media (min-width: 900px) {
+    .site-nav { display: block; }
+    .header-actions { margin-inline-start: var(--s3); }
+    .nav-toggle { display: none; }
+  }
+
+  .icon-button {
+    position: relative;
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 44px; min-height: 44px;
+    background: none; border: 0; border-radius: var(--radius);
+    color: var(--ink); cursor: pointer;
+    transition: color 150ms linear;
+  }
+  .icon-button:hover { color: var(--brand); }
+
+  .cart-count {
+    position: absolute; top: 6px; right: 4px;
+    min-width: 18px; height: 18px; padding: 0 4px;
+    display: grid; place-items: center;
+    border-radius: 9px;
+    background: var(--brand); color: var(--surface);
+    font-size: .68rem; font-weight: 700; font-variant-numeric: tabular-nums;
+  }
+
+  /* --- Overlays --- */
+  .search-panel {
+    border-bottom: 1px solid var(--mist);
+    background: var(--surface);
+  }
+  .search-panel-inner {
+    display: flex; align-items: flex-start; gap: var(--s2);
+    padding-block: var(--s2);
+  }
+  .search-panel-inner > :global(.searchbox) { flex: 1; }
+
+  .nav-drawer {
+    position: fixed; inset: 0; z-index: 60;
+    background: color-mix(in srgb, var(--ink) 45%, transparent);
+  }
+  .nav-drawer-panel {
+    margin-inline-start: auto;
+    width: min(22rem, 100%); height: 100%;
+    overflow-y: auto;
+    background: var(--surface);
+    border-inline-start: 1px solid var(--mist);
+    padding: var(--s3);
+    display: flex; flex-direction: column; gap: var(--s3);
+  }
+  .nav-drawer-head { display: flex; align-items: center; justify-content: space-between; }
+  .nav-drawer-head .kicker { margin: 0; }
+
+  .nav-drawer-list { list-style: none; margin: 0; padding: 0; }
+  .nav-drawer-list li { margin: 0; border-top: 1px solid var(--mist); }
+  .nav-drawer-list a {
+    display: flex; align-items: center; min-height: 48px;
+    color: var(--ink); text-decoration: none;
+  }
+  .nav-drawer-list a[aria-current="page"] { color: var(--brand); font-weight: 600; }
+  .nav-drawer-cta { margin-top: auto; }
+</style>

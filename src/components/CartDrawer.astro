@@ -1,0 +1,185 @@
+---
+/**
+ * The cart, on every page.
+ *
+ * Shopify's <shopify-cart> is a native <dialog>, so `showModal()` already gives
+ * us a focus trap, Escape-to-close and inertness for the rest of the page —
+ * reimplementing any of that would be strictly worse. What we add is the
+ * presentation: `::part(dialog)` is restyled from a centred modal into a
+ * right-hand drawer (a bottom sheet under 640px), and the `extension` slot
+ * carries the two facts a buyer needs before they click through to checkout.
+ *
+ * The header trigger lives here too, so the count badge and the drawer stay in
+ * one file.
+ */
+import Icon from './Icon.astro';
+import { LAUNCH_OFFER } from '../lib/commerce';
+
+// The attribute is `discount-codes` (kebab-case). HTML lowercases attribute
+// names, so a camelCase `discountCodes` renders as `discountcodes` and the
+// component silently ignores it — the cart then opens at full price.
+const cartDiscountCodes = LAUNCH_OFFER.enabled ? LAUNCH_OFFER.code : undefined;
+---
+<aside aria-label="Cart">
+<shopify-cart id="sublime-cart" target="_top" discount-codes={cartDiscountCodes}>
+  <div slot="empty">
+    <p>Your cart is empty.</p>
+    <p><a href="/shop">See the packaging catalog</a></p>
+  </div>
+  <div slot="extension" class="cart-extension">
+    <p><Icon name="package" size={15} /> Ships free · US only</p>
+    {LAUNCH_OFFER.enabled && (
+      <p><Icon name="check-circle" size={15} /> Code {LAUNCH_OFFER.code} applied at checkout</p>
+    )}
+  </div>
+</shopify-cart>
+</aside>
+
+<style is:global>
+  /* The cart dialog, restyled from centred modal to edge drawer. */
+  shopify-cart::part(dialog) {
+    margin: 0 0 0 auto;
+    max-width: min(26rem, 100%);
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    border: 0;
+    border-left: 1px solid var(--mist);
+    border-radius: 0;
+    background: var(--surface);
+    color: var(--ink);
+    padding: var(--s3);
+  }
+  shopify-cart::part(primary-button) {
+    background: var(--brand);
+    color: var(--surface);
+    border: 2px solid transparent;
+    border-radius: var(--radius);
+    min-height: 44px;
+    font: 600 1rem var(--font-body);
+  }
+  shopify-cart::part(secondary-button),
+  shopify-cart::part(tertiary-button) {
+    background: transparent;
+    color: var(--ink);
+    fill: var(--ink);
+    border: 2px solid var(--ink);
+    border-radius: var(--radius);
+    min-height: 44px;
+  }
+  shopify-cart::part(discount-code) {
+    border: 1px solid var(--mist);
+    border-radius: var(--radius);
+    background: var(--surface);
+    color: var(--ink);
+  }
+
+  @media (max-width: 639px) {
+    shopify-cart::part(dialog) {
+      margin: auto 0 0;
+      max-width: 100%;
+      height: auto;
+      max-height: 85dvh;
+      border-left: 0;
+      border-top: 1px solid var(--mist);
+      border-radius: var(--radius) var(--radius) 0 0;
+      padding-bottom: calc(var(--s3) + env(safe-area-inset-bottom));
+    }
+  }
+
+  .cart-extension {
+    margin-top: var(--s2);
+    padding-top: var(--s2);
+    border-top: 1px solid var(--mist);
+    font-size: .9rem;
+    color: var(--ink-soft);
+  }
+  .cart-extension p { display: flex; align-items: center; gap: .45rem; margin: 0 0 var(--s1); }
+  .cart-extension p:last-child { margin-bottom: 0; }
+</style>
+
+<script>
+  /**
+   * Cart line count for the header badge.
+   *
+   * The Storefront components expose no count property, so we read the number
+   * of line rows the cart renders. Where the component's shadow root is open we
+   * can observe it directly; where it is not, we fall back to counting adds in
+   * this tab. The badge is hidden whenever the count is zero or unknown, so it
+   * never shows a number we cannot stand behind.
+   */
+  const KEY = 'sp-cart-count';
+
+  function readFallback(): number {
+    try {
+      return Number(sessionStorage.getItem(KEY)) || 0;
+    } catch {
+      return 0;
+    }
+  }
+
+  function writeFallback(n: number) {
+    try {
+      sessionStorage.setItem(KEY, String(n));
+    } catch {
+      /* private mode — the badge just stays hidden */
+    }
+  }
+
+  function paint(count: number) {
+    document.querySelectorAll<HTMLElement>('[data-cart-count]').forEach((el) => {
+      el.textContent = String(count);
+      el.hidden = count <= 0;
+    });
+  }
+
+  function countLines(cart: Element): number | null {
+    const root = (cart as any).shadowRoot as ShadowRoot | null;
+    if (!root) return null;
+    const rows = root.querySelectorAll('[part~="line-item"], [part~="cart-line"], li');
+    return rows.length || null;
+  }
+
+  function sync() {
+    const cart = document.getElementById('sublime-cart');
+    if (!cart) return;
+    const live = countLines(cart);
+    if (live !== null) {
+      writeFallback(live);
+      paint(live);
+    } else {
+      paint(readFallback());
+    }
+  }
+
+  function init() {
+    const cart = document.getElementById('sublime-cart');
+    if (!cart) return;
+
+    paint(readFallback());
+
+    if (!(cart as any).__spObserved) {
+      (cart as any).__spObserved = true;
+      const root = (cart as any).shadowRoot as ShadowRoot | null;
+      if (root) new MutationObserver(sync).observe(root, { childList: true, subtree: true });
+    }
+
+    document.querySelectorAll<HTMLElement>('[data-sp-cart-open]').forEach((button) => {
+      if (button.dataset.spBound) return;
+      button.dataset.spBound = '1';
+      button.addEventListener('click', () => (cart as any).showModal?.());
+    });
+
+    document.querySelectorAll<HTMLElement>('[data-sp-cart-add]').forEach((button) => {
+      if (button.dataset.spBoundAdd) return;
+      button.dataset.spBoundAdd = '1';
+      button.addEventListener('click', () => {
+        writeFallback(readFallback() + 1);
+        setTimeout(sync, 400);
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', init);
+  init();
+</script>

@@ -1,10 +1,83 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+/**
+ * Post-submission page for the lead form.
+ *
+ * The qualifying question lives here rather than on the form itself: the email
+ * is already captured, so asking costs nothing. It posts to the same Netlify
+ * form, keyed to the address the previous step stored in this tab.
+ */
+import PageLayout from '../layouts/PageLayout.astro';
+import Icon from '../components/Icon.astro';
 ---
-<BaseLayout title="Thanks" description="Submission received." path="/thanks">
-  <div class="prose" style="padding-top:3rem;text-align:center;">
-    <h1>Got it — thank you.</h1>
-    <p>Your submission went through. If it needs a reply, we'll be in touch soon.</p>
-    <p><a class="btn btn-primary" href="/">Back to the site</a></p>
-  </div>
-</BaseLayout>
+<PageLayout
+  title="Thanks"
+  description="Your checklist is ready."
+  path="/thanks"
+  breadcrumbs={[{ label: 'Thanks', href: '/thanks' }]}
+>
+  <span class="kicker"><Icon name="check-circle" size={14} /> Confirmed</span>
+  <h1>Got it — your checklist is ready.</h1>
+  <p>The printable Freeze-Drying Starter Checklist is below. Your first issue of <strong>The Dry Batch</strong> arrives within two weeks.</p>
+  <p><a class="btn btn-primary" href="/freeze-drying-starter-checklist">Open the Starter Checklist</a></p>
+
+  <section class="stage card" aria-labelledby="stage-heading">
+    <h2 id="stage-heading">One quick question.</h2>
+    <p>It decides what we send you first. Skip it if you'd rather not say.</p>
+
+    <form name="freeze-drying-checklist" method="POST" action="/thanks" data-netlify="true" netlify-honeypot="bot-field" data-astro-reload>
+      <input type="hidden" name="form-name" value="freeze-drying-checklist" />
+      <input type="hidden" name="lead_magnet" value="freeze-drying-starter-checklist" />
+      <input type="hidden" name="source_path" value="/thanks" />
+      <input type="hidden" name="marketing_consent" value="yes" />
+      <p hidden aria-hidden="true"><label>Don't fill this out: <input name="bot-field" /></label></p>
+
+      <div class="stage-field" data-email-field hidden>
+        <label for="stage-email">Email address</label>
+        <input id="stage-email" type="email" name="email" autocomplete="email" placeholder="you@example.com" />
+      </div>
+
+      <div class="stage-field">
+        <label for="freeze-dryer-stage">Where are you right now?</label>
+        <select id="freeze-dryer-stage" name="stage" required>
+          <option value="" selected disabled>Select one</option>
+          <option value="considering">Considering a freeze dryer</option>
+          <option value="new-owner">New owner / first batches</option>
+          <option value="active-owner">Already freeze-drying regularly</option>
+          <option value="cottage-seller">Selling or planning to sell</option>
+        </select>
+      </div>
+
+      <button class="btn btn-primary" type="submit">Send</button>
+    </form>
+  </section>
+</PageLayout>
+
+<script is:inline>
+  (function () {
+    var form = document.querySelector('.stage form');
+    if (!form) return;
+    var stored = null;
+    try {
+      stored = sessionStorage.getItem('sp-lead-email');
+    } catch (err) {
+      /* private mode */
+    }
+    var field = form.querySelector('[data-email-field]');
+    var input = form.querySelector('#stage-email');
+    if (stored && input) {
+      input.value = stored;
+    } else if (field && input) {
+      // No address in this tab — ask for it rather than filing an orphan row.
+      field.hidden = false;
+      input.required = true;
+    }
+  })();
+</script>
+
+<style>
+  .stage { margin: var(--s5) 0; padding: var(--s4); }
+  .stage h2 { margin: 0 0 var(--s1); }
+  .stage p { color: var(--ink-soft); }
+  .stage-field { margin: var(--s2) 0; max-width: 26rem; }
+  .stage-field label { display: block; margin-bottom: .35rem; font-size: .9rem; }
+</style>

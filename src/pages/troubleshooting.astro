@@ -1,26 +1,11 @@
 ---
 import { getCollection } from 'astro:content';
 import PageLayout from '../layouts/PageLayout.astro';
+import Card from '../components/Card.astro';
+import { articleHref, newestFirst } from '../lib/articles';
 
-const duringCycle = ['batch-not-dry', 'chewy-candy', 'vacuum-error'];
-const afterBatch = ['rehydration-problems', 'storage-failure'];
-const order = [...duringCycle, ...afterBatch];
-
-const allEntries = await getCollection('articles', ({ data }) => data.pillar === 'troubleshooting');
-const unknownIds = allEntries.map((e) => e.id).filter((id) => !order.includes(id))
-  .sort((a, b) => byPublishedDateDesc(allEntries, a, b));
-const entries = [...order, ...unknownIds].map((id) => allEntries.find((e) => e.id === id)).filter((e): e is (typeof allEntries)[number] => Boolean(e));
-const byId = Object.fromEntries(entries.map((e) => [e.id, e]));
-
-function byPublishedDateDesc(list: typeof allEntries, aId: string, bId: string) {
-  const a = list.find((e) => e.id === aId);
-  const b = list.find((e) => e.id === bId);
-  return (b?.data.publishedDate ?? '').localeCompare(a?.data.publishedDate ?? '');
-}
-
-// The listing page uses its own curated symptom copy, distinct from each
-// article's own title/description (which lead with the diagnosis, not the
-// symptom a reader searches for).
+// Listing copy leads with the symptom a reader searches for; each article's own
+// title leads with the diagnosis. Both are deliberate, so the hub keeps its own.
 const listing: Record<string, { title: string; description: string }> = {
   'batch-not-dry': {
     title: "Food isn't fully dry, especially on the center trays",
@@ -44,13 +29,15 @@ const listing: Record<string, { title: string; description: string }> = {
   },
 };
 
+const entries = (await getCollection('articles', ({ data }) => data.pillar === 'troubleshooting')).sort(newestFirst);
+
 const jsonLd = [
   {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
     name: 'Fix this batch',
     description: 'One symptom per page, with the likely causes in order and the fix for each.',
-    url: 'https://www.sublimepantry.com/troubleshooting.html',
+    url: 'https://www.sublimepantry.com/troubleshooting/',
     isPartOf: { '@id': 'https://www.sublimepantry.com/#website' },
     mainEntity: {
       '@type': 'ItemList',
@@ -64,48 +51,35 @@ const jsonLd = [
   },
 ];
 ---
-<PageLayout title="Freeze Dryer Troubleshooting" description="Narrow, specific fixes for common home freeze-drying failures: batches that aren't dry, vacuum errors, chewy candy, rehydration problems, and storage failures." path="/troubleshooting" jsonLd={jsonLd}>
+<PageLayout
+  title="Freeze Dryer Troubleshooting"
+  description="Narrow, specific fixes for common home freeze-drying failures: batches that aren't dry, vacuum errors, chewy candy, rehydration problems, and storage failures."
+  path="/troubleshooting"
+  breadcrumbs={[{ label: 'Troubleshooting', href: '/troubleshooting' }]}
+  width="wrap"
+  jsonLd={jsonLd}
+>
   <span class="kicker">Troubleshooting</span>
   <h1>Fix this batch</h1>
-  <p style="max-width:60ch;color:var(--ink-soft);">One symptom per page, with the likely causes in order and the fix for each.</p>
+  <p class="lede">One symptom per page, with the likely causes in order and the fix for each.</p>
 
-  <h2 style="margin-top:2rem;">During the cycle</h2>
-  <ul class="card-grid">
-    {duringCycle.map((id) => byId[id] && (
-      <li class="card">
-        <span class="kicker">Symptom</span>
-        <h3><a href={`/troubleshooting/${id}`} transition:name={`sp-title-${id}`}>{listing[id].title}</a></h3>
-        <p>{listing[id].description}</p>
-        {byId[id].data.riskClass === 'elevated' && <p class="meta symptom-risk">Food-safety check</p>}
-      </li>
+  <div class="card-grid hub-grid">
+    {entries.map((entry) => (
+      <Card
+        href={articleHref(entry)}
+        title={listing[entry.id]?.title ?? entry.data.title}
+        dek={listing[entry.id]?.description ?? entry.data.description}
+        headingLevel={2}
+        kicker="Symptom"
+        image={entry.data.image?.src}
+        imageAlt={entry.data.image?.alt}
+        badge={entry.data.riskClass === 'elevated' ? 'Food-safety check' : undefined}
+        transitionName={`sp-title-${entry.id}`}
+      />
     ))}
-  </ul>
-
-  <h2 style="margin-top:2rem;">After the batch</h2>
-  <ul class="card-grid">
-    {afterBatch.map((id) => byId[id] && (
-      <li class="card">
-        <span class="kicker">Symptom</span>
-        <h3><a href={`/troubleshooting/${id}`} transition:name={`sp-title-${id}`}>{listing[id].title}</a></h3>
-        <p>{listing[id].description}</p>
-        {byId[id].data.riskClass === 'elevated' && <p class="meta symptom-risk">Food-safety check</p>}
-      </li>
-    ))}
-  </ul>
-
-  {unknownIds.length > 0 && (
-    <>
-      <h2 style="margin-top:2rem;">More</h2>
-      <ul class="card-grid">
-        {unknownIds.map((id) => byId[id] && (
-          <li class="card">
-            <span class="kicker">Symptom</span>
-            <h3><a href={`/troubleshooting/${id}`} transition:name={`sp-title-${id}`}>{byId[id].data.title}</a></h3>
-            <p>{byId[id].data.description}</p>
-            {byId[id].data.riskClass === 'elevated' && <p class="meta symptom-risk">Food-safety check</p>}
-          </li>
-        ))}
-      </ul>
-    </>
-  )}
+  </div>
 </PageLayout>
+
+<style>
+  .hub-grid { margin-top: var(--s4); }
+</style>

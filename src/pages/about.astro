@@ -1,18 +1,91 @@
 ---
+import { getCollection } from 'astro:content';
 import PageLayout from '../layouts/PageLayout.astro';
+import { JACK_FERRENCE, hasPortrait } from '../lib/authors';
+
+const articles = await getCollection('articles');
+const stats = [
+  { value: articles.length, label: 'articles published' },
+  { value: articles.reduce((n, e) => n + e.data.sources.length, 0), label: 'sources cited' },
+  { value: articles.filter((e) => e.data.pillar === 'compare').length, label: 'comparisons maintained' },
+];
+
+const portrait = hasPortrait(JACK_FERRENCE);
+// The date the no-affiliates statement below was last verified true.
+const commercialAsOf = 'September 3, 2026';
 ---
-<PageLayout title="About Sublime Pantry" description="Who runs Sublime Pantry, how it makes money, and why it exists: sourced, honest answers for home freeze-drying enthusiasts and cottage sellers." path="/about">
+<PageLayout
+  title="About Sublime Pantry"
+  description="Who runs Sublime Pantry, how it makes money, and why it exists: sourced, honest answers for home freeze-drying enthusiasts and cottage sellers."
+  path="/about"
+  breadcrumbs={[{ label: 'About', href: '/about' }]}
+>
   <span class="kicker">About</span>
   <h1>About Sublime Pantry</h1>
-  <p>Sublime Pantry exists for two overlapping groups of people: home freeze-drying enthusiasts who want every batch to come out right, and cottage sellers who are turning a freeze dryer into a small, legal, profitable food business.</p>
-  <p>The name comes from <em>sublimation</em> — the physical process at the heart of freeze-drying, where ice turns directly into vapor under vacuum without ever becoming liquid. That's also how we try to write: no soggy middle.</p>
+
+  <div class="masthead">
+    {portrait ? (
+      <img class="masthead-portrait" src={JACK_FERRENCE.portrait} alt="" width="96" height="96" loading="eager" decoding="async" />
+    ) : (
+      <span class="masthead-portrait masthead-initials" aria-hidden="true">{JACK_FERRENCE.initials}</span>
+    )}
+    <div>
+      <p class="masthead-name">{JACK_FERRENCE.name}</p>
+      <p class="meta">{JACK_FERRENCE.role}</p>
+    </div>
+  </div>
+
+  <h2>Who runs this</h2>
+  <p>Sublime Pantry is written and edited by Jack Ferrence. It exists for two overlapping groups of people: home freeze-drying enthusiasts who want every batch to come out right, and cottage sellers who are turning a freeze dryer into a small, legal, profitable food business. The name comes from <em>sublimation</em> — the physical process at the heart of freeze-drying, where ice turns directly into vapor under vacuum without ever becoming liquid. That's also how we try to write: no soggy middle.</p>
+
+  <h2>How the work gets made</h2>
+  <p>Research is AI-assisted. Every published page is read, checked against its sources, and approved by a human editor before it goes live, and every factual correction is logged publicly. Articles cite their sources with access dates, distinguish what is documented from what is judgment, and say plainly when we haven't tested something ourselves. Our <a href="/editorial-standards">editorial standards</a> and <a href="/review-methodology">review methodology</a> spell this out in detail; corrections live on the <a href="/corrections">corrections page</a>.</p>
+
+  <ul class="numbers">
+    {stats.map((stat) => (
+      <li>
+        <span class="numbers-value">{stat.value}</span>
+        <span class="numbers-label">{stat.label}</span>
+      </li>
+    ))}
+  </ul>
+
   <h2>What we cover</h2>
   <p>Six things, deliberately narrow: machine decisions, batch troubleshooting, food-specific drying knowledge, storage that lasts, packaging, and the economics and rules of selling freeze-dried food from home.</p>
-  <h2>How we work</h2>
-  <p>Every article cites its sources, distinguishes what's documented from what's judgment, and says plainly when we haven't tested something ourselves. Our <a href="/editorial-standards">editorial standards</a> and <a href="/review-methodology">review methodology</a> spell this out in detail. Research is AI-assisted; every published page is reviewed and approved by a human editor before it goes live, and corrections are logged on our <a href="/corrections">corrections page</a>.</p>
+
   <h2>How this site makes money</h2>
-  <p>Right now, it doesn't — there are no ads, no affiliate links, and nothing for sale. As the site grows we may add clearly disclosed affiliate relationships and, eventually, our own products for cottage sellers. When that happens, every commercial relationship will be disclosed next to the recommendation it touches, not buried on a policy page. See our <a href="/affiliate-disclosure">affiliate disclosure</a>.</p>
+  <p>Sublime Pantry sells a small packaging catalog through Shopify. When a product we sell appears in a guide or comparison it is labeled "Sold by Sublime Pantry" next to the mention. We have no affiliate relationships, sponsorships, or paid placements as of {commercialAsOf}. See our <a href="/affiliate-disclosure">affiliate disclosure</a>.</p>
+
   <h2>Ownership</h2>
-  <p>Sublime Pantry is an independent publication. If it ever sells a product that appears in a comparison, that ownership will be disclosed prominently on the comparison itself.</p>
+  <p>Sublime Pantry is an independent publication. Where it sells a product that also appears in a comparison, that ownership is disclosed on the comparison itself, next to the mention — not buried on a policy page.</p>
+
+  <h2>Contact</h2>
   <p>Questions, corrections, or a batch problem we haven't covered? <a href="/contact">Get in touch</a>.</p>
 </PageLayout>
+
+<style>
+  .masthead { display: flex; align-items: center; gap: var(--s3); margin: var(--s3) 0 var(--s4); }
+  .masthead-portrait {
+    width: 96px; height: 96px; border-radius: 50%; flex: none;
+    object-fit: cover; background: var(--brand-tint);
+  }
+  .masthead-initials {
+    display: grid; place-items: center;
+    font-family: var(--font-display); font-size: 2rem; color: var(--brand);
+  }
+  .masthead-name { margin: 0; font-family: var(--font-display); font-size: 1.35rem; font-weight: 600; }
+
+  .numbers {
+    list-style: none; margin: var(--s4) 0; padding: var(--s3);
+    display: grid; gap: var(--s3);
+    background: var(--surface); border: 1px solid var(--mist); border-radius: var(--radius);
+  }
+  @media (min-width: 560px) { .numbers { grid-template-columns: repeat(3, 1fr); } }
+  .numbers li { margin: 0; }
+  .numbers-value {
+    display: block;
+    font-family: var(--font-display); font-size: 2.2rem; line-height: 1;
+    font-variant-numeric: tabular-nums; color: var(--ink);
+  }
+  .numbers-label { display: block; margin-top: .25rem; font-size: .9rem; color: var(--ink-soft); }
+</style>

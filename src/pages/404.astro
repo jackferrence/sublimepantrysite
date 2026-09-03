@@ -2,8 +2,12 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 <BaseLayout title="Page not found" description="That page doesn't exist." path="/404">
-  <div class="prose" style="padding-top:3rem;text-align:center;">
+  <div class="prose not-found">
     <h1>404 — freeze-dried into thin air</h1>
     <p>That page sublimated. Try the <a href="/guides">guides</a>, <a href="/troubleshooting">troubleshooting</a>, or the <a href="/">home page</a>.</p>
   </div>
 </BaseLayout>
+
+<style>
+  .not-found { padding-block: var(--s7); text-align: center; }
+</style>

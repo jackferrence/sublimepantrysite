@@ -1,0 +1,43 @@
+---
+/**
+ * Shipping and returns.
+ *
+ * Every figure here is mirrored from the live Shopify configuration, verified
+ * 2026-09-03:
+ *   - Delivery: one zone, "Domestic" (US only). Standard rate $6.25, with a
+ *     second Standard rate at $0.00 conditioned on TOTAL_PRICE >= $45.00.
+ *   - Handling time: 1-2 business days (owner-stated, 2026-09-03).
+ *   - Refund policy (Settings -> Policies): 30 days, original condition and
+ *     packaging, refund to the original payment method within 10 business days
+ *     of approval.
+ * If either is changed in Shopify, change it here in the same commit.
+ */
+import PageLayout from '../layouts/PageLayout.astro';
+---
+<PageLayout
+  title="Shipping & Returns"
+  description="How Sublime Pantry orders ship, what free shipping covers, and how to return an item within 30 days."
+  path="/shipping-returns"
+  breadcrumbs={[{ label: 'Shipping & Returns', href: '/shipping-returns' }]}
+>
+  <span class="kicker">Orders</span>
+  <h1>Shipping &amp; returns</h1>
+  <p class="lede">The terms below match our Shopify settings exactly. If the two ever disagree, the policy in Shopify is the one that governs your order.</p>
+
+  <h2>Shipping</h2>
+  <p><strong>Free shipping on US orders of $45 or more.</strong> Below $45 a flat Standard rate of $6.25 applies. The starter kit is priced above the threshold, so it always ships free — including after the WELCOME10 discount.</p>
+  <p><strong>United States only.</strong> We do not currently ship outside the US, and checkout will not accept an international address.</p>
+  <p><strong>Handling time: 1&ndash;2 business days.</strong> Orders placed on a weekend or holiday are processed on the next business day. Handling time is the window before the parcel is handed to the carrier; transit time is on top of it.</p>
+  <p><strong>Where it ships from.</strong> During the validation launch, the packaging starter kit is ordered from PackFreshUSA after your purchase and ships directly to you in the manufacturer's own packaging.</p>
+  <p><strong>Tracking.</strong> Shopify emails your tracking number to the address on the order as soon as the shipment is created. If it hasn't arrived, check your spam folder before contacting us.</p>
+
+  <h2>Returns</h2>
+  <p><strong>30 days.</strong> You have 30 days from receiving your item to request a return. The item must be in the same condition you received it — unused, in its original packaging — and you'll need the receipt or proof of purchase.</p>
+  <p><strong>How to start one.</strong> Email <a href="mailto:jackferrence11@gmail.com">jackferrence11@gmail.com</a> before sending anything back. If the return is accepted we'll send a return shipping label and instructions. Items sent back without requesting a return first cannot be accepted.</p>
+  <p><strong>Damaged or wrong item.</strong> Inspect your order when it arrives and contact us immediately if anything is defective, damaged, or not what you ordered, so we can make it right.</p>
+  <p><strong>Refunds.</strong> Once we receive and inspect the return we'll tell you whether it was approved. Approved refunds go back to your original payment method within 10 business days. Your bank or card issuer may take longer to post it.</p>
+
+  <div class="notice">
+    <p>Questions about an order? <a href="/contact">Get in touch</a> and include your order number.</p>
+  </div>
+</PageLayout>

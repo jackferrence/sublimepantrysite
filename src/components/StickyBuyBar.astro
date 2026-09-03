@@ -1,0 +1,65 @@
+---
+/**
+ * Mobile purchase bar for the product page.
+ *
+ * Hidden at 640px and up, where the sticky buy box in the right column already
+ * does this job. It carries its own product context so `addLine(event)` can
+ * resolve the variant from the button that was pressed.
+ */
+import type { CatalogProduct } from '../lib/commerce';
+
+interface Props {
+  product: CatalogProduct;
+}
+
+const { product } = Astro.props;
+const trackProps = JSON.stringify({ product_handle: product.handle, sku: product.sku, placement: 'sticky-bar' });
+---
+<div class="buy-bar">
+  <shopify-context type="product" handle={product.handle}>
+    <template>
+      <div class="buy-bar-inner" data-commerce-ready>
+        <span class="buy-bar-price">
+          <shopify-money query="product.selectedOrFirstAvailableVariant.price" format="money_with_currency"></shopify-money>
+        </span>
+        <button
+          class="btn btn-primary buy-bar-button"
+          type="button"
+          onclick="document.getElementById('sublime-cart').addLine(event).showModal();"
+          shopify-attr--disabled="!product.selectedOrFirstAvailableVariant.availableForSale"
+          data-sp-cart-add
+          data-sp-event="starter_kit_add_to_cart"
+          data-sp-props={trackProps}
+        >Add to cart</button>
+      </div>
+    </template>
+    <div class="buy-bar-inner" shopify-loading-placeholder>
+      <span class="buy-bar-price">{product.displayPrice}</span>
+      <span class="btn btn-primary buy-bar-button" aria-disabled="true">Add to cart</span>
+    </div>
+  </shopify-context>
+</div>
+
+<style>
+  .buy-bar {
+    display: none;
+    position: fixed;
+    inset-inline: 0;
+    bottom: 0;
+    z-index: 40;
+    background: var(--surface);
+    border-top: 1px solid var(--mist);
+    padding: var(--s2) var(--s3);
+    padding-bottom: calc(var(--s2) + env(safe-area-inset-bottom));
+  }
+  @media (max-width: 639px) { .buy-bar { display: block; } }
+
+  .buy-bar-inner { display: flex; flex-direction: column; gap: var(--s1); }
+  .buy-bar-price {
+    font-family: var(--font-display);
+    font-size: var(--price);
+    font-variant-numeric: tabular-nums;
+    color: var(--ink);
+  }
+  .buy-bar-button { width: 100%; min-height: 48px; }
+</style>

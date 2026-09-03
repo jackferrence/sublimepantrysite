@@ -14,6 +14,18 @@ export const SHOPIFY_STORE_DOMAIN =
 /** Public Shopify domain (checkout/customer-facing). */
 export const SHOPIFY_PUBLIC_DOMAIN = 'shop.sublimepantry.com';
 
+/** A product photograph, with its provenance stated. */
+export interface ProductImage {
+  src: string;
+  alt: string;
+  /** What the frame shows, used for the thumbnail's accessible name. */
+  kind: 'studio' | 'in-use' | 'contents' | 'packaging';
+  /** 'manufacturer' images carry a visible "Photo: manufacturer" caption. */
+  source: 'own' | 'manufacturer';
+}
+
+export type ProductCategory = 'Packaging' | 'Sealing' | 'Storage';
+
 export interface CatalogProduct {
   /** Shopify product handle — the join key for Storefront Web Components. */
   handle: string;
@@ -32,7 +44,14 @@ export interface CatalogProduct {
   detailsHref: string | null;
   /** Static fallback shown only while Shopify's live price resolves. */
   displayPrice: string;
+  /** Shop grouping. Groups with no products are not rendered. */
+  category: ProductCategory;
+  /** Gallery, most representative first. Falls back to `image` when empty. */
+  images: ProductImage[];
 }
+
+/** Shop section order. Only groups with products in them are rendered. */
+export const CATEGORY_ORDER: ProductCategory[] = ['Packaging', 'Sealing', 'Storage'];
 
 /**
  * The deliberately small launch catalog.
@@ -54,6 +73,16 @@ export const CATALOG: CatalogProduct[] = [
       'PackFreshUSA 7 mil Mylar bag, oxygen absorber, and label box set used for the Sublime Pantry freeze-drying packaging starter kit',
     detailsHref: '/shop/freeze-dryer-packaging-starter-kit',
     displayPrice: '$74.99 USD',
+    category: 'Packaging',
+    images: [
+      {
+        src: 'https://cdn.shopify.com/s/files/1/0883/4875/4197/files/packfreshusa-7mil-mylar-box-set-100-pack.jpg?v=1788393303',
+        alt:
+          'PackFreshUSA 7 mil Mylar bag, oxygen absorber, and label box set used for the Sublime Pantry freeze-drying packaging starter kit',
+        kind: 'studio',
+        source: 'manufacturer',
+      },
+    ],
   },
 ];
 

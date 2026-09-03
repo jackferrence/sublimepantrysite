@@ -1,0 +1,55 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../layouts/PageLayout.astro';
+import Card from '../components/Card.astro';
+import { articleHref, newestFirst } from '../lib/articles';
+
+const entries = (await getCollection('articles', ({ data }) => data.pillar === 'recipes')).sort(newestFirst);
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Freeze-drying recipes',
+    description: 'Tested freeze-drying recipes with prep, cycle notes, and packaging guidance.',
+    url: 'https://www.sublimepantry.com/recipes/',
+    isPartOf: { '@id': 'https://www.sublimepantry.com/#website' },
+  },
+];
+---
+<PageLayout
+  title="Freeze-Drying Recipes"
+  description="Freeze-drying recipes with prep, cycle notes, dryness checks, and packaging guidance. Coming soon."
+  path="/recipes"
+  breadcrumbs={[{ label: 'Recipes', href: '/recipes' }]}
+  width="wrap"
+  jsonLd={jsonLd}
+>
+  <span class="kicker">Recipes</span>
+  <h1>Freeze-drying recipes</h1>
+  <p class="lede">Food-by-food prep, cycle notes, dryness checks, and packaging — written the same way as everything else here, or not published at all.</p>
+
+  {entries.length > 0 ? (
+    <div class="card-grid hub-grid">
+      {entries.map((entry) => (
+        <Card
+          href={articleHref(entry)}
+          title={entry.data.title}
+          dek={entry.data.description}
+          headingLevel={2}
+        kicker={entry.data.section ?? entry.data.kicker}
+          image={entry.data.image?.src}
+          imageAlt={entry.data.image?.alt}
+          transitionName={`sp-title-${entry.id}`}
+        />
+      ))}
+    </div>
+  ) : (
+    <p class="empty">Recipes are coming. <a href="/guides/complete-batch-workflow">Start with the batch workflow →</a></p>
+  )}
+</PageLayout>
+
+<style>
+  .hub-grid { margin-top: var(--s4); }
+  .empty { margin-top: var(--s4); font-size: 1.1rem; }
+</style>
