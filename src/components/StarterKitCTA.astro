@@ -1,5 +1,6 @@
 ---
 import { STARTER_KIT } from '../lib/commerce';
+import { normalizePath } from '../lib/paths';
 
 interface Props {
   compact?: boolean;
@@ -12,7 +13,7 @@ const trackProps = JSON.stringify({
   product_handle: STARTER_KIT.handle,
   campaign: 'starter-kit',
   content: source,
-  source_path: Astro.url.pathname,
+  source_path: normalizePath(Astro.url.pathname),
 });
 ---
 <section class:list={["starter-kit-cta", compact && "starter-kit-cta--compact"]} aria-label="Freeze-dryer packaging starter kit">

@@ -1,5 +1,7 @@
 ---
-const sourcePath = Astro.url.pathname;
+import { normalizePath } from '../lib/paths';
+
+const sourcePath = normalizePath(Astro.url.pathname);
 const viewProps = JSON.stringify({
   lead_magnet: 'freeze-drying-starter-checklist',
   source_path: sourcePath,

@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import ShopifyStore from '../../components/ShopifyStore.astro';
 import LaunchOffer from '../../components/LaunchOffer.astro';
 import ProductReviews from '../../components/ProductReviews.astro';
-import { STARTER_KIT, LAUNCH_OFFER } from '../../lib/commerce';
+import { STARTER_KIT, LAUNCH_OFFER, SHOPIFY_PUBLIC_DOMAIN } from '../../lib/commerce';
 import { getProductReviews } from '../../lib/reviews';
 
 const reviews = await getProductReviews(STARTER_KIT);
@@ -67,7 +67,7 @@ const trackProps = JSON.stringify({
 
         <shopify-context type="product" handle={STARTER_KIT.handle}>
           <template>
-            <div class="commerce-block">
+            <div class="commerce-block" data-commerce-ready>
               <div class="price"><shopify-money query="product.selectedOrFirstAvailableVariant.price" format="money_with_currency"></shopify-money></div>
               <button
                 class="btn btn-primary buy-button"
@@ -87,6 +87,11 @@ const trackProps = JSON.stringify({
             <span class="btn btn-primary buy-button disabled" aria-disabled="true">Confirming availability…</span>
           </div>
         </shopify-context>
+
+        <div class="commerce-fallback" data-commerce-fallback hidden>
+          <p>Live pricing and checkout are temporarily unavailable on this page.</p>
+          <a class="btn btn-primary buy-button" href={`https://${SHOPIFY_PUBLIC_DOMAIN}/products/${STARTER_KIT.handle}`} rel="noopener" data-sp-event="storefront_fallback_click" data-sp-props={trackProps}>View the kit on our Shopify store</a>
+        </div>
 
         <LaunchOffer placement="product-page" variant="slim" />
 
@@ -160,6 +165,8 @@ const trackProps = JSON.stringify({
     .buy-button { min-width: 230px; }
     .disabled { opacity: .65; pointer-events: none; }
     .fine { color: var(--ink-soft); font-size: .85rem; }
+    .commerce-fallback { margin: 1.2rem 0 1.4rem; }
+    .commerce-fallback p { margin: 0 0 .8rem; color: var(--ink-soft); }
     .link-button { background: none; border: 0; padding: 0; font: inherit; color: inherit; text-decoration: underline; cursor: pointer; }
     .proof-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 4rem 0 1rem; }
     .proof-grid .card, .how { padding: 1.4rem; }

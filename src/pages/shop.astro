@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ShopifyStore from '../components/ShopifyStore.astro';
 import LaunchOffer from '../components/LaunchOffer.astro';
-import { CATALOG, LAUNCH_OFFER } from '../lib/commerce';
+import { CATALOG, LAUNCH_OFFER, SHOPIFY_PUBLIC_DOMAIN } from '../lib/commerce';
 
 // Every card's title, image and copy is server-rendered. Shopify supplies only
 // live price, availability and the cart — so the page is complete and indexable
@@ -66,6 +66,7 @@ const cartDiscountCodes = LAUNCH_OFFER.enabled ? LAUNCH_OFFER.code : undefined;
 
               <shopify-context type="product" handle={product.handle}>
                 <template>
+                  <div data-commerce-ready>
                   <div class="shop-price">
                     <shopify-money query="product.selectedOrFirstAvailableVariant.price" format="money_with_currency"></shopify-money>
                   </div>
@@ -79,12 +80,18 @@ const cartDiscountCodes = LAUNCH_OFFER.enabled ? LAUNCH_OFFER.code : undefined;
                       data-sp-props={JSON.stringify({ product_handle: product.handle, sku: product.sku })}
                     >Add to cart</button>
                   </div>
+                  </div>
                 </template>
                 <div shopify-loading-placeholder>
                   <div class="shop-price shop-price--pending">{product.displayPrice}</div>
                   <p class="shop-pending">Confirming current price and availability with Shopify…</p>
                 </div>
               </shopify-context>
+
+              <div class="commerce-fallback" data-commerce-fallback hidden>
+                <p>Live pricing is temporarily unavailable.</p>
+                <a class="btn btn-ghost" href={`https://${SHOPIFY_PUBLIC_DOMAIN}/products/${product.handle}`} rel="noopener">View this product on our Shopify store</a>
+              </div>
 
               {product.detailsHref && (
                 <p class="shop-details-link">
@@ -131,6 +138,8 @@ const cartDiscountCodes = LAUNCH_OFFER.enabled ? LAUNCH_OFFER.code : undefined;
     .shop-pending { font-size: .85rem; color: var(--ink-soft); margin: 0; }
     .shop-actions { display: flex; gap: .65rem; flex-wrap: wrap; }
     .shop-details-link { margin: 1rem 0 0; }
+    .commerce-fallback { margin: 1rem 0 0; }
+    .commerce-fallback p { margin: 0 0 .7rem; color: var(--ink-soft); font-size: .92rem; }
     .text-link { font-weight: 700; }
     .shop-coming { margin-top: 2.5rem; padding: 1.6rem; }
     .shop-coming h2 { margin: .35rem 0 .7rem; }
