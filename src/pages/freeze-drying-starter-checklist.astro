@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import StarterKitCTA from '../components/StarterKitCTA.astro';
+---
+<BaseLayout
+  title="Freeze-Drying Starter Checklist"
+  description="A printable checklist for setting up, running, verifying, packaging, labeling, and storing your first home freeze-drying batches."
+  path="/freeze-drying-starter-checklist"
+>
+  <main class="wrap checklist-page">
+    <header class="checklist-hero">
+      <span class="kicker">Free printable checklist</span>
+      <h1>Your first freeze-drying batches, in order.</h1>
+      <p class="lede">Use this beside the machine until the workflow becomes automatic. It focuses on the points that cause avoidable batch failures: prep, dryness verification, fast packaging, correct oxygen absorbers, heat sealing, and labeling.</p>
+      <button class="btn btn-ghost print-button" type="button" onclick="window.print()">Print checklist</button>
+    </header>
+
+    <section class="checklist-grid" aria-label="Freeze-drying starter checklist">
+      <article class="card checklist-card">
+        <span class="step">01</span><h2>Before the batch</h2>
+        <label><input type="checkbox" /> Machine is level, clean, and ready</label>
+        <label><input type="checkbox" /> Vacuum pump / oil condition checked as applicable</label>
+        <label><input type="checkbox" /> Food is prepared in reasonably even pieces</label>
+        <label><input type="checkbox" /> Trays are not overloaded</label>
+        <label><input type="checkbox" /> Batch name and starting weight are recorded</label>
+      </article>
+
+      <article class="card checklist-card">
+        <span class="step">02</span><h2>When the cycle finishes</h2>
+        <label><input type="checkbox" /> Check thickest / densest pieces, not only surface pieces</label>
+        <label><input type="checkbox" /> Break or cut representative pieces to check the center</label>
+        <label><input type="checkbox" /> Add dry time if any cool, soft, gummy, or damp center remains</label>
+        <label><input type="checkbox" /> Do not package until the batch is fully dry</label>
+      </article>
+
+      <article class="card checklist-card">
+        <span class="step">03</span><h2>Package immediately</h2>
+        <label><input type="checkbox" /> Bags, absorbers, labels, and sealer are staged before opening the machine</label>
+        <label><input type="checkbox" /> Choose a bag size that minimizes unnecessary headspace</label>
+        <label><input type="checkbox" /> Add the appropriately sized oxygen absorber</label>
+        <label><input type="checkbox" /> Heat seal the Mylar bag completely</label>
+        <label><input type="checkbox" /> Inspect the entire seal for wrinkles, food, or gaps</label>
+      </article>
+
+      <article class="card checklist-card">
+        <span class="step">04</span><h2>Label and store</h2>
+        <label><input type="checkbox" /> Label food name</label>
+        <label><input type="checkbox" /> Label batch / package date</label>
+        <label><input type="checkbox" /> Add notes needed to repeat or improve the batch</label>
+        <label><input type="checkbox" /> Store sealed packages away from heat, light, moisture, and pests</label>
+        <label><input type="checkbox" /> Log package count and any failures</label>
+      </article>
+    </section>
+
+    <aside class="notice notice-info checklist-note">
+      <strong>Keep one rule above all the others:</strong> packaging cannot fix an under-dried batch. When you are uncertain, verify dryness before sealing food for storage.
+    </aside>
+
+    <StarterKitCTA source="starter-checklist" />
+
+    <section class="next-reading">
+      <h2>Use the checklist with the full workflow.</h2>
+      <p>The checklist is intentionally short. The complete guide explains why each stage matters and what to do when a batch does not behave normally.</p>
+      <a class="btn btn-ghost" href="/guides/complete-batch-workflow">Read the complete batch workflow</a>
+    </section>
+  </main>
+
+  <style>
+    .checklist-page { padding-top: 3rem; padding-bottom: 4rem; }
+    .checklist-hero { max-width: 780px; margin-bottom: 2rem; }
+    .checklist-hero h1 { margin: .4rem 0 .8rem; }
+    .checklist-hero .lede { color: var(--ink-soft); }
+    .print-button { margin-top: .7rem; }
+    .checklist-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+    .checklist-card { padding: 1.4rem; }
+    .checklist-card h2 { margin: .25rem 0 1rem; font-size: 1.3rem; }
+    .step { font-weight: 800; color: var(--ink-soft); }
+    .checklist-card label { display: flex; gap: .65rem; align-items: flex-start; margin: .75rem 0; line-height: 1.45; }
+    .checklist-card input { margin-top: .25rem; }
+    .checklist-note { margin: 1.2rem 0 0; }
+    .next-reading { margin-top: 3rem; max-width: 720px; }
+    .next-reading p { color: var(--ink-soft); }
+    @media (max-width: 760px) { .checklist-grid { grid-template-columns: 1fr; } }
+    @media print {
+      header, footer, nav, .print-button, .starter-kit-cta, .next-reading { display: none !important; }
+      .checklist-page { padding: 0; }
+      .checklist-grid { gap: .5rem; }
+      .checklist-card { break-inside: avoid; }
+    }
+  </style>
+</BaseLayout>
