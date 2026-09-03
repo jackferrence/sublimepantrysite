@@ -14,9 +14,9 @@ interface Props {
 const { title, description, path, ogType = 'website', jsonLd = [] } = Astro.props;
 
 const site = 'https://www.sublimepantry.com';
-const canonicalPath = path === '/' ? '/index' : path.replace(/\/$/, '');
-const canonical = `${site}${canonicalPath}.html`;
-const pageUrl = `${site}${canonicalPath}.html`;
+const canonicalPath = path === '/' ? '/' : `${path.replace(/\/$/, '')}/`;
+const canonical = new URL(canonicalPath, site).href;
+const pageUrl = canonical;
 const pageTitle = `${title} | Sublime Pantry`;
 
 const organizationGraph = [
