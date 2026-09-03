@@ -172,6 +172,40 @@ The one exception is `displayPrice`, which is shown *only* inside the Storefront
 3. Add its Shopify numeric product ID to `SHOPIFY_PRODUCT_IDS` in `src/lib/reviews.ts`.
 4. Keep the catalog small. The starter kit is the offer; a long list dilutes it.
 
+### Unit economics — verified 2026-09-03
+
+Measured from real order #1001, not estimated. PackFreshUSA ships free, which
+is the assumption the whole model rests on.
+
+| Line | First order (WELCOME10) | Repeat order (full price) |
+|---|---|---|
+| Revenue | $67.49 | $74.99 |
+| Shopify Payments (2.9% + 30¢) | −$2.26 | −$2.48 |
+| PackFreshUSA merchandise | −$59.99 | −$59.99 |
+| PackFreshUSA sales tax (7.75%) | −$4.65 | −$4.65 |
+| PackFreshUSA shipping | $0.00 | $0.00 |
+| **Contribution margin** | **+$0.59** | **+$7.87** |
+
+The shape is: acquire a customer at roughly break-even, earn on the reorder.
+That is a legitimate model. Two things follow from it.
+
+**There is no buffer on a first order.** At $0.59, a single refund erases the
+margin on about thirteen acquisitions, and a chargeback erases far more. Any
+support cost, reshipment, or lost package on a first order is a straight loss.
+Do not add further first-order discounting on top of WELCOME10.
+
+**The resale certificate is the largest controllable line.** A California
+seller's permit plus a CDTFA-230 resale certificate filed with PackFreshUSA
+removes the $4.65 sales tax, because these goods are bought for resale. That
+takes the first order to +$5.24 and the repeat to +$12.52 — an eightfold
+improvement in first-order margin, from paperwork rather than pricing. The same
+permit is required to collect California sales tax from customers, which the
+store is not currently doing.
+
+The structural fix beyond that is wholesale pricing from PackFreshUSA. The kit
+is currently bought at the same retail price the public pays, which caps margin
+no matter the volume.
+
 ### Related documents
 
 - `docs/SHOPIFY-ADMIN-SETUP.md` — the manual runbook (start here)

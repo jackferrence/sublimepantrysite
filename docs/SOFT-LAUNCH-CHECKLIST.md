@@ -103,8 +103,9 @@ Set `window.spDebug = true` in the console and walk the funnel. Each event must 
 
 | # | Check | Status |
 |---|---|---|
-| 62 | One real customer-style test order, paid with a real card, from a clean browser | ⬜ |
+| 62 | One real customer-style test order, paid with a real card, from a clean browser | ✅ order #1001, PAID, $54.00, Flows 1/2/3 all fired |
 | 63 | One full manual fulfillment: order placed at PackFreshUSA, tracking received, entered in Shopify, delivered | ⬜ |
+| 64a | Supplier ships free (confirmed with PackFreshUSA) | ✅ |
 | 64 | **Real contribution margin calculated** from that order: revenue − discount − Shopify/payment fees − supplier price − supplier shipping − supplier tax. Expect it to be negative at $59.99; confirm the actual number and accept it explicitly as acquisition cost | ⬜ |
 | 65 | Every issue found above is fixed or consciously accepted and written down | ⬜ |
 | 66 | Final mobile funnel walkthrough, end to end | ⬜ |
