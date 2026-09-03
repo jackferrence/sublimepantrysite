@@ -30,8 +30,8 @@ const starterKitArticles = new Set([
 ]);
 const showStarterKit = starterKitArticles.has(entry.id);
 
-const canonicalPath = path.replace(/\/$/, '');
-const pageUrl = `${site}${canonicalPath}.html`;
+const canonicalPath = path === '/' ? '/' : `${path.replace(/\/$/, '')}/`;
+const pageUrl = new URL(canonicalPath, site).href;
 
 const jsonLd: Record<string, unknown>[] = [
   {
