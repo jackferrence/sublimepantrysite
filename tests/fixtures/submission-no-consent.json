@@ -1,0 +1,15 @@
+{
+  "payload": {
+    "id": "00000000-0000-4000-8000-000000000002",
+    "form_id": "local-freeze-drying-checklist",
+    "form_name": "freeze-drying-checklist",
+    "created_at": "2026-09-04T17:26:03.115Z",
+    "site_url": "https://sublimepantry.netlify.app",
+    "data": {
+      "email": "sample.lead@example.com",
+      "lead_magnet": "freeze-drying-starter-checklist",
+      "source_path": "/guides/freeze-drying-basics",
+      "bot-field": ""
+    }
+  }
+}
