@@ -6,19 +6,45 @@
  * cost a field on the highest-intent moment on the page. It now lives on
  * /thanks, after the address is already captured, posting to the same Netlify
  * form.
+ *
+ * `compact` renders the footer column version: same Netlify form, same hidden
+ * fields, same consent checkbox — but no heading block and no
+ * `lead_magnet_view` beacon. The footer is on every page, so firing the view
+ * event from here would report an impression on every pageview and make the
+ * card's real conversion rate unreadable.
  */
 import { normalizePath } from '../lib/paths';
+
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
 
 const sourcePath = normalizePath(Astro.url.pathname);
 const viewProps = JSON.stringify({
   lead_magnet: 'freeze-drying-starter-checklist',
   source_path: sourcePath,
 });
+const emailId = compact ? 'footer-newsletter-email' : 'newsletter-email';
+// The card is a landmark section named by its own heading. The footer column
+// has no heading of its own — the column's <h2> names it — so it is a plain
+// div and adds no second landmark to every page on the site.
+const Wrapper = compact ? 'div' : 'section';
 ---
-<section class="newsletter card" aria-labelledby="newsletter-heading" data-sp-view="lead_magnet_view" data-sp-props={viewProps}>
-  <span class="kicker">Free starter checklist</span>
-  <h2 id="newsletter-heading">Run cleaner batches from day one.</h2>
-  <p class="newsletter-lede">Get the printable Starter Checklist and 10% off + free shipping on your first order, then <strong>The Dry Batch</strong> twice a month.</p>
+<Wrapper
+  class:list={['newsletter', compact ? 'newsletter-compact' : 'card']}
+  aria-labelledby={compact ? undefined : 'newsletter-heading'}
+  data-sp-view={compact ? undefined : 'lead_magnet_view'}
+  data-sp-props={compact ? undefined : viewProps}
+>
+  {!compact && (
+    <>
+      <span class="kicker">Free starter checklist</span>
+      <h2 id="newsletter-heading">Run cleaner batches from day one.</h2>
+      <p class="newsletter-lede">Get the printable Starter Checklist and 10% off + free shipping on your first order, then <strong>The Dry Batch</strong> weekly.</p>
+    </>
+  )}
 
   <form
     name="freeze-drying-checklist"
@@ -30,12 +56,12 @@ const viewProps = JSON.stringify({
   >
     <input type="hidden" name="form-name" value="freeze-drying-checklist" />
     <input type="hidden" name="lead_magnet" value="freeze-drying-starter-checklist" />
-    <input type="hidden" name="source_path" value={sourcePath} />
+    <input type="hidden" name="source_path" value={sourcePath} data-sp-source-path />
     <p hidden aria-hidden="true"><label>Don't fill this out: <input name="bot-field" /></label></p>
 
     <div class="newsletter-field">
-      <label for="newsletter-email">Email address</label>
-      <input id="newsletter-email" type="email" name="email" required placeholder="you@example.com" autocomplete="email" />
+      <label for={emailId}>Email address</label>
+      <input id={emailId} type="email" name="email" required placeholder="you@example.com" autocomplete="email" />
     </div>
 
     <label class="consent">
@@ -46,8 +72,39 @@ const viewProps = JSON.stringify({
     <button class="btn btn-primary" type="submit">Get the checklist</button>
   </form>
 
-  <p class="meta newsletter-fine">We use your email only for the content described above. See our <a href="/privacy">privacy policy</a>.</p>
-</section>
+  {!compact && (
+    <p class="meta newsletter-fine">We use your email only for the content described above. See our <a href="/privacy">privacy policy</a>.</p>
+  )}
+</Wrapper>
+
+<!--
+  The footer is `transition:persist`, so it survives client-side navigation and
+  its server-rendered `source_path` would still name the first page of the
+  visit. Acquisition path is the one field on this form we cannot afford to get
+  wrong, so re-read it on every navigation.
+-->
+{compact && (
+  <script is:inline>
+    (function () {
+      if (window.__spFooterSourcePath) return;
+      window.__spFooterSourcePath = true;
+      function sync() {
+        var path =
+          window.location.pathname
+            .replace(/index\.html$/, '')
+            .replace(/\.html$/, '')
+            .replace(/(.)\/$/, '$1') || '/';
+        document
+          .querySelectorAll('.newsletter-compact [data-sp-source-path]')
+          .forEach(function (input) {
+            input.value = path;
+          });
+      }
+      document.addEventListener('astro:page-load', sync);
+      sync();
+    })();
+  </script>
+)}
 
 <!--
   Lead capture bridge (progressive enhancement).
@@ -99,6 +156,12 @@ const viewProps = JSON.stringify({
 
 <style>
   .newsletter { margin: var(--s5) 0; padding: var(--s4); }
+  /* In the footer column the card chrome is noise — the column heading and the
+     hairline between columns already do the framing. */
+  .newsletter-compact { margin: 0; padding: 0; }
+  .newsletter-compact form { margin-top: var(--s2); }
+  .newsletter-compact .newsletter-field { margin: 0 0 var(--s2); max-width: none; }
+  .newsletter-compact .consent { margin-bottom: var(--s2); font-size: .82rem; }
   .newsletter h2 { margin: 0 0 var(--s1); }
   .newsletter-lede { color: var(--ink-soft); max-width: 58ch; }
   .newsletter-field { margin: var(--s3) 0 var(--s2); max-width: 26rem; }
