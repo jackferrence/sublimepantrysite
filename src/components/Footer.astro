@@ -1,47 +1,51 @@
 ---
+/**
+ * Site footer. Four link columns plus the newsletter, mirroring the header's
+ * information architecture so the two never drift: both read from
+ * `src/lib/nav.ts`.
+ */
 import Mark from './Mark.astro';
+import Newsletter from './Newsletter.astro';
+import { FOOTER_SHOP, FOOTER_LEARN, FOOTER_COMPANY, NEWSLETTER_ARCHIVE, live } from '../lib/nav';
+import { PREFERENCE_CENTER_URL } from '../lib/paths';
 
-const learn = [
-  { href: '/guides', label: 'Guides' },
-  { href: '/troubleshooting', label: 'Troubleshooting' },
-  { href: '/compare', label: 'Comparisons' },
-  { href: '/recipes', label: 'Recipes' },
-  { href: '/tools/batch-log', label: 'Batch Log' },
-  { href: '/start-selling', label: 'Start Selling' },
+const columns = [
+  { id: 'shop', heading: 'Shop', items: live(FOOTER_SHOP) },
+  { id: 'learn', heading: 'Learn', items: live(FOOTER_LEARN) },
+  { id: 'company', heading: 'Company', items: live(FOOTER_COMPANY) },
 ];
 
-const site = [
-  { href: '/about', label: 'About' },
-  { href: '/editorial-standards', label: 'Editorial Standards' },
-  { href: '/review-methodology', label: 'Review Methodology' },
-  { href: '/affiliate-disclosure', label: 'Affiliate Disclosure' },
-  { href: '/shipping-returns', label: 'Shipping & Returns' },
-  { href: '/privacy', label: 'Privacy' },
-  { href: '/contact', label: 'Contact' },
-  { href: '/corrections', label: 'Corrections' },
-  { href: '/rss.xml', label: 'RSS' },
-];
+const archive = NEWSLETTER_ARCHIVE.pending ? null : NEWSLETTER_ARCHIVE;
 ---
 <footer class="site-footer">
   <div class="wrap">
+    <div class="footer-top">
+      <a href="/" class="footer-brand">
+        <Mark size={40} />
+        <span>Sublime Pantry</span>
+      </a>
+      <p class="footer-line">Run by Jack Ferrence — <a href="/about">About →</a></p>
+    </div>
+
     <div class="footer-columns">
-      <div>
-        <a href="/" class="footer-brand">
-          <Mark size={40} />
-          <span>Sublime Pantry</span>
-        </a>
-        <p class="footer-line">Run by Jack Ferrence — <a href="/about">About →</a></p>
-      </div>
+      {columns.map((column) => (
+        <nav aria-labelledby={`footer-${column.id}`}>
+          <h2 id={`footer-${column.id}`} class="footer-heading">{column.heading}</h2>
+          <ul>{column.items.map((item) => <li><a href={item.href}>{item.label}</a></li>)}</ul>
+        </nav>
+      ))}
 
-      <nav aria-labelledby="footer-learn">
-        <h2 id="footer-learn" class="footer-heading">Learn</h2>
-        <ul>{learn.map((item) => <li><a href={item.href}>{item.label}</a></li>)}</ul>
-      </nav>
-
-      <nav aria-labelledby="footer-site">
-        <h2 id="footer-site" class="footer-heading">Site</h2>
-        <ul>{site.map((item) => <li><a href={item.href}>{item.label}</a></li>)}</ul>
-      </nav>
+      <section class="footer-newsletter" aria-labelledby="footer-newsletter-heading">
+        <h2 id="footer-newsletter-heading" class="footer-heading">The Dry Batch</h2>
+        <p class="footer-line footer-pitch">One drying answer, one storage finding and one cottage-selling insight, weekly.</p>
+        <Newsletter compact />
+        <ul class="footer-newsletter-links">
+          {archive && <li><a href={archive.href}>{archive.label}</a></li>}
+          {PREFERENCE_CENTER_URL && (
+            <li><a href={PREFERENCE_CENTER_URL} rel="noopener">Manage email preferences</a></li>
+          )}
+        </ul>
+      </section>
     </div>
 
     <p class="footer-fine">Sublime Pantry publishes educational information about home freeze-drying and cottage food businesses. It is not medical, legal, or regulatory advice. Food safety and cottage food rules vary by jurisdiction. Always confirm with your state or local authority.</p>
@@ -57,8 +61,11 @@ const site = [
     border-top: 1px solid var(--mist);
   }
 
+  .footer-top { margin-bottom: var(--s4); }
+
   .footer-columns { display: grid; gap: var(--s4); }
-  @media (min-width: 760px) { .footer-columns { grid-template-columns: 1.2fr 1fr 1fr; } }
+  @media (min-width: 760px) { .footer-columns { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .footer-columns { grid-template-columns: repeat(3, minmax(0, 1fr)) 1.6fr; } }
 
   .footer-brand {
     display: flex; align-items: center; gap: .6rem; min-height: 44px;
@@ -66,6 +73,7 @@ const site = [
     color: var(--ink); text-decoration: none;
   }
   .footer-line { margin: var(--s2) 0 0; color: var(--ink-soft); font-size: .92rem; }
+  .footer-pitch { margin-top: .35rem; max-width: 34ch; }
 
   .footer-heading {
     font-family: var(--font-body); font-size: var(--kicker); font-weight: 600;
@@ -79,6 +87,8 @@ const site = [
     color: var(--ink-soft); text-decoration: none; font-size: .92rem;
   }
   .site-footer li a:hover { color: var(--brand); text-decoration: underline; }
+
+  .footer-newsletter-links { margin-top: var(--s1); }
 
   .footer-fine {
     margin: var(--s3) 0 0; max-width: 70ch;
