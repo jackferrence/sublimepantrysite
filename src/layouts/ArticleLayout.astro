@@ -10,6 +10,7 @@ import RelatedArticles from '../components/RelatedArticles.astro';
 import Newsletter from '../components/Newsletter.astro';
 import { CATALOG } from '../lib/commerce';
 import { PILLAR_LABEL, withToc, polishTables, verifiedDate, nextCheckDate, formatDate, type Article } from '../lib/articles';
+import { recipeJsonLd } from '../lib/schema';
 
 interface Props {
   entry: Article;
@@ -62,7 +63,10 @@ const jsonLd: Record<string, unknown>[] = [
   },
 ];
 
-if (d.howTo && d.howTo.length) {
+// A recipe's steps belong to the Recipe as recipeInstructions. Emitting a
+// second, standalone HowTo for the same steps describes one procedure twice
+// under two types, which is duplicative markup rather than richer markup.
+if (d.pillar !== 'recipes' && d.howTo && d.howTo.length) {
   jsonLd.push({
     '@context': 'https://schema.org',
     '@type': 'HowTo',
@@ -86,18 +90,8 @@ if (d.faq && d.faq.length) {
 }
 
 if (d.pillar === 'recipes') {
-  jsonLd.push({
-    '@context': 'https://schema.org',
-    '@type': 'Recipe',
-    name: d.title,
-    description: d.description,
-    author: { '@type': 'Person', name: d.author, url: `${site}/about/` },
-    datePublished: publishedIso,
-    mainEntityOfPage: pageUrl,
-    ...(d.howTo?.length
-      ? { recipeInstructions: d.howTo.map((s) => ({ '@type': 'HowToStep', name: s.name, text: s.text })) }
-      : {}),
-  });
+  const recipe = recipeJsonLd(d, { site, pageUrl, publishedIso });
+  if (recipe) jsonLd.push(recipe);
 }
 
 if (d.pillar === 'compare' && d.comparisonCriteria) {
