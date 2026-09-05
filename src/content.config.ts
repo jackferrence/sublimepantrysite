@@ -9,6 +9,32 @@ const sourceSchema = z.object({
   accessDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'accessDate must be YYYY-MM-DD'),
 });
 
+/**
+ * ISO 8601 duration, the only format schema.org accepts for a time property.
+ * Days, hours and minutes are enough for a freeze-drying cycle: "PT45M",
+ * "PT30H", "P1DT6H".
+ */
+const durationSchema = z
+  .string()
+  .regex(/^P(?!$)(?:\d+D)?(?:T(?!$)(?:\d+H)?(?:\d+M)?)?$/, 'must be an ISO 8601 duration, e.g. PT30H');
+
+/**
+ * Recipe extras. Every field optional and additive: a recipes-pillar article
+ * renders and validates without any of them, and the Recipe JSON-LD claims
+ * only what is declared here. Nothing is defaulted — an unstated yield or time
+ * is absent from the markup rather than guessed.
+ */
+const recipeSchema = z.object({
+  /** As written for a reader: "About 4 cups, from 6 lb fresh". */
+  yield: z.string().optional(),
+  prepTime: durationSchema.optional(),
+  /** The freeze-dryer run. Maps to schema.org cookTime; see src/lib/schema.ts. */
+  cycleTime: durationSchema.optional(),
+  totalTime: durationSchema.optional(),
+  ingredients: z.array(z.string()).optional(),
+  category: z.string().optional(),
+});
+
 const comparisonCriterionSchema = z.object({
   label: z.string(),
   note: z.string().optional(),
@@ -38,6 +64,8 @@ const articles = defineCollection({
     image: z.object({ src: z.string(), alt: z.string(), credit: z.string().optional() }).optional(),
     /** Hand-picked "keep reading" slugs; falls back to newest in the pillar. */
     related: z.array(z.string()).optional(),
+    /** Recipe-pillar extras; see recipeSchema. */
+    recipe: recipeSchema.optional(),
     /** Catalog handles this article deliberately references. */
     products: z.array(z.string()).optional(),
     bodyHtml: z.string(),

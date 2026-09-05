@@ -18,6 +18,7 @@ const fixture = (name) =>
 const consented = fixture('submission-consent');
 const unconsented = fixture('submission-no-consent');
 const contact = fixture('submission-contact');
+const followUp = fixture('submission-follow-up');
 
 const post = (body) =>
   new Request('https://x/.netlify/functions/submission-created', {
@@ -122,6 +123,8 @@ test('a consented submission subscribes to the right list with the right shape',
   const imported = JSON.parse(importCall.init.body).data.attributes;
   // Trimmed and lowercased from "  Sample.Lead@Example.COM ".
   assert.equal(imported.email, 'sample.lead@example.com');
+  // No lifecycle_stage: the signup form does not ask, and writing an empty one
+  // would clear a stage a later follow-up had recorded.
   assert.deepEqual(imported.properties, {
     email_pref: 'both',
     audience: 'unknown',
@@ -188,4 +191,74 @@ test('a non-JSON event body is a 400', async () => {
   const { result, calls } = await withFetch(ok, () => fn(bad));
   assert.equal(result.status, 400);
   assert.equal(calls.length, 0);
+});
+
+/**
+ * The /thanks follow-up.
+ *
+ * It posts to the same Netlify form as the signup, so this function fires a
+ * second time for someone who is already subscribed. These tests pin the two
+ * things that second fire must not do: move the acquisition path, and move the
+ * consent timestamp.
+ */
+test('the follow-up records the stage and nothing else', async () => {
+  const { result, calls } = await withFetch(ok, () => fn(post(followUp)));
+  assert.equal(result.status, 200);
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0].url, 'https://a.klaviyo.com/api/profile-import');
+
+  const imported = JSON.parse(calls[0].init.body).data.attributes;
+  assert.equal(imported.email, 'sample.lead@example.com');
+  assert.deepEqual(imported.properties, { lifecycle_stage: 'new-owner' });
+});
+
+test('the follow-up never re-subscribes, so consented_at cannot drift later', async () => {
+  const { calls } = await withFetch(ok, () => fn(post(followUp)));
+  const subscribe = calls.find((c) => c.url.includes('bulk-create-jobs'));
+  assert.equal(subscribe, undefined);
+});
+
+test('the follow-up does not overwrite signup_source or lead_magnet', async () => {
+  const { calls } = await withFetch(ok, () => fn(post(followUp)));
+  const { properties } = JSON.parse(calls[0].init.body).data.attributes;
+  // Both fields are present in the fixture and both must be ignored: the
+  // acquisition page is "/guides/freeze-drying-basics", not "/thanks".
+  assert.equal(properties.signup_source, undefined);
+  assert.equal(properties.lead_magnet, undefined);
+  assert.equal(properties.consent_timestamp, undefined);
+});
+
+test('an unrecognised stage is dropped rather than written', async () => {
+  const body = {
+    payload: {
+      ...followUp.payload,
+      data: { ...followUp.payload.data, stage: 'freeze-dryer-influencer' },
+    },
+  };
+  const { result, calls } = await withFetch(ok, () => fn(post(body)));
+  assert.equal(result.status, 200);
+  // Nothing left to write, so no call at all — an empty update could clear a
+  // stage that is already recorded.
+  assert.equal(calls.length, 0);
+});
+
+test('a stage on the signup path rides along with the acquisition properties', async () => {
+  const body = {
+    payload: {
+      ...consented.payload,
+      data: { ...consented.payload.data, stage: 'cottage-seller' },
+    },
+  };
+  const { calls } = await withFetch(ok, () => fn(post(body)));
+  const { properties } = JSON.parse(calls[0].init.body).data.attributes;
+  assert.equal(properties.lifecycle_stage, 'cottage-seller');
+  assert.equal(properties.signup_source, '/guides/freeze-drying-basics');
+  assert.equal(calls.length, 2);
+});
+
+test('a failed follow-up profile-import is a 502, not a quiet 200', async () => {
+  const fail = () => new Response('{"errors":[]}', { status: 400 });
+  const { result, calls } = await withFetch(fail, () => fn(post(followUp)));
+  assert.equal(result.status, 502);
+  assert.equal(calls.length, 1);
 });
