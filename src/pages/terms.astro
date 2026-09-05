@@ -1,0 +1,69 @@
+---
+/**
+ * Terms of service.
+ *
+ * Written to be read, not to be survived: short sections, plain sentences, and
+ * no clause that describes something the store does not actually do. Every
+ * operational fact here — the shipping threshold, the returns window, who
+ * ships the box — is stated once on its own page and linked to from here,
+ * rather than restated. Two copies of a refund window is one copy waiting to
+ * go stale.
+ */
+import PageLayout from '../layouts/PageLayout.astro';
+import { SUPPORT_EMAIL } from '../lib/paths';
+
+// The date the terms below were last reviewed against the live Shopify
+// configuration and the site's own policy pages.
+const effective = 'September 5, 2026';
+---
+<PageLayout
+  title="Terms of Service"
+  description="What Sublime Pantry sells, how orders and payment work, and the limits of what the site's educational content is."
+  path="/terms"
+  breadcrumbs={[{ label: 'Terms of Service', href: '/terms' }]}
+>
+  <span class="kicker">Policy</span>
+  <h1>Terms of service</h1>
+  <p><em>Effective {effective}.</em></p>
+
+  <p>These terms cover using this site and buying from it. They are written in plain language on purpose. If something here is unclear, email <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a> and ask — an answer you can act on is worth more to both of us than a clause you had to guess at.</p>
+
+  <h2>What we sell</h2>
+  <p>Sublime Pantry sells food-storage packaging: mylar bags, oxygen absorbers, labels, and kits combining them. We do not sell food, and we do not sell freeze dryers.</p>
+  <p>Our packaging is sourced from PackFreshUSA. During this launch, the kit is ordered from them after your purchase and ships to you directly in the manufacturer's own packaging — see <a href="/shipping-returns">shipping and returns</a>. Product specifications on this site come from the manufacturer's published documentation, and we say so on the page.</p>
+
+  <h2>Pricing</h2>
+  <p>Prices are in US dollars and are set in Shopify. If a price on this site ever disagrees with the price at checkout, the checkout price is the one that governs your order, and we would like to know about the discrepancy.</p>
+  <p><strong>This is a validation launch.</strong> The catalog is deliberately small and inventory is limited while we test the product and the fulfilment workflow, so an item can sell out, or stay unlisted, until its sourcing is verified. Discount codes, when they exist, are stated on the product page and applied at checkout — never conditioned on a countdown, and never on a deadline we invented.</p>
+
+  <h2>Orders and payment</h2>
+  <p>Checkout runs on Shopify, and payment is processed by Shopify Payments. Your card details go to Shopify's payment processor and never reach a Sublime Pantry server; we cannot see your full card number. See our <a href="/privacy">privacy policy</a> for what we do receive.</p>
+  <p>Placing an order is an offer to buy, and the order is accepted when we confirm it. We may decline or cancel an order — and refund it in full — if an item is mispriced, out of stock, or if the order cannot be fulfilled to a US address. We ship to the United States only.</p>
+
+  <h2>Shipping</h2>
+  <p>Rates, the free-shipping threshold, handling time, and who physically ships your box are all on the <a href="/shipping-returns">shipping and returns</a> page, which mirrors the live Shopify configuration.</p>
+
+  <h2>Returns</h2>
+  <p>Thirty days, original condition and packaging, return requested before anything is sent back. The full terms — including damaged and wrong items, and how refunds are issued — are on the <a href="/shipping-returns">shipping and returns</a> page.</p>
+
+  <h2>What the content here is, and is not</h2>
+  <p>Sublime Pantry publishes educational information about home freeze-drying and cottage food businesses. <strong>It is not medical, legal, regulatory, or professional food-safety advice.</strong> Freeze-drying does not kill pathogens. Food safety rules and cottage food laws vary by state and change over time; confirm requirements with your state or local food authority before selling anything you make.</p>
+  <p>We say plainly when we have not tested something ourselves, and our comparisons are built from manufacturer documentation rather than bench testing — the <a href="/review-methodology">review methodology</a> explains exactly where that line falls. We do not guarantee shelf life. Storage outcomes depend on how dry the food was, how it was sealed, and where it was kept, and we cannot observe any of those.</p>
+  <p>You are responsible for how you use this information. Our <a href="/editorial-standards">editorial standards</a> describe how it is researched and corrected, and mistakes we find are logged publicly on the <a href="/corrections">corrections page</a>.</p>
+
+  <h2>Your content and ours</h2>
+  <p>The articles, photographs, and tools on this site belong to Sublime Pantry. You are welcome to quote us with attribution and a link — being cited is the point. Republishing an article in full is not.</p>
+  <p>If you send us a question, a correction, or a photograph, you are giving us permission to use it to answer you and, where it improves an article, to publish it. We will not publish your email address.</p>
+
+  <h2>Liability</h2>
+  <p>The site and its tools are provided as they are. To the extent the law allows, Sublime Pantry is not liable for indirect or consequential losses arising from use of the site or its content, and our liability for any order is limited to what you paid for that order. Nothing here limits liability that cannot lawfully be limited.</p>
+
+  <h2>Changes</h2>
+  <p>We may update these terms. The effective date at the top changes when we do, and the terms in force when you placed an order are the ones that govern it.</p>
+
+  <h2>Governing law</h2>
+  <p>These terms are governed by the laws of the State of California, and disputes are subject to the courts of California.</p>
+
+  <h2>Contact</h2>
+  <p>Email <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a> for anything about an order, a return, or these terms. For editorial corrections or a batch question, the <a href="/contact">contact page</a> reaches the same inbox with a bit more structure.</p>
+</PageLayout>
