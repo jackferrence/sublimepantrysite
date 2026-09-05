@@ -8,6 +8,7 @@ import ProductReviews from '../../components/ProductReviews.astro';
 import StickyBuyBar from '../../components/StickyBuyBar.astro';
 import LaunchOffer from '../../components/LaunchOffer.astro';
 import { STARTER_KIT, SHOPIFY_PUBLIC_DOMAIN } from '../../lib/commerce';
+import { SUPPORT_EMAIL } from '../../lib/paths';
 import { getProductReviews } from '../../lib/reviews';
 import { articleHref } from '../../lib/articles';
 
@@ -206,11 +207,16 @@ const trackProps = JSON.stringify({ product_handle: STARTER_KIT.handle, sku: STA
 
         <LaunchOffer placement="product-page" />
 
+        <!-- Row two used to read "Packed & shipped by us", which contradicted
+             /shipping-returns: during the validation launch PackFreshUSA ships
+             the kit directly, in their own packaging. A buy box that disagrees
+             with the shipping page is the kind of small dishonesty a customer
+             discovers at the doorstep. -->
         <ul class="trust-rows">
           <li><Icon name="package" size={17} /> Sourced spec sheet from PackFreshUSA</li>
-          <li><Icon name="shopping-bag" size={17} /> Packed &amp; shipped by us</li>
+          <li><Icon name="shopping-bag" size={17} /> Ships direct from our supplier, PackFreshUSA</li>
           <li><Icon name="undo-2" size={17} /> <a href="/shipping-returns">30-day returns</a></li>
-          <li><Icon name="shield-check" size={17} /> Secure Shopify checkout</li>
+          <li><Icon name="shield-check" size={17} /> Secure Shopify checkout · <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a></li>
         </ul>
       </div>
     </div>
