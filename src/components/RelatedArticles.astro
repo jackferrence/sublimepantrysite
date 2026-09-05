@@ -5,7 +5,7 @@
  */
 import { getCollection } from 'astro:content';
 import Card from './Card.astro';
-import { articleHref, newestFirst, type Article } from '../lib/articles';
+import { heroImage, articleHref, newestFirst, type Article } from '../lib/articles';
 
 interface Props {
   entry: Article;
@@ -36,8 +36,8 @@ const picks = [...declared, ...filler].slice(0, 3);
           title={e.data.title}
           dek={e.data.description}
           kicker={e.data.section ?? e.data.kicker}
-          image={e.data.image?.src}
-          imageAlt={e.data.image?.alt}
+          image={heroImage(e)?.src}
+          imageAlt={heroImage(e)?.alt}
         />
       ))}
     </div>

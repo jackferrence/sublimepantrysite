@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import PageLayout from '../layouts/PageLayout.astro';
 import Card from '../components/Card.astro';
-import { articleHref, newestFirst, formatDate, verifiedDate } from '../lib/articles';
+import { heroImage, articleHref, newestFirst, formatDate, verifiedDate } from '../lib/articles';
 
 const listingDescription: Record<string, string> = {
   'home-freeze-dryers': 'Price, capacity, power, pump, and warranty. Every figure comes from manufacturer documentation, with access dates.',
@@ -51,8 +51,8 @@ const jsonLd = [
         dek={listingDescription[entry.id] ?? entry.data.description}
         headingLevel={2}
         kicker={entry.data.section ?? entry.data.kicker}
-        image={entry.data.image?.src}
-        imageAlt={entry.data.image?.alt}
+        image={heroImage(entry)?.src}
+        imageAlt={heroImage(entry)?.alt}
         meta={`${entry.data.comparisonCriteria?.length ?? 0} criteria · verified ${formatDate(verifiedDate(entry))}`}
         transitionName={`sp-title-${entry.id}`}
       />

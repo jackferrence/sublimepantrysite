@@ -7,7 +7,7 @@ import Mark from '../components/Mark.astro';
 import Newsletter from '../components/Newsletter.astro';
 import { CATALOG } from '../lib/commerce';
 import { publicImage } from '../lib/media';
-import { articleHref, type Article } from '../lib/articles';
+import { heroImage as articleHero, articleHref, type Article } from '../lib/articles';
 
 const heroImage = publicImage('/images/hero.jpg');
 
@@ -66,8 +66,8 @@ const startHere = ['complete-batch-workflow', 'which-freeze-dryer', 'home-freeze
             title={entry.data.title}
             dek={entry.data.description}
             kicker={entry.data.section ?? entry.data.kicker}
-            image={entry.data.image?.src}
-            imageAlt={entry.data.image?.alt}
+            image={articleHero(entry)?.src}
+            imageAlt={articleHero(entry)?.alt}
             transitionName={`sp-title-${entry.id}`}
           />
         ))}
