@@ -17,7 +17,20 @@
  * The block is square and the file bleeds on all four sides, so replacing the
  * artwork is a filename change and nothing else.
  */
-const MARK = '/brand/mark-reversed-brand-plate.svg';
+/**
+ * Drawn for this block, not adapted to it. The supplied press plate had white
+ * letterforms whose legibility came from a one-pixel rust drop shadow — fine
+ * at 200px, gone by 32px. This one inverts that: the glyphs are the rust
+ * (#8a3d10 on #b0ddec, ~4.1:1, against white's ~1.4:1), so the mark holds
+ * without a detail it cannot keep at header size. The snowflake is dropped for
+ * the same reason Mark.astro drops it, and the glyphs are sized to the block
+ * rather than sitting in the press file's dead margin.
+ *
+ * The file carries a C2PA Content Credentials manifest. Left intact
+ * deliberately: it is provenance on a brand asset, and stripping it to save
+ * 5.7KB on a cached logo would be trading an honest signal for nothing.
+ */
+const MARK = '/brand/mark-header-plate.svg';
 
 interface Props {
   /** Block edge length in px. The header sets this from its own height. */
