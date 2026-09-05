@@ -15,3 +15,12 @@ export function normalizePath(pathname: string): string {
   const trimmed = withoutIndex.replace(/(.+)\/$/, '$1');
   return trimmed || '/';
 }
+
+/**
+ * Klaviyo hosted preference page.
+ *
+ * Left empty on purpose — the footer renders the "Manage email preferences"
+ * link only when this is filled in, so we never ship a link to nowhere. Paste
+ * the hosted preference-page URL from Klaviyo here.
+ */
+export const PREFERENCE_CENTER_URL = '';

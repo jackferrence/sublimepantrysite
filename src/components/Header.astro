@@ -3,26 +3,32 @@
  * Site header: sticky, static, and quiet.
  *
  * No hide-on-scroll, no condense, no blur, no sliding indicator. The active
- * section is marked with `aria-current` on the server and underlined in CSS,
- * so it is correct before any JavaScript runs.
+ * section is marked on the server and underlined in CSS, so it is correct
+ * before any JavaScript runs.
+ *
+ * The two dropdowns are disclosures, not ARIA menus: plain links, Tab moves
+ * through them, arrows are an accelerator. The menubar/menu pattern is for
+ * application menus where the menu *is* the interface; trapping Tab inside a
+ * nav panel is what makes people think the navigation is broken.
+ *
+ * With JavaScript off the panels still open, on `:focus-within` for keyboards
+ * and on hover for pointer devices that actually have one. `header-nav.js`
+ * sets `data-nav-enhanced`, at which point `aria-expanded` becomes the single
+ * source of truth and those CSS-only rules stand down — otherwise closing with
+ * Escape would return focus to the trigger and immediately reopen the panel.
  */
 import Mark from './Mark.astro';
 import Icon from './Icon.astro';
 import SearchBox from './SearchBox.astro';
 import { normalizePath } from '../lib/paths';
+import { PRIMARY_NAV, live, isCurrentPage, isCurrentSection } from '../lib/nav';
 
-const navItems = [
-  { href: '/shop', label: 'Shop' },
-  { href: '/guides', label: 'Guides' },
-  { href: '/troubleshooting', label: 'Troubleshooting' },
-  { href: '/compare', label: 'Comparisons' },
-  { href: '/tools/batch-log', label: 'Batch Log' },
-  { href: '/start-selling', label: 'Start Selling' },
-  { href: '/about', label: 'About' },
-];
+const navItems = live(PRIMARY_NAV);
+const groups = navItems.filter((item) => item.children);
+const singles = navItems.filter((item) => !item.children);
 
 const path = normalizePath(Astro.url.pathname);
-const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`);
+const menuId = (label: string) => `nav-menu-${label.toLowerCase()}`;
 ---
 <header class="site-header">
   <div class="wrap header-row">
@@ -33,11 +39,36 @@ const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`)
 
     <nav class="site-nav" aria-label="Main">
       <ul>
-        {navItems.map((item) => (
-          <li>
-            <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a>
+        {navItems.map((item) => (item.children ? (
+          <li class="has-menu">
+            <button
+              type="button"
+              class="nav-trigger"
+              aria-expanded="false"
+              aria-haspopup="true"
+              aria-controls={menuId(item.label)}
+              data-section-current={isCurrentSection(path, item) ? '' : undefined}
+            >
+              {item.label}
+              <Icon name="chevron-right" size={14} class="nav-chevron" />
+            </button>
+            <ul class="nav-menu" id={menuId(item.label)}>
+              {item.children.map((child) => (
+                <li>
+                  <a href={child.href} aria-current={isCurrentPage(path, child.href) ? 'page' : undefined}>{child.label}</a>
+                </li>
+              ))}
+            </ul>
           </li>
-        ))}
+        ) : (
+          <li>
+            <a
+              href={item.href}
+              aria-current={isCurrentPage(path, item.href) ? 'page' : undefined}
+              data-section-current={isCurrentSection(path, item) ? '' : undefined}
+            >{item.label}</a>
+          </li>
+        )))}
       </ul>
     </nav>
 
@@ -78,6 +109,8 @@ const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`)
     </div>
   </div>
 
+  <!-- The drawer is flat. Dropdowns on a touch target this size buy nothing
+       and cost a tap, so the groups become labelled sections instead. -->
   <div class="overlay nav-drawer" id="site-drawer" hidden>
     <div class="nav-drawer-panel">
       <div class="nav-drawer-head">
@@ -87,13 +120,34 @@ const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`)
         </button>
       </div>
       <SearchBox id="drawer-search" />
-      <ul class="nav-drawer-list">
-        {navItems.map((item) => (
-          <li>
-            <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a>
-          </li>
-        ))}
-      </ul>
+
+      {groups.map((group) => (
+        <nav class="nav-drawer-group" aria-label={group.label}>
+          <span class="kicker">{group.label}</span>
+          <ul class="nav-drawer-list">
+            {group.children!.map((child) => (
+              <li><a
+                href={child.href}
+                aria-current={isCurrentPage(path, child.href) ? 'page' : undefined}
+                data-section-current={isCurrentSection(path, child) ? '' : undefined}
+              >{child.label}</a></li>
+            ))}
+          </ul>
+        </nav>
+      ))}
+
+      <nav class="nav-drawer-group" aria-label="More">
+        <ul class="nav-drawer-list">
+          {singles.map((item) => (
+            <li><a
+              href={item.href}
+              aria-current={isCurrentPage(path, item.href) ? 'page' : undefined}
+              data-section-current={isCurrentSection(path, item) ? '' : undefined}
+            >{item.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+
       <a class="btn btn-primary nav-drawer-cta" href="/tools/batch-log">Open the Batch Log</a>
     </div>
   </div>
@@ -125,21 +179,78 @@ const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`)
   @media (min-width: 900px) { .search-toggle { display: inline-flex; } }
 
   .site-nav { display: none; margin-inline-start: auto; }
-  .site-nav ul { display: flex; gap: var(--s3); list-style: none; margin: 0; padding: 0; }
-  .site-nav li { margin: 0; }
-  .site-nav a {
+  .site-nav > ul { display: flex; gap: var(--s3); list-style: none; margin: 0; padding: 0; }
+  .site-nav > ul > li { margin: 0; }
+  .site-nav a, .nav-trigger {
     display: block; padding: .5rem 0;
     color: var(--ink-soft); text-decoration: none; font-size: .95rem;
     border-bottom: 2px solid transparent;
   }
-  .site-nav a:hover { color: var(--ink); }
-  .site-nav a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--brand); }
+  .site-nav a:hover, .nav-trigger:hover { color: var(--ink); }
+  .site-nav > ul > li > a[data-section-current],
+  .nav-trigger[data-section-current] { color: var(--ink); border-bottom-color: var(--brand); }
+
+  /* --- Dropdowns --- */
+  .has-menu { position: relative; }
+
+  .nav-trigger {
+    display: inline-flex; align-items: center; gap: .3rem;
+    background: none; border: 0; border-bottom: 2px solid transparent;
+    font: inherit; font-size: .95rem; cursor: pointer;
+  }
+  /* The chevron is rendered by Icon.astro, so it carries that component's
+     scope and not this one's — it has to be reached with :global from an
+     element that does belong to this file. `chevron-right` rotated is the
+     tenth icon doing an eleventh job; the icon set stays closed. */
+  .nav-trigger :global(.nav-chevron) { transform: rotate(90deg); transform-origin: center; }
+  .nav-trigger[aria-expanded="true"] :global(.nav-chevron) { transform: rotate(-90deg); }
+  @media (prefers-reduced-motion: no-preference) {
+    .nav-trigger :global(.nav-chevron) { transition: transform 150ms linear; }
+  }
+
+  .nav-menu {
+    display: none;
+    position: absolute; top: 100%; inset-inline-start: 0; z-index: 55;
+    min-width: 14rem; margin: 0; padding: var(--s1) 0;
+    list-style: none;
+    background: var(--surface);
+    border: 1px solid var(--mist); border-radius: var(--radius);
+    box-shadow: var(--shadow-hover);
+  }
+  .nav-menu li { margin: 0; }
+  .nav-menu a {
+    padding: .55rem var(--s2);
+    display: flex; align-items: center; min-height: 40px;
+    border-bottom: 0; white-space: nowrap;
+  }
+  .nav-menu a:hover { background: var(--brand-tint); color: var(--ink); }
+  .nav-menu a[aria-current="page"] { color: var(--brand); font-weight: 600; }
+
+  /* No JavaScript: keyboards open the panel with :focus-within, pointers with
+     hover — but only on devices that genuinely hover. On a touch laptop or
+     tablet, hover-open fires on tap and the panel lands under the finger
+     before the click registers. */
+  .has-menu:focus-within > .nav-menu { display: block; }
+  @media (hover: hover) {
+    .has-menu:hover > .nav-menu { display: block; }
+  }
+
+  /* JavaScript bound: aria-expanded is the only thing that opens a panel. */
+  .site-nav[data-nav-enhanced] .has-menu:focus-within > .nav-menu { display: none; }
+  @media (hover: hover) {
+    .site-nav[data-nav-enhanced] .has-menu:hover > .nav-menu { display: none; }
+  }
+  .site-nav[data-nav-enhanced] .nav-trigger[aria-expanded="true"] + .nav-menu { display: block; }
 
   .header-actions { display: flex; align-items: center; gap: .25rem; margin-inline-start: auto; }
   @media (min-width: 900px) {
     .site-nav { display: block; }
     .header-actions { margin-inline-start: var(--s3); }
-    .nav-toggle { display: none; }
+    /* Scoped through .header-actions on purpose: `.icon-button` sets
+       display:inline-flex further down this stylesheet, and at equal
+       specificity the later rule wins. The hamburger was visible alongside the
+       full nav bar at every desktop width. */
+    .header-actions .nav-toggle { display: none; }
   }
 
   .icon-button {
@@ -187,6 +298,7 @@ const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`)
   }
   .nav-drawer-head { display: flex; align-items: center; justify-content: space-between; }
   .nav-drawer-head .kicker { margin: 0; }
+  .nav-drawer-group .kicker { display: block; margin: 0 0 .25rem; }
 
   .nav-drawer-list { list-style: none; margin: 0; padding: 0; }
   .nav-drawer-list li { margin: 0; border-top: 1px solid var(--mist); }
@@ -194,6 +306,10 @@ const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`)
     display: flex; align-items: center; min-height: 48px;
     color: var(--ink); text-decoration: none;
   }
+  /* Two states, deliberately different weights: you are *on* this page, or
+     you are somewhere underneath it. Neither is announced — only the exact
+     page carries aria-current. */
+  .nav-drawer-list a[data-section-current] { color: var(--brand); }
   .nav-drawer-list a[aria-current="page"] { color: var(--brand); font-weight: 600; }
   .nav-drawer-cta { margin-top: auto; }
 </style>
