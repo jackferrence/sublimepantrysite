@@ -30,6 +30,18 @@
  *    explicit marketing_consent === true. Absent consent, the request is
  *    rejected outright rather than written without consent.
  *
+ * Two submissions reach this function for one person, because /thanks posts to
+ * the same form as the signup:
+ *
+ *  1. The signup itself. It knows the acquisition page and the lead magnet but
+ *     not the lifecycle stage — the qualifying question is asked afterwards.
+ *     A missing stage is therefore "not asked yet", not a bad request; the
+ *     stage metafield and the stage- tag are simply omitted.
+ *  2. The /thanks follow-up. It knows the stage and nothing else of value. Its
+ *     source_path is "/thanks", which is not where the lead came from, and its
+ *     timestamp is not when consent was given. It writes the stage and touches
+ *     nothing else — including the consent record.
+ *
  * Development / unconfigured behaviour: when the Shopify env vars are missing,
  * the function returns 204 without attempting any API call. It is a documented
  * no-op, not a silent failure of a real call.
@@ -43,6 +55,9 @@ const LIFECYCLE_STAGES = new Set([
   'active-owner',
   'cottage-seller',
 ]);
+
+/** The page the qualifying-question follow-up posts from. See the header. */
+const FOLLOW_UP_SOURCE_PATH = '/thanks';
 
 /**
  * Cached client-credentials token. Module scope persists across invocations on
@@ -139,7 +154,8 @@ async function shopifyGraphql(shop, token, query, variables) {
 }
 
 function tagsFor(stage, leadMagnet) {
-  const tags = ['sp-lead', 'freeze-drying', 'source-site', `stage-${stage}`];
+  const tags = ['sp-lead', 'freeze-drying', 'source-site'];
+  if (stage) tags.push(`stage-${stage}`);
   if (leadMagnet === 'freeze-drying-starter-checklist') tags.push('lead-starter-checklist');
   return tags;
 }
@@ -164,9 +180,10 @@ export default async (request) => {
   if (!email || !email.includes('@')) {
     return new Response('Bad Request', { status: 400 });
   }
-  if (!LIFECYCLE_STAGES.has(stage)) {
-    return new Response('Bad Request', { status: 400 });
-  }
+  // An unrecognised stage is dropped, not rejected: the signup form does not
+  // ask the question, and refusing every signup for not knowing the answer yet
+  // is what kept this sync from ever writing a customer.
+  const lifecycleStage = LIFECYCLE_STAGES.has(stage) ? stage : '';
   // Consent is not inferred, defaulted, or assumed. No consent, no write.
   if (payload.marketing_consent !== true) {
     return new Response('Marketing consent required', { status: 400 });
@@ -192,17 +209,38 @@ export default async (request) => {
   }
 
   const now = new Date().toISOString();
-  const metafields = [
-    { namespace: 'sublime_pantry', key: 'lifecycle_stage', type: 'single_line_text_field', value: stage },
-    { namespace: 'sublime_pantry', key: 'source_path', type: 'single_line_text_field', value: sourcePath || '/' },
-    { namespace: 'sublime_pantry', key: 'lead_magnet', type: 'single_line_text_field', value: leadMagnet || 'none' },
-  ];
+  const isFollowUp = sourcePath === FOLLOW_UP_SOURCE_PATH;
 
-  const emailMarketingConsent = {
-    marketingState: 'SUBSCRIBED',
-    marketingOptInLevel: 'SINGLE_OPT_IN',
-    consentUpdatedAt: now,
-  };
+  const stageMetafield = lifecycleStage
+    ? [{ namespace: 'sublime_pantry', key: 'lifecycle_stage', type: 'single_line_text_field', value: lifecycleStage }]
+    : [];
+
+  const metafields = isFollowUp
+    ? stageMetafield
+    : [
+        ...stageMetafield,
+        { namespace: 'sublime_pantry', key: 'source_path', type: 'single_line_text_field', value: sourcePath || '/' },
+        { namespace: 'sublime_pantry', key: 'lead_magnet', type: 'single_line_text_field', value: leadMagnet || 'none' },
+      ];
+
+  // Omitted entirely on the follow-up. Re-sending it would move
+  // consentUpdatedAt to the moment they answered a survey, which is not when
+  // permission was given.
+  const emailMarketingConsent = isFollowUp
+    ? undefined
+    : {
+        marketingState: 'SUBSCRIBED',
+        marketingOptInLevel: 'SINGLE_OPT_IN',
+        consentUpdatedAt: now,
+      };
+
+  // The follow-up is an update to someone who already exists. If it does not
+  // find them, there is nothing to enrich and nothing worth creating from a
+  // survey answer alone.
+  if (isFollowUp && !metafields.length) {
+    console.info('[lead-capture] Follow-up carried no recognised stage; nothing to update.');
+    return new Response(null, { status: 204 });
+  }
 
   try {
     const found = await shopifyGraphql(shop, token, FIND_CUSTOMER, {
@@ -212,17 +250,25 @@ export default async (request) => {
 
     if (existing) {
       // Merge tags rather than replace: never drop tags Flow or Shopify set.
-      const merged = Array.from(new Set([...(existing.tags ?? []), ...tagsFor(stage, leadMagnet)]));
+      const merged = Array.from(new Set([...(existing.tags ?? []), ...tagsFor(lifecycleStage, leadMagnet)]));
       const result = await shopifyGraphql(shop, token, CUSTOMER_UPDATE, {
-        input: { id: existing.id, tags: merged, emailMarketingConsent, metafields },
+        input: {
+          id: existing.id,
+          tags: merged,
+          ...(emailMarketingConsent ? { emailMarketingConsent } : {}),
+          metafields,
+        },
       });
       const errors = result?.customerUpdate?.userErrors ?? [];
       if (errors.length) throw new Error(errors.map((e) => e.message).join('; '));
+    } else if (isFollowUp) {
+      // No customer to enrich. The signup write is the one that creates them.
+      console.info('[lead-capture] Follow-up for an address with no customer record; skipping.');
     } else {
       const result = await shopifyGraphql(shop, token, CUSTOMER_UPSERT, {
         input: {
           email,
-          tags: tagsFor(stage, leadMagnet),
+          tags: tagsFor(lifecycleStage, leadMagnet),
           emailMarketingConsent,
           metafields: [
             ...metafields,
