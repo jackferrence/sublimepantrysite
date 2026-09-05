@@ -11,6 +11,12 @@
  * application menus where the menu *is* the interface; trapping Tab inside a
  * nav panel is what makes people think the navigation is broken.
  *
+ * `aria-expanded` alone, deliberately. `aria-haspopup="true"` is treated as
+ * equivalent to "menu", so a screen reader announces a menu widget and the
+ * user reasonably expects menu keyboard semantics — arrows to navigate, Tab to
+ * leave the whole component. This implementation does not honour that
+ * contract, so it must not make the promise.
+ *
  * With JavaScript off the panels still open, on `:focus-within` for keyboards
  * and on hover for pointer devices that actually have one. `header-nav.js`
  * sets `data-nav-enhanced`, at which point `aria-expanded` becomes the single
@@ -45,7 +51,6 @@ const menuId = (label: string) => `nav-menu-${label.toLowerCase()}`;
               type="button"
               class="nav-trigger"
               aria-expanded="false"
-              aria-haspopup="true"
               aria-controls={menuId(item.label)}
               data-section-current={isCurrentSection(path, item) ? '' : undefined}
             >
