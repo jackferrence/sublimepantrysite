@@ -71,6 +71,13 @@ export interface Asset {
   source: AssetSource;
   credit?: string;            // 'Photo: PackFreshUSA' | 'Stock photo' | 'Illustrative'
   ratios: AssetRatio[];       // which crops were generated
+  /** How the ratio was reached. 'cover' centre-crops; 'contain' scales the
+   *  whole frame in and pads with white, for subjects isolated on white where
+   *  a crop would cut the subject. Must match `fit` in assets/sources.json —
+   *  tests/assets.test.mjs fails if the two disagree, because the width ladder
+   *  is computed differently for each and a mismatch means the manifest claims
+   *  files that are not there (or misses files that are). */
+  fit?: 'cover' | 'contain';
   intrinsic: { w: number; h: number };
   subject: string[];          // ['strawberry','fruit'] — for matching
   /** Hard constraints. Enforced by tests, not by convention. */
@@ -259,22 +266,40 @@ const MANIFEST: Omit<Asset, 'usedBy'>[] = [
   // Isolated on white, professionally shot, and arriving with every scrap of
   // EXIF stripped by whoever cropped them. `own` would be a claim we cannot
   // support, so they carry the conservative label until a licence record does.
+  // Re-cut from the full-resolution Adobe sheet (AdobeStock_530935565,
+  // 10772x3119) by assets/extract-piles.mjs rather than from the hand-made
+  // crops this library started with. Those were 200-630px — one of them could
+  // not make a single declared ratio — and hand-cutting them again would have
+  // produced the same class of problem at different numbers.
+  //
+  // `contain` in sources.json, not `cover`: every pile is wider than it is
+  // tall, so a 1:1 crop would take 55% of the width off the subject. Padding is
+  // invisible against a white ground.
   {
     id: 'freeze-dried-strawberry-slices-pile',
     src: '/images/library/freeze-dried-strawberry-slices-pile',
-    alt: 'A pile of freeze-dried strawberry slices on white, cut faces showing pale dry centres.',
+    alt: 'A pile of freeze-dried strawberry slices on white, cut faces showing pale dry centres and visible seeds.',
     cls: 'food', source: 'stock', credit: 'Stock photo',
-    ratios: ['16:9', '1:1'], intrinsic: { w: 633, h: 434 },
+    ratios: ['16:9', '4:5', '1:1'], fit: 'contain', intrinsic: { w: 2850, h: 1272 },
     subject: ['strawberry', 'fruit'],
     restrictions: ['provenance-unverified'],
   },
   {
     id: 'freeze-dried-blueberries-pile',
     src: '/images/library/freeze-dried-blueberries-pile',
-    alt: 'A pile of whole freeze-dried blueberries on white, skins wrinkled and matte.',
+    alt: 'A pile of whole freeze-dried blueberries on white, skins wrinkled and matte with occasional split red interiors.',
     cls: 'food', source: 'stock', credit: 'Stock photo',
-    ratios: ['16:9'], intrinsic: { w: 432, h: 232 },
+    ratios: ['16:9', '4:5', '1:1'], fit: 'contain', intrinsic: { w: 2327, h: 1214 },
     subject: ['blueberry', 'fruit'],
+    restrictions: ['provenance-unverified'],
+  },
+  {
+    id: 'freeze-dried-banana-slices-pile',
+    src: '/images/library/freeze-dried-banana-slices-pile',
+    alt: 'Seven freeze-dried banana slices on white, pale and chalky with the seed line still visible across each cut face.',
+    cls: 'food', source: 'stock', credit: 'Stock photo',
+    ratios: ['16:9', '4:5', '1:1'], fit: 'contain', intrinsic: { w: 2101, h: 1265 },
+    subject: ['banana', 'fruit'],
     restrictions: ['provenance-unverified'],
   },
 ];
@@ -307,11 +332,19 @@ export function derivative(asset: Asset, ratio: AssetRatio, width: number): stri
   return `${asset.src}/${ratio.replace(':', 'x')}-${width}.webp`;
 }
 
-/** Widths actually emitted for a ratio: never above the cropped intrinsic. */
+/**
+ * Widths actually emitted for a ratio — never an upscale.
+ *
+ * The ceiling depends on how the ratio was reached. A `cover` derivative is cut
+ * out of the frame, so the ceiling is the cropped width; a `contain` one keeps
+ * the whole frame and pads, so the ceiling is the intrinsic width. Getting this
+ * wrong does not fail loudly: the manifest simply claims a set of files that
+ * differs from what is on disk, and a `srcset` entry 404s.
+ */
 export function widthsFor(asset: Asset, ratio: AssetRatio): number[] {
   const { w, h } = asset.intrinsic;
-  const cropped = Math.min(w, Math.round(h * RATIO_VALUE[ratio]));
-  return DERIVATIVE_WIDTHS.filter((width) => width <= cropped);
+  const ceiling = asset.fit === 'contain' ? w : Math.min(w, Math.round(h * RATIO_VALUE[ratio]));
+  return DERIVATIVE_WIDTHS.filter((width) => width <= ceiling);
 }
 
 /** `srcset` for a ratio, widest last. Empty when the ratio was not generated. */

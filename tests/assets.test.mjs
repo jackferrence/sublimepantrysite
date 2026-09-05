@@ -57,10 +57,9 @@ test('every declared ratio has its derivatives on disk', () => {
 test('no derivative is upscaled past the intrinsic crop', () => {
   for (const asset of ASSETS) {
     for (const ratio of asset.ratios) {
-      const cropped = Math.min(
-        asset.intrinsic.w,
-        Math.round(asset.intrinsic.h * RATIO_VALUE[ratio]),
-      );
+      const cropped = asset.fit === 'contain'
+        ? asset.intrinsic.w
+        : Math.min(asset.intrinsic.w, Math.round(asset.intrinsic.h * RATIO_VALUE[ratio]));
       for (const width of widthsFor(asset, ratio)) {
         assert.ok(
           width <= cropped,
@@ -233,11 +232,19 @@ test('the derivative width ladder is the one the generator emits', () => {
   const { assets } = JSON.parse(readFileSync('assets/sources.json', 'utf8'));
   const declared = new Map(assets.map((a) => [a.id, a.ratios]));
   assert.equal(declared.size, ASSETS.length, 'sources.json and the manifest disagree on count');
+  const fits = new Map(assets.map((a) => [a.id, a.fit ?? 'cover']));
   for (const asset of ASSETS) {
     assert.deepEqual(
       declared.get(asset.id),
       asset.ratios,
       `${asset.id}: sources.json and src/lib/assets.ts declare different ratios`,
+    );
+    // The width ladder is computed from `fit`, so the two files disagreeing
+    // means the manifest names derivatives that are not on disk.
+    assert.equal(
+      fits.get(asset.id),
+      asset.fit ?? 'cover',
+      `${asset.id}: sources.json and src/lib/assets.ts declare different fit`,
     );
   }
 });

@@ -173,15 +173,49 @@ function assetLibraryDoc() {
     }
   }
 
+  // Why a class is empty matters more than that it is. "Nothing yet" invites
+  // someone to fill it with the nearest thing; "empty on purpose" does not.
+  const EMPTY_REASON = {
+    brand: [
+      '**Empty by decision, not by omission.** Sublime Pantry is an institutional',
+      'publication, not a personal one: credibility rests on stated criteria, dated',
+      'sourcing, published corrections and a re-check schedule — not on a face or a',
+      'founder story. There is no portrait slot to fill, and this class should stay',
+      'empty. If a wide brand frame is ever wanted for the homepage, sealed and',
+      'labelled bags on a clean surface is the shot; a person is not.',
+    ],
+    process: [
+      '**Empty pending photography we can actually take.** Packing, sealing and',
+      'labelling are what this site sells, and none of it needs a freeze dryer or a',
+      'face: sealing a Mylar bag with the impulse sealer, an absorber going into an',
+      'open bag, sealed and labelled bags in a storage bin, the 6×6 beside the quart',
+      'beside the gallon for scale, a sealed bag with the absorber indicator visible.',
+      'Those carry `source: \'own\'` and no credit line. Store-bought freeze-dried',
+      'fruit in our own bags is honest for these — the subject is the packaging.',
+      'Shoot once the wholesale order lands.',
+    ],
+    'line-hero': [
+      '**Empty, and nothing here may be promoted into it.** The two camping frames',
+      'are stock photographs of somebody else\'s commercial pouches and carry',
+      '`not-product-imagery`. Using one as a line hero is precisely the failure that',
+      'restriction exists to prevent.',
+    ],
+  };
+
   const empty = ['product', 'food', 'equipment', 'camping', 'process', 'line-hero', 'brand']
     .filter((cls) => !byClass.has(cls));
   if (empty.length) {
-    lines.push(
-      '## Classes with nothing in them',
-      '',
-      ...empty.map((cls) => `- \`${cls}\` — no asset qualifies. \`findAssets({ cls: '${cls}' })\` returns \`[]\`, and any slot asking for one renders nothing.`),
-      '',
-    );
+    lines.push('## Classes with nothing in them', '');
+    for (const cls of empty) {
+      lines.push(
+        `### \`${cls}\``,
+        '',
+        `\`findAssets({ cls: '${cls}' })\` returns \`[]\`. Any slot asking for one renders nothing.`,
+        '',
+        ...(EMPTY_REASON[cls] ?? ['No asset qualifies yet.']),
+        '',
+      );
+    }
   }
 
   lines.push(

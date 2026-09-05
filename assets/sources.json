@@ -18,7 +18,8 @@
     { "id": "packfresh-mini-sealer-open",           "file": "packfresh-mini-sealer-open.jpg",            "ratios": ["4:5"] },
     { "id": "packfresh-mini-sealer-angled",         "file": "packfresh-mini-sealer-angled.webp",         "ratios": ["4:5"] },
     { "id": "packfresh-mini-sealer-sealing-bag",    "file": "packfresh-mini-sealer-sealing-bag.webp",    "ratios": ["4:5"] },
-    { "id": "freeze-dried-strawberry-slices-pile",  "file": "freeze-dried-strawberry-slices-pile.jpeg",  "ratios": ["16:9", "1:1"] },
-    { "id": "freeze-dried-blueberries-pile",        "file": "freeze-dried-blueberries-pile.jpeg",        "ratios": ["16:9"] }
+    { "id": "freeze-dried-strawberry-slices-pile",  "file": "freeze-dried-strawberry-slices-pile.jpeg",  "ratios": ["16:9", "4:5", "1:1"], "fit": "contain" },
+    { "id": "freeze-dried-blueberries-pile",        "file": "freeze-dried-blueberries-pile.jpeg",        "ratios": ["16:9", "4:5", "1:1"], "fit": "contain" },
+    { "id": "freeze-dried-banana-slices-pile",      "file": "freeze-dried-banana-slices-pile.jpeg",      "ratios": ["16:9", "4:5", "1:1"], "fit": "contain" }
   ]
 }

@@ -97,11 +97,46 @@ export function withToc(bodyHtml: string): { html: string; toc: TocEntry[] } {
  *    spacer, and marking it as data says so without inventing a column title.
  */
 export function polishTables(html: string): string {
-  return html.replace(/<thead>([\s\S]*?)<\/thead>/g, (thead) =>
-    thead
-      // An empty corner header names nothing; demote it to a data cell.
-      .replace(/<th\b([^>]*)>(\s*)<\/th>/g, '<td$1>$2</td>')
-      .replace(/<th\b(?![^>]*\bscope=)([^>]*)>/g, '<th$1 scope="col">')
+  return makeScrollersFocusable(
+    html.replace(/<thead>([\s\S]*?)<\/thead>/g, (thead) =>
+      thead
+        // An empty corner header names nothing; demote it to a data cell.
+        .replace(/<th\b([^>]*)>(\s*)<\/th>/g, '<td$1>$2</td>')
+        .replace(/<th\b(?![^>]*\bscope=)([^>]*)>/g, '<th$1 scope="col">')
+    ),
+  );
+}
+
+/**
+ * A horizontally scrolling table has to be reachable from the keyboard.
+ *
+ * `.table-scroll` is `overflow-x: auto`, so on a narrow screen the spec
+ * comparison scrolls sideways — and a mouse or a finger can do that while a
+ * keyboard cannot, because nothing inside the region takes focus. axe reports
+ * it as `scrollable-region-focusable`, severity serious, and it sat on the
+ * flagship buying guide.
+ *
+ * `tabindex="0"` makes the region focusable and therefore scrollable with the
+ * arrow keys. A focusable element also needs a name and a role, or a screen
+ * reader announces an unlabelled stop; the table's own `<caption>` is already
+ * the right sentence, so it is reused rather than a second one invented.
+ *
+ * Applied here rather than in the article JSON: the wrapper is authored in
+ * `bodyHtml`, and fixing it per article means fixing it again in every article
+ * written after this one.
+ */
+function makeScrollersFocusable(html: string): string {
+  return html.replace(
+    /<div class="table-scroll">([\s\S]*?)<\/div>/g,
+    (whole, inner: string) => {
+      if (/tabindex=/.test(whole)) return whole;
+      const caption = inner.match(/<caption\b[^>]*>([\s\S]*?)<\/caption>/)?.[1];
+      const label = caption
+        ? caption.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()
+        : 'Table, scrolls horizontally';
+      const attr = label.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+      return `<div class="table-scroll" tabindex="0" role="region" aria-label="${attr}">${inner}</div>`;
+    },
   );
 }
 

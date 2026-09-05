@@ -43,8 +43,11 @@ export function derivativePath(id, ratio, width) {
 const check = process.argv.includes('--check');
 const { assets } = JSON.parse(readFileSync(join(ROOT, 'assets/sources.json'), 'utf8'));
 
+/** White, for `fit: 'contain'`. Matches the ground these subjects are shot on. */
+const GROUND = { r: 255, g: 255, b: 255, alpha: 1 };
+
 const report = [];
-for (const { id, file, ratios } of assets) {
+for (const { id, file, ratios, fit = 'cover' } of assets) {
   const src = join(ORIGINALS, file);
   if (!existsSync(src)) throw new Error(`${id}: missing original ${file}`);
 
@@ -60,9 +63,21 @@ for (const { id, file, ratios } of assets) {
     const target = RATIO[ratio];
     if (!target) throw new Error(`${id}: unknown ratio ${ratio}`);
 
-    // Centre-crop to the ratio first, so "never upscale" is measured against
-    // the crop the visitor actually sees rather than the uncropped original.
-    const cw = Math.min(iw, Math.round(ih * target));
+    // Two ways to reach a ratio, and the subject decides which.
+    //
+    // `cover` centre-crops. Right for a photograph with a real scene in it,
+    // where trimming the edges loses context but not the subject.
+    //
+    // `contain` scales the whole frame in and pads with white. Right for food
+    // isolated on white, where every pile is wider than it is tall: a 1:1 crop
+    // of a 2.2:1 mound cuts 55% of the width off the subject, while padding is
+    // invisible because the ground is already white. The first pass here
+    // cropped everything and would have quietly sliced the ends off three of
+    // the four fruit piles.
+    //
+    // "Never upscale" is measured against whichever the visitor actually gets:
+    // the cropped width for cover, the full width for contain.
+    const cw = fit === 'contain' ? iw : Math.min(iw, Math.round(ih * target));
     const ch = Math.min(ih, Math.round(iw / target));
 
     for (const width of WIDTHS) {
@@ -74,7 +89,11 @@ for (const { id, file, ratios } of assets) {
         // silently keeps the original aspect ratio. `fit: 'cover'` against an
         // explicit width AND height is what actually crops.
         await sharp(src)
-          .resize(width, Math.round(width / target), { fit: 'cover', position: 'centre' })
+          .resize(width, Math.round(width / target), {
+            fit,
+            position: 'centre',
+            ...(fit === 'contain' ? { background: GROUND } : {}),
+          })
           .webp({ quality: 82 })
           .toFile(join(OUT_ROOT, out));
       }
