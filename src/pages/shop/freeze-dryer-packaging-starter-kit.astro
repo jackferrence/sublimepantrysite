@@ -10,7 +10,7 @@ import LaunchOffer from '../../components/LaunchOffer.astro';
 import { STARTER_KIT, SHOPIFY_PUBLIC_DOMAIN } from '../../lib/commerce';
 import { SUPPORT_EMAIL } from '../../lib/paths';
 import { getProductReviews } from '../../lib/reviews';
-import { articleHref } from '../../lib/articles';
+import { heroImage, articleHref } from '../../lib/articles';
 
 const reviews = await getProductReviews(STARTER_KIT);
 const workflow = await getEntry('articles', 'complete-batch-workflow');
@@ -295,8 +295,8 @@ const trackProps = JSON.stringify({ product_handle: STARTER_KIT.handle, sku: STA
               title={entry.data.title}
               dek={entry.data.description}
               kicker={entry.data.section ?? entry.data.kicker}
-              image={entry.data.image?.src}
-              imageAlt={entry.data.image?.alt}
+              image={heroImage(entry)?.src}
+              imageAlt={heroImage(entry)?.alt}
             />
           ))}
         </div>
