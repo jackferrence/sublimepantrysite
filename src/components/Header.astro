@@ -23,7 +23,7 @@
  * source of truth and those CSS-only rules stand down — otherwise closing with
  * Escape would return focus to the trigger and immediately reopen the panel.
  */
-import Mark from './Mark.astro';
+import BrandBlock from './BrandBlock.astro';
 import Icon from './Icon.astro';
 import SearchBox from './SearchBox.astro';
 import { normalizePath } from '../lib/paths';
@@ -37,11 +37,15 @@ const path = normalizePath(Astro.url.pathname);
 const menuId = (label: string) => `nav-menu-${label.toLowerCase()}`;
 ---
 <header class="site-header">
-  <div class="wrap header-row">
-    <a href="/" class="brand">
-      <Mark height={32} />
-      <span>Sublime Pantry</span>
+  <div class="header-row">
+    <!-- The block sits outside .wrap on purpose: .wrap is centred and padded,
+         and a brand block that stops at the wrap's padding is not flush with
+         the header. Everything after it keeps the wrap's measure. -->
+    <a href="/" class="brand" aria-label="Sublime Pantry — home">
+      <BrandBlock size={60} />
+      <span class="sr-only">Sublime Pantry</span>
     </a>
+    <div class="header-main">
 
     <nav class="site-nav" aria-label="Main">
       <ul>
@@ -102,6 +106,7 @@ const menuId = (label: string) => `nav-menu-${label.toLowerCase()}`;
       >
         <Icon name="menu" size={22} label="Menu" />
       </button>
+    </div>
     </div>
   </div>
 
@@ -165,16 +170,34 @@ const menuId = (label: string) => `nav-menu-${label.toLowerCase()}`;
     border-bottom: 1px solid var(--mist);
   }
 
+  /* Two parts: a flush brand block, then everything else on the wrap's
+     measure. `align-items: stretch` is what lets the block take the full
+     header height rather than centring at its own size — that is the whole
+     difference between a corner of colour and a floating logo. */
   .header-row {
-    display: flex; align-items: center; gap: var(--s3);
+    display: flex; align-items: stretch;
     min-height: 60px;
   }
 
+  .header-main {
+    flex: 1; min-width: 0;
+    display: flex; align-items: center; gap: var(--s3);
+    max-width: var(--wrap);
+    padding-inline: var(--s3);
+  }
+
+  /* The link is the block. No padding and no gap: the wordmark is gone, and
+     the only child that occupies space is the plate itself. */
   .brand {
-    display: flex; align-items: center; gap: .55rem;
-    min-height: 44px;
-    font-family: var(--font-display); font-size: clamp(1.15rem, 4.5vw, 1.35rem); font-weight: 600;
-    color: var(--ink); text-decoration: none; white-space: nowrap;
+    display: flex; align-items: stretch;
+    text-decoration: none;
+    flex: none;
+  }
+  /* A focus ring drawn inside the block would sit on #b0ddec at ~1.4:1
+     against the plate. Offset outward, on --surface, where it is visible. */
+  .brand:focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: -2px;
   }
 
   /* Below the drawer breakpoint the search box is the first thing in the
