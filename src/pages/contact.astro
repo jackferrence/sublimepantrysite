@@ -1,10 +1,12 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
+import { SUPPORT_EMAIL } from '../lib/paths';
 ---
 <PageLayout title="Contact" description="Contact Sublime Pantry: report an error, ask a batch question, or suggest a topic." path="/contact" breadcrumbs={[{ label: "Contact", href: "/contact" }]}>
   <span class="kicker">Contact</span>
   <h1>Get in touch</h1>
   <p>Report an error, ask about a batch problem we haven't covered, or tell us what to research next. Reader questions drive our editorial queue.</p>
+  <p>Prefer your own mail client, or writing about an order or a return? Email <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a> — it reaches the same person. For a return, please write before sending anything back; the <a href="/shipping-returns">returns process</a> explains why.</p>
 
   <div class="card contact-panel">
     <form name="contact" method="POST" action="/thanks" data-netlify="true" netlify-honeypot="bot-field">

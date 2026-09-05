@@ -72,6 +72,7 @@ export const FOOTER_COMPANY: NavItem[] = [
   { href: '/affiliate-disclosure', label: 'Affiliate Disclosure' },
   { href: '/corrections', label: 'Corrections' },
   { href: '/privacy', label: 'Privacy' },
+  { href: '/terms', label: 'Terms' },
   { href: '/rss.xml', label: 'RSS' },
 ];
 

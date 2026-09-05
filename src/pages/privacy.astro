@@ -1,20 +1,82 @@
 ---
+/**
+ * Privacy policy.
+ *
+ * Rewritten 2026-09-05. The previous version predated the store and had gone
+ * from dated to wrong: it promised "if we add analytics, we will update this
+ * policy first" while Plausible was already loading on every page, and it
+ * named none of Klaviyo, Shopify, or Shopify Payments, all of which process
+ * personal data today.
+ *
+ * The rule this page is held to: every processor that touches a reader's data
+ * is named, and nothing is claimed that the code does not do. When that means
+ * admitting we hand an address to a third party, we say which one and why.
+ * Grep BaseLayout.astro before changing the analytics section — that is where
+ * the claim is either true or false.
+ */
 import PageLayout from '../layouts/PageLayout.astro';
+import { SUPPORT_EMAIL, PREFERENCE_CENTER_URL } from '../lib/paths';
+
+const effective = 'September 5, 2026';
 ---
-<PageLayout title="Privacy Policy" description="What Sublime Pantry collects (very little), what stays in your browser, and how newsletter emails are used." path="/privacy" breadcrumbs={[{ label: "Privacy", href: "/privacy" }]}>
+<PageLayout
+  title="Privacy Policy"
+  description="Every service that touches your data on Sublime Pantry, named: Netlify, Klaviyo, Shopify, and Plausible — plus what never leaves your browser."
+  path="/privacy"
+  breadcrumbs={[{ label: 'Privacy', href: '/privacy' }]}
+>
   <span class="kicker">Policy</span>
   <h1>Privacy policy</h1>
-  <p><em>Effective August 31, 2026.</em></p>
-  <h2>What we collect</h2>
+  <p><em>Effective {effective}.</em></p>
+
+  <p>This page names every service that receives your data, and what each one gets. Where we can avoid collecting something, we have.</p>
+
+  <h2>What stays in your browser</h2>
+  <p>The <a href="/tools/batch-log">Batch Log</a> keeps your batch records in your own browser's local storage. There is no account, no sync, and no server copy. We cannot see your batches, we could not hand them over if we were asked, and if you clear your browser data they are gone — which is why the tool has a CSV export. That is a deliberate design choice, not a limitation we are apologising for.</p>
+  <p>The site itself sets no advertising cookies and no cross-site trackers.</p>
+
+  <h2>Email</h2>
+  <p>When you subscribe to <strong>The Dry Batch</strong> or download the starter checklist, we collect your email address, the page you signed up from, which offer you responded to, and the time you gave consent.</p>
   <ul>
-    <li><strong>Newsletter signups:</strong> your email address, used only to send The Dry Batch newsletter. Unsubscribe links are in every issue. We never sell or share subscriber lists.</li>
-    <li><strong>Contact form:</strong> the name, email, and message you send us, used only to reply.</li>
-    <li><strong>Hosting logs:</strong> our host (Netlify) processes standard server logs (IP address, user agent) to serve the site.</li>
+    <li><strong>Consent is explicit.</strong> The checkbox is unticked and required. Without it the submission is rejected rather than recorded, and an address is never added to a marketing list on the strength of a purchase or a contact-form message alone.</li>
+    <li><strong>Klaviyo</strong> (Klaviyo, Inc.) sends the newsletter and stores your subscriber profile, including the consent time above.</li>
+    <li><strong>Unsubscribing</strong> takes one click from any issue, and it is honoured for good.{PREFERENCE_CENTER_URL && <> You can also <a href={PREFERENCE_CENTER_URL}>manage your email preferences</a> without unsubscribing entirely.</>}</li>
+    <li>We do not sell, rent, or share the subscriber list.</li>
   </ul>
-  <h2>What stays on your device</h2>
-  <p>The <a href="/tools/batch-log">Batch Log tool</a> stores your batch records in your own browser's local storage. That data never leaves your device and we cannot see it. Clearing your browser data deletes it, so use the CSV export for backups.</p>
-  <h2>Tracking</h2>
-  <p>We do not run third-party advertising trackers. If we add analytics, we will use a privacy-respecting provider and update this policy first.</p>
+
+  <h2>Forms</h2>
+  <p><strong>Netlify Forms</strong> receives every newsletter signup and contact-form message and is our system of record for them. From a consented newsletter signup, a copy is passed to Klaviyo (to subscribe you) and to Shopify (to create or update your customer record with that consent). Contact-form messages go to Netlify Forms only, and are used to reply to you.</p>
+
+  <h2>Buying something</h2>
+  <p>Checkout runs on <strong>Shopify</strong>, and payment is processed by <strong>Shopify Payments</strong>. Shopify receives the name, email, shipping address, and payment details you enter, and sets its own cookies to keep your cart and session working.</p>
+  <p><strong>Card details never touch a Sublime Pantry server.</strong> We are a static site; we have no database and no card storage. What we can see in the Shopify admin is your order, your contact details, and your shipping address — the same things we need in order to send you a box.</p>
+  <p>During this launch the packaging is ordered from <strong>PackFreshUSA</strong> after your purchase and shipped to you directly, so your name and shipping address are passed to them to fulfil the order.</p>
+
+  <h2>Analytics</h2>
+  <p>We use <strong>Plausible Analytics</strong>. It is cookieless, does not track you across sites, does not build a profile of you, and collects no personally identifying information — we see page counts, referrers, and which outbound links get clicked, not people. There is no Google Analytics, no advertising pixel, and no third-party ad network on this site.</p>
+
+  <h2>Hosting</h2>
+  <p><strong>Netlify</strong> hosts the site and processes standard server logs — IP address, user agent, requested URL — as any web server must in order to serve a page.</p>
+
+  <h2>Everyone who gets your data</h2>
+  <ul>
+    <li><strong>Netlify</strong> — hosting and form submissions</li>
+    <li><strong>Klaviyo</strong> — newsletter delivery and subscriber profiles</li>
+    <li><strong>Shopify</strong> and <strong>Shopify Payments</strong> — checkout, orders, and payment processing</li>
+    <li><strong>PackFreshUSA</strong> — order fulfilment (name and shipping address only)</li>
+    <li><strong>Plausible</strong> — aggregate, cookieless analytics</li>
+  </ul>
+  <p>That is the whole list. If it changes, this page changes with it.</p>
+
+  <h2>Children</h2>
+  <p>This site is not directed at children under 13, and we do not knowingly collect their information.</p>
+
+  <h2>Your choices</h2>
+  <p>Email <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a> to ask what we hold about you, to correct it, or to have it deleted. If you have ordered from us, we keep the order record for as long as tax and accounting rules require; everything else we can remove.</p>
+
+  <h2>Changes</h2>
+  <p>The effective date at the top changes whenever this policy does.</p>
+
   <h2>Contact</h2>
-  <p>Privacy questions: use the <a href="/contact">contact page</a>.</p>
+  <p>Privacy questions: <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>, or the <a href="/contact">contact page</a>.</p>
 </PageLayout>
