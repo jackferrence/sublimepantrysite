@@ -1,40 +1,64 @@
 ---
 /**
- * The Sublime Pantry mark, drawn from tokens.
+ * The Sublime Pantry mark: the SP monogram, retinted to site tokens.
  *
- * The shape matches /brand/mark-color.svg, but the on-site rendering is
- * retinted to the two-colour palette (ink + brand) so the header, footer and
- * placeholder tiles cannot drift from the design tokens. The exported brand
- * files keep their own colours for off-site use.
+ * The geometry is the delivered artwork; the colour is not. The supplied file
+ * draws the letterforms in pure black, and a pure-black mark sitting beside
+ * warm-charcoal headings is the kind of half-degree mismatch that reads as
+ * sloppiness at the top of every page. The glyphs therefore take
+ * `currentColor`, which resolves to --ink wherever the mark is used and lets a
+ * dark ground invert it later without a second file. The raw-black artwork
+ * stays in public/brand/ as the press version.
+ *
+ * Two things from the source are deliberately absent:
+ *
+ *  - The snowflake. In the artwork it is a hairline flake clipped to a narrow
+ *    strip peeking out of the P, and it is 42KB of the 50KB file. At the sizes
+ *    this component renders — 32px in the header, 40px in the footer — that
+ *    strip is about six pixels wide and resolves to a smudge. It survives in
+ *    the press files, where the mark is big enough for it to mean something.
+ *  - The empty canvas. The artwork sits in a 1500x1500 square but occupies
+ *    only 70% x 37% of it, so a naive 32px box would render a 12px mark. The
+ *    viewBox below is the measured bounding box of the four glyph paths.
+ *
+ * The mark is 1.92:1, not square: give it a height and the width follows.
  */
 interface Props {
-  size?: number;
+  /** Rendered height in px. Width is derived from the mark's aspect ratio. */
+  height?: number;
   class?: string;
 }
 
-const { size = 32, class: className } = Astro.props;
+const { height = 32, class: className } = Astro.props;
+
+/** Measured bounds of the four glyph paths within the source's 1500 canvas. */
+const VIEW_BOX = '220 436.25 1050.75 548.25';
+const RATIO = 1050.75 / 548.25;
+const width = Math.round(height * RATIO);
 ---
 <svg
   class:list={['mark', className]}
-  width={size}
-  height={size}
-  viewBox="0 0 256 256"
+  width={width}
+  height={height}
+  viewBox={VIEW_BOX}
   xmlns="http://www.w3.org/2000/svg"
   aria-hidden="true"
   focusable="false"
 >
-  <rect x="56" y="64" width="144" height="160" rx="24" class="mark-body" stroke-width="14" />
-  <rect x="72" y="32" width="112" height="32" rx="12" class="mark-lid" />
-  <g class="mark-flake" stroke-width="13" stroke-linecap="round">
-    <line x1="128" y1="96" x2="128" y2="192" />
-    <line x1="86.4" y1="120" x2="169.6" y2="168" />
-    <line x1="169.6" y1="120" x2="86.4" y2="168" />
+  <g class="mark-offset">
+    <path transform="translate(180.95,984.37)" d="M 144.08 -548.09 C 132.07 -520.96 127.75 -496.69 131.14 -475.28 C 134.54 -453.88 143.67 -434.55 158.55 -417.33 C 173.43 -400.11 192.49 -383.8 215.72 -368.39 C 238.95 -352.99 264.13 -337.47 291.28 -321.81 C 319.99 -305.63 346.74 -290.76 371.53 -277.19 C 396.32 -263.61 417.98 -249.78 436.52 -235.69 C 455.05 -221.59 469.4 -205.8 479.58 -188.31 C 489.77 -170.82 494.86 -149.81 494.86 -125.28 C 494.86 -99.18 488.85 -76.73 476.84 -57.94 C 464.84 -39.14 448.66 -24.79 428.3 -14.88 C 407.94 -4.96 385.24 0 360.19 0 C 376.88 -25.57 386.27 -48.14 388.36 -67.72 C 390.45 -87.3 385.23 -105.97 372.7 -123.72 C 360.18 -141.47 339.96 -159.87 312.03 -178.92 C 284.1 -197.97 248.47 -219.5 205.14 -243.52 C 167.04 -264.91 135.72 -285.27 111.19 -304.58 C 86.66 -323.9 68.52 -344.52 56.77 -366.44 C 45.02 -388.36 39.16 -413.16 39.16 -440.83 C 39.16 -471.63 48.55 -497.21 67.34 -517.56 C 86.13 -537.91 111.71 -548.09 144.08 -548.09 Z M 455.7 -430.66 C 447.88 -454.14 439.4 -473.07 430.27 -487.42 C 421.13 -501.77 409.38 -513.52 395.02 -522.66 C 380.66 -531.79 361.74 -540.27 338.25 -548.09 L 455.7 -548.09 Z M 54.81 -156.59 C 66.81 -113.79 85.21 -79.99 110 -55.2 C 134.8 -30.41 168.6 -12.01 211.41 0 L 54.81 0 Z M 54.81 -156.59 "/>
+    <path transform="translate(675.81,984.37)" d="M 35.23 0 C 49.85 -15.13 60.68 -29.36 67.72 -42.67 C 74.77 -55.98 79.6 -71.38 82.2 -88.86 C 84.82 -106.35 86.12 -128.93 86.12 -156.59 L 86.12 -391.5 C 86.12 -419.16 84.82 -441.74 82.2 -459.22 C 79.6 -476.71 74.77 -492.24 67.72 -505.81 C 60.68 -519.38 49.85 -533.48 35.23 -548.09 L 238.81 -548.09 C 224.72 -533.48 214.02 -519.38 206.7 -505.81 C 199.4 -492.24 194.44 -476.71 191.83 -459.22 C 189.22 -441.74 187.92 -419.16 187.92 -391.5 L 187.92 -156.59 C 187.92 -128.93 189.22 -106.35 191.83 -88.86 C 194.44 -71.38 199.4 -55.98 206.7 -42.67 C 214.02 -29.36 224.72 -15.13 238.81 0 Z M 568.45 -346.09 C 568.45 -309.55 560.62 -278.36 544.97 -252.52 C 529.31 -226.68 508.95 -205.8 483.89 -189.88 C 458.84 -173.96 431.69 -162.34 402.45 -155.03 C 373.22 -147.73 344.77 -144.08 317.11 -144.08 C 341.65 -156.08 364.1 -171.73 384.45 -191.05 C 404.8 -210.36 420.99 -232.94 433 -258.78 C 445.01 -284.62 451.02 -313.73 451.02 -346.09 C 451.02 -378.45 445.01 -407.55 433 -433.39 C 420.99 -459.23 404.8 -481.81 384.45 -501.12 C 364.1 -520.44 341.65 -536.09 317.11 -548.09 C 344.77 -548.09 373.22 -544.44 402.45 -537.12 C 431.69 -529.82 458.84 -518.21 483.89 -502.28 C 508.95 -486.36 529.31 -465.48 544.97 -439.64 C 560.62 -413.8 568.45 -382.62 568.45 -346.09 Z M 568.45 -346.09 "/>
+  </g>
+  <g class="mark-glyph">
+    <path transform="translate(207.38,984.37)" d="M 144.08 -548.09 C 132.07 -520.96 127.75 -496.69 131.14 -475.28 C 134.54 -453.88 143.67 -434.55 158.55 -417.33 C 173.43 -400.11 192.49 -383.8 215.72 -368.39 C 238.95 -352.99 264.13 -337.47 291.28 -321.81 C 319.99 -305.63 346.74 -290.76 371.53 -277.19 C 396.32 -263.61 417.98 -249.78 436.52 -235.69 C 455.05 -221.59 469.4 -205.8 479.58 -188.31 C 489.77 -170.82 494.86 -149.81 494.86 -125.28 C 494.86 -99.18 488.85 -76.73 476.84 -57.94 C 464.84 -39.14 448.66 -24.79 428.3 -14.88 C 407.94 -4.96 385.24 0 360.19 0 C 376.88 -25.57 386.27 -48.14 388.36 -67.72 C 390.45 -87.3 385.23 -105.97 372.7 -123.72 C 360.18 -141.47 339.96 -159.87 312.03 -178.92 C 284.1 -197.97 248.47 -219.5 205.14 -243.52 C 167.04 -264.91 135.72 -285.27 111.19 -304.58 C 86.66 -323.9 68.52 -344.52 56.77 -366.44 C 45.02 -388.36 39.16 -413.16 39.16 -440.83 C 39.16 -471.63 48.55 -497.21 67.34 -517.56 C 86.13 -537.91 111.71 -548.09 144.08 -548.09 Z M 455.7 -430.66 C 447.88 -454.14 439.4 -473.07 430.27 -487.42 C 421.13 -501.77 409.38 -513.52 395.02 -522.66 C 380.66 -531.79 361.74 -540.27 338.25 -548.09 L 455.7 -548.09 Z M 54.81 -156.59 C 66.81 -113.79 85.21 -79.99 110 -55.2 C 134.8 -30.41 168.6 -12.01 211.41 0 L 54.81 0 Z M 54.81 -156.59 "/>
+    <path transform="translate(702.24,984.37)" d="M 35.23 0 C 49.85 -15.13 60.68 -29.36 67.72 -42.67 C 74.77 -55.98 79.6 -71.38 82.2 -88.86 C 84.82 -106.35 86.12 -128.93 86.12 -156.59 L 86.12 -391.5 C 86.12 -419.16 84.82 -441.74 82.2 -459.22 C 79.6 -476.71 74.77 -492.24 67.72 -505.81 C 60.68 -519.38 49.85 -533.48 35.23 -548.09 L 238.81 -548.09 C 224.72 -533.48 214.02 -519.38 206.7 -505.81 C 199.4 -492.24 194.44 -476.71 191.83 -459.22 C 189.22 -441.74 187.92 -419.16 187.92 -391.5 L 187.92 -156.59 C 187.92 -128.93 189.22 -106.35 191.83 -88.86 C 194.44 -71.38 199.4 -55.98 206.7 -42.67 C 214.02 -29.36 224.72 -15.13 238.81 0 Z M 568.45 -346.09 C 568.45 -309.55 560.62 -278.36 544.97 -252.52 C 529.31 -226.68 508.95 -205.8 483.89 -189.88 C 458.84 -173.96 431.69 -162.34 402.45 -155.03 C 373.22 -147.73 344.77 -144.08 317.11 -144.08 C 341.65 -156.08 364.1 -171.73 384.45 -191.05 C 404.8 -210.36 420.99 -232.94 433 -258.78 C 445.01 -284.62 451.02 -313.73 451.02 -346.09 C 451.02 -378.45 445.01 -407.55 433 -433.39 C 420.99 -459.23 404.8 -481.81 384.45 -501.12 C 364.1 -520.44 341.65 -536.09 317.11 -548.09 C 344.77 -548.09 373.22 -544.44 402.45 -537.12 C 431.69 -529.82 458.84 -518.21 483.89 -502.28 C 508.95 -486.36 529.31 -465.48 544.97 -439.64 C 560.62 -413.8 568.45 -382.62 568.45 -346.09 Z M 568.45 -346.09 "/>
   </g>
 </svg>
 
 <style>
   .mark { display: block; flex: none; }
-  .mark-body { fill: var(--brand-tint); stroke: var(--ink); }
-  .mark-lid { fill: var(--brand); }
-  .mark-flake { stroke: var(--brand); fill: none; }
+  /* Inherits --ink from the header, footer and hero without naming it, so one
+     `color` on an ancestor retints the mark. */
+  .mark-glyph { fill: currentColor; }
+  .mark-offset { fill: var(--logo-frost); }
 </style>
