@@ -5,6 +5,7 @@ import Footer from '../components/Footer.astro';
 import CartDrawer from '../components/CartDrawer.astro';
 import ShopifyStore from '../components/ShopifyStore.astro';
 import { ogImagePath } from '../lib/og';
+import { SUPPORT_EMAIL } from '../lib/paths';
 
 interface Props {
   title: string;
@@ -14,9 +15,17 @@ interface Props {
   jsonLd?: Record<string, unknown>[];
   /** True on pages that must paint live Shopify prices (shop, product page). */
   commerce?: boolean;
+  /**
+   * Keep the page out of the index. Set on pages that exist only as the far
+   * side of an interaction — a form confirmation — where a searcher landing
+   * cold is stranded rather than served. Robots.txt disallows these too; the
+   * meta tag is what removes one already indexed, since a crawler that cannot
+   * fetch the page cannot read a directive inside it.
+   */
+  noindex?: boolean;
 }
 
-const { title, description, path, ogType = 'website', jsonLd = [], commerce = false } = Astro.props;
+const { title, description, path, ogType = 'website', jsonLd = [], commerce = false, noindex = false } = Astro.props;
 
 const site = 'https://www.sublimepantry.com';
 const canonicalPath = path === '/' ? '/' : `${path.replace(/\/$/, '')}/`;
@@ -32,6 +41,21 @@ const organizationGraph = [
     name: 'Sublime Pantry',
     url: `${site}/`,
     logo: `${site}/favicon.svg`,
+    // One contact route, and it is the same address the contact, shipping and
+    // terms pages give a reader. An Organization that publishes a support
+    // address it does not answer is worse than one that publishes none.
+    contactPoint: [
+      {
+        '@type': 'ContactPoint',
+        contactType: 'customer support',
+        email: SUPPORT_EMAIL,
+        availableLanguage: 'en',
+      },
+    ],
+    // Deliberately empty: sameAs is an identity claim, and listing a profile we
+    // do not actively maintain points the knowledge graph at a dead end. Fill
+    // it the day a profile is real.
+    sameAs: [],
     description:
       'Sublime Pantry publishes evidence-based educational content and free tools for home freeze-drying: machine decisions, batch troubleshooting, storage that lasts, and the economics and rules of selling freeze-dried food from home.',
   },
@@ -53,6 +77,7 @@ const organizationGraph = [
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="alternate" type="application/rss+xml" title="Sublime Pantry" href={`${site}/rss.xml`} />
     <link rel="sitemap" href="/sitemap-index.xml" />

@@ -13,6 +13,7 @@
  * If either is changed in Shopify, change it here in the same commit.
  */
 import PageLayout from '../layouts/PageLayout.astro';
+import { SUPPORT_EMAIL } from '../lib/paths';
 ---
 <PageLayout
   title="Shipping & Returns"
@@ -33,7 +34,7 @@ import PageLayout from '../layouts/PageLayout.astro';
 
   <h2>Returns</h2>
   <p><strong>30 days.</strong> You have 30 days from receiving your item to request a return. The item must be in the same condition you received it — unused, in its original packaging — and you'll need the receipt or proof of purchase.</p>
-  <p><strong>How to start one.</strong> Email <a href="mailto:jackferrence11@gmail.com">jackferrence11@gmail.com</a> before sending anything back. If the return is accepted we'll send a return shipping label and instructions. Items sent back without requesting a return first cannot be accepted.</p>
+  <p><strong>How to start one.</strong> Email <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a> before sending anything back. If the return is accepted we'll send a return shipping label and instructions. Items sent back without requesting a return first cannot be accepted.</p>
   <p><strong>Damaged or wrong item.</strong> Inspect your order when it arrives and contact us immediately if anything is defective, damaged, or not what you ordered, so we can make it right.</p>
   <p><strong>Refunds.</strong> Once we receive and inspect the return we'll tell you whether it was approved. Approved refunds go back to your original payment method within 10 business days. Your bank or card issuer may take longer to post it.</p>
 

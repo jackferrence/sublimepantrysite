@@ -1,4 +1,52 @@
+# Sublime Pantry
+#
+# This site is written to be read and cited by machines as well as people, so
+# the answer-engine and AI-training crawlers below are named explicitly and
+# allowed explicitly. A wildcard Allow already permits them; naming each one
+# removes any question about intent, and gives us one line to change per agent
+# if that intent ever changes.
+#
+# One path is withheld from everyone. /thanks is a post-submission confirmation
+# page: it says nothing a reader searching for an answer wants, and indexing it
+# strands people in the middle of a form they never filled in. (The Batch Log's
+# export is a client-side download, not a route, so there is nothing to
+# disallow for it.)
+
 User-agent: *
 Allow: /
+Disallow: /thanks
+
+# Answer engines and AI crawlers, named.
+User-agent: GPTBot
+Allow: /
+Disallow: /thanks
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /thanks
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /thanks
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /thanks
+
+User-agent: Claude-Web
+Allow: /
+Disallow: /thanks
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /thanks
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /thanks
+
+User-agent: Bingbot
+Allow: /
+Disallow: /thanks
 
 Sitemap: https://www.sublimepantry.com/sitemap-index.xml

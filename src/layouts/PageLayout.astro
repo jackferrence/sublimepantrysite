@@ -23,6 +23,8 @@ interface Props {
   jsonLd?: Record<string, unknown>[];
   width?: 'measure' | 'wrap';
   commerce?: boolean;
+  /** Keep out of the index; see BaseLayout. */
+  noindex?: boolean;
 }
 
 const {
@@ -34,11 +36,12 @@ const {
   jsonLd = [],
   width = 'measure',
   commerce = false,
+  noindex = false,
 } = Astro.props;
 
 const crumbs = [{ label: 'Home', href: '/' }, ...breadcrumbs];
 ---
-<BaseLayout title={title} description={description} path={path} ogType={ogType} jsonLd={jsonLd} commerce={commerce}>
+<BaseLayout title={title} description={description} path={path} ogType={ogType} jsonLd={jsonLd} commerce={commerce} noindex={noindex}>
   <div class:list={[width === 'wrap' ? 'wrap' : 'prose', 'page-body']}>
     <Breadcrumbs items={crumbs} />
     <slot />
