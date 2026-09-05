@@ -1,0 +1,51 @@
+---
+/**
+ * The header's brand block: the SP plate, flush in the top-left corner.
+ *
+ * This is the one template sanctioned to reference public/brand/ directly (see
+ * the note in src/lib/media.ts). The reason is specific: the block's ground IS
+ * the artwork's own #b0ddec plate, bleeding to the top and left edges of the
+ * header, so drawing it from tokens would mean reproducing a background rather
+ * than showing a logo. Everywhere else still goes through Mark.astro.
+ *
+ * The image is decorative — alt="". The accessible name lives on the link that
+ * wraps this, as an aria-label, and the site's name is additionally carried in
+ * the DOM by a visually-hidden span. Removing the wordmark removes the brand
+ * name from the page unless something puts it back, and a logo that announces
+ * itself twice is worse than one that announces itself once.
+ *
+ * The block is square and the file bleeds on all four sides, so replacing the
+ * artwork is a filename change and nothing else.
+ */
+const MARK = '/brand/mark-reversed-brand-plate.svg';
+
+interface Props {
+  /** Block edge length in px. The header sets this from its own height. */
+  size?: number;
+}
+
+const { size = 60 } = Astro.props;
+---
+<span class="brand-block" style={`--block: ${size}px`}>
+  <img src={MARK} alt="" width={size} height={size} decoding="async" fetchpriority="high" />
+</span>
+
+<style>
+  /* The plate is the block: no padding, no radius, no border. Any inset would
+     read as a logo floating on a coloured card rather than a corner of colour. */
+  .brand-block {
+    display: block;
+    inline-size: var(--block);
+    block-size: 100%;
+    min-block-size: var(--block);
+    background: var(--logo-frost);
+    flex: none;
+  }
+
+  .brand-block img {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+</style>
