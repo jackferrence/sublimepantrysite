@@ -29,6 +29,11 @@
   --ok: #2e6b45;         /* in-stock, verified */
   --info-bg: #eef2f5;    /* info notices only */
   --info-line: #9db2c2;
+  /* The logo's pale blue. LOGO ONLY — the offset edge on the SP mark and
+     nothing else. Never text, never a border, never a background: it fails
+     contrast against --paper by a wide margin and is not an accent colour.
+     The structural accent is --ice; see the Ice section. */
+  --logo-frost: #b0ddec;
 
   /* type */
   --font-display: "Ibarra Real Nova", Georgia, serif;
