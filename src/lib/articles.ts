@@ -2,6 +2,7 @@
  * Shared helpers for turning content entries into links and card props.
  */
 import type { CollectionEntry } from 'astro:content';
+import { publicImage } from './media';
 
 export type Article = CollectionEntry<'articles'>;
 
@@ -101,4 +102,25 @@ export function polishTables(html: string): string {
       .replace(/<th\b([^>]*)>(\s*)<\/th>/g, '<td$1>$2</td>')
       .replace(/<th\b(?![^>]*\bscope=)([^>]*)>/g, '<th$1 scope="col">')
   );
+}
+
+/**
+ * The article's hero photograph, if the file actually exists.
+ *
+ * An article declares the image it is waiting for; the file arrives later.
+ * Every call site that renders an article image must go through here, because
+ * an unresolved slot is not a cosmetic problem — `<img src>` pointing at a
+ * missing file ships a broken-image glyph, and `check-links` fails the build on
+ * it. Returns `undefined` until the photograph lands, at which point every
+ * surface picks it up at once with no code change.
+ *
+ * Deliberately co-located with the other article helpers rather than inlined at
+ * each call site: there are eight of them, and the one that forgets is the one
+ * that breaks.
+ */
+export function heroImage(entry: Article): { src: string; alt: string } | undefined {
+  const declared = entry.data.image;
+  if (!declared) return undefined;
+  const resolved = publicImage(declared.src);
+  return resolved ? { src: resolved, alt: declared.alt } : undefined;
 }

@@ -21,7 +21,7 @@ const archive = NEWSLETTER_ARCHIVE.pending ? null : NEWSLETTER_ARCHIVE;
   <div class="wrap">
     <div class="footer-top">
       <a href="/" class="footer-brand">
-        <Mark size={40} />
+        <Mark height={40} />
         <span>Sublime Pantry</span>
       </a>
       <p class="footer-line">Run by Jack Ferrence — <a href="/about">About →</a></p>
@@ -39,12 +39,15 @@ const archive = NEWSLETTER_ARCHIVE.pending ? null : NEWSLETTER_ARCHIVE;
         <h2 id="footer-newsletter-heading" class="footer-heading">The Dry Batch</h2>
         <p class="footer-line footer-pitch">One drying answer, one storage finding and one cottage-selling insight, weekly.</p>
         <Newsletter compact />
-        <ul class="footer-newsletter-links">
-          {archive && <li><a href={archive.href}>{archive.label}</a></li>}
-          {PREFERENCE_CENTER_URL && (
-            <li><a href={PREFERENCE_CENTER_URL} rel="noopener">Manage email preferences</a></li>
-          )}
-        </ul>
+        <p class="footer-consent">
+          Every issue carries an unsubscribe link.{' '}
+          {PREFERENCE_CENTER_URL && <a href={PREFERENCE_CENTER_URL} rel="noopener">Manage email preferences</a>}
+        </p>
+        {archive && (
+          <ul class="footer-newsletter-links">
+            <li><a href={archive.href}>{archive.label}</a></li>
+          </ul>
+        )}
       </section>
     </div>
 
@@ -89,6 +92,11 @@ const archive = NEWSLETTER_ARCHIVE.pending ? null : NEWSLETTER_ARCHIVE;
   .site-footer li a:hover { color: var(--brand); text-decoration: underline; }
 
   .footer-newsletter-links { margin-top: var(--s1); }
+  /* Sits directly under the consent checkbox, which is where someone looks
+     when they want out. */
+  .footer-consent { margin: var(--s2) 0 0; font-size: .82rem; color: var(--ink-soft); max-width: 34ch; }
+  .footer-consent a { color: var(--ink-soft); text-decoration: underline; }
+  .footer-consent a:hover { color: var(--brand); }
 
   .footer-fine {
     margin: var(--s3) 0 0; max-width: 70ch;

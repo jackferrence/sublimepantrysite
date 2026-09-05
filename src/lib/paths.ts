@@ -24,3 +24,14 @@ export function normalizePath(pathname: string): string {
  * the hosted preference-page URL from Klaviyo here.
  */
 export const PREFERENCE_CENTER_URL = '';
+
+/**
+ * The one address a customer or a reader is ever given.
+ *
+ * Lives here, not typed into each template, because it appears on the contact
+ * page, shipping and returns, the terms, the product trust rows and the
+ * Organization structured data — and a store that answers support at a free
+ * mailbox reads as a store that might not answer at all. tests/paths.test.mjs
+ * fails the build if a gmail.com address reappears anywhere in src/.
+ */
+export const SUPPORT_EMAIL = 'support@sublimepantry.com';

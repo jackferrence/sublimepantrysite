@@ -10,6 +10,8 @@ import RelatedArticles from '../components/RelatedArticles.astro';
 import Newsletter from '../components/Newsletter.astro';
 import { CATALOG } from '../lib/commerce';
 import { PILLAR_LABEL, withToc, polishTables, verifiedDate, nextCheckDate, formatDate, type Article } from '../lib/articles';
+import { recipeJsonLd } from '../lib/schema';
+import { publicImage } from '../lib/media';
 
 interface Props {
   entry: Article;
@@ -24,6 +26,15 @@ const publishedIso = `${d.publishedDate}T00:00:00.000Z`;
 const updatedIso = d.updatedDate ? `${d.updatedDate}T00:00:00.000Z` : publishedIso;
 const canonicalPath = `${path.replace(/\/$/, '')}/`;
 const pageUrl = new URL(canonicalPath, site).href;
+
+// The hero slot names the photograph it is waiting for; `publicImage` resolves
+// that name against public/ at build time. Both articles onboarded here declare
+// a hero whose file has not been delivered yet, and rendering an <img> for a
+// file that does not exist puts a broken-image glyph at the top of the page.
+// The slot stays dark until the file lands, then lights up with no code change
+// — the same contract the author portrait already uses.
+const heroSrc = d.image ? publicImage(d.image.src) : undefined;
+
 
 const { html: tocHtml, toc } = withToc(d.bodyHtml);
 const bodyHtml = polishTables(tocHtml);
@@ -58,11 +69,14 @@ const jsonLd: Record<string, unknown>[] = [
     datePublished: publishedIso,
     dateModified: updatedIso,
     mainEntityOfPage: pageUrl,
-    ...(d.image ? { image: [new URL(d.image.src, site).href] } : {}),
+    ...(heroSrc ? { image: [new URL(heroSrc, site).href] } : {}),
   },
 ];
 
-if (d.howTo && d.howTo.length) {
+// A recipe's steps belong to the Recipe as recipeInstructions. Emitting a
+// second, standalone HowTo for the same steps describes one procedure twice
+// under two types, which is duplicative markup rather than richer markup.
+if (d.pillar !== 'recipes' && d.howTo && d.howTo.length) {
   jsonLd.push({
     '@context': 'https://schema.org',
     '@type': 'HowTo',
@@ -86,18 +100,8 @@ if (d.faq && d.faq.length) {
 }
 
 if (d.pillar === 'recipes') {
-  jsonLd.push({
-    '@context': 'https://schema.org',
-    '@type': 'Recipe',
-    name: d.title,
-    description: d.description,
-    author: { '@type': 'Person', name: d.author, url: `${site}/about/` },
-    datePublished: publishedIso,
-    mainEntityOfPage: pageUrl,
-    ...(d.howTo?.length
-      ? { recipeInstructions: d.howTo.map((s) => ({ '@type': 'HowToStep', name: s.name, text: s.text })) }
-      : {}),
-  });
+  const recipe = recipeJsonLd(d, { site, pageUrl, publishedIso });
+  if (recipe) jsonLd.push(recipe);
 }
 
 if (d.pillar === 'compare' && d.comparisonCriteria) {
@@ -120,10 +124,10 @@ if (d.pillar === 'compare' && d.comparisonCriteria) {
       <Byline author={d.author} publishedDate={d.publishedDate} updatedDate={d.updatedDate} />
     </div></div>
 
-    {d.image && (
+    {d.image && heroSrc && (
       <figure class="article-hero wrap">
         <Img
-          src={d.image.src}
+          src={heroSrc}
           alt={d.image.alt}
           width={1280}
           height={720}
@@ -138,9 +142,14 @@ if (d.pillar === 'compare' && d.comparisonCriteria) {
 
     <div class="wrap article-columns">
       <div class="article-main">
+        {/* "Figures verified", not "Prices verified": the badge appears on every
+            comparison, and the food-group comparison quotes cycle times and water
+            activity without a single price. The promise is that the article's
+            figures were re-checked against their sources on that date — which is
+            true of a price, a cycle time, and a cost per unit alike. */}
         {d.pillar === 'compare' && (
           <p class="verified-badge">
-            Prices verified {formatDate(verifiedDate(entry))} · Next check {formatDate(nextCheckDate(entry))}
+            Figures verified {formatDate(verifiedDate(entry))} · Next check {formatDate(nextCheckDate(entry))}
           </p>
         )}
 

@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import PageLayout from '../layouts/PageLayout.astro';
 import Card from '../components/Card.astro';
-import { articleHref, newestFirst } from '../lib/articles';
+import { heroImage, articleHref, newestFirst } from '../lib/articles';
 
 const entries = (await getCollection('articles', ({ data }) => data.pillar === 'guides')).sort(newestFirst);
 
@@ -46,8 +46,8 @@ const jsonLd = [
         dek={entry.data.description}
         headingLevel={2}
         kicker={entry.data.section ?? entry.data.kicker}
-        image={entry.data.image?.src}
-        imageAlt={entry.data.image?.alt}
+        image={heroImage(entry)?.src}
+        imageAlt={heroImage(entry)?.alt}
         transitionName={`sp-title-${entry.id}`}
       />
     ))}

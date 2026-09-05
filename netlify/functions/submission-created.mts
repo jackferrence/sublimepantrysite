@@ -61,6 +61,31 @@ const SUBSCRIBING_FORMS = new Set(['freeze-drying-checklist']);
  */
 const CONSENT_VALUES = new Set(['on', 'yes', 'true', '1']);
 
+/**
+ * The page the qualifying-question follow-up posts from.
+ *
+ * WHY THIS PATH IS SPECIAL: /thanks posts to the same Netlify form as the
+ * signup, so this function fires a second time for someone who is already
+ * subscribed. Treating that fire like an acquisition overwrites two fields it
+ * has no business touching — `signup_source` becomes "/thanks" instead of the
+ * page that actually earned the lead, and `consent_timestamp` moves forward to
+ * the moment they answered a survey rather than the moment they consented. The
+ * timestamp is the one with compliance weight: it is the record of when
+ * permission was given, and it must not drift later than the truth.
+ */
+const FOLLOW_UP_SOURCE_PATH = '/thanks';
+
+/**
+ * The lifecycle stages the /thanks question offers.
+ *
+ * An allowlist for the same reason the consent values are one: this value is
+ * posted from a form and lands in a profile property that segments who gets
+ * which email. An unrecognised stage is dropped rather than written, so a
+ * malformed or forged post cannot invent a segment — and, because it is
+ * dropped rather than written empty, it cannot erase a stage already recorded.
+ */
+const LIFECYCLE_STAGES = new Set(['considering', 'new-owner', 'active-owner', 'cottage-seller']);
+
 /** The subset of Netlify's submission-created payload this function relies on. */
 interface NetlifySubmissionPayload {
   form_name?: string;
@@ -154,13 +179,31 @@ export default async (req: Request): Promise<Response> => {
 
   const consentedAt = consentTimestamp(payload.created_at);
   const customSource = `netlify:${formName}`;
-  const properties = {
-    email_pref: 'both',
-    audience: 'unknown',
-    signup_source: field(data, 'source_path') || '/',
-    lead_magnet: field(data, 'lead_magnet') || formName,
-    consent_timestamp: consentedAt,
-  };
+
+  const stage = field(data, 'stage');
+  const lifecycleStage = LIFECYCLE_STAGES.has(stage) ? { lifecycle_stage: stage } : {};
+
+  // The follow-up carries one new fact and nothing else worth writing. See
+  // FOLLOW_UP_SOURCE_PATH.
+  const isFollowUp = field(data, 'source_path') === FOLLOW_UP_SOURCE_PATH;
+  const properties = isFollowUp
+    ? lifecycleStage
+    : {
+        email_pref: 'both',
+        audience: 'unknown',
+        signup_source: field(data, 'source_path') || '/',
+        lead_magnet: field(data, 'lead_magnet') || formName,
+        consent_timestamp: consentedAt,
+        ...lifecycleStage,
+      };
+
+  // A follow-up whose stage did not survive the allowlist has nothing left to
+  // say. Writing an empty profile update would be a no-op at best and would
+  // clear a recorded stage at worst.
+  if (isFollowUp && !Object.keys(properties).length) {
+    console.info('[submission-created] Follow-up carried no recognised stage; nothing to update.');
+    return new Response(null, { status: 200 });
+  }
 
   let degraded = false;
 
@@ -185,6 +228,15 @@ export default async (req: Request): Promise<Response> => {
   if (!importResponse.ok) {
     await logKlaviyoFailure('profile-import', importResponse);
     degraded = true;
+  }
+
+  // They subscribed already; the follow-up is a profile update, not a second
+  // opt-in. Re-running the subscribe would re-stamp consented_at with a time
+  // later than the actual consent.
+  if (isFollowUp) {
+    if (degraded) return new Response(null, { status: 502 });
+    console.info(`[submission-created] Recorded lifecycle_stage for a "${formName}" follow-up.`);
+    return new Response(null, { status: 200 });
   }
 
   const subscribeResponse = await fetch(

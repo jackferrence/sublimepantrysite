@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import PageLayout from '../layouts/PageLayout.astro';
 import Card from '../components/Card.astro';
-import { articleHref, newestFirst } from '../lib/articles';
+import { heroImage, articleHref, newestFirst } from '../lib/articles';
 
 const entries = (await getCollection('articles', ({ data }) => data.pillar === 'recipes')).sort(newestFirst);
 
@@ -38,18 +38,31 @@ const jsonLd = [
           dek={entry.data.description}
           headingLevel={2}
         kicker={entry.data.section ?? entry.data.kicker}
-          image={entry.data.image?.src}
-          imageAlt={entry.data.image?.alt}
+          image={heroImage(entry)?.src}
+          imageAlt={heroImage(entry)?.alt}
           transitionName={`sp-title-${entry.id}`}
         />
       ))}
     </div>
   ) : (
-    <p class="empty">Recipes are coming. <a href="/guides/complete-batch-workflow">Start with the batch workflow →</a></p>
+    <div class="empty card">
+      <h2>No recipes are published yet.</h2>
+      <p>A recipe earns a page here only when it carries the whole run: prep and slice thickness, how the trays were loaded, the cycle it took, the dryness check that decides it is finished, and how it was packaged afterwards. Anything short of that is a photograph with a list underneath it, and there are enough of those already.</p>
+      <p class="empty-next">Until then, the two pages that do the same job:</p>
+      <ul>
+        <li><a href="/guides/complete-batch-workflow">The complete batch workflow</a> — tray prep through sealed mylar, in order</li>
+        <li><a href="/troubleshooting">Troubleshooting</a> — what to change when a batch comes out wrong</li>
+      </ul>
+    </div>
   )}
 </PageLayout>
 
 <style>
   .hub-grid { margin-top: var(--s4); }
-  .empty { margin-top: var(--s4); font-size: 1.1rem; }
+  .empty { margin-top: var(--s4); padding: var(--s4); max-width: var(--measure); }
+  .empty h2 { margin: 0 0 var(--s2); }
+  .empty p { color: var(--ink-soft); }
+  .empty-next { margin-bottom: var(--s1); }
+  .empty ul { margin: 0; padding-inline-start: 1.1rem; color: var(--ink-soft); }
+  .empty li { margin: 0 0 .35rem; }
 </style>

@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import PageLayout from '../layouts/PageLayout.astro';
 import Card from '../components/Card.astro';
-import { articleHref, newestFirst } from '../lib/articles';
+import { heroImage, articleHref, newestFirst } from '../lib/articles';
 
 // Listing copy leads with the symptom a reader searches for; each article's own
 // title leads with the diagnosis. Both are deliberate, so the hub keeps its own.
@@ -71,8 +71,8 @@ const jsonLd = [
         dek={listing[entry.id]?.description ?? entry.data.description}
         headingLevel={2}
         kicker="Symptom"
-        image={entry.data.image?.src}
-        imageAlt={entry.data.image?.alt}
+        image={heroImage(entry)?.src}
+        imageAlt={heroImage(entry)?.alt}
         badge={entry.data.riskClass === 'elevated' ? 'Food-safety check' : undefined}
         transitionName={`sp-title-${entry.id}`}
       />

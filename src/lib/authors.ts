@@ -20,7 +20,7 @@ export const JACK_FERRENCE: Author = {
   name: 'Jack Ferrence',
   role: 'Editor, Sublime Pantry',
   bio: 'Jack runs Sublime Pantry, a home freeze-drying publication built on manufacturer documentation, food-safety literature, and dated sources rather than forum lore. He reviews and approves every page before it publishes.',
-  portrait: '/brand/author.jpg',
+  portrait: '/images/brand/author.jpg',
   initials: 'JF',
   url: '/about',
 };
