@@ -1,253 +1,294 @@
+/* =========================================================================
+   Sublime Pantry — base stylesheet.
+
+   One accent colour (--brand), one display face (Ibarra Real Nova), one body
+   face (Source Sans 3). No gradients, no custom scrollbars, no ::selection
+   styling, no lift/spring transitions. Every colour in the codebase is
+   defined here as a token; nothing outside this file may use a hex literal.
+   ========================================================================= */
+
+/* --- Fonts ------------------------------------------------------------- */
 @font-face{font-family:"Ibarra Real Nova";font-style:normal;font-weight:400 700;font-display:swap;src:url("/fonts/ibarra-variable.woff2") format("woff2")}
 @font-face{font-family:"Ibarra Real Nova";font-style:italic;font-weight:400 700;font-display:swap;src:url("/fonts/ibarra-variable-italic.woff2") format("woff2")}
-/* --brand is the one canonical Sublime Pantry amber (#8a3d10); --brand-accent
-   is its lighter hover/accent tint (#ac5216) and --brand-tint its pale
-   background wash. Every other amber-named variable (--heading, --amber,
-   --amber-deep, --amber-bright, --amber-tint) is an alias onto one of these
-   three so there is a single source of truth for "the" brand color. */
-:root{--paper:#faf7f1;--surface:#fff;--ink:#2b2420;--ink-soft:#6b5c50;--frost:#2c5d7c;--frost-deep:#1d3f56;--frost-tint:#e7eef3;--brand:#8a3d10;--brand-accent:#ac5216;--brand-tint:#f6e6d8;--amber:var(--brand-accent);--amber-tint:var(--brand-tint);--mist:#e4dccd;--ok:#2e6b45;--warn-bg:#fdf3e2;--warn-border:#d9a94e;--font-serif:"Ibarra Real Nova", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;--font-sans:system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;--font-mono:ui-monospace, "SF Mono", Menlo, Consolas, monospace;--measure:44rem;--measure-wide:68rem;--radius:8px;--sp-paper:var(--paper);--sp-panel:var(--surface);--sp-panel-alt:var(--amber-tint);--sp-ink:var(--frost-deep);--sp-ink2:var(--ink-soft);--sp-ink3:color-mix(in srgb, var(--ink-soft), var(--paper) 15%);--sp-line:var(--mist);--sp-line2:color-mix(in srgb, var(--mist), var(--ink) 18%);--sp-green:var(--ok);--sp-blue:var(--frost);--sp-gold:var(--amber);--sp-good:var(--ok);--sp-warn:var(--warn-border);--sp-danger:#a1301c;--sp-terra:#a1341c;--sp-green-t:color-mix(in srgb, var(--ok), var(--paper) 85%);--sp-blue-t:var(--frost-tint);--sp-gold-t:var(--amber-tint);--sp-red-t:#f3ded6;--sp-frost:var(--frost-tint);--sp-font-display:var(--font-serif);--sp-font-body:var(--font-sans);--heading:var(--brand);--zebra:#fdfbf7;--newsletter-fg:#f3f7fa;--newsletter-p:#d5e2ec;--newsletter-border:#9db8ca;--newsletter-btn-hover:#7d4e0f;--newsletter-fine:#b9cbd8;--amber-deep:var(--brand);--amber-bright:var(--brand-accent)}*{box-sizing:border-box}html{background:var(--paper);color:var(--ink);font-family:var(--font-sans);-webkit-text-size-adjust:100%;font-size:100%;line-height:1.65}body{flex-direction:column;min-height:100vh;margin:0;display:flex}main{flex:1}h1,h2,h3,h4{font-family:var(--font-serif);color:var(--heading);margin:2.4rem 0 .75rem;line-height:1.15;font-weight:700}h1{margin-top:0;font-size:clamp(2.6rem,7vw,5.2rem);line-height:1.02;letter-spacing:-.03em}h2{font-size:clamp(1.8rem,4.2vw,2.8rem);letter-spacing:-.02em}h3{font-size:1.55rem;letter-spacing:-.01em}p,ul,ol{margin:0 0 1.1rem}a{color:var(--frost);text-underline-offset:2px}a:hover{color:var(--heading)}:focus-visible{outline:3px solid var(--amber);outline-offset:2px;border-radius:2px}img{max-width:100%;height:auto}code{font-family:var(--font-mono);background:var(--amber-tint);border-radius:4px;padding:.1em .35em;font-size:.9em}.skip-link{background:var(--amber-deep);color:#fff;z-index:100;padding:.6rem 1rem;position:absolute;top:0;left:-9999px}.skip-link:focus{top:.5rem;left:.5rem}.wrap{width:min(100% - 2.5rem, var(--measure-wide));margin-inline:auto}.prose{width:min(100% - 2.5rem, var(--measure));margin-inline:auto}.site-header{background:var(--surface);border-bottom:1px solid var(--mist);position:sticky;top:0;z-index:50;transition:transform .4s cubic-bezier(.22,1,.36,1),background-color .3s ease,box-shadow .3s ease}.site-header.is-condensed{background:color-mix(in srgb, var(--surface), transparent 10%);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--mist),0 10px 24px -18px rgba(138,61,16,.35)}.site-header.is-hidden{transform:translateY(-100%)}.site-header .wrap{flex-wrap:wrap;align-items:center;gap:.5rem 1.5rem;padding:.8rem 0;display:flex}.site-header.is-condensed .wrap{padding:.5rem 0}.brand{font-family:var(--font-serif);color:var(--heading);align-items:center;gap:.55rem;font-size:1.7rem;font-weight:700;letter-spacing:-.02em;text-decoration:none;display:flex}.brand svg{width:30px;height:30px;transition:transform .3s cubic-bezier(.16,1,.3,1);transform:scale(1);transform-origin:left center}.site-header.is-condensed .brand svg{transform:scale(.78)}.site-nav{margin-left:auto}.site-nav ul{flex-wrap:wrap;gap:.25rem 1.1rem;margin:0;padding:0;list-style:none;display:flex;position:relative}.site-nav a{color:var(--ink-soft);padding:.3rem .1rem;font-size:.95rem;text-decoration:none;transition:color .2s ease}.site-nav a:hover,.site-nav a[aria-current=page]{color:var(--heading)}.nav-indicator{position:absolute;left:0;bottom:-4px;height:2px;width:1px;background:var(--amber);border-radius:1px;opacity:0;transform-origin:left center;transform:translateX(0) scaleX(1);transition:transform .35s cubic-bezier(.16,1,.3,1),opacity .2s ease;pointer-events:none}@media (prefers-reduced-motion:reduce){.site-header{position:static;transition:none}.nav-indicator{transition:none}.brand svg{transition:none}}.hero{background:linear-gradient(165deg, var(--amber-tint) 0%, var(--amber-tint) 45%, var(--paper) 100%);padding:7rem 0 5.5rem;overflow:hidden}
-.hero-visual-frame{background:radial-gradient(circle, var(--frost-tint) 0%, var(--frost-tint) 62%, transparent 100%);border-radius:50%;box-shadow:0 0 0 1px color-mix(in srgb, var(--frost), transparent 65%)}.hero-inner{align-items:center;gap:2.5rem;display:flex}.hero-content{flex:1 1 26rem;min-width:0}.hero h1{max-width:17ch;font-size:clamp(3.2rem,8.5vw,6rem);line-height:.98;letter-spacing:-.04em}.hero .lede{color:var(--ink-soft);max-width:46ch;font-size:1.45rem;line-height:1.5}.hero .actions{flex-wrap:wrap;gap:1.1rem;margin-top:2.4rem;display:flex}.hero .actions .btn{padding:1.05rem 2.1rem;font-size:1.15rem}.hero-visual{flex:0 0 auto;width:clamp(200px,24vw,360px);display:flex;flex-direction:column;align-items:center;gap:.65rem}.hero-visual-frame{width:100%;aspect-ratio:1;position:relative}.hero-visual canvas{width:100%;height:100%;display:block}.hero-visual-caption{color:var(--ink-soft);font-size:.78rem;line-height:1.4;text-align:center;max-width:20ch;margin:0}@media (max-width:860px){.hero-visual{width:clamp(160px,32vw,220px)}}@media (max-width:620px){.hero-inner{flex-direction:column;align-items:flex-start;gap:1.8rem}.hero-visual{width:min(220px,60vw);order:-1;align-self:center}}.btn{border-radius:var(--radius);border:2px solid var(--heading);padding:.85rem 1.7rem;font-size:1.05rem;font-weight:700;text-decoration:none;display:inline-block}.btn-primary{background:var(--amber-deep);color:#fff}.btn-primary:hover{background:var(--amber-bright);border-color:var(--amber);color:#fff}.btn-ghost{color:var(--heading);background:0 0}.btn-ghost:hover{background:var(--amber-tint)}.card-grid{grid-template-columns:repeat(auto-fill,minmax(18rem,1fr));gap:1.6rem;margin:1.8rem 0;padding:0;list-style:none;display:grid}.card{background:var(--surface);border:1px solid var(--mist);border-radius:var(--radius);padding:1.6rem 1.7rem}.card h3{margin-top:.2rem}.card h3 a{color:var(--heading);text-decoration:none}.card h3 a:hover{text-decoration:underline}.card p{color:var(--ink-soft);margin-bottom:.4rem;font-size:.95rem}.card .meta{color:var(--ink-soft);font-size:.8rem}.kicker{letter-spacing:.08em;text-transform:uppercase;color:var(--amber);margin-bottom:.2rem;font-size:.78rem;font-weight:700;display:inline-block}.article-header{border-bottom:1px solid var(--mist);margin-bottom:2.2rem;padding-bottom:1.6rem}.article-meta{color:var(--ink-soft);font-size:.88rem}.article-meta strong{color:var(--ink)}.notice{background:var(--warn-bg);border:1px solid var(--warn-border);border-radius:var(--radius);margin:1.2rem 0;padding:.85rem 1.1rem;font-size:.93rem}.notice-info{background:var(--frost-tint);border-color:var(--frost)}.article-body table{border-collapse:collapse;width:100%;font-size:.93rem}.table-scroll{margin:1.2rem 0;overflow-x:auto;-webkit-overflow-scrolling:touch;box-shadow:inset -12px 0 8px -8px rgba(138,61,16,.18)}.diagram-figure{margin:2.2rem 0}.diagram-figure .table-scroll{border:1px solid var(--mist);border-radius:var(--radius);padding:.5rem}.diagram-figure svg{display:block;width:100%;height:auto;min-width:640px}.diagram-figure figcaption{margin-top:.7rem}.article-body th,.article-body td{border:1px solid var(--mist);text-align:left;vertical-align:top;padding:.55rem .7rem}.article-body th{background:var(--amber-tint);color:var(--heading)}.article-body tr:nth-child(2n) td{background:var(--zebra)}.sources{background:var(--surface);border:1px solid var(--mist);border-radius:var(--radius);margin-top:2.5rem;padding:1.2rem 1.4rem;font-size:.9rem}.sources h2{margin-top:0;font-size:1.05rem}.sources ol{margin:.4rem 0 0;padding-left:1.2rem}.sources li{margin-bottom:.35rem}.tier-tag{text-transform:uppercase;letter-spacing:.05em;color:var(--ok);font-size:.72rem;font-weight:700}.disclosure-line{color:var(--ink-soft);margin:1.2rem 0;padding:.7rem .9rem;background:var(--amber-tint);border-radius:var(--radius);font-size:.85rem}.newsletter{background:var(--amber-deep);color:var(--newsletter-fg);border-radius:var(--radius);margin:3.5rem 0;padding:2.4rem 2.2rem 2rem}.newsletter h2{color:#fff;margin-top:0;font-size:clamp(1.5rem,3vw,2rem)}.newsletter p{color:var(--newsletter-p);font-size:.95rem}.newsletter form{flex-wrap:wrap;gap:.6rem;margin-top:.9rem;display:flex}.newsletter input[type=email]{border-radius:var(--radius);border:1px solid var(--newsletter-border);flex:14rem;padding:.6rem .8rem;font-size:1rem}.newsletter button{border-radius:var(--radius);background:var(--amber-bright);color:#fff;cursor:pointer;border:0;padding:.6rem 1.2rem;font-size:1rem;font-weight:700}.newsletter button:hover{background:var(--newsletter-btn-hover)}.newsletter .fine{color:var(--newsletter-fine);margin:.5rem 0 0;font-size:.78rem}.site-footer{background:var(--surface);border-top:1px solid var(--mist);color:var(--ink-soft);margin-top:3rem;font-size:.88rem}.site-footer .wrap{padding:1.8rem 0}.footer-brand{font-family:var(--font-serif);color:var(--heading);align-items:center;gap:.5rem;margin-bottom:1.1rem;font-size:1.15rem;font-weight:700;letter-spacing:-.01em;text-decoration:none;display:flex}.footer-brand img{width:28px;height:28px}.footer-links{flex-wrap:wrap;gap:.3rem 1.2rem;margin:0 0 1rem;padding:0;list-style:none;display:flex}.footer-links a{color:var(--ink-soft);text-decoration:none;display:inline-block;padding:.35rem 0}.footer-links a:hover{color:var(--heading);text-decoration:underline}.section-head{align-items:baseline;gap:1rem;margin-top:4rem;display:flex}.section-head h2{margin:0}.section-head a{white-space:nowrap;font-size:.9rem}.tool-panel{background:var(--surface);border:1px solid var(--mist);border-radius:var(--radius);margin:1.2rem 0;padding:1.4rem}.tool-panel fieldset{border:1px solid var(--mist);border-radius:var(--radius);margin:0 0 1rem;padding:.9rem 1rem}.tool-panel legend{color:var(--heading);padding:0 .4rem;font-weight:700}.field-grid{grid-template-columns:repeat(auto-fill,minmax(13rem,1fr));gap:.8rem 1.2rem;display:grid}.field-grid label{color:var(--ink-soft);margin-bottom:.2rem;font-size:.85rem;font-weight:600;display:block}.field-grid input,.field-grid select,.field-grid textarea{border:1px solid var(--mist);width:100%;color:var(--ink);background:var(--surface);border-radius:6px;padding:.7rem .6rem;font-family:inherit;font-size:.95rem}.stat-row{flex-wrap:wrap;gap:1rem;margin:1rem 0;display:flex}.stat{background:var(--amber-tint);border-radius:var(--radius);min-width:9rem;padding:.7rem 1.1rem}.stat .label{text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);font-size:.75rem}.stat .value{color:var(--heading);font-size:1.6rem;font-weight:700;font-family:var(--font-mono);letter-spacing:-.01em}@media (prefers-reduced-motion:reduce){*,:before,:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
-.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@font-face{font-family:"Source Sans 3";font-style:normal;font-weight:400 700;font-display:swap;src:url("/fonts/source-sans-3-latin-normal.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Source Sans 3";font-style:normal;font-weight:400 700;font-display:swap;src:url("/fonts/source-sans-3-latin-ext-normal.woff2") format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Source Sans 3";font-style:italic;font-weight:400 700;font-display:swap;src:url("/fonts/source-sans-3-latin-italic.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Source Sans 3";font-style:italic;font-weight:400 700;font-display:swap;src:url("/fonts/source-sans-3-latin-ext-italic.woff2") format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
 
-/* ---------------------------------------------------------------------
-   Overdrive pass: the interface should feel considered without shouting
-   about it. Every rule below is a functional micro-interaction, a page
-   transition, or a browser surface the previous pass left themed with
-   defaults — not decoration for its own sake.
-   ------------------------------------------------------------------ */
+/* --- Tokens ------------------------------------------------------------ */
+:root {
+  /* color */
+  --paper: #faf7f1;      /* page background */
+  --surface: #ffffff;    /* cards, panels, header */
+  --mist: #e6dfd3;       /* hairlines, borders */
+  --ink: #221d19;        /* all headings and body text */
+  --ink-soft: #6b5f55;   /* meta, captions, secondary text */
+  --brand: #8a3d10;      /* the ONLY accent: links, kickers, primary buttons, focus */
+  --brand-hover: #6e300c;
+  --brand-tint: #f6e8dc; /* chips, placeholder tiles, table headers */
+  --ok: #2e6b45;         /* in-stock, verified */
+  --info-bg: #eef2f5;    /* info notices only */
+  --info-line: #9db2c2;
 
-/* Browser surfaces: selection, scrollbar, tabular numerals. */
-::selection { background: var(--amber); color: #fff; }
-html { scrollbar-color: var(--amber) var(--amber-tint); scrollbar-width: thin; }
-::-webkit-scrollbar { width: 11px; height: 11px; }
-::-webkit-scrollbar-track { background: var(--amber-tint); }
-::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--amber), var(--amber-tint) 30%); border-radius: 8px; border: 3px solid var(--amber-tint); }
-::-webkit-scrollbar-thumb:hover { background: var(--amber-deep); }
-.stat .value, .article-body td, .article-body th, #log-table td, #log-table th, .meta {
+  /* type */
+  --font-display: "Ibarra Real Nova", Georgia, serif;
+  --font-body: "Source Sans 3", system-ui, sans-serif;
+  --font-mono: ui-monospace, Menlo, monospace;
+
+  /* scale */
+  --text-body: 1.0625rem;
+  --lh-body: 1.6;
+  --h1: clamp(2.4rem, 5vw, 3.6rem);
+  --h2: clamp(1.6rem, 3vw, 2.2rem);
+  --h3: 1.3rem;
+  --kicker: 0.78rem;
+  --price: 1.35rem;
+
+  /* layout */
+  --measure: 44rem;
+  --wrap: 72rem;
+  --s1: .5rem; --s2: 1rem; --s3: 1.5rem; --s4: 2rem; --s5: 3rem; --s6: 4rem; --s7: 5rem;
+  --radius: 8px;
+  --shadow-hover: 0 16px 32px -20px rgba(34, 29, 25, .35);
+}
+
+/* --- Reset ------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-wrap: break-word;
+}
+
+img, svg, video { max-width: 100%; }
+
+/* `hidden` must win over any display rule we set on the same element. */
+[hidden] { display: none !important; }
+
+/* Until the Storefront runtime upgrades <shopify-cart>, it is an unknown
+   element and its slot content would render as loose text at the end of the
+   page. Keep it out of the document until it is a real dialog. */
+shopify-cart:not(:defined) { display: none; }
+img, video { height: auto; }
+
+/* --- Accessibility utilities ------------------------------------------- */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.skip-link {
+  position: absolute; left: var(--s2); top: -3rem; z-index: 100;
+  padding: .6rem 1rem; border-radius: var(--radius);
+  background: var(--brand); color: var(--surface);
+  font-weight: 600; text-decoration: none;
+}
+.skip-link:focus { top: var(--s2); }
+
+:focus-visible { outline: 3px solid var(--brand); outline-offset: 2px; }
+
+/* Body scroll lock, set while an overlay (nav drawer, search) is open. */
+.sp-locked, .sp-locked body { overflow: hidden; }
+
+/* --- Layout ------------------------------------------------------------ */
+.wrap { width: 100%; max-width: var(--wrap); margin-inline: auto; padding-inline: var(--s3); }
+.prose { width: 100%; max-width: var(--measure); margin-inline: auto; padding-inline: var(--s3); }
+.stack > * + * { margin-top: var(--s3); }
+
+section.module { padding-block: var(--s5); }
+@media (min-width: 900px) { section.module { padding-block: var(--s6); } }
+
+.section-head {
+  display: flex; flex-wrap: wrap; gap: var(--s2);
+  align-items: baseline; justify-content: space-between;
+  margin-bottom: var(--s3);
+}
+.section-head h2 { margin: 0; }
+
+/* --- Typography -------------------------------------------------------- */
+h1, h2, h3, h4 { font-family: var(--font-display); color: var(--ink); font-weight: 600; }
+h1 { font-size: var(--h1); line-height: 1.08; letter-spacing: -.02em; margin: 0 0 var(--s3); }
+h2 { font-size: var(--h2); line-height: 1.15; margin: var(--s5) 0 var(--s2); }
+h3 { font-size: var(--h3); line-height: 1.25; margin: var(--s4) 0 var(--s1); }
+h4 { font-size: 1.1rem; line-height: 1.3; margin: var(--s3) 0 var(--s1); }
+
+p { margin: 0 0 var(--s2); }
+
+.lede { font-size: 1.2rem; line-height: 1.5; color: var(--ink-soft); max-width: 60ch; }
+
+.kicker {
+  display: block;
+  font-family: var(--font-body);
+  font-size: var(--kicker);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--brand);
+  margin-bottom: var(--s1);
+}
+
+.meta { font-size: .88rem; color: var(--ink-soft); margin: 0; }
+
+a { color: var(--brand); text-decoration: underline; text-underline-offset: 3px; }
+a:hover { color: var(--brand-hover); }
+
+strong { font-weight: 700; }
+em { font-style: italic; }
+
+ul, ol { margin: 0 0 var(--s2); padding-left: 1.3rem; }
+li { margin: var(--s1) 0; }
+
+blockquote {
+  margin: var(--s3) 0; padding-left: var(--s3);
+  border-left: 3px solid var(--mist); color: var(--ink-soft);
+}
+
+code, kbd, samp { font-family: var(--font-mono); font-size: .92em; }
+
+hr { border: 0; border-top: 1px solid var(--mist); margin: var(--s5) 0; }
+
+/* Padding rather than a min-height + flex box: `display: flex` on a <summary>
+   drops the disclosure marker in Chromium. */
+summary { padding-block: .6rem; }
+
+figure { margin: var(--s4) 0; }
+figcaption { font-size: .88rem; color: var(--ink-soft); margin-top: var(--s1); }
+
+/* --- Tables ------------------------------------------------------------ */
+.table-scroll {
+  overflow-x: auto;
+  margin: var(--s3) 0;
+  box-shadow: inset -12px 0 12px -12px rgba(34, 29, 25, .28);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
   font-variant-numeric: tabular-nums;
 }
-
-/* Page-to-page view transitions (Astro's <ClientRouter />). Kept short and
-   in the same spring-ish curve as the nav indicator and header so a
-   navigation reads as one continuous gesture, not a hard cut. */
-@media (prefers-reduced-motion: no-preference) {
-  ::view-transition-group(*) {
-    animation-duration: .42s;
-    animation-timing-function: cubic-bezier(.22,1,.36,1);
-  }
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    animation-duration: .28s;
-    animation-timing-function: ease;
-  }
+th, td {
+  font-variant-numeric: tabular-nums;
+  text-align: left;
+  padding: .65rem .8rem;
+  border: 1px solid var(--mist);
+  vertical-align: top;
 }
-@media (prefers-reduced-motion: reduce) {
-  ::view-transition-group(*),
-  ::view-transition-old(*),
-  ::view-transition-new(*) { animation: none !important; }
-}
-
-/* Spring-feeling press/lift for every button in the system. */
-.btn {
-  transition: transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s cubic-bezier(.22,1,.36,1), background-color .2s ease, border-color .2s ease, color .2s ease;
-}
-.btn:hover, .btn:focus-visible, .btn:active { will-change: transform; }
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 28px -16px rgba(138,61,16,.5); }
-.btn-ghost:hover { transform: translateY(-1px); }
-.btn:active { transform: translateY(0) scale(.96); transition-duration: .12s; }
-@media (prefers-reduced-motion: reduce) {
-  .btn { transition: background-color .2s ease, border-color .2s ease, color .2s ease; }
-  .btn-primary:hover, .btn-ghost:hover, .btn:active { transform: none; }
-}
-
-/* Clickable listing cards (guides/troubleshooting/compare/home) lift toward
-   the reader on hover; static, non-link cards are left alone. */
-a.card {
-  transition: transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s cubic-bezier(.22,1,.36,1), border-color .25s ease;
-}
-a.card:hover, a.card:focus-visible {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 36px -22px rgba(138,61,16,.4);
-  border-color: color-mix(in srgb, var(--amber), var(--mist) 45%);
-}
-@media (prefers-reduced-motion: reduce) {
-  a.card { transition: border-color .25s ease; }
-  a.card:hover, a.card:focus-visible { transform: none; }
-}
-
-/* Hero: a slow, near-imperceptible drift in the gradient angle — light
-   moving across frost, not an obvious loop. */
-@property --sp-hero-angle {
-  syntax: '<angle>';
-  inherits: false;
-  initial-value: 165deg;
-}
-.hero {
-  background: linear-gradient(var(--sp-hero-angle), var(--amber-tint) 0%, var(--amber-tint) 45%, var(--paper) 100%);
-}
-@media (prefers-reduced-motion: no-preference) {
-  .hero { animation: sp-hero-drift 22s cubic-bezier(.45,0,.55,1) infinite alternate; }
-}
-@keyframes sp-hero-drift {
-  from { --sp-hero-angle: 152deg; }
-  to { --sp-hero-angle: 200deg; }
-}
-
-/* Newsletter: instant submit feedback (see events.js) while the real
-   Netlify POST is in flight. */
-.newsletter form.is-submitting button {
-  opacity: .85;
-  cursor: progress;
-}
-.newsletter button {
-  transition: background-color .2s ease, transform .3s cubic-bezier(.16,1,.3,1), opacity .2s ease;
-}
-.newsletter button:active { transform: scale(.96); }
-
-/* Batch Log: local DOM updates (log a batch, delete a row, clear all) run
-   inside document.startViewTransition when available, so the table and
-   stat tiles cross-dissolve instead of hard-replacing. */
-@media (prefers-reduced-motion: no-preference) {
-  ::view-transition-old(root):only-child,
-  ::view-transition-new(root):only-child {
-    animation-duration: .32s;
-  }
-}
-#batch-form input, #batch-form select {
-  transition: border-color .2s ease, box-shadow .2s ease;
-}
-#batch-form input:focus-visible, #batch-form select:focus-visible {
-  border-color: var(--amber);
-  box-shadow: 0 0 0 3px var(--amber-tint);
-}
-
-/* Comparison listing: a real spec-criteria preview instead of a plain
-   paragraph, so a comparison reads differently from a guide or a symptom. */
-.compare-card {
-  display: flex;
-  gap: 1.5rem;
-  align-items: baseline;
-  flex-wrap: wrap;
-  margin: 1.4rem 0;
-  padding: 1.5rem 1.7rem;
-  text-decoration: none;
-}
-.compare-criteria {
-  margin-bottom: 0;
-}
-
-/* Troubleshooting listing: a real signal (this symptom's declared riskClass
-   is "elevated") instead of every card reading identically regardless of
-   what's actually at stake. */
-.symptom-risk {
-  color: var(--sp-danger);
+thead th, th[scope="col"] {
+  background: var(--brand-tint);
+  color: var(--ink);
   font-weight: 600;
-  margin-bottom: 0;
 }
+caption { caption-side: bottom; font-size: .88rem; color: var(--ink-soft); padding-top: var(--s1); text-align: left; }
 
-/* Mobile nav collapse. Hidden by default (progressive enhancement — a
-   no-JS visitor still gets today's full, wrapping nav list); header-nav.js
-   reveals the toggle and adds .js-collapsible once it can drive the drawer. */
-.nav-toggle {
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  gap: 5px;
-  width: 34px;
-  height: 34px;
-  padding: 0;
-  margin-left: auto;
-  background: none;
-  border: 0;
+/* --- Buttons ----------------------------------------------------------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  min-height: 44px;
+  padding: .8rem 1.5rem;
+  border-radius: var(--radius);
+  font: 600 1rem var(--font-body);
+  border: 2px solid transparent;
+  text-decoration: none;
   cursor: pointer;
+  transition: background-color 150ms linear, color 150ms linear, border-color 150ms linear;
 }
-.nav-toggle .bar {
-  display: block;
-  width: 100%;
-  height: 2px;
-  background: var(--heading);
-  border-radius: 1px;
-  transition: transform .3s cubic-bezier(.16,1,.3,1), opacity .2s ease;
+.btn-primary { background: var(--brand); color: var(--surface); }
+.btn-primary:hover { background: var(--brand-hover); color: var(--surface); }
+.btn-secondary { background: transparent; border-color: var(--ink); color: var(--ink); }
+.btn-secondary:hover { background: var(--brand-tint); color: var(--ink); }
+.btn-text {
+  display: inline-flex; align-items: center;
+  border: 0; padding: 0; min-height: 44px; background: none;
+  color: var(--brand); text-decoration: underline; text-underline-offset: 3px;
 }
-.nav-toggle[aria-expanded="true"] .bar:nth-child(2) { transform: translateY(7px) rotate(45deg); }
-.nav-toggle[aria-expanded="true"] .bar:nth-child(3) { opacity: 0; }
-.nav-toggle[aria-expanded="true"] .bar:nth-child(4) { transform: translateY(-7px) rotate(-45deg); }
-@media (max-width: 640px) {
-  .site-nav.js-collapsible .nav-toggle { display: flex; }
-  .site-nav.js-collapsible ul {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0;
-    background: var(--surface);
-    border-bottom: 1px solid var(--mist);
-    box-shadow: 0 14px 28px -20px rgba(138,61,16,.35);
-    padding: .4rem 0;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-6px);
-    transition: opacity .25s cubic-bezier(.16,1,.3,1), transform .25s cubic-bezier(.16,1,.3,1), visibility 0s linear .25s;
-  }
-  .site-nav.js-collapsible.is-open ul {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-    transition: opacity .25s cubic-bezier(.16,1,.3,1), transform .25s cubic-bezier(.16,1,.3,1);
-  }
-  .site-nav.js-collapsible ul li { width: 100%; }
-  .site-nav.js-collapsible a { display: block; padding: .85rem 1.5rem; width: 100%; }
-  .site-nav.js-collapsible .nav-indicator { display: none; }
+/* Inside prose a .btn-text is running text, not a control — no 44px box. */
+p .btn-text, li .btn-text { display: inline; min-height: 0; }
+.btn-text::after { content: " \2192"; }
+.btn-text:hover { color: var(--brand-hover); }
+.btn[disabled], .btn[aria-disabled="true"] { opacity: .55; pointer-events: none; }
+
+/* --- Cards ------------------------------------------------------------- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--mist);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: box-shadow 150ms linear;
 }
-@media (prefers-reduced-motion: reduce) {
-  .nav-toggle .bar { transition: none; }
-  .site-nav.js-collapsible ul { transition: none; }
+.card:hover { box-shadow: var(--shadow-hover); }
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+  gap: var(--s3);
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-/* Dark mode: a composed dark palette, not a mechanical inversion. Warm
-   amber/rust is the dominant brand color in both themes; frost-blue stays
-   demoted to its light-mode role (inline links, the notice-info aside)
-   rather than reclaiming territory just because the page went dark.
-   --surface sits noticeably lighter than --paper (not just a shade off it)
-   so cards, panels, the header and the footer read as distinct lit spaces
-   against the darker page field, instead of the whole page reading as one
-   flat dark mass. */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #201b16;
-    --surface: #362c22;
-    --ink: #efe8e0;
-    --ink-soft: #b8ab9d;
-    --frost: #7fb1d1;
-    --frost-deep: #2c5875;
-    --heading: #f0a878;
-    --frost-tint: #1c2b36;
-    --amber: #e8935a;
-    --amber-tint: #3a2c1a;
-    --mist: #4c4030;
-    --ok: #7ecb9a;
-    --warn-bg: #453620;
-    --warn-border: #c99a4a;
-    --sp-danger: #e2725a;
-    --zebra: #3c3226;
-    --amber-deep: #9c4712;
-    --amber-bright: #5a2508;
+/* --- Notices ----------------------------------------------------------- */
+.notice {
+  background: var(--info-bg);
+  border-left: 3px solid var(--info-line);
+  padding: var(--s2) var(--s3);
+  border-radius: var(--radius);
+  margin: var(--s3) 0;
+}
+.notice > :last-child { margin-bottom: 0; }
+
+/* --- Forms ------------------------------------------------------------- */
+label { font-weight: 600; }
+
+input[type="email"], input[type="text"], input[type="number"], input[type="date"],
+select, textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: .6rem .7rem;
+  font: 400 1rem var(--font-body);
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--mist);
+  border-radius: var(--radius);
+}
+input[type="checkbox"] { min-width: 22px; min-height: 22px; accent-color: var(--brand); }
+/* The label is the tap target for a checkbox, so it carries the 44px. */
+label:has(> input[type="checkbox"]) { display: flex; min-height: 44px; align-items: center; }
+
+/* --- Article body ------------------------------------------------------ */
+.article-body > p, .article-body > ul, .article-body > ol { max-width: var(--measure); }
+.article-body h2 { scroll-margin-top: var(--s7); }
+.article-body table { font-size: .95rem; }
+.article-body .diagram-figure svg { display: block; width: 100%; height: auto; }
+
+.disclosure-line {
+  margin: var(--s4) 0;
+  padding-top: var(--s2);
+  border-top: 1px solid var(--mist);
+  font-size: .9rem;
+  color: var(--ink-soft);
+}
+
+/* --- Motion ------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
   }
-  .site-header.is-condensed {
-    box-shadow: 0 1px 0 var(--mist), 0 10px 24px -18px rgba(0,0,0,.6);
-  }
-  a.card:hover, a.card:focus-visible {
-    box-shadow: 0 20px 36px -22px rgba(0,0,0,.6);
-  }
-  .btn-primary:hover {
-    box-shadow: 0 14px 28px -16px rgba(0,0,0,.65);
-  }
-  .site-nav.js-collapsible ul {
-    box-shadow: 0 14px 28px -20px rgba(0,0,0,.65);
-  }
-  .table-scroll {
-    box-shadow: inset -12px 0 8px -8px rgba(0,0,0,.4);
-  }
+}
+
+/* --- Print ------------------------------------------------------------- */
+@media print {
+  .site-header, .site-footer, .newsletter, shopify-cart, .breadcrumbs { display: none !important; }
+  body { background: #fff; }
+  a { text-decoration: none; color: inherit; }
 }

@@ -1,0 +1,59 @@
+---
+/**
+ * Breadcrumbs, on every page except the home page, with matching
+ * BreadcrumbList structured data. The final item is the current page and is
+ * not a link.
+ */
+import Icon from './Icon.astro';
+
+interface Crumb {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  items: Crumb[];
+}
+
+const { items } = Astro.props;
+const site = 'https://www.sublimepantry.com';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: items.map((item, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: item.label,
+    item: new URL(item.href === '/' ? '/' : `${item.href.replace(/\/$/, '')}/`, site).href,
+  })),
+};
+---
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+  <ol>
+    {items.map((item, i) => (
+      <li>
+        {i > 0 && <Icon name="chevron-right" size={14} class="crumb-sep" />}
+        {i === items.length - 1 ? (
+          <span aria-current="page">{item.label}</span>
+        ) : (
+          <a href={item.href}>{item.label}</a>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>
+<script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+<style>
+  .breadcrumbs { margin: 0 0 var(--s3); font-size: .88rem; }
+  .breadcrumbs ol {
+    list-style: none; margin: 0; padding: 0;
+    display: flex; flex-wrap: wrap; align-items: center; gap: .1rem .35rem;
+  }
+  .breadcrumbs li { margin: 0; display: flex; align-items: center; gap: .35rem; }
+  .breadcrumbs a { color: var(--ink-soft); text-decoration: none; }
+  .breadcrumbs a:hover { color: var(--brand); text-decoration: underline; }
+  .breadcrumbs [aria-current="page"] { color: var(--ink); font-weight: 600; }
+  .crumb-sep { color: var(--ink-soft); }
+</style>

@@ -1,0 +1,146 @@
+---
+/**
+ * Site search, powered by Pagefind.
+ *
+ * The index is generated after `astro build` (see the build script) and lives
+ * at /pagefind. It is imported lazily on first keystroke, so a reader who never
+ * searches downloads none of it. When the index is absent — `astro dev`, or a
+ * preview built without the Pagefind step — the box says so instead of failing
+ * silently.
+ */
+interface Props {
+  id: string;
+  label?: string;
+  autofocus?: boolean;
+}
+
+const { id, label = 'Search Sublime Pantry', autofocus = false } = Astro.props;
+---
+<div class="searchbox" data-searchbox>
+  <label class="sr-only" for={id}>{label}</label>
+  <input
+    id={id}
+    type="text"
+    role="searchbox"
+    placeholder="Search guides, fixes, comparisons…"
+    autocomplete="off"
+    autofocus={autofocus || undefined}
+    data-search-input
+    aria-describedby={`${id}-status`}
+  />
+  <p class="meta search-status" id={`${id}-status`} role="status" data-search-status></p>
+  <ul class="search-results" data-search-results></ul>
+</div>
+
+<style>
+  .searchbox { display: flex; flex-direction: column; gap: var(--s1); }
+  .search-status:empty { display: none; }
+  .search-results { list-style: none; margin: 0; padding: 0; max-height: 60vh; overflow-y: auto; }
+  .search-results:empty { display: none; }
+  .search-results li { margin: 0; border-top: 1px solid var(--mist); }
+  .search-results a { display: block; padding: var(--s2) 0; text-decoration: none; }
+  .search-results a:hover .search-title { text-decoration: underline; }
+  .search-title { display: block; font-family: var(--font-display); font-size: 1.05rem; color: var(--ink); }
+  .search-excerpt { display: block; font-size: .9rem; color: var(--ink-soft); margin-top: .2rem; }
+  .search-excerpt :global(mark) { background: var(--brand-tint); color: var(--ink); }
+</style>
+
+<!--
+  Kept `is:inline` on purpose: Vite rewrites a bundled dynamic import through
+  its preload helper, which cannot resolve /pagefind/pagefind.js because that
+  file is produced after the Astro build and is not in the module graph. Left
+  inline, the import is a plain runtime import of a real URL and simply works.
+  The component renders more than once per page, so binding is guarded.
+-->
+<script is:inline>
+  (function () {
+    if (window.__spSearchBound) return;
+    window.__spSearchBound = true;
+
+    var MIN_QUERY = 2;
+    var pagefind = null;
+    var unavailable = false;
+
+    async function load() {
+      if (pagefind || unavailable) return pagefind;
+      try {
+        pagefind = await import('/pagefind/pagefind.js');
+        await pagefind.options({ excerptLength: 24 });
+      } catch (err) {
+        unavailable = true;
+      }
+      return pagefind;
+    }
+
+    function bind(box) {
+      if (box.dataset.spBound) return;
+      box.dataset.spBound = '1';
+
+      var input = box.querySelector('[data-search-input]');
+      var status = box.querySelector('[data-search-status]');
+      var list = box.querySelector('[data-search-results]');
+      var token = 0;
+
+      async function run() {
+        var query = input.value.trim();
+        var mine = ++token;
+        if (query.length < MIN_QUERY) {
+          list.innerHTML = '';
+          status.textContent = '';
+          return;
+        }
+
+        var api = await load();
+        if (mine !== token) return;
+        if (!api) {
+          list.innerHTML = '';
+          status.textContent = 'Search is only available on the published site.';
+          return;
+        }
+
+        var search = await api.search(query);
+        if (mine !== token) return;
+        var results = await Promise.all(search.results.slice(0, 8).map(function (r) { return r.data(); }));
+        if (mine !== token) return;
+
+        list.innerHTML = '';
+        if (!results.length) {
+          status.textContent = 'No results for \u201C' + query + '\u201D.';
+          return;
+        }
+        status.textContent = search.results.length + (search.results.length === 1 ? ' result.' : ' results.');
+        results.forEach(function (result) {
+          var li = document.createElement('li');
+          var a = document.createElement('a');
+          // The build emits /guides/x.html; link the canonical extensionless URL.
+          a.href = result.url.replace(/index\.html$/, '').replace(/\.html$/, '');
+          var title = document.createElement('span');
+          title.className = 'search-title';
+          title.textContent = (result.meta && result.meta.title) || result.url;
+          var excerpt = document.createElement('span');
+          excerpt.className = 'search-excerpt';
+          // Pagefind's excerpt is its own generated markup (<mark> only).
+          excerpt.innerHTML = result.excerpt || '';
+          a.appendChild(title);
+          a.appendChild(excerpt);
+          li.appendChild(a);
+          list.appendChild(li);
+        });
+      }
+
+      var timer;
+      input.addEventListener('input', function () {
+        clearTimeout(timer);
+        timer = setTimeout(run, 150);
+      });
+    }
+
+    function init() {
+      document.querySelectorAll('[data-searchbox]').forEach(bind);
+    }
+
+    document.addEventListener('astro:page-load', init);
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+    else init();
+  })();
+</script>

@@ -2,10 +2,10 @@
 import PageLayout from '../layouts/PageLayout.astro';
 import Newsletter from '../components/Newsletter.astro';
 ---
-<PageLayout title="Start Selling Freeze-Dried Food" description="The path from hobby batches to a legal cottage freeze-drying business: rules, water-activity testing, labeling, pricing, and unit economics." path="/start-selling">
+<PageLayout title="Start Selling Freeze-Dried Food" description="The path from hobby batches to a legal cottage freeze-drying business: rules, water-activity testing, labeling, pricing, and unit economics." path="/start-selling" breadcrumbs={[{ label: "Start Selling", href: "/start-selling" }]}>
   <span class="kicker">Cottage business</span>
   <h1>From hobby batches to a real cottage business</h1>
-  <p style="font-size:1.1rem;color:var(--ink-soft);">Freeze-dried candy and snacks are among the most popular cottage food products in the country, and among the easiest to get wrong legally. This hub collects everything we publish on selling what you dry.</p>
+  <p class="lede">Freeze-dried candy and snacks are among the most popular cottage food products in the country, and among the easiest to get wrong legally. This hub collects everything we publish on selling what you dry.</p>
   <div class="notice" role="note">
     <strong>Before anything else:</strong> cottage food rules are state law, they vary widely, and they change. Everything here is educational. Confirm your state's current rules with your Department of Agriculture or health department before your first sale.
   </div>

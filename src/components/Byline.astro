@@ -1,0 +1,59 @@
+---
+import TrustStrip from './TrustStrip.astro';
+import { getAuthor, hasPortrait } from '../lib/authors';
+
+interface Props {
+  author: string;
+  publishedDate: string;
+  updatedDate?: string;
+}
+
+const { author, publishedDate, updatedDate } = Astro.props;
+const person = getAuthor(author);
+const portrait = hasPortrait(person);
+
+const publishedIso = `${publishedDate}T00:00:00.000Z`;
+const updatedIso = updatedDate ? `${updatedDate}T00:00:00.000Z` : undefined;
+const fmt = (iso: string) =>
+  new Date(iso).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'UTC',
+  });
+---
+<div class="byline">
+  <div class="byline-row">
+    {portrait ? (
+      <img class="byline-portrait" src={person.portrait} alt="" width="40" height="40" loading="lazy" decoding="async" />
+    ) : (
+      <span class="byline-portrait byline-initials" aria-hidden="true">{person.initials}</span>
+    )}
+    <div>
+      <p class="byline-name">
+        By <a href={person.url}><strong>{person.name}</strong></a> · Sublime Pantry Editorial
+      </p>
+      <p class="meta">
+        Published <time datetime={publishedIso}>{fmt(publishedIso)}</time>
+        {updatedIso && <> · Updated <time datetime={updatedIso}>{fmt(updatedIso)}</time></>}
+      </p>
+    </div>
+  </div>
+  <TrustStrip />
+</div>
+
+<style>
+  .byline { margin: var(--s3) 0 var(--s4); }
+  .byline-row { display: flex; align-items: center; gap: var(--s2); }
+  .byline-portrait {
+    width: 40px; height: 40px; border-radius: 50%; flex: none;
+    object-fit: cover; background: var(--brand-tint);
+  }
+  .byline-initials {
+    display: grid; place-items: center;
+    font-family: var(--font-display); font-size: 1rem; color: var(--brand);
+  }
+  .byline-name { margin: 0; font-size: .95rem; }
+  .byline-name a { color: var(--ink); text-decoration: none; }
+  .byline-name a:hover { color: var(--brand); text-decoration: underline; }
+</style>

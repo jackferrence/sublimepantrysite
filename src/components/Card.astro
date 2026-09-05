@@ -1,0 +1,124 @@
+---
+/**
+ * The card. Every grid on the site is made of these.
+ *
+ * When there is no photograph, the card renders a placeholder tile rather than
+ * an empty image box: brand tint, the kicker, and the title's first letter set
+ * in the display face. A card is never blank and never shifts when a photo
+ * finally lands.
+ */
+import Img from './Img.astro';
+
+interface Props {
+  href: string;
+  title: string;
+  dek?: string;
+  kicker?: string;
+  image?: string;
+  imageAlt?: string;
+  ratio?: '16/9' | '4/5';
+  meta?: string;
+  price?: string;
+  badge?: string;
+  /** 'contain' for product shots on a plain ground; 'cover' for photography. */
+  fit?: 'cover' | 'contain';
+  /** 2 where the grid sits directly under the page H1 (hub pages), else 3. */
+  headingLevel?: 2 | 3;
+  transitionName?: string;
+}
+
+const {
+  href,
+  title,
+  dek,
+  kicker,
+  image,
+  imageAlt,
+  ratio = '16/9',
+  meta,
+  price,
+  badge,
+  fit = 'cover',
+  headingLevel = 3,
+  transitionName,
+} = Astro.props;
+
+const Heading = `h${headingLevel}` as 'h2' | 'h3';
+
+const dims = ratio === '4/5' ? { w: 640, h: 800 } : { w: 800, h: 450 };
+const initial = title.trim().charAt(0).toUpperCase();
+---
+<article class="card sp-card">
+  <div class:list={['sp-card-media', ratio === '4/5' ? 'is-portrait' : 'is-wide']}>
+    {image ? (
+      <Img
+        src={image}
+        alt={imageAlt ?? ''}
+        width={dims.w}
+        height={dims.h}
+        sizes="(min-width: 900px) 22rem, 100vw"
+        class:list={['sp-card-img', fit === 'contain' && 'is-contain']}
+      />
+    ) : (
+      <div class="sp-card-placeholder" aria-hidden="true">
+        {kicker && <span class="sp-card-placeholder-kicker">{kicker}</span>}
+        <span class="sp-card-placeholder-initial">{initial}</span>
+      </div>
+    )}
+    {badge && <span class="sp-card-badge">{badge}</span>}
+  </div>
+
+  <div class="sp-card-body">
+    {kicker && <span class="kicker">{kicker}</span>}
+    <Heading class="sp-card-title">
+      <a href={href} transition:name={transitionName}>{title}</a>
+    </Heading>
+    {dek && <p class="sp-card-dek">{dek}</p>}
+    {price && <p class="sp-card-price">{price}</p>}
+    {meta && <p class="meta">{meta}</p>}
+  </div>
+</article>
+
+<style>
+  .sp-card { display: flex; flex-direction: column; height: 100%; }
+
+  .sp-card-media { position: relative; background: var(--brand-tint); }
+  .sp-card-media.is-wide { aspect-ratio: 16 / 9; }
+  .sp-card-media.is-portrait { aspect-ratio: 4 / 5; }
+  .sp-card-media :global(.sp-card-img) { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .sp-card-media :global(.sp-card-img.is-contain) { object-fit: contain; }
+
+  .sp-card-placeholder {
+    position: absolute; inset: 0;
+    padding: var(--s2);
+    display: flex; flex-direction: column; justify-content: space-between;
+    background: var(--brand-tint);
+  }
+  .sp-card-placeholder-kicker {
+    font-size: var(--kicker); font-weight: 600; text-transform: uppercase;
+    letter-spacing: .08em; color: var(--brand);
+  }
+  .sp-card-placeholder-initial {
+    align-self: flex-end;
+    font-family: var(--font-display); font-size: 4rem; line-height: 1;
+    color: var(--brand);
+  }
+
+  .sp-card-badge {
+    position: absolute; left: var(--s2); bottom: var(--s2);
+    padding: .25rem .6rem; border-radius: var(--radius);
+    background: var(--surface); color: var(--ink);
+    font-size: var(--kicker); font-weight: 600;
+  }
+
+  .sp-card-body { padding: var(--s3); display: flex; flex-direction: column; gap: var(--s1); flex: 1; }
+  .sp-card-title { margin: 0; font-size: var(--h3); }
+  .sp-card-title a { color: var(--ink); text-decoration: none; }
+  .sp-card-title a:hover { color: var(--brand); text-decoration: underline; }
+  .sp-card-dek { margin: 0; color: var(--ink-soft); }
+  .sp-card-price {
+    margin: 0; font-family: var(--font-display); font-size: var(--price);
+    font-variant-numeric: tabular-nums; color: var(--ink);
+  }
+  .sp-card-body .meta { margin-top: auto; padding-top: var(--s1); }
+</style>

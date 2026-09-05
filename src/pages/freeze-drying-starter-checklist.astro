@@ -1,19 +1,21 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import StarterKitCTA from '../components/StarterKitCTA.astro';
-import LaunchOffer from '../components/LaunchOffer.astro';
+import PageLayout from '../layouts/PageLayout.astro';
+import Card from '../components/Card.astro';
+import { CATALOG } from '../lib/commerce';
 ---
-<BaseLayout
+<PageLayout
   title="Freeze-Drying Starter Checklist"
   description="A printable checklist for setting up, running, verifying, packaging, labeling, and storing your first home freeze-drying batches."
   path="/freeze-drying-starter-checklist"
+  breadcrumbs={[{ label: 'Starter Checklist', href: '/freeze-drying-starter-checklist' }]}
+  width="wrap"
 >
-  <main class="wrap checklist-page">
+  <div class="checklist-page">
     <header class="checklist-hero">
       <span class="kicker">Free printable checklist</span>
       <h1>Your first freeze-drying batches, in order.</h1>
       <p class="lede">Use this beside the machine until the workflow becomes automatic. It focuses on the points that cause avoidable batch failures: prep, dryness verification, fast packaging, correct oxygen absorbers, heat sealing, and labeling.</p>
-      <button class="btn btn-ghost print-button" type="button" onclick="window.print()">Print checklist</button>
+      <button class="btn btn-secondary print-button" type="button" onclick="window.print()">Print checklist</button>
     </header>
 
     <section class="checklist-grid" aria-label="Freeze-drying starter checklist">
@@ -53,42 +55,67 @@ import LaunchOffer from '../components/LaunchOffer.astro';
       </article>
     </section>
 
-    <aside class="notice notice-info checklist-note">
+    <aside class="notice checklist-note">
       <strong>Keep one rule above all the others:</strong> packaging cannot fix an under-dried batch. When you are uncertain, verify dryness before sealing food for storage.
     </aside>
 
-    <StarterKitCTA source="starter-checklist" />
-
-    <LaunchOffer placement="starter-checklist" variant="slim" />
+    <section class="checklist-shop" aria-labelledby="checklist-shop-heading">
+      <div class="section-head">
+        <h2 id="checklist-shop-heading">Packaging we sell</h2>
+        <a class="btn-text" href="/shop">All packaging</a>
+      </div>
+      <div class="card-grid">
+        {CATALOG.map((product) => (
+          <Card
+            href={product.detailsHref ?? '/shop'}
+            title={product.title}
+            dek={product.note}
+            kicker={product.eyebrow}
+            image={product.image}
+            imageAlt={product.imageAlt}
+            ratio="4/5"
+            fit="contain"
+            price={product.displayPrice}
+            meta="Ships free · US"
+          />
+        ))}
+      </div>
+    </section>
 
     <section class="next-reading">
       <h2>Use the checklist with the full workflow.</h2>
       <p>The checklist is intentionally short. The complete guide explains why each stage matters and what to do when a batch does not behave normally.</p>
-      <a class="btn btn-ghost" href="/guides/complete-batch-workflow">Read the complete batch workflow</a>
+      <a class="btn btn-secondary" href="/guides/complete-batch-workflow">Read the complete batch workflow</a>
     </section>
-  </main>
+  </div>
+</PageLayout>
 
-  <style>
-    .checklist-page { padding-top: 3rem; padding-bottom: 4rem; }
-    .checklist-hero { max-width: 780px; margin-bottom: 2rem; }
-    .checklist-hero h1 { margin: .4rem 0 .8rem; }
-    .checklist-hero .lede { color: var(--ink-soft); }
-    .print-button { margin-top: .7rem; }
-    .checklist-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
-    .checklist-card { padding: 1.4rem; }
-    .checklist-card h2 { margin: .25rem 0 1rem; font-size: 1.3rem; }
-    .step { font-weight: 800; color: var(--ink-soft); }
-    .checklist-card label { display: flex; gap: .65rem; align-items: flex-start; margin: .75rem 0; line-height: 1.45; }
-    .checklist-card input { margin-top: .25rem; }
-    .checklist-note { margin: 1.2rem 0 0; }
-    .next-reading { margin-top: 3rem; max-width: 720px; }
-    .next-reading p { color: var(--ink-soft); }
-    @media (max-width: 760px) { .checklist-grid { grid-template-columns: 1fr; } }
-    @media print {
-      header, footer, nav, .print-button, .starter-kit-cta, .launch-offer, .next-reading { display: none !important; }
-      .checklist-page { padding: 0; }
-      .checklist-grid { gap: .5rem; }
-      .checklist-card { break-inside: avoid; }
-    }
-  </style>
-</BaseLayout>
+<style>
+  .checklist-page { padding-bottom: var(--s6); }
+  .checklist-hero { max-width: 48rem; margin-bottom: var(--s4); }
+  .print-button { margin-top: var(--s2); }
+
+  .checklist-grid { display: grid; grid-template-columns: 1fr; gap: var(--s3); list-style: none; padding: 0; }
+  @media (min-width: 760px) { .checklist-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+  .checklist-card { padding: var(--s3); }
+  .checklist-card h2 { margin: .25rem 0 var(--s2); font-size: var(--h3); }
+  .step { font-family: var(--font-display); font-size: 1.1rem; color: var(--brand); }
+  .checklist-card label {
+    display: flex; gap: .65rem; align-items: flex-start;
+    margin: .75rem 0; font-weight: 400; line-height: 1.45;
+  }
+  .checklist-card input { margin-top: .25rem; }
+
+  .checklist-note { margin-top: var(--s3); }
+  .checklist-shop { margin-top: var(--s6); }
+  .next-reading { margin-top: var(--s6); max-width: var(--measure); }
+  .next-reading p { color: var(--ink-soft); }
+
+  @media print {
+    .print-button, .checklist-shop, .next-reading, .checklist-note { display: none !important; }
+    .checklist-page { padding: 0; }
+    .checklist-grid { gap: .5rem; }
+    .checklist-card { break-inside: avoid; }
+  }
+</style>

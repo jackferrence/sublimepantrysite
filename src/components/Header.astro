@@ -1,40 +1,315 @@
 ---
-const navItems = [
-  { href: '/shop', label: 'Shop' },
-  { href: '/guides', label: 'Guides' },
-  { href: '/troubleshooting', label: 'Troubleshooting' },
-  { href: '/compare', label: 'Comparisons' },
-  { href: '/tools/batch-log', label: 'Batch Log' },
-  { href: '/start-selling', label: 'Start Selling' },
-  { href: '/about', label: 'About' },
-];
-const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+/**
+ * Site header: sticky, static, and quiet.
+ *
+ * No hide-on-scroll, no condense, no blur, no sliding indicator. The active
+ * section is marked on the server and underlined in CSS, so it is correct
+ * before any JavaScript runs.
+ *
+ * The two dropdowns are disclosures, not ARIA menus: plain links, Tab moves
+ * through them, arrows are an accelerator. The menubar/menu pattern is for
+ * application menus where the menu *is* the interface; trapping Tab inside a
+ * nav panel is what makes people think the navigation is broken.
+ *
+ * With JavaScript off the panels still open, on `:focus-within` for keyboards
+ * and on hover for pointer devices that actually have one. `header-nav.js`
+ * sets `data-nav-enhanced`, at which point `aria-expanded` becomes the single
+ * source of truth and those CSS-only rules stand down — otherwise closing with
+ * Escape would return focus to the trigger and immediately reopen the panel.
+ */
+import Mark from './Mark.astro';
+import Icon from './Icon.astro';
+import SearchBox from './SearchBox.astro';
+import { normalizePath } from '../lib/paths';
+import { PRIMARY_NAV, live, isCurrentPage, isCurrentSection } from '../lib/nav';
+
+const navItems = live(PRIMARY_NAV);
+const groups = navItems.filter((item) => item.children);
+const singles = navItems.filter((item) => !item.children);
+
+const path = normalizePath(Astro.url.pathname);
+const menuId = (label: string) => `nav-menu-${label.toLowerCase()}`;
 ---
-<header class="site-header" transition:name="site-header">
-  <div class="wrap">
+<header class="site-header">
+  <div class="wrap header-row">
     <a href="/" class="brand">
-      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <rect x="7" y="8" width="18" height="20" rx="3" stroke="#1d3f56" stroke-width="2" fill="#e7eef3"></rect>
-        <rect x="9" y="4" width="14" height="4" rx="1.5" fill="#9a6115"></rect>
-        <g stroke="#2c5d7c" stroke-width="1.6" stroke-linecap="round">
-          <line x1="16" y1="12" x2="16" y2="24"></line>
-          <line x1="10.8" y1="15" x2="21.2" y2="21"></line>
-          <line x1="21.2" y1="15" x2="10.8" y2="21"></line>
-        </g>
-      </svg>Sublime Pantry
+      <Mark size={32} />
+      <span>Sublime Pantry</span>
     </a>
+
     <nav class="site-nav" aria-label="Main">
-      <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav-list" hidden>
-        <span class="sr-only">Menu</span>
-        <span class="bar" aria-hidden="true"></span>
-        <span class="bar" aria-hidden="true"></span>
-        <span class="bar" aria-hidden="true"></span>
-      </button>
-      <ul id="site-nav-list">
-        {navItems.map((item) => (
-          <li><a href={item.href} aria-current={path === item.href ? 'page' : undefined}>{item.label}</a></li>
-        ))}
+      <ul>
+        {navItems.map((item) => (item.children ? (
+          <li class="has-menu">
+            <button
+              type="button"
+              class="nav-trigger"
+              aria-expanded="false"
+              aria-haspopup="true"
+              aria-controls={menuId(item.label)}
+              data-section-current={isCurrentSection(path, item) ? '' : undefined}
+            >
+              {item.label}
+              <Icon name="chevron-right" size={14} class="nav-chevron" />
+            </button>
+            <ul class="nav-menu" id={menuId(item.label)}>
+              {item.children.map((child) => (
+                <li>
+                  <a href={child.href} aria-current={isCurrentPage(path, child.href) ? 'page' : undefined}>{child.label}</a>
+                </li>
+              ))}
+            </ul>
+          </li>
+        ) : (
+          <li>
+            <a
+              href={item.href}
+              aria-current={isCurrentPage(path, item.href) ? 'page' : undefined}
+              data-section-current={isCurrentSection(path, item) ? '' : undefined}
+            >{item.label}</a>
+          </li>
+        )))}
       </ul>
     </nav>
+
+    <div class="header-actions">
+      <button
+        type="button"
+        class="icon-button search-toggle"
+        aria-expanded="false"
+        aria-controls="site-search"
+        data-sp-overlay-open
+      >
+        <Icon name="search" size={20} label="Search" />
+      </button>
+
+      <button type="button" class="icon-button cart-button" data-sp-cart-open>
+        <Icon name="shopping-bag" size={20} label="Cart" />
+        <span class="cart-count" data-cart-count hidden>0</span>
+      </button>
+
+      <button
+        type="button"
+        class="icon-button nav-toggle"
+        aria-expanded="false"
+        aria-controls="site-drawer"
+        data-sp-overlay-open
+      >
+        <Icon name="menu" size={22} label="Menu" />
+      </button>
+    </div>
+  </div>
+
+  <div class="overlay search-panel" id="site-search" hidden>
+    <div class="wrap search-panel-inner">
+      <SearchBox id="header-search" />
+      <button type="button" class="icon-button" data-sp-overlay-close>
+        <Icon name="x" size={20} label="Close search" />
+      </button>
+    </div>
+  </div>
+
+  <!-- The drawer is flat. Dropdowns on a touch target this size buy nothing
+       and cost a tap, so the groups become labelled sections instead. -->
+  <div class="overlay nav-drawer" id="site-drawer" hidden>
+    <div class="nav-drawer-panel">
+      <div class="nav-drawer-head">
+        <span class="kicker">Menu</span>
+        <button type="button" class="icon-button" data-sp-overlay-close>
+          <Icon name="x" size={20} label="Close menu" />
+        </button>
+      </div>
+      <SearchBox id="drawer-search" />
+
+      {groups.map((group) => (
+        <nav class="nav-drawer-group" aria-label={group.label}>
+          <span class="kicker">{group.label}</span>
+          <ul class="nav-drawer-list">
+            {group.children!.map((child) => (
+              <li><a
+                href={child.href}
+                aria-current={isCurrentPage(path, child.href) ? 'page' : undefined}
+                data-section-current={isCurrentSection(path, child) ? '' : undefined}
+              >{child.label}</a></li>
+            ))}
+          </ul>
+        </nav>
+      ))}
+
+      <nav class="nav-drawer-group" aria-label="More">
+        <ul class="nav-drawer-list">
+          {singles.map((item) => (
+            <li><a
+              href={item.href}
+              aria-current={isCurrentPage(path, item.href) ? 'page' : undefined}
+              data-section-current={isCurrentSection(path, item) ? '' : undefined}
+            >{item.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+
+      <a class="btn btn-primary nav-drawer-cta" href="/tools/batch-log">Open the Batch Log</a>
+    </div>
   </div>
 </header>
+
+<style>
+  .site-header {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--surface);
+    border-bottom: 1px solid var(--mist);
+  }
+
+  .header-row {
+    display: flex; align-items: center; gap: var(--s3);
+    min-height: 60px;
+  }
+
+  .brand {
+    display: flex; align-items: center; gap: .55rem;
+    min-height: 44px;
+    font-family: var(--font-display); font-size: clamp(1.15rem, 4.5vw, 1.35rem); font-weight: 600;
+    color: var(--ink); text-decoration: none; white-space: nowrap;
+  }
+
+  /* Below the drawer breakpoint the search box is the first thing in the
+     drawer, so a second search control in the bar is redundant — and at 360px
+     it is what pushes the header past the viewport. */
+  .search-toggle { display: none; }
+  @media (min-width: 900px) { .search-toggle { display: inline-flex; } }
+
+  .site-nav { display: none; margin-inline-start: auto; }
+  .site-nav > ul { display: flex; gap: var(--s3); list-style: none; margin: 0; padding: 0; }
+  .site-nav > ul > li { margin: 0; }
+  .site-nav a, .nav-trigger {
+    display: block; padding: .5rem 0;
+    color: var(--ink-soft); text-decoration: none; font-size: .95rem;
+    border-bottom: 2px solid transparent;
+  }
+  .site-nav a:hover, .nav-trigger:hover { color: var(--ink); }
+  .site-nav > ul > li > a[data-section-current],
+  .nav-trigger[data-section-current] { color: var(--ink); border-bottom-color: var(--brand); }
+
+  /* --- Dropdowns --- */
+  .has-menu { position: relative; }
+
+  .nav-trigger {
+    display: inline-flex; align-items: center; gap: .3rem;
+    background: none; border: 0; border-bottom: 2px solid transparent;
+    font: inherit; font-size: .95rem; cursor: pointer;
+  }
+  /* The chevron is rendered by Icon.astro, so it carries that component's
+     scope and not this one's — it has to be reached with :global from an
+     element that does belong to this file. `chevron-right` rotated is the
+     tenth icon doing an eleventh job; the icon set stays closed. */
+  .nav-trigger :global(.nav-chevron) { transform: rotate(90deg); transform-origin: center; }
+  .nav-trigger[aria-expanded="true"] :global(.nav-chevron) { transform: rotate(-90deg); }
+  @media (prefers-reduced-motion: no-preference) {
+    .nav-trigger :global(.nav-chevron) { transition: transform 150ms linear; }
+  }
+
+  .nav-menu {
+    display: none;
+    position: absolute; top: 100%; inset-inline-start: 0; z-index: 55;
+    min-width: 14rem; margin: 0; padding: var(--s1) 0;
+    list-style: none;
+    background: var(--surface);
+    border: 1px solid var(--mist); border-radius: var(--radius);
+    box-shadow: var(--shadow-hover);
+  }
+  .nav-menu li { margin: 0; }
+  .nav-menu a {
+    padding: .55rem var(--s2);
+    display: flex; align-items: center; min-height: 40px;
+    border-bottom: 0; white-space: nowrap;
+  }
+  .nav-menu a:hover { background: var(--brand-tint); color: var(--ink); }
+  .nav-menu a[aria-current="page"] { color: var(--brand); font-weight: 600; }
+
+  /* No JavaScript: keyboards open the panel with :focus-within, pointers with
+     hover — but only on devices that genuinely hover. On a touch laptop or
+     tablet, hover-open fires on tap and the panel lands under the finger
+     before the click registers. */
+  .has-menu:focus-within > .nav-menu { display: block; }
+  @media (hover: hover) {
+    .has-menu:hover > .nav-menu { display: block; }
+  }
+
+  /* JavaScript bound: aria-expanded is the only thing that opens a panel. */
+  .site-nav[data-nav-enhanced] .has-menu:focus-within > .nav-menu { display: none; }
+  @media (hover: hover) {
+    .site-nav[data-nav-enhanced] .has-menu:hover > .nav-menu { display: none; }
+  }
+  .site-nav[data-nav-enhanced] .nav-trigger[aria-expanded="true"] + .nav-menu { display: block; }
+
+  .header-actions { display: flex; align-items: center; gap: .25rem; margin-inline-start: auto; }
+  @media (min-width: 900px) {
+    .site-nav { display: block; }
+    .header-actions { margin-inline-start: var(--s3); }
+    /* Scoped through .header-actions on purpose: `.icon-button` sets
+       display:inline-flex further down this stylesheet, and at equal
+       specificity the later rule wins. The hamburger was visible alongside the
+       full nav bar at every desktop width. */
+    .header-actions .nav-toggle { display: none; }
+  }
+
+  .icon-button {
+    position: relative;
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 44px; min-height: 44px;
+    background: none; border: 0; border-radius: var(--radius);
+    color: var(--ink); cursor: pointer;
+    transition: color 150ms linear;
+  }
+  .icon-button:hover { color: var(--brand); }
+
+  .cart-count {
+    position: absolute; top: 6px; right: 4px;
+    min-width: 18px; height: 18px; padding: 0 4px;
+    display: grid; place-items: center;
+    border-radius: 9px;
+    background: var(--brand); color: var(--surface);
+    font-size: .68rem; font-weight: 700; font-variant-numeric: tabular-nums;
+  }
+
+  /* --- Overlays --- */
+  .search-panel {
+    border-bottom: 1px solid var(--mist);
+    background: var(--surface);
+  }
+  .search-panel-inner {
+    display: flex; align-items: flex-start; gap: var(--s2);
+    padding-block: var(--s2);
+  }
+  .search-panel-inner > :global(.searchbox) { flex: 1; }
+
+  .nav-drawer {
+    position: fixed; inset: 0; z-index: 60;
+    background: color-mix(in srgb, var(--ink) 45%, transparent);
+  }
+  .nav-drawer-panel {
+    margin-inline-start: auto;
+    width: min(22rem, 100%); height: 100%;
+    overflow-y: auto;
+    background: var(--surface);
+    border-inline-start: 1px solid var(--mist);
+    padding: var(--s3);
+    display: flex; flex-direction: column; gap: var(--s3);
+  }
+  .nav-drawer-head { display: flex; align-items: center; justify-content: space-between; }
+  .nav-drawer-head .kicker { margin: 0; }
+  .nav-drawer-group .kicker { display: block; margin: 0 0 .25rem; }
+
+  .nav-drawer-list { list-style: none; margin: 0; padding: 0; }
+  .nav-drawer-list li { margin: 0; border-top: 1px solid var(--mist); }
+  .nav-drawer-list a {
+    display: flex; align-items: center; min-height: 48px;
+    color: var(--ink); text-decoration: none;
+  }
+  /* Two states, deliberately different weights: you are *on* this page, or
+     you are somewhere underneath it. Neither is announced — only the exact
+     page carries aria-current. */
+  .nav-drawer-list a[data-section-current] { color: var(--brand); }
+  .nav-drawer-list a[aria-current="page"] { color: var(--brand); font-weight: 600; }
+  .nav-drawer-cta { margin-top: auto; }
+</style>

@@ -1,18 +1,56 @@
 ---
+/**
+ * Every page that is not an article and not the home page.
+ *
+ * Breadcrumbs are required (and emit BreadcrumbList JSON-LD), so they are part
+ * of the layout rather than something each page remembers to add. Prose pages
+ * use the reading measure; listing and commerce pages opt into the wider grid.
+ */
 import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+interface Crumb {
+  label: string;
+  href: string;
+}
 
 interface Props {
   title: string;
   description: string;
   path: string;
+  breadcrumbs: Crumb[];
   ogType?: 'website' | 'article';
   jsonLd?: Record<string, unknown>[];
+  width?: 'measure' | 'wrap';
+  commerce?: boolean;
 }
 
-const { title, description, path, ogType = 'website', jsonLd = [] } = Astro.props;
+const {
+  title,
+  description,
+  path,
+  breadcrumbs,
+  ogType = 'website',
+  jsonLd = [],
+  width = 'measure',
+  commerce = false,
+} = Astro.props;
+
+const crumbs = [{ label: 'Home', href: '/' }, ...breadcrumbs];
 ---
-<BaseLayout title={title} description={description} path={path} ogType={ogType} jsonLd={jsonLd}>
-  <div class="prose" style="padding-top:2.2rem;">
+<BaseLayout title={title} description={description} path={path} ogType={ogType} jsonLd={jsonLd} commerce={commerce}>
+  <div class:list={[width === 'wrap' ? 'wrap' : 'prose', 'page-body']}>
+    <Breadcrumbs items={crumbs} />
     <slot />
   </div>
 </BaseLayout>
+
+<style is:global>
+  .page-body { padding-top: var(--s4); padding-bottom: var(--s6); }
+  /* On the wide pages the grid is full width but the reading is not: the
+     heading and lede stay on the same measure as body copy. Global because the
+     content arrives through a slot. */
+  .page-body.wrap > h1,
+  .page-body.wrap > h2,
+  .page-body.wrap > p { max-width: var(--measure); }
+</style>

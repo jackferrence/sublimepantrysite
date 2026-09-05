@@ -1,106 +1,145 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Card from '../components/Card.astro';
+import Img from '../components/Img.astro';
+import Mark from '../components/Mark.astro';
 import Newsletter from '../components/Newsletter.astro';
-import LaunchOffer from '../components/LaunchOffer.astro';
+import { CATALOG } from '../lib/commerce';
+import { publicImage } from '../lib/media';
+import { articleHref, type Article } from '../lib/articles';
+
+const heroImage = publicImage('/images/hero.jpg');
+
+const articles = await getCollection('articles');
+const byId = new Map(articles.map((entry) => [entry.id, entry]));
+const startHere = ['complete-batch-workflow', 'which-freeze-dryer', 'home-freeze-dryers']
+  .map((id) => byId.get(id))
+  .filter((entry): entry is Article => Boolean(entry));
 ---
 <BaseLayout
   title="Home freeze-drying, batch by batch"
   description="Sublime Pantry helps home freeze-drying enthusiasts and cottage sellers run better batches: machine decisions, troubleshooting, storage that lasts, and the economics of selling what you dry."
   path="/"
 >
-  <div class="hero">
-    <div class="wrap hero-inner">
-      <div class="hero-content">
+  <section class="hero module">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
         <span class="kicker">For home freeze-driers &amp; cottage sellers</span>
         <h1>Home freeze-drying, batch by batch</h1>
         <p class="lede">Machine decisions, batch troubleshooting, storage that actually lasts, and the real economics of selling what you dry. Every claim is sourced, nothing invented.</p>
-        <div class="actions">
+        <div class="hero-actions">
           <a class="btn btn-primary" href="/guides/which-freeze-dryer">Which freeze dryer should you buy?</a>
-          <a class="btn btn-ghost" href="/tools/batch-log">Open the free Batch Log</a>
+          <a class="btn btn-secondary" href="/tools/batch-log">Open the free Batch Log</a>
         </div>
       </div>
-      <div class="hero-visual">
-        <div class="hero-visual-frame" aria-hidden="true">
-          <canvas id="sublimation-canvas" width="440" height="440"></canvas>
-        </div>
-        <p class="hero-visual-caption">Sublimation: solid to vapor, no liquid stage in between &mdash; the same process behind every batch you run.</p>
+
+      <div class="hero-media">
+        {heroImage ? (
+          <Img
+            src={heroImage}
+            alt="Hands loading prepared food trays into a home freeze dryer"
+            width={1280}
+            height={720}
+            sizes="(min-width: 900px) 34rem, 100vw"
+            loading="eager"
+            fetchpriority="high"
+            class="hero-img"
+          />
+        ) : (
+          <div class="hero-panel"><Mark size={120} /></div>
+        )}
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="wrap">
-    <div class="section-head">
-      <h2>Flagship guides</h2>
-      <a href="/guides">All guides →</a>
+  <section class="module" aria-labelledby="start-here">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="start-here">Start here</h2>
+        <a class="btn-text" href="/guides">All guides</a>
+      </div>
+      <div class="card-grid">
+        {startHere.map((entry) => (
+          <Card
+            href={articleHref(entry)}
+            title={entry.data.title}
+            dek={entry.data.description}
+            kicker={entry.data.section ?? entry.data.kicker}
+            image={entry.data.image?.src}
+            imageAlt={entry.data.image?.alt}
+            transitionName={`sp-title-${entry.id}`}
+          />
+        ))}
+      </div>
     </div>
-    <ul class="card-grid">
-      <li class="card">
-        <span class="kicker">storage</span>
-        <h3><a href="/guides/complete-batch-workflow" transition:name="sp-title-complete-batch-workflow">The complete batch workflow: from tray prep to sealed mylar</a></h3>
-        <p>The full home freeze-drying process done right: prep, cycle stages, the dryness test, and packaging within the window that keeps food crisp for decades.</p>
-      </li>
-      <li class="card">
-        <span class="kicker">cottage business</span>
-        <h3><a href="/guides/cottage-economics" transition:name="sp-title-cottage-economics">Selling freeze-dried food from home: rules, testing, and real unit economics</a></h3>
-        <p>What cottage food laws generally allow, the 0.85 water-activity line, sub-$100 testing, and labeling, plus a worked cost model for pricing a bag of freeze-dried candy.</p>
-      </li>
-      <li class="card">
-        <span class="kicker">machines</span>
-        <h3><a href="/guides/which-freeze-dryer" transition:name="sp-title-which-freeze-dryer">Which home freeze dryer should you buy? A decision framework</a></h3>
-        <p>A $1,700–$5,000 decision made systematically: size, brand, power, placement, and running cost, with every spec sourced from manufacturer documentation.</p>
-      </li>
-    </ul>
+  </section>
 
-    <div class="section-head">
-      <h2>Fix this batch</h2>
-      <a href="/troubleshooting">All troubleshooting →</a>
+  <section class="module" aria-labelledby="shop-heading">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="shop-heading">Packaging we sell</h2>
+        <a class="btn-text" href="/shop">All packaging</a>
+      </div>
+      <p class="section-lede">A deliberately small catalog for storing what you dry, shipped free while we validate fulfillment.</p>
+      <div class="card-grid">
+        {CATALOG.map((product) => (
+          <Card
+            href={product.detailsHref ?? '/shop'}
+            title={product.title}
+            dek={product.note}
+            kicker={product.eyebrow}
+            image={product.image}
+            imageAlt={product.imageAlt}
+            ratio="4/5"
+            fit="contain"
+            price={product.displayPrice}
+            meta="Ships free · US"
+          />
+        ))}
+      </div>
     </div>
-    <ul class="card-grid">
-      <li class="card">
-        <span class="kicker">Symptom</span>
-        <h3><a href="/troubleshooting/batch-not-dry" transition:name="sp-title-batch-not-dry">Food isn't fully dry, especially on the center trays</a></h3>
-        <p>Why center-tray food comes out cool, flexible, or dark in the middle, and the checks that fix it, in the order to try them.</p>
-      </li>
-      <li class="card">
-        <span class="kicker">Symptom</span>
-        <h3><a href="/troubleshooting/chewy-candy" transition:name="sp-title-chewy-candy">Candy is chewy, melted, or didn't puff</a></h3>
-        <p>Chewy centers, melted puddles, or candy that never puffed: each failure has a distinct cause, whether that's spacing, settings, or a candy that fundamentally won't work.</p>
-      </li>
-      <li class="card">
-        <span class="kicker">Symptom</span>
-        <h3><a href="/troubleshooting/rehydration-problems" transition:name="sp-title-rehydration-problems">Rehydrated food is tough, mushy, or tastes flat</a></h3>
-        <p>Rehydration failures trace back to three places: how the food was dried, how it's being rehydrated, and what that food can ever be again, plus the food-safety rule that applies.</p>
-      </li>
-    </ul>
+  </section>
 
-    <div class="section-head">
-      <h2>Comparisons with stated criteria</h2>
-      <a href="/compare">All comparisons →</a>
+  <section class="module" aria-labelledby="batch-log-heading">
+    <div class="wrap">
+      <div class="card batch-log">
+        <span class="kicker">Free tool</span>
+        <h2 id="batch-log-heading">The Batch Log &amp; Cost Tracker</h2>
+        <p>Log every batch: food, load weight, cycle hours, packaging, and water-activity readings. See your real cost per batch and per bag. Data stays in your browser; export to CSV anytime.</p>
+        <a class="btn btn-primary" href="/tools/batch-log" data-sp-event="tool_promo_click">Start logging batches</a>
+      </div>
     </div>
-    <ul class="card-grid">
-      <li class="card">
-        <span class="kicker">machines</span>
-        <h3><a href="/compare/home-freeze-dryers" transition:name="sp-title-home-freeze-dryers">Harvest Right vs. Blue Alpine vs. Stay Fresh: the spec comparison</a></h3>
-        <p>The three main US home freeze dryer brands compared on price, capacity, power, pump, and warranty. Every figure comes from manufacturer documentation, with access dates.</p>
-      </li>
-      <li class="card">
-        <span class="kicker">storage</span>
-        <h3><a href="/compare/storage-containers" transition:name="sp-title-storage-containers">Mylar bags vs. mason jars vs. PETE: freeze-dried storage compared</a></h3>
-        <p>The three legitimate storage systems for freeze-dried food, compared on barrier quality, cost per unit, resealability, and fitness for selling vs. pantry use.</p>
-      </li>
-    </ul>
+  </section>
 
-    <LaunchOffer placement="homepage" />
-
-    <section class="card" style="margin:2.5rem 0 0;padding:1.6rem;">
-      <span class="kicker">Free tool</span>
-      <h2 style="margin-top:0.3rem;">The Batch Log &amp; Cost Tracker</h2>
-      <p style="color:var(--ink-soft);max-width:60ch;">Log every batch: food, load weight, cycle hours, packaging, and water-activity readings. See your real cost per batch and per bag. Data stays in your browser; export to CSV anytime.</p>
-      <a class="btn btn-primary" href="/tools/batch-log" data-sp-event="tool_promo_click">Start logging batches</a>
-    </section>
-
-    <Newsletter />
-  </div>
-
-  <script is:inline src="/hero-sublimation.js" defer></script>
+  <section class="module">
+    <div class="prose">
+      <Newsletter />
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .hero-grid { display: grid; gap: var(--s4); align-items: center; }
+  @media (min-width: 900px) { .hero-grid { grid-template-columns: 1fr 1fr; gap: var(--s6); } }
+
+  .hero-copy h1 { margin: 0 0 var(--s3); }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: var(--s2); margin-top: var(--s3); }
+
+  .hero-media :global(.hero-img) {
+    width: 100%; aspect-ratio: 16 / 9; object-fit: cover;
+    border-radius: var(--radius); display: block;
+  }
+  .hero-panel {
+    aspect-ratio: 16 / 9;
+    display: grid; place-items: center;
+    background: var(--brand-tint);
+    border-radius: var(--radius);
+  }
+
+  .section-lede { color: var(--ink-soft); max-width: 60ch; margin-top: calc(var(--s2) * -1); margin-bottom: var(--s3); }
+
+  .batch-log { padding: var(--s4); }
+  .batch-log h2 { margin: 0 0 var(--s2); }
+  .batch-log p { color: var(--ink-soft); max-width: 60ch; }
+</style>

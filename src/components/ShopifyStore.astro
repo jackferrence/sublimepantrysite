@@ -1,15 +1,57 @@
 ---
 /**
- * Loads the Shopify Storefront Web Components runtime and declares the store.
+ * Declares the store and loads the Shopify Storefront Web Components runtime.
  *
- * Included once per commerce page. Everything SEO-critical is server-rendered
- * by the calling page; these components supply only live price, availability,
- * cart, and the checkout handoff.
+ * Rendered on every page, because the cart drawer is on every page. The runtime
+ * itself is only fetched eagerly on the pages that need it to paint (the shop
+ * and the product page, which hydrate live prices). Everywhere else it is
+ * fetched on first cart interaction, so an article reader never pays for
+ * commerce JavaScript they do not use.
+ *
+ * Everything SEO-critical is server-rendered by the calling page; these
+ * components supply only live price, availability, cart, and the checkout
+ * handoff.
  */
 import { SHOPIFY_STORE_DOMAIN } from '../lib/commerce';
+
+interface Props {
+  /** True on commerce pages, where live pricing must resolve immediately. */
+  eager?: boolean;
+}
+
+const { eager = false } = Astro.props;
+const RUNTIME = 'https://cdn.shopify.com/storefront/web-components.js';
 ---
-<script type="module" src="https://cdn.shopify.com/storefront/web-components.js"></script>
 <shopify-store store-domain={SHOPIFY_STORE_DOMAIN} country="US" language="en"></shopify-store>
+
+{eager ? (
+  <script type="module" is:inline src={RUNTIME}></script>
+) : (
+  <script is:inline define:vars={{ RUNTIME }}>
+    (function () {
+      if (window.__spShopifyRuntime) return;
+      function load() {
+        if (window.__spShopifyRuntime) return;
+        window.__spShopifyRuntime = true;
+        var s = document.createElement('script');
+        s.type = 'module';
+        s.src = RUNTIME;
+        document.head.appendChild(s);
+      }
+      ['pointerdown', 'keydown', 'touchstart'].forEach(function (type) {
+        document.addEventListener(
+          type,
+          function (e) {
+            var el = e.target instanceof Element ? e.target.closest('[data-sp-cart-open],[data-sp-cart-add]') : null;
+            if (el) load();
+          },
+          { capture: true, passive: true }
+        );
+      });
+    })();
+  </script>
+)}
+
 <script is:inline src="/commerce-fallback.js" defer></script>
 
 <style is:global>

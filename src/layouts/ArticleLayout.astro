@@ -1,42 +1,51 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-import Newsletter from '../components/Newsletter.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Byline from '../components/Byline.astro';
+import Img from '../components/Img.astro';
 import EducationalNotice from '../components/EducationalNotice.astro';
-import StarterKitCTA from '../components/StarterKitCTA.astro';
-import type { CollectionEntry } from 'astro:content';
+import ToolsMentioned from '../components/ToolsMentioned.astro';
+import AuthorBio from '../components/AuthorBio.astro';
+import RelatedArticles from '../components/RelatedArticles.astro';
+import Newsletter from '../components/Newsletter.astro';
+import { CATALOG } from '../lib/commerce';
+import { PILLAR_LABEL, withToc, polishTables, verifiedDate, nextCheckDate, formatDate, type Article } from '../lib/articles';
 
 interface Props {
-  entry: CollectionEntry<'articles'>;
+  entry: Article;
   path: string;
 }
 
 const { entry, path } = Astro.props;
 const d = entry.data;
 const site = 'https://www.sublimepantry.com';
+
 const publishedIso = `${d.publishedDate}T00:00:00.000Z`;
-const publishedDisplay = new Date(publishedIso).toLocaleDateString('en-US', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-  timeZone: 'UTC',
-});
-
-// Owner-stage articles only. Machine-selection content (which-freeze-dryer,
-// home-freeze-dryers) deliberately does NOT carry the packaging CTA: those
-// readers do not own a freeze dryer yet, so packaging is the wrong next step.
-// They are routed to the lead magnet instead. See
-// docs/COMMERCIAL-INTERNAL-LINKING.md.
-const starterKitArticles = new Set([
-  'complete-batch-workflow',
-  'storage-containers',
-  'storage-failure',
-  'batch-not-dry',
-  'rehydration-problems',
-]);
-const showStarterKit = starterKitArticles.has(entry.id);
-
-const canonicalPath = path === '/' ? '/' : `${path.replace(/\/$/, '')}/`;
+const updatedIso = d.updatedDate ? `${d.updatedDate}T00:00:00.000Z` : publishedIso;
+const canonicalPath = `${path.replace(/\/$/, '')}/`;
 const pageUrl = new URL(canonicalPath, site).href;
+
+const { html: tocHtml, toc } = withToc(d.bodyHtml);
+const bodyHtml = polishTables(tocHtml);
+
+// Ownership disclosure is generated, not typed. If the article references a
+// product we sell, the disclosure says so first — in the article, next to the
+// mention, rather than only on a policy page.
+const mentionedProducts = CATALOG.filter(
+  (p) =>
+    (d.products ?? []).includes(p.handle) ||
+    bodyHtml.includes(p.handle) ||
+    (p.detailsHref ? bodyHtml.includes(p.detailsHref) : false)
+);
+const ownership = mentionedProducts.length
+  ? `Sold by Sublime Pantry: ${mentionedProducts.map((p) => p.title).join('; ')}. `
+  : '';
+
+const crumbs = [
+  { label: 'Home', href: '/' },
+  { label: PILLAR_LABEL[d.pillar], href: `/${d.pillar}` },
+  { label: d.title, href: path },
+];
 
 const jsonLd: Record<string, unknown>[] = [
   {
@@ -44,11 +53,12 @@ const jsonLd: Record<string, unknown>[] = [
     '@type': 'Article',
     headline: d.title,
     description: d.description,
-    author: { '@type': 'Person', name: d.author },
-    publisher: { '@type': 'Organization', name: 'Sublime Pantry', url: site },
+    author: { '@type': 'Person', name: d.author, url: `${site}/about/` },
+    publisher: { '@id': `${site}/#organization` },
     datePublished: publishedIso,
-    dateModified: d.updatedDate ? `${d.updatedDate}T00:00:00.000Z` : publishedIso,
+    dateModified: updatedIso,
     mainEntityOfPage: pageUrl,
+    ...(d.image ? { image: [new URL(d.image.src, site).href] } : {}),
   },
 ];
 
@@ -75,6 +85,21 @@ if (d.faq && d.faq.length) {
   });
 }
 
+if (d.pillar === 'recipes') {
+  jsonLd.push({
+    '@context': 'https://schema.org',
+    '@type': 'Recipe',
+    name: d.title,
+    description: d.description,
+    author: { '@type': 'Person', name: d.author, url: `${site}/about/` },
+    datePublished: publishedIso,
+    mainEntityOfPage: pageUrl,
+    ...(d.howTo?.length
+      ? { recipeInstructions: d.howTo.map((s) => ({ '@type': 'HowToStep', name: s.name, text: s.text })) }
+      : {}),
+  });
+}
+
 if (d.pillar === 'compare' && d.comparisonCriteria) {
   jsonLd.push({
     '@context': 'https://schema.org',
@@ -87,42 +112,162 @@ if (d.pillar === 'compare' && d.comparisonCriteria) {
 }
 ---
 <BaseLayout title={d.title} description={d.description} path={path} ogType="article" jsonLd={jsonLd}>
-  <article class="prose" style="padding-top:2.2rem;">
-    <header class="article-header">
+  <article class="article">
+    <div class="wrap"><div class="article-head">
+      <Breadcrumbs items={crumbs} />
       <span class="kicker">{d.section ?? d.kicker}</span>
       <h1 transition:name={`sp-title-${entry.id}`}>{d.title}</h1>
-      <p class="article-meta">
-        Reviewed by <strong>{d.author}, Sublime Pantry Editorial</strong><br />
-        Published <time datetime={publishedIso}>{publishedDisplay}</time>
-      </p>
-    </header>
+      <Byline author={d.author} publishedDate={d.publishedDate} updatedDate={d.updatedDate} />
+    </div></div>
 
-    {d.riskClass === 'elevated' && <EducationalNotice />}
+    {d.image && (
+      <figure class="article-hero wrap">
+        <Img
+          src={d.image.src}
+          alt={d.image.alt}
+          width={1280}
+          height={720}
+          sizes="(min-width: 1200px) 72rem, 100vw"
+          loading="eager"
+          fetchpriority="high"
+          class="article-hero-img"
+        />
+        {d.image.credit && <figcaption>{d.image.credit}</figcaption>}
+      </figure>
+    )}
 
-    <div class="article-body" set:html={d.bodyHtml} />
+    <div class="wrap article-columns">
+      <div class="article-main">
+        {d.pillar === 'compare' && (
+          <p class="verified-badge">
+            Prices verified {formatDate(verifiedDate(entry))} · Next check {formatDate(nextCheckDate(entry))}
+          </p>
+        )}
 
-    {showStarterKit && <StarterKitCTA source={`article-${entry.id}`} />}
+        {d.riskClass === 'elevated' && <EducationalNotice />}
 
-    <p class="disclosure-line">{d.disclosure}</p>
+        <div class="article-body" set:html={bodyHtml} />
 
-    {d.faq && d.faq.map((f) => (
-      <div class="notice notice-info" style="margin:2.2rem 0;">
-        <p style="margin:0 0 .3rem;font-weight:700;color:var(--heading);">{f.question}</p>
-        <p style="margin:0;">{f.answer}</p>
+        <ToolsMentioned bodyHtml={bodyHtml} declared={d.products} />
+
+        <p class="disclosure-line">{ownership}{d.disclosure}</p>
+
+        {d.faq && d.faq.length > 0 && (
+          <section class="article-faq" aria-labelledby="faq-heading">
+            <h2 id="faq-heading">Common questions</h2>
+            {d.faq.map((f) => (
+              <details>
+                <summary>{f.question}</summary>
+                <p>{f.answer}</p>
+              </details>
+            ))}
+          </section>
+        )}
+
+        <section class="sources" aria-labelledby="sources-heading">
+          <h2 id="sources-heading">Sources</h2>
+          <ol>
+            {d.sources.map((s) => (
+              <li>
+                <a href={s.url} rel="nofollow noopener">{s.title}</a> — {s.publisher} <span class="tier-tag">{s.tier}</span> · accessed {s.accessDate}
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <AuthorBio author={d.author} />
       </div>
-    ))}
 
-    <section class="sources" aria-labelledby="sources-heading">
-      <h2 id="sources-heading">Sources</h2>
-      <ol>
-        {d.sources.map((s) => (
-          <li>
-            <a href={s.url} rel="nofollow noopener">{s.title}</a> — {s.publisher} <span class="tier-tag">{s.tier}</span> · accessed {s.accessDate}
-          </li>
-        ))}
-      </ol>
-    </section>
+      {toc.length > 1 && (
+        <aside class="article-toc" aria-labelledby="toc-heading">
+          <nav aria-labelledby="toc-heading">
+            <h2 id="toc-heading" class="toc-heading">On this page</h2>
+            <ol>
+              {toc.map((item) => (
+                <li><a href={`#${item.id}`}>{item.text}</a></li>
+              ))}
+            </ol>
+          </nav>
+        </aside>
+      )}
+    </div>
 
-    <Newsletter />
+    <div class="wrap">
+      <RelatedArticles entry={entry} />
+    </div>
+
+    <div class="wrap"><div class="article-measure">
+      <Newsletter />
+    </div></div>
   </article>
 </BaseLayout>
+
+<style>
+  .article { padding-top: var(--s4); }
+  /* The head, the body column and the newsletter all share one left edge and
+     one measure, so nothing shifts as the reader scrolls down the page. */
+  .article-head, .article-measure { max-width: var(--measure); }
+  .article-head h1 { margin-bottom: 0; }
+
+  .article-hero { margin: 0 auto var(--s4); }
+  .article-hero :global(.article-hero-img) {
+    width: 100%; aspect-ratio: 16 / 9; object-fit: cover;
+    border-radius: var(--radius); display: block;
+  }
+
+  .article-columns { display: block; }
+  .article-main { max-width: var(--measure); }
+
+  @media (min-width: 960px) {
+    .article-columns {
+      display: grid;
+      grid-template-columns: minmax(0, var(--measure)) minmax(14rem, 1fr);
+      gap: var(--s6);
+      align-items: start;
+    }
+  }
+
+  .article-toc { display: none; }
+  @media (min-width: 960px) {
+    .article-toc { display: block; position: sticky; top: var(--s7); }
+  }
+  .toc-heading {
+    font-family: var(--font-body); font-size: var(--kicker); font-weight: 600;
+    text-transform: uppercase; letter-spacing: .08em; color: var(--brand);
+    margin: 0 0 var(--s1);
+  }
+  .article-toc ol { list-style: none; margin: 0; padding: 0; }
+  .article-toc li { margin: 0; border-top: 1px solid var(--mist); }
+  .article-toc a {
+    display: block; padding: .45rem 0;
+    font-size: .9rem; color: var(--ink-soft); text-decoration: none;
+  }
+  .article-toc a:hover { color: var(--brand); text-decoration: underline; }
+
+  .verified-badge {
+    display: inline-block;
+    padding: .35rem .7rem;
+    border-radius: var(--radius);
+    background: var(--brand-tint);
+    color: var(--ink);
+    font-size: var(--kicker); font-weight: 600;
+  }
+
+  .article-faq details {
+    border-top: 1px solid var(--mist);
+    padding: var(--s2) 0;
+  }
+  .article-faq details:last-of-type { border-bottom: 1px solid var(--mist); }
+  .article-faq summary {
+    cursor: pointer; font-weight: 600;
+    font-family: var(--font-display); font-size: 1.1rem;
+  }
+  .article-faq details p { margin: var(--s1) 0 0; color: var(--ink-soft); }
+
+  .sources ol { font-size: .92rem; color: var(--ink-soft); }
+  .tier-tag {
+    display: inline-block; padding: .05rem .4rem; border-radius: var(--radius);
+    background: var(--brand-tint); color: var(--ink);
+    font-size: .72rem; text-transform: uppercase; letter-spacing: .06em;
+  }
+</style>
