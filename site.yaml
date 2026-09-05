@@ -26,6 +26,7 @@ pillars:
   - guides
   - troubleshooting
   - compare
+  - recipes
 
 # Topics/claim categories that require the elevated riskClass and therefore
 # the strictest verification + always render EducationalNotice.
