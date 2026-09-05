@@ -56,7 +56,7 @@ test('cycleTime becomes cookTime — the machine run is the cooking step', () =>
 
 test('a relative image src is resolved against the site origin', () => {
   const out = recipeJsonLd(
-    { ...base, howTo: [{ name: 'x', text: 'y' }], image: { src: '/images/recipes/berries.jpg', alt: 'Berries' } },
+    { ...base, howTo: [{ name: 'x', text: 'y' }], image: { src: '/images/recipes/berries.jpg' } },
     ctx,
   );
   assert.deepEqual(out.image, ['https://www.sublimepantry.com/images/recipes/berries.jpg']);

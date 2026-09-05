@@ -12,3 +12,11 @@ public/og/
 
 # Playwright MCP session artifacts (screenshots, console logs, snapshots).
 .playwright-mcp/
+
+# Camera-resolution originals over 5 MB. Their WebP derivatives under
+# public/images/library/ ARE committed, so the site and its tests build without
+# them; only `node assets/build-derivatives.mjs` needs them back. See
+# assets/README.md for where they are kept.
+assets/originals/camp-pouch-rehydrated-chili.png
+assets/originals/camp-pouch-freeze-dried-vegetables.png
+assets/originals/freeze-dryer-pair-loaded-trays.jpeg

@@ -60,8 +60,25 @@ const articles = defineCollection({
       .array(z.object({ name: z.string(), text: z.string() }))
       .optional(),
     /** Hero photograph. Optional: article heroes render nothing until a real
-     *  photo exists — never a placeholder standing in for reporting. */
-    image: z.object({ src: z.string(), alt: z.string(), credit: z.string().optional() }).optional(),
+     *  photo exists — never a placeholder standing in for reporting.
+     *
+     *  Two shapes, and `assetId` is the one to use. It names an entry in
+     *  src/lib/assets.ts, which owns the alt text, the credit and the
+     *  restrictions; the article stores a pointer and nothing else. The bare
+     *  `{ src, alt }` form is the legacy shape, kept only for a slot whose
+     *  photograph is not catalogued, and it is how an article came to promise
+     *  screen-reader users "a person loading a tray" for a frame with no
+     *  person in it — alt drifts when it lives away from the photograph.
+     *
+     *  Both branches are `.strict()`: Zod strips unknown keys in silence, so
+     *  without it a mistyped `assetID` would vanish and the hero would go dark
+     *  with no error anywhere. */
+    image: z
+      .union([
+        z.object({ assetId: z.string() }).strict(),
+        z.object({ src: z.string(), alt: z.string(), credit: z.string().optional() }).strict(),
+      ])
+      .optional(),
     /** Hand-picked "keep reading" slugs; falls back to newest in the pillar. */
     related: z.array(z.string()).optional(),
     /** Recipe-pillar extras; see recipeSchema. */

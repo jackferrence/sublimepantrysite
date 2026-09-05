@@ -3,6 +3,7 @@
  */
 import type { CollectionEntry } from 'astro:content';
 import { publicImage } from './media';
+import { caption, getAsset, largest, srcSet, type AssetRatio } from './assets';
 
 export type Article = CollectionEntry<'articles'>;
 
@@ -105,22 +106,55 @@ export function polishTables(html: string): string {
 }
 
 /**
- * The article's hero photograph, if the file actually exists.
+ * The article's hero photograph, resolved and ready to render.
  *
- * An article declares the image it is waiting for; the file arrives later.
- * Every call site that renders an article image must go through here, because
- * an unresolved slot is not a cosmetic problem — `<img src>` pointing at a
- * missing file ships a broken-image glyph, and `check-links` fails the build on
- * it. Returns `undefined` until the photograph lands, at which point every
- * surface picks it up at once with no code change.
+ * Every call site that renders an article image must go through here — there
+ * are eight of them, and the one that forgets is the one that breaks. An
+ * unresolved slot is not cosmetic: `<img src>` pointing at a missing file ships
+ * a broken-image glyph and `check-links` fails the build on it.
  *
- * Deliberately co-located with the other article helpers rather than inlined at
- * each call site: there are eight of them, and the one that forgets is the one
- * that breaks.
+ * Two ways an article can name its hero. `assetId` looks the photograph up in
+ * the asset library, which owns the alt text, the credit and the restrictions;
+ * this is the shape to use, because alt that lives with the photograph cannot
+ * drift away from what is actually in the frame. A bare `{ src, alt }` still
+ * resolves against `public/` for a slot whose photograph is not catalogued.
+ *
+ * Returns `undefined` until the photograph lands, at which point every surface
+ * picks it up at once with no code change.
  */
-export function heroImage(entry: Article): { src: string; alt: string } | undefined {
+/** Article heroes render wide; the library must have generated this crop. */
+const HERO_RATIO: AssetRatio = '16:9';
+
+export interface HeroImage {
+  src: string;
+  /** Empty for a legacy `{ src, alt }` hero, which has no derivatives. */
+  srcSet?: string;
+  alt: string;
+  credit?: string;
+  width: number;
+  height: number;
+}
+
+export function heroImage(entry: Article): HeroImage | undefined {
   const declared = entry.data.image;
   if (!declared) return undefined;
+
+  if ('assetId' in declared) {
+    const asset = getAsset(declared.assetId);
+    if (!asset) return undefined;
+    const frame = largest(asset, HERO_RATIO);
+    if (!frame) return undefined;
+    return {
+      src: frame.src,
+      srcSet: srcSet(asset, HERO_RATIO),
+      alt: asset.alt,
+      credit: caption(asset),
+      width: frame.w,
+      height: frame.h,
+    };
+  }
+
   const resolved = publicImage(declared.src);
-  return resolved ? { src: resolved, alt: declared.alt } : undefined;
+  if (!resolved) return undefined;
+  return { src: resolved, alt: declared.alt, credit: declared.credit, width: 1280, height: 720 };
 }

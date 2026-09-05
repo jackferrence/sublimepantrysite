@@ -1,6 +1,9 @@
 {
   "title": "Harvest Right vs. Blue Alpine vs. Stay Fresh: the spec comparison",
   "description": "The three main US home freeze dryer brands compared on price, capacity, power, pump, and warranty. Every figure comes from manufacturer documentation, with access dates.",
+  "image": {
+    "assetId": "freeze-dryer-pair-loaded-trays"
+  },
   "kicker": "Comparison",
   "pillar": "compare",
   "riskClass": "standard",

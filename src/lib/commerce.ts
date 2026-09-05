@@ -16,6 +16,11 @@ export const SHOPIFY_PUBLIC_DOMAIN = 'shop.sublimepantry.com';
 
 /** A product photograph, with its provenance stated. */
 export interface ProductImage {
+  /** Asset-library id, when the photograph is catalogued in src/lib/assets.ts.
+   *  Preferred over a bare `src`: the library records the restrictions, and
+   *  tests/assets.test.mjs fails the build if a `not-product-imagery` asset is
+   *  named here. Shopify CDN URLs have no entry and keep using `src` alone. */
+  assetId?: string;
   src: string;
   alt: string;
   /** What the frame shows, used for the thumbnail's accessible name. */

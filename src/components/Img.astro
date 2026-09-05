@@ -9,9 +9,13 @@
  * cannot creep back in.
  */
 import { Image } from 'astro:assets';
+import { ASSETS, srcSet as assetSrcSet } from '../lib/assets';
 
 interface Props {
   src: string;
+  /** Responsive candidates. Usually left off — a library `src` fills this in
+   *  automatically below. Pass it only for candidates the library cannot know. */
+  srcset?: string;
   alt: string;
   width: number;
   height: number;
@@ -23,6 +27,7 @@ interface Props {
 
 const {
   src,
+  srcset,
   alt,
   width,
   height,
@@ -33,6 +38,18 @@ const {
 } = Astro.props;
 
 const optimisable = src.startsWith('https://cdn.shopify.com/');
+
+// An asset-library `src` names one derivative; the library knows the rest of
+// the ladder, so fill the srcset in here rather than at each call site. Seven
+// templates render article heroes into cards, and the one that forgot to pass
+// candidates would quietly ship a 1600px file into a 350px card — no error, no
+// visible defect, just a slow page on the screens nobody profiles.
+const libraryMatch = /^(\/images\/library\/[^/]+)\/(\d+)x(\d+)-\d+\.webp$/.exec(src);
+const libraryAsset = libraryMatch ? ASSETS.find((a) => a.src === libraryMatch[1]) : undefined;
+const libraryRatio = libraryMatch ? `${libraryMatch[2]}:${libraryMatch[3]}` : undefined;
+const candidates =
+  srcset ||
+  (libraryAsset && libraryRatio ? assetSrcSet(libraryAsset, libraryRatio as never) : '');
 ---
 {optimisable ? (
   <Image
@@ -49,6 +66,7 @@ const optimisable = src.startsWith('https://cdn.shopify.com/');
 ) : (
   <img
     src={src}
+    srcset={candidates || undefined}
     alt={alt}
     width={width}
     height={height}
