@@ -21,7 +21,13 @@ export function publicImage(path: string): string | undefined {
  *
  * These are the downloadable / off-site versions and keep the artwork's own
  * colours. The on-site mark is `Mark.astro`, which redraws the same geometry
- * from design tokens — nothing in a template should reach for a file here.
+ * from design tokens.
+ *
+ * One template may reach for a file here, and only one: the header brand block
+ * (`BrandBlock.astro`). That block is the plate — the artwork's own #b0ddec
+ * ground, bleeding to the top and left edges of the header — and a redrawn
+ * token version would be reproducing the background rather than showing the
+ * artwork. Everywhere else still goes through `Mark.astro` or `publicImage`.
  *
  * `reversed*` are knockouts: white letterforms that vanish on --paper and
  * --surface. They exist for dark or plated grounds only, which is why they are
