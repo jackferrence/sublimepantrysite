@@ -14,7 +14,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
-import { mkdtempSync, writeFileSync, readFileSync, mkdirSync } from 'node:fs';
+import { mkdtempSync, writeFileSync, readFileSync, mkdirSync, existsSync } from 'node:fs';
+import { createRequire } from 'node:module';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
@@ -95,4 +96,51 @@ test('an empty directory is skipped rather than treated as an empty site', () =>
   const { stdout, code } = run({ SITEMAP_DIR: dir });
   assert.equal(code, 0);
   assert.match(stdout, /no sitemap/);
+});
+
+test('Netlify can resolve the build plugin the way Netlify resolves it', () => {
+  // This is the assertion that would have caught the deploy failure. The plugin
+  // shipped as `index.mjs` with a `manifest.yml` and no `package.json`, which
+  // looks complete and is not: Netlify resolves a local plugin directory with
+  // Node's own module resolution, which looks for `index.js` or a `package.json`
+  // `main`, finds neither, and fails the whole build with
+  //   Plugin could not be found using local path: ./plugins/indexnow
+  // before any of the fail-soft logic in the script gets a chance to run.
+  const require = createRequire(import.meta.url);
+  const resolved = require.resolve(join(process.cwd(), 'plugins/indexnow'));
+  assert.match(resolved, /plugins\/indexnow\/index\.mjs$/);
+
+  const pkg = JSON.parse(readFileSync('plugins/indexnow/package.json', 'utf8'));
+  assert.equal(pkg.main, 'index.mjs');
+  assert.equal(pkg.type, 'module', 'index.mjs uses ESM syntax');
+
+  // netlify.toml must point at the directory that actually exists.
+  const toml = readFileSync('netlify.toml', 'utf8');
+  const pkgPath = toml.match(/^\s*package\s*=\s*"([^"]+)"/m)?.[1];
+  assert.equal(pkgPath, '/plugins/indexnow');
+  assert.ok(existsSync('plugins/indexnow/manifest.yml'), 'a local plugin needs manifest.yml');
+});
+
+test('the plugin skips every context that is not production', async () => {
+  const { onSuccess } = await import('../plugins/indexnow/index.mjs');
+  for (const context of ['deploy-preview', 'branch-deploy', 'dev', undefined]) {
+    const logged = [];
+    const realLog = console.log;
+    const realContext = process.env.CONTEXT;
+    console.log = (m) => logged.push(String(m));
+    if (context === undefined) delete process.env.CONTEXT;
+    else process.env.CONTEXT = context;
+    try {
+      await onSuccess({ constants: {}, utils: {} });
+    } finally {
+      console.log = realLog;
+      if (realContext === undefined) delete process.env.CONTEXT;
+      else process.env.CONTEXT = realContext;
+    }
+    assert.match(
+      logged.join('\n'),
+      /not production — skipping/,
+      `context "${context}" must not submit`,
+    );
+  }
 });

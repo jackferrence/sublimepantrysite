@@ -20,3 +20,6 @@ public/og/
 assets/originals/camp-pouch-rehydrated-chili.png
 assets/originals/camp-pouch-freeze-dried-vegetables.png
 assets/originals/freeze-dryer-pair-loaded-trays.jpeg
+
+# netlify-cli local build cache.
+.netlify/

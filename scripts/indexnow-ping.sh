@@ -101,7 +101,9 @@ case "$code" in
   429) say "HTTP 429: rate limited. Nothing to do; the next deploy retries." ;;
   *)   say "HTTP ${code}: unexpected." ;;
 esac
-[ -n "$body" ] && say "body: ${body}"
+# Truncated: a proxy or WAF in front of the endpoint can answer with a full HTML
+# error page, and dumping that into a deploy log buries everything around it.
+[ -n "$body" ] && say "body: $(printf '%s' "$body" | tr -d '\n' | cut -c1-300)"
 
 # Always succeed. A search-engine ping must never fail a deploy.
 exit 0
