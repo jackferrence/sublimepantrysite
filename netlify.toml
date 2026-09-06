@@ -14,3 +14,10 @@
 
 # Security headers are defined in public/_headers (copied to dist/_headers
 # at build time) so there is a single source of truth.
+
+# IndexNow. Submits published URLs to Bing's instant-index endpoint after a
+# successful production deploy — onSuccess, so the URLs are live before a
+# crawler is invited to fetch them. Skips deploy previews, and cannot fail the
+# deploy: see plugins/indexnow/index.mjs.
+[[plugins]]
+  package = "/plugins/indexnow"
