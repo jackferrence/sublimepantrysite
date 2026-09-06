@@ -1,6 +1,6 @@
 ---
 import TrustStrip from './TrustStrip.astro';
-import { getAuthor, hasPortrait } from '../lib/authors';
+import { getAuthor } from '../lib/authors';
 
 interface Props {
   author: string;
@@ -10,7 +10,6 @@ interface Props {
 
 const { author, publishedDate, updatedDate } = Astro.props;
 const person = getAuthor(author);
-const portrait = hasPortrait(person);
 
 const publishedIso = `${publishedDate}T00:00:00.000Z`;
 const updatedIso = updatedDate ? `${updatedDate}T00:00:00.000Z` : undefined;
@@ -24,11 +23,7 @@ const fmt = (iso: string) =>
 ---
 <div class="byline">
   <div class="byline-row">
-    {portrait ? (
-      <img class="byline-portrait" src={person.portrait} alt="" width="40" height="40" loading="lazy" decoding="async" />
-    ) : (
-      <span class="byline-portrait byline-initials" aria-hidden="true">{person.initials}</span>
-    )}
+    <span class="byline-portrait byline-initials" aria-hidden="true">{person.initials}</span>
     <div>
       <p class="byline-name">
         By <a href={person.url}><strong>{person.name}</strong></a> · Sublime Pantry Editorial

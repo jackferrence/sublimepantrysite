@@ -1,0 +1,64 @@
+---
+/**
+ * The header's brand block: the SP plate, flush in the top-left corner.
+ *
+ * This is the one template sanctioned to reference public/brand/ directly (see
+ * the note in src/lib/media.ts). The reason is specific: the block's ground IS
+ * the artwork's own #b0ddec plate, bleeding to the top and left edges of the
+ * header, so drawing it from tokens would mean reproducing a background rather
+ * than showing a logo. Everywhere else still goes through Mark.astro.
+ *
+ * The image is decorative — alt="". The accessible name lives on the link that
+ * wraps this, as an aria-label, and the site's name is additionally carried in
+ * the DOM by a visually-hidden span. Removing the wordmark removes the brand
+ * name from the page unless something puts it back, and a logo that announces
+ * itself twice is worse than one that announces itself once.
+ *
+ * The block is square and the file bleeds on all four sides, so replacing the
+ * artwork is a filename change and nothing else.
+ */
+/**
+ * Drawn for this block, not adapted to it. The supplied press plate had white
+ * letterforms whose legibility came from a one-pixel rust drop shadow — fine
+ * at 200px, gone by 32px. This one inverts that: the glyphs are the rust
+ * (#8a3d10 on #b0ddec, ~4.1:1, against white's ~1.4:1), so the mark holds
+ * without a detail it cannot keep at header size. The snowflake is dropped for
+ * the same reason Mark.astro drops it, and the glyphs are sized to the block
+ * rather than sitting in the press file's dead margin.
+ *
+ * The file carries a C2PA Content Credentials manifest. Left intact
+ * deliberately: it is provenance on a brand asset, and stripping it to save
+ * 5.7KB on a cached logo would be trading an honest signal for nothing.
+ */
+const MARK = '/brand/mark-header-plate.svg';
+
+interface Props {
+  /** Block edge length in px. The header sets this from its own height. */
+  size?: number;
+}
+
+const { size = 60 } = Astro.props;
+---
+<span class="brand-block" style={`--block: ${size}px`}>
+  <img src={MARK} alt="" width={size} height={size} decoding="async" fetchpriority="high" />
+</span>
+
+<style>
+  /* The plate is the block: no padding, no radius, no border. Any inset would
+     read as a logo floating on a coloured card rather than a corner of colour. */
+  .brand-block {
+    display: block;
+    inline-size: var(--block);
+    block-size: 100%;
+    min-block-size: var(--block);
+    background: var(--logo-frost);
+    flex: none;
+  }
+
+  .brand-block img {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+</style>

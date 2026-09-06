@@ -6,10 +6,18 @@ import Img from '../components/Img.astro';
 import Mark from '../components/Mark.astro';
 import Newsletter from '../components/Newsletter.astro';
 import { CATALOG } from '../lib/commerce';
-import { publicImage } from '../lib/media';
 import { heroImage as articleHero, articleHref, type Article } from '../lib/articles';
+import { findAsset, largest, srcSet } from '../lib/assets';
 
-const heroImage = publicImage('/images/hero.jpg');
+// The homepage hero asks the library for a wide brand frame and takes null for
+// an answer — today there is no `brand` asset, so the mark panel renders. It
+// used to resolve `/images/hero.jpg` against a hard-coded alt reading "Hands
+// loading prepared food trays into a home freeze dryer", which meant the first
+// file dropped at that path would ship that sentence to screen readers whatever
+// it actually showed. Asking by intent makes that impossible: alt arrives with
+// the photograph or there is no photograph.
+const hero = findAsset({ cls: 'brand', ratio: '16:9', context: 'editorial' });
+const heroFrame = hero ? largest(hero, '16:9') : null;
 
 const articles = await getCollection('articles');
 const byId = new Map(articles.map((entry) => [entry.id, entry]));
@@ -35,12 +43,13 @@ const startHere = ['complete-batch-workflow', 'which-freeze-dryer', 'home-freeze
       </div>
 
       <div class="hero-media">
-        {heroImage ? (
+        {hero && heroFrame ? (
           <Img
-            src={heroImage}
-            alt="Hands loading prepared food trays into a home freeze dryer"
-            width={1280}
-            height={720}
+            src={heroFrame.src}
+            srcset={srcSet(hero, '16:9')}
+            alt={hero.alt}
+            width={heroFrame.w}
+            height={heroFrame.h}
             sizes="(min-width: 900px) 34rem, 100vw"
             loading="eager"
             fetchpriority="high"

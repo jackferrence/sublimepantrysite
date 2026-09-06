@@ -18,7 +18,11 @@ export interface RecipeSource {
   description: string;
   author: string;
   howTo?: { name: string; text: string }[];
-  image?: { src: string; alt: string };
+  /** Resolved hero path, or absent. Deliberately not the article's *declared*
+   *  image: a declared path may name a photograph that was never delivered, and
+   *  Recipe JSON-LD pointing at a 404 is a structured-data error rather than a
+   *  blank space. Callers pass what actually rendered. */
+  image?: { src: string };
   recipe?: {
     yield?: string;
     prepTime?: string;

@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import PageLayout from '../layouts/PageLayout.astro';
-import { JACK_FERRENCE, hasPortrait } from '../lib/authors';
+import { JACK_FERRENCE } from '../lib/authors';
 
 const articles = await getCollection('articles');
 const stats = [
@@ -10,9 +10,11 @@ const stats = [
   { value: articles.filter((e) => e.data.pillar === 'compare').length, label: 'comparisons maintained' },
 ];
 
-const portrait = hasPortrait(JACK_FERRENCE);
 // The date the no-affiliates statement below was last verified true.
 const commercialAsOf = 'September 3, 2026';
+// Mirrors nextCheckDate() in src/lib/articles.ts, which stamps every
+// comparison with a next-check date ninety days after its last verification.
+const recheckDays = 90;
 ---
 <PageLayout
   title="About Sublime Pantry"
@@ -24,22 +26,19 @@ const commercialAsOf = 'September 3, 2026';
   <h1>About Sublime Pantry</h1>
 
   <div class="masthead">
-    {portrait ? (
-      <img class="masthead-portrait" src={JACK_FERRENCE.portrait} alt="" width="96" height="96" loading="eager" decoding="async" />
-    ) : (
-      <span class="masthead-portrait masthead-initials" aria-hidden="true">{JACK_FERRENCE.initials}</span>
-    )}
+    <span class="masthead-portrait masthead-initials" aria-hidden="true">{JACK_FERRENCE.initials}</span>
     <div>
       <p class="masthead-name">{JACK_FERRENCE.name}</p>
       <p class="meta">{JACK_FERRENCE.role}</p>
     </div>
   </div>
 
-  <h2>Who runs this</h2>
-  <p>Sublime Pantry is written and edited by Jack Ferrence. It exists for two overlapping groups of people: home freeze-drying enthusiasts who want every batch to come out right, and cottage sellers who are turning a freeze dryer into a small, legal, profitable food business. The name comes from <em>sublimation</em> — the physical process at the heart of freeze-drying, where ice turns directly into vapor under vacuum without ever becoming liquid. That's also how we try to write: no soggy middle.</p>
+  <h2>What this is</h2>
+  <p>Sublime Pantry is a home freeze-drying publication. It exists for two overlapping groups: people who want every batch to come out right, and cottage sellers turning a freeze dryer into a small, legal, profitable food business. The name comes from <em>sublimation</em> — the physical process at the heart of freeze-drying, where ice turns directly into vapor under vacuum without ever becoming liquid.</p>
 
-  <h2>How the work gets made</h2>
-  <p>Research is AI-assisted. Every published page is read, checked against its sources, and approved by a human editor before it goes live, and every factual correction is logged publicly. Articles cite their sources with access dates, distinguish what is documented from what is judgment, and say plainly when we haven't tested something ourselves. Our <a href="/editorial-standards">editorial standards</a> and <a href="/review-methodology">review methodology</a> spell this out in detail; corrections live on the <a href="/corrections">corrections page</a>.</p>
+  <h2>How a page gets made</h2>
+  <p>Criteria are stated before the comparison, not after it. Every figure is drawn from manufacturer documentation, government data, or university extension publications, and each source carries the date it was accessed. Where sources conflict, the page says which one it followed and why. Where a number does not exist, the page records it as absent rather than filling the gap.</p>
+  <p>Research is AI-assisted. Every published page is read, checked against its sources, and approved by a human editor before it goes live. Our <a href="/editorial-standards">editorial standards</a> set out how sources are chosen and how AI is used; <a href="/review-methodology">review methodology</a> covers how comparisons are built.</p>
 
   <ul class="numbers">
     {stats.map((stat) => (
@@ -49,6 +48,12 @@ const commercialAsOf = 'September 3, 2026';
       </li>
     ))}
   </ul>
+
+  <h2>What we will not claim</h2>
+  <p>Sublime Pantry has not bench-tested any freeze dryer. Comparisons here are specification and documentation comparisons, and they say so wherever judgment is involved. Nothing on this site is presented as a measurement we took, and no product is reviewed on the basis of experience we do not have.</p>
+
+  <h2>How claims stay current</h2>
+  <p>Prices and specifications move. Every comparison carries the date its figures were last verified and a scheduled next check {recheckDays} days later, both printed on the page rather than held internally. Corrections are logged publicly with what changed and when, on the <a href="/corrections">corrections page</a>.</p>
 
   <h2>What we cover</h2>
   <p>Six things, deliberately narrow: machine decisions, batch troubleshooting, food-specific drying knowledge, storage that lasts, packaging, and the economics and rules of selling freeze-dried food from home.</p>

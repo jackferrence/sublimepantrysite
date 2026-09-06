@@ -14,14 +14,21 @@
  *
  *  - The snowflake. In the artwork it is a hairline flake clipped to a narrow
  *    strip peeking out of the P, and it is 42KB of the 50KB file. At the sizes
- *    this component renders — 32px in the header, 40px in the footer — that
- *    strip is about six pixels wide and resolves to a smudge. It survives in
- *    the press files, where the mark is big enough for it to mean something.
+ *    this component renders — 40px in the footer — that strip is about six
+ *    pixels wide and resolves to a smudge. It survives in the press files,
+ *    where the mark is big enough for it to mean something.
  *  - The empty canvas. The artwork sits in a 1500x1500 square but occupies
  *    only 70% x 37% of it, so a naive 32px box would render a 12px mark. The
  *    viewBox below is the measured bounding box of the four glyph paths.
  *
  * The mark is 1.92:1, not square: give it a height and the width follows.
+ *
+ * Since 2026-09-05 this is the FOOTER lockup only. The header uses
+ * `BrandBlock.astro`, which shows the plated artwork as a file because the
+ * plate must bleed to the header's edges. The two are not interchangeable:
+ * this one is glyphs on whatever ground it is placed on, that one is a block
+ * of the logo's own colour. The conclusion recorded above — that the snowflake
+ * is a smudge at header sizes — is why the header plate drops it too.
  */
 interface Props {
   /** Rendered height in px. Width is derived from the mark's aspect ratio. */

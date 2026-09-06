@@ -17,6 +17,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
+import { getAsset } from '../src/lib/assets.ts';
 
 const ARTICLES = 'src/content/articles';
 const PUBLIC = 'public';
@@ -27,9 +28,28 @@ function articles() {
     .map((f) => ({ slug: f.replace(/\.json$/, ''), data: JSON.parse(readFileSync(join(ARTICLES, f), 'utf8')) }));
 }
 
+/**
+ * The path an article's hero resolves to, whichever shape it declared.
+ *
+ * `assetId` is the shape to use — the asset library owns the alt text, so it
+ * cannot drift from the photograph. A bare `{ src, alt }` is the legacy shape
+ * and still has to satisfy everything below.
+ */
+function heroPath(data) {
+  if (!data.image) return undefined;
+  if (data.image.assetId) return getAsset(data.image.assetId)?.src;
+  return data.image.src;
+}
+
 test('a declared image path is well formed and local', () => {
   for (const { slug, data } of articles()) {
     if (!data.image) continue;
+    if (data.image.assetId) {
+      const asset = getAsset(data.image.assetId);
+      assert.ok(asset, `${slug}: unknown assetId "${data.image.assetId}"`);
+      assert.ok(asset.alt?.trim(), `${slug}: ${asset.id} has no alt text`);
+      continue;
+    }
     assert.match(data.image.src, /^\/images\//, `${slug}: hero must live under /images/`);
     assert.ok(data.image.alt?.trim(), `${slug}: a hero needs alt text`);
   }
@@ -40,7 +60,10 @@ test('every declared image is either delivered or knowingly pending', () => {
   // the photograph exists. The build must stay green while a slot is dark.
   const pending = [];
   for (const { slug, data } of articles()) {
-    if (data.image && !existsSync(join(PUBLIC, data.image.src))) pending.push(`${slug} -> ${data.image.src}`);
+    const path = heroPath(data);
+    if (data.image && (!path || !existsSync(join(PUBLIC, path)))) {
+      pending.push(`${slug} -> ${path ?? JSON.stringify(data.image)}`);
+    }
   }
   if (pending.length) {
     console.log(`  [images] ${pending.length} hero slot(s) awaiting delivery:`);
@@ -67,8 +90,8 @@ test('the built page never emits an img or a schema image for a missing file', (
   walk(dist);
 
   const missing = articles()
-    .filter(({ data }) => data.image && !existsSync(join(PUBLIC, data.image.src)))
-    .map(({ data }) => data.image.src);
+    .map(({ data }) => heroPath(data))
+    .filter((path) => path && !existsSync(join(PUBLIC, path)));
 
   for (const src of missing) {
     for (const page of pages) {

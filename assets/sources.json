@@ -1,0 +1,25 @@
+{
+  "_comment": "id -> original filename in assets/originals/ plus the crops to generate. Ratios are chosen per asset: a ratio is listed only when a centre crop to it does not cut the subject. Consumed by assets/build-derivatives.mjs; kept in step with src/lib/assets.ts by tests/assets.test.mjs.",
+  "assets": [
+    { "id": "freeze-dryer-door-trays-fruit",        "file": "freeze-dryer-door-trays-fruit.jpeg",        "ratios": ["16:9", "4:5", "1:1"] },
+    { "id": "freeze-dryer-pair-loaded-trays",       "file": "freeze-dryer-pair-loaded-trays.jpeg",       "ratios": ["16:9", "4:5", "1:1"] },
+    { "id": "camp-pouch-rehydrated-chili",          "file": "camp-pouch-rehydrated-chili.png",           "ratios": ["16:9", "4:5", "1:1"] },
+    { "id": "camp-pouch-freeze-dried-vegetables",   "file": "camp-pouch-freeze-dried-vegetables.png",    "ratios": ["16:9", "4:5", "1:1"] },
+    { "id": "packfresh-6x6-bag-100cc-absorbers",    "file": "packfresh-6x6-bag-100cc-absorbers.webp",    "ratios": ["1:1"] },
+    { "id": "packfresh-6x6-bag-dimensions",         "file": "packfresh-6x6-bag-dimensions.webp",         "ratios": ["1:1"] },
+    { "id": "packfresh-mre-half-front",             "file": "packfresh-mre-half-front.webp",             "ratios": ["1:1"] },
+    { "id": "packfresh-mre-half-with-absorbers",    "file": "packfresh-mre-half-with-absorbers.webp",    "ratios": ["1:1"] },
+    { "id": "packfresh-mre-half-open-interior",     "file": "packfresh-mre-half-open-interior.webp",     "ratios": ["1:1"] },
+    { "id": "packfresh-mre-half-dimensions",        "file": "packfresh-mre-half-dimensions.webp",        "ratios": ["1:1"] },
+    { "id": "packfresh-mre-full-with-absorbers",    "file": "packfresh-mre-full-with-absorbers.webp",    "ratios": ["1:1"] },
+    { "id": "packfresh-mre-full-gusset-dimensions", "file": "packfresh-mre-full-gusset-dimensions.webp", "ratios": ["1:1"] },
+    { "id": "packfresh-quart-flat-with-absorbers",  "file": "packfresh-quart-flat-with-absorbers.webp",  "ratios": ["1:1"] },
+    { "id": "packfresh-quart-flat-dimensions",      "file": "packfresh-quart-flat-dimensions.webp",      "ratios": ["1:1"] },
+    { "id": "packfresh-mini-sealer-open",           "file": "packfresh-mini-sealer-open.jpg",            "ratios": ["4:5"] },
+    { "id": "packfresh-mini-sealer-angled",         "file": "packfresh-mini-sealer-angled.webp",         "ratios": ["4:5"] },
+    { "id": "packfresh-mini-sealer-sealing-bag",    "file": "packfresh-mini-sealer-sealing-bag.webp",    "ratios": ["4:5"] },
+    { "id": "freeze-dried-strawberry-slices-pile",  "file": "freeze-dried-strawberry-slices-pile.jpeg",  "ratios": ["16:9", "4:5", "1:1"], "fit": "contain" },
+    { "id": "freeze-dried-blueberries-pile",        "file": "freeze-dried-blueberries-pile.jpeg",        "ratios": ["16:9", "4:5", "1:1"], "fit": "contain" },
+    { "id": "freeze-dried-banana-slices-pile",      "file": "freeze-dried-banana-slices-pile.jpeg",      "ratios": ["16:9", "4:5", "1:1"], "fit": "contain" }
+  ]
+}

@@ -3,6 +3,7 @@
  */
 import type { CollectionEntry } from 'astro:content';
 import { publicImage } from './media';
+import { caption, getAsset, largest, srcSet, type AssetRatio } from './assets';
 
 export type Article = CollectionEntry<'articles'>;
 
@@ -96,31 +97,99 @@ export function withToc(bodyHtml: string): { html: string; toc: TocEntry[] } {
  *    spacer, and marking it as data says so without inventing a column title.
  */
 export function polishTables(html: string): string {
-  return html.replace(/<thead>([\s\S]*?)<\/thead>/g, (thead) =>
-    thead
-      // An empty corner header names nothing; demote it to a data cell.
-      .replace(/<th\b([^>]*)>(\s*)<\/th>/g, '<td$1>$2</td>')
-      .replace(/<th\b(?![^>]*\bscope=)([^>]*)>/g, '<th$1 scope="col">')
+  return makeScrollersFocusable(
+    html.replace(/<thead>([\s\S]*?)<\/thead>/g, (thead) =>
+      thead
+        // An empty corner header names nothing; demote it to a data cell.
+        .replace(/<th\b([^>]*)>(\s*)<\/th>/g, '<td$1>$2</td>')
+        .replace(/<th\b(?![^>]*\bscope=)([^>]*)>/g, '<th$1 scope="col">')
+    ),
   );
 }
 
 /**
- * The article's hero photograph, if the file actually exists.
+ * A horizontally scrolling table has to be reachable from the keyboard.
  *
- * An article declares the image it is waiting for; the file arrives later.
- * Every call site that renders an article image must go through here, because
- * an unresolved slot is not a cosmetic problem — `<img src>` pointing at a
- * missing file ships a broken-image glyph, and `check-links` fails the build on
- * it. Returns `undefined` until the photograph lands, at which point every
- * surface picks it up at once with no code change.
+ * `.table-scroll` is `overflow-x: auto`, so on a narrow screen the spec
+ * comparison scrolls sideways — and a mouse or a finger can do that while a
+ * keyboard cannot, because nothing inside the region takes focus. axe reports
+ * it as `scrollable-region-focusable`, severity serious, and it sat on the
+ * flagship buying guide.
  *
- * Deliberately co-located with the other article helpers rather than inlined at
- * each call site: there are eight of them, and the one that forgets is the one
- * that breaks.
+ * `tabindex="0"` makes the region focusable and therefore scrollable with the
+ * arrow keys. A focusable element also needs a name and a role, or a screen
+ * reader announces an unlabelled stop; the table's own `<caption>` is already
+ * the right sentence, so it is reused rather than a second one invented.
+ *
+ * Applied here rather than in the article JSON: the wrapper is authored in
+ * `bodyHtml`, and fixing it per article means fixing it again in every article
+ * written after this one.
  */
-export function heroImage(entry: Article): { src: string; alt: string } | undefined {
+function makeScrollersFocusable(html: string): string {
+  return html.replace(
+    /<div class="table-scroll">([\s\S]*?)<\/div>/g,
+    (whole, inner: string) => {
+      if (/tabindex=/.test(whole)) return whole;
+      const caption = inner.match(/<caption\b[^>]*>([\s\S]*?)<\/caption>/)?.[1];
+      const label = caption
+        ? caption.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()
+        : 'Table, scrolls horizontally';
+      const attr = label.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+      return `<div class="table-scroll" tabindex="0" role="region" aria-label="${attr}">${inner}</div>`;
+    },
+  );
+}
+
+/**
+ * The article's hero photograph, resolved and ready to render.
+ *
+ * Every call site that renders an article image must go through here — there
+ * are eight of them, and the one that forgets is the one that breaks. An
+ * unresolved slot is not cosmetic: `<img src>` pointing at a missing file ships
+ * a broken-image glyph and `check-links` fails the build on it.
+ *
+ * Two ways an article can name its hero. `assetId` looks the photograph up in
+ * the asset library, which owns the alt text, the credit and the restrictions;
+ * this is the shape to use, because alt that lives with the photograph cannot
+ * drift away from what is actually in the frame. A bare `{ src, alt }` still
+ * resolves against `public/` for a slot whose photograph is not catalogued.
+ *
+ * Returns `undefined` until the photograph lands, at which point every surface
+ * picks it up at once with no code change.
+ */
+/** Article heroes render wide; the library must have generated this crop. */
+const HERO_RATIO: AssetRatio = '16:9';
+
+export interface HeroImage {
+  src: string;
+  /** Empty for a legacy `{ src, alt }` hero, which has no derivatives. */
+  srcSet?: string;
+  alt: string;
+  credit?: string;
+  width: number;
+  height: number;
+}
+
+export function heroImage(entry: Article): HeroImage | undefined {
   const declared = entry.data.image;
   if (!declared) return undefined;
+
+  if ('assetId' in declared) {
+    const asset = getAsset(declared.assetId);
+    if (!asset) return undefined;
+    const frame = largest(asset, HERO_RATIO);
+    if (!frame) return undefined;
+    return {
+      src: frame.src,
+      srcSet: srcSet(asset, HERO_RATIO),
+      alt: asset.alt,
+      credit: caption(asset),
+      width: frame.w,
+      height: frame.h,
+    };
+  }
+
   const resolved = publicImage(declared.src);
-  return resolved ? { src: resolved, alt: declared.alt } : undefined;
+  if (!resolved) return undefined;
+  return { src: resolved, alt: declared.alt, credit: declared.credit, width: 1280, height: 720 };
 }

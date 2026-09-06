@@ -1,17 +1,25 @@
-import { existsSync } from 'node:fs';
-import { join } from 'node:path';
-
-const PUBLIC_DIR = join(process.cwd(), 'public');
-
 /**
- * The masthead. One person writes and reviews everything here, and the site
- * says so on every article rather than implying a newsroom.
+ * The masthead.
+ *
+ * Sublime Pantry is an institutional publication, not a personal one. What is
+ * meant to carry credibility here is the method — stated criteria, dated
+ * sources, a published re-check schedule, a public corrections log — and not a
+ * biography. A named editor is part of that: Consumer Reports has editors. A
+ * face is not, which is why there is no portrait field on this record and no
+ * `brand` asset in the library to fill one. See docs/ASSET-LIBRARY.md, where
+ * that class is documented as empty by decision rather than empty pending.
+ *
+ * The role is deliberately "Editor" and never "practitioner". Every claim about
+ * hands-on testing on this site is a negative one — the pages say plainly that
+ * no machine has been bench-tested — and a byline implying otherwise would
+ * undercut the only thing the site is staked on.
  */
 export interface Author {
   name: string;
   role: string;
   bio: string;
-  portrait: string;
+  /** Monogram for the byline tile. Stands in for a portrait permanently, not
+   *  as a placeholder: see the note above. */
   initials: string;
   url: string;
 }
@@ -19,8 +27,7 @@ export interface Author {
 export const JACK_FERRENCE: Author = {
   name: 'Jack Ferrence',
   role: 'Editor, Sublime Pantry',
-  bio: 'Jack runs Sublime Pantry, a home freeze-drying publication built on manufacturer documentation, food-safety literature, and dated sources rather than forum lore. He reviews and approves every page before it publishes.',
-  portrait: '/images/brand/author.jpg',
+  bio: 'Jack edits Sublime Pantry, a home freeze-drying publication built on manufacturer documentation, food-safety literature, and dated sources rather than forum lore. He reviews and approves every page before it publishes, and logs every correction in public.',
   initials: 'JF',
   url: '/about',
 };
@@ -31,16 +38,4 @@ export const AUTHORS: Record<string, Author> = {
 
 export function getAuthor(name: string): Author {
   return AUTHORS[name] ?? JACK_FERRENCE;
-}
-
-/**
- * Whether the portrait file actually exists in `public/`.
- *
- * The photograph has not been shot yet. Rather than ship an <img> that 404s
- * and renders a broken-image glyph, the byline falls back to an initials tile
- * until the file lands — and switches over automatically once it does, with no
- * code change.
- */
-export function hasPortrait(author: Author): boolean {
-  return existsSync(join(PUBLIC_DIR, author.portrait));
 }

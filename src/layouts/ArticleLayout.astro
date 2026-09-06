@@ -9,9 +9,8 @@ import AuthorBio from '../components/AuthorBio.astro';
 import RelatedArticles from '../components/RelatedArticles.astro';
 import Newsletter from '../components/Newsletter.astro';
 import { CATALOG } from '../lib/commerce';
-import { PILLAR_LABEL, withToc, polishTables, verifiedDate, nextCheckDate, formatDate, type Article } from '../lib/articles';
+import { PILLAR_LABEL, withToc, polishTables, verifiedDate, nextCheckDate, formatDate, heroImage, type Article } from '../lib/articles';
 import { recipeJsonLd } from '../lib/schema';
-import { publicImage } from '../lib/media';
 
 interface Props {
   entry: Article;
@@ -27,13 +26,12 @@ const updatedIso = d.updatedDate ? `${d.updatedDate}T00:00:00.000Z` : publishedI
 const canonicalPath = `${path.replace(/\/$/, '')}/`;
 const pageUrl = new URL(canonicalPath, site).href;
 
-// The hero slot names the photograph it is waiting for; `publicImage` resolves
-// that name against public/ at build time. Both articles onboarded here declare
-// a hero whose file has not been delivered yet, and rendering an <img> for a
-// file that does not exist puts a broken-image glyph at the top of the page.
-// The slot stays dark until the file lands, then lights up with no code change
-// — the same contract the author portrait already uses.
-const heroSrc = d.image ? publicImage(d.image.src) : undefined;
+// The hero slot names the photograph it is waiting for; `heroImage` resolves
+// it — through the asset library when the article names an `assetId`, against
+// public/ for a legacy path. Rendering an <img> for a file that does not exist
+// puts a broken-image glyph at the top of the page, so the slot stays dark
+// until the photograph lands and then lights up with no code change.
+const hero = heroImage(entry);
 
 
 const { html: tocHtml, toc } = withToc(d.bodyHtml);
@@ -69,7 +67,7 @@ const jsonLd: Record<string, unknown>[] = [
     datePublished: publishedIso,
     dateModified: updatedIso,
     mainEntityOfPage: pageUrl,
-    ...(heroSrc ? { image: [new URL(heroSrc, site).href] } : {}),
+    ...(hero ? { image: [new URL(hero.src, site).href] } : {}),
   },
 ];
 
@@ -100,7 +98,7 @@ if (d.faq && d.faq.length) {
 }
 
 if (d.pillar === 'recipes') {
-  const recipe = recipeJsonLd(d, { site, pageUrl, publishedIso });
+  const recipe = recipeJsonLd({ ...d, image: hero ? { src: hero.src } : undefined }, { site, pageUrl, publishedIso });
   if (recipe) jsonLd.push(recipe);
 }
 
@@ -124,19 +122,20 @@ if (d.pillar === 'compare' && d.comparisonCriteria) {
       <Byline author={d.author} publishedDate={d.publishedDate} updatedDate={d.updatedDate} />
     </div></div>
 
-    {d.image && heroSrc && (
+    {hero && (
       <figure class="article-hero wrap">
         <Img
-          src={heroSrc}
-          alt={d.image.alt}
-          width={1280}
-          height={720}
+          src={hero.src}
+          srcset={hero.srcSet}
+          alt={hero.alt}
+          width={hero.width}
+          height={hero.height}
           sizes="(min-width: 1200px) 72rem, 100vw"
           loading="eager"
           fetchpriority="high"
           class="article-hero-img"
         />
-        {d.image.credit && <figcaption>{d.image.credit}</figcaption>}
+        {hero.credit && <figcaption>{hero.credit}</figcaption>}
       </figure>
     )}
 
