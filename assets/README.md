@@ -21,6 +21,27 @@ below the 400px floor. Both have already caught real mistakes — a strawberry
 crop that could not make a clean 4:5, and a banana shot 200px tall that could
 not make any declared ratio at all.
 
+## Verify by measuring the output
+
+Two bugs in this pipeline had the same shape: a sharp call returned successfully,
+returned plausible-looking values, and was reading the wrong thing.
+
+- Chaining `.resize()` twice does not crop then scale. The second call replaces
+  the first, so every derivative silently kept the original aspect ratio — a
+  "1:1" that was 800×1199. Nothing threw.
+- `.stats()` on a chained pipeline reads the *source* image and ignores the
+  `.extract()` in front of it, so every pile in a contact sheet reported
+  identical mean colour and the fruit classifier was meaningless.
+
+Neither was visible in the exit code, the log line, or the file count. Both were
+obvious the moment the output was measured — `sips -g pixelWidth` on the written
+file, and looking at the crops.
+
+So: after changing anything here, check the artifacts, not the return values.
+`--check` tells you what *would* be written; it does not tell you the pixels are
+right. `tests/assets.test.mjs` measures what is on disk against what the manifest
+claims, which is why it caught the `fit: 'contain'` width-ladder mismatch.
+
 ## Originals kept outside git
 
 Three files exceed 5 MB and are gitignored:

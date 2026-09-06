@@ -1,5 +1,5 @@
 ---
-import { getAuthor, hasPortrait } from '../lib/authors';
+import { getAuthor } from '../lib/authors';
 
 interface Props {
   author: string;
@@ -7,14 +7,9 @@ interface Props {
 
 const { author } = Astro.props;
 const person = getAuthor(author);
-const portrait = hasPortrait(person);
 ---
 <aside class="author-bio card" aria-label={`About ${person.name}`}>
-  {portrait ? (
-    <img class="author-portrait" src={person.portrait} alt="" width="72" height="72" loading="lazy" decoding="async" />
-  ) : (
-    <span class="author-portrait author-initials" aria-hidden="true">{person.initials}</span>
-  )}
+  <span class="author-portrait author-initials" aria-hidden="true">{person.initials}</span>
   <div>
     <p class="author-name"><a href={person.url}>{person.name}</a></p>
     <p class="meta author-role">{person.role}</p>
