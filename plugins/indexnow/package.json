@@ -1,0 +1,8 @@
+{
+  "name": "netlify-plugin-indexnow",
+  "version": "1.0.0",
+  "description": "Submit published URLs to IndexNow after a successful production deploy.",
+  "type": "module",
+  "main": "index.mjs",
+  "private": true
+}
