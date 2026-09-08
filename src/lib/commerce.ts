@@ -71,7 +71,7 @@ export const CATALOG: CatalogProduct[] = [
     sku: 'MSMBS7MIL001',
     title: 'Freeze-Drying Packaging Starter Kit — 100 Bags + Absorbers + Labels',
     eyebrow: 'Validation launch',
-    note: '100 assorted 7 mil Mylar bags, 100 matched oxygen absorbers, 100 labels, and PackFreshUSA’s storage guide. One matched set, shipped free.',
+    note: '100 assorted 7 mil Mylar bags, 100 matched oxygen absorbers, 100 labels, and PackFreshUSA’s storage guide. One matched set.',
     image:
       'https://cdn.shopify.com/s/files/1/0883/4875/4197/files/packfreshusa-7mil-mylar-box-set-100-pack.jpg?v=1788393303',
     imageAlt:
@@ -120,6 +120,24 @@ export const STARTER_KIT = CATALOG[0];
  * claim silently stops being true. Re-verify before changing price.
  * At the current $74.99 list, WELCOME10 leaves $67.49 — comfortably clear.
  */
+/**
+ * The shipping rule, stated once.
+ *
+ * Verified against the live store on 2026-09-08 (`deliveryProfiles`, default
+ * "General profile"): a Domestic/US zone with `Standard` at $6.25 and a second
+ * `Standard` at $0.00 conditioned on `TOTAL_PRICE >= $45.00`. There is no
+ * universal free-shipping rate, and site copy must not imply one — every
+ * surface that mentions shipping renders from these fields.
+ */
+export const SHIPPING = {
+  freeThreshold: 45,
+  flatRate: 6.25,
+  /** The one sentence. Used verbatim wherever the rule is stated in full. */
+  rule: 'Free US shipping on orders of $45 or more; $6.25 below that. United States only.',
+  /** For surfaces beside the kit's own price, where the threshold is cleared. */
+  kitNote: 'Ships free in the US — the kit clears the $45 free-shipping threshold, discount included.',
+} as const;
+
 export const LAUNCH_OFFER = {
   enabled: true,
   code: 'WELCOME10',
@@ -127,6 +145,6 @@ export const LAUNCH_OFFER = {
   percentOff: 10,
   /** Delivered by the >= $45 free-shipping rate condition, not by a discount. */
   freeShipping: true,
-  headline: 'New here? Get 10% off + free shipping on your first order.',
-  detail: 'Use code WELCOME10 at checkout.',
+  headline: 'New here? Take 10% off your first order with WELCOME10.',
+  detail: 'Applied at checkout. Orders of $45 or more ship free in the US.',
 } as const;

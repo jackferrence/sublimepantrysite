@@ -7,7 +7,7 @@ import Img from '../../components/Img.astro';
 import ProductReviews from '../../components/ProductReviews.astro';
 import StickyBuyBar from '../../components/StickyBuyBar.astro';
 import LaunchOffer from '../../components/LaunchOffer.astro';
-import { STARTER_KIT, SHOPIFY_PUBLIC_DOMAIN } from '../../lib/commerce';
+import { STARTER_KIT, SHOPIFY_PUBLIC_DOMAIN, SHIPPING } from '../../lib/commerce';
 import { SUPPORT_EMAIL } from '../../lib/paths';
 import { getProductReviews } from '../../lib/reviews';
 import { heroImage, articleHref } from '../../lib/articles';
@@ -59,7 +59,7 @@ const specs: [string, string][] = [
 const faq = [
   {
     q: 'Do I need a heat sealer?',
-    a: 'Yes. Mylar bags have to be heat sealed to hold a barrier; folding or taping them does not work. Any impulse sealer or a household iron on a firm edge will close a 7 mil bag.',
+    a: 'Yes, and the sealer matters. Mylar has to be heat sealed to hold a barrier — folding or taping does not work — and PackFreshUSA, who supply these bags, specify that sealing 7 mil Mylar properly takes a 600 watt sealer. A light-duty impulse sealer or a household iron may close the bag without giving you the seal the barrier depends on. Check your sealer against that figure before you rely on it.',
   },
   {
     q: 'Which absorber size goes with which bag?',
@@ -198,7 +198,7 @@ const trackProps = JSON.stringify({ product_handle: STARTER_KIT.handle, sku: STA
           </div>
         </shopify-context>
 
-        <p class="buybox-ships"><Icon name="package" size={15} /> Ships free · US only</p>
+        <p class="buybox-ships"><Icon name="package" size={15} /> {SHIPPING.kitNote}</p>
 
         <div class="commerce-fallback" data-commerce-fallback hidden>
           <p>Live pricing and checkout are temporarily unavailable on this page.</p>
@@ -303,7 +303,7 @@ const trackProps = JSON.stringify({ product_handle: STARTER_KIT.handle, sku: STA
       </section>
 
       <div class="notice">
-        <p><strong>Next after validation.</strong> Absorber refills, quart and gallon packaging, and candy pouches are staged in Shopify. They stay unlisted until each source configuration and fulfillment detail is verified.</p>
+        <p><strong>Next after validation.</strong> Absorber refills, quart and gallon packaging, and candy pouches are planned. They stay unlisted until each source configuration and fulfillment detail is verified.</p>
       </div>
     </div>
   </div>
