@@ -73,7 +73,22 @@ const CONSENT_VALUES = new Set(['on', 'yes', 'true', '1']);
  * timestamp is the one with compliance weight: it is the record of when
  * permission was given, and it must not drift later than the truth.
  */
-const FOLLOW_UP_SOURCE_PATH = '/thanks';
+/**
+ * What marks a submission as a lifecycle-preference update rather than an
+ * acquisition.
+ *
+ * This used to be `source_path === '/thanks'`, which classified by the page a
+ * form was rendered on. The footer newsletter form is rendered on /thanks too
+ * and reports the same path, so a real consented signup made from the footer
+ * there was classified as a follow-up: properties were reduced to the (absent)
+ * stage, the subscribe call was skipped, and the function returned 200. The
+ * person saw success and was never subscribed in either system, with nothing
+ * in any log to say so.
+ *
+ * A submission now declares what it is. Only the /thanks preference form sends
+ * this field; every newsletter form on the site omits it and is an acquisition.
+ */
+const FOLLOW_UP_SUBMISSION_TYPE = 'lifecycle_preference';
 
 /**
  * The lifecycle stages the /thanks question offers.
@@ -155,8 +170,15 @@ export default async (req: Request): Promise<Response> => {
   }
 
   // Hard stop without affirmative consent. See CONSENT_VALUES.
+  //
+  // A lifecycle-preference update is exempt because it writes no consent and
+  // never subscribes: it records a stage on someone who already opted in. It
+  // must not carry a consent field either — a hidden marketing_consent on a
+  // preference form is consent manufactured by a survey answer.
+  const isPreferenceUpdate =
+    field(data, 'submission_type') === FOLLOW_UP_SUBMISSION_TYPE;
   const consent = field(data, 'marketing_consent').toLowerCase();
-  if (!CONSENT_VALUES.has(consent)) {
+  if (!isPreferenceUpdate && !CONSENT_VALUES.has(consent)) {
     console.warn(
       `[submission-created] Submission to "${formName}" carried no affirmative marketing consent; not subscribing.`,
     );
@@ -184,8 +206,8 @@ export default async (req: Request): Promise<Response> => {
   const lifecycleStage = LIFECYCLE_STAGES.has(stage) ? { lifecycle_stage: stage } : {};
 
   // The follow-up carries one new fact and nothing else worth writing. See
-  // FOLLOW_UP_SOURCE_PATH.
-  const isFollowUp = field(data, 'source_path') === FOLLOW_UP_SOURCE_PATH;
+  // FOLLOW_UP_SUBMISSION_TYPE.
+  const isFollowUp = field(data, 'submission_type') === FOLLOW_UP_SUBMISSION_TYPE;
   const properties = isFollowUp
     ? lifecycleStage
     : {

@@ -116,7 +116,7 @@ test('a signup writes the acquisition path even with no stage yet', async () => 
 test('the /thanks follow-up writes the stage and touches nothing else', async () => {
   configure();
   const { seen, restore } = shopify(existing);
-  const res = await fn(post({ ...valid, source_path: '/thanks', stage: 'cottage-seller' }));
+  const res = await fn(post({ ...valid, source_path: '/thanks', submission_type: 'lifecycle_preference', marketing_consent: false, stage: 'cottage-seller' }));
   restore();
   assert.equal(res.status, 204);
 
@@ -134,7 +134,7 @@ test('the /thanks follow-up writes the stage and touches nothing else', async ()
 test('a follow-up for an address with no customer creates nothing', async () => {
   configure();
   const { seen, restore } = shopify([]);
-  const res = await fn(post({ ...valid, source_path: '/thanks' }));
+  const res = await fn(post({ ...valid, source_path: '/thanks', submission_type: 'lifecycle_preference', marketing_consent: false }));
   restore();
   assert.equal(res.status, 204);
   assert.equal(mutation(seen), undefined, 'no customer should be created from a survey answer');
@@ -143,7 +143,7 @@ test('a follow-up for an address with no customer creates nothing', async () => 
 test('a follow-up with no recognised stage costs no API call at all', async () => {
   configure();
   const { seen, restore } = shopify(existing);
-  const res = await fn(post({ ...valid, source_path: '/thanks', stage: 'nope' }));
+  const res = await fn(post({ ...valid, source_path: '/thanks', submission_type: 'lifecycle_preference', marketing_consent: false, stage: 'nope' }));
   restore();
   assert.equal(res.status, 204);
   assert.equal(seen.length, 0);

@@ -128,7 +128,12 @@ const Wrapper = compact ? 'div' : 'section';
       if (!form) return;
       var data = new FormData(form);
       if (data.get('bot-field')) return;
-      if (data.get('marketing_consent') !== 'yes') return;
+      // A lifecycle-preference update carries no consent by design, and must
+      // still reach the sync so the stage is recorded. Everything else needs an
+      // affirmative opt-in before it goes anywhere.
+      var submissionType = data.get('submission_type') || '';
+      var isPreference = submissionType === 'lifecycle_preference';
+      if (!isPreference && data.get('marketing_consent') !== 'yes') return;
 
       var email = data.get('email');
       try {
@@ -143,7 +148,8 @@ const Wrapper = compact ? 'div' : 'section';
         stage: data.get('stage'),
         source_path: data.get('source_path'),
         lead_magnet: data.get('lead_magnet'),
-        marketing_consent: true,
+        submission_type: submissionType,
+        marketing_consent: !isPreference,
       });
       try {
         navigator.sendBeacon('/.netlify/functions/lead-capture', new Blob([payload], { type: 'application/json' }));

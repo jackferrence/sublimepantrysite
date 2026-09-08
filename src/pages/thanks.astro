@@ -29,7 +29,19 @@ import Icon from '../components/Icon.astro';
       <input type="hidden" name="form-name" value="freeze-drying-checklist" />
       <input type="hidden" name="lead_magnet" value="freeze-drying-starter-checklist" />
       <input type="hidden" name="source_path" value="/thanks" />
-      <input type="hidden" name="marketing_consent" value="yes" />
+      <!--
+        What this submission IS, declared by the form rather than inferred from
+        the page it was rendered on. The backends used to classify a follow-up by
+        source_path === "/thanks", but the footer newsletter form is on this page
+        too and reports the same path — so a real, consented signup made from the
+        footer here was classified as a preference update and silently dropped by
+        both Klaviyo and Shopify while returning success.
+
+        marketing_consent is deliberately NOT sent. A preference update must never
+        create consent; the person either already consented at signup or they did
+        not, and answering a survey is not an opt-in.
+      -->
+      <input type="hidden" name="submission_type" value="lifecycle_preference" />
       <p hidden aria-hidden="true"><label>Don't fill this out: <input name="bot-field" /></label></p>
 
       <div class="stage-field" data-email-field hidden>

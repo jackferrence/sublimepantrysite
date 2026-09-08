@@ -7,9 +7,9 @@
     "site_url": "https://sublimepantry.netlify.app",
     "data": {
       "email": "sample.lead@example.com",
-      "marketing_consent": "yes",
       "lead_magnet": "freeze-drying-starter-checklist",
       "source_path": "/thanks",
+      "submission_type": "lifecycle_preference",
       "stage": "new-owner",
       "bot-field": ""
     }
