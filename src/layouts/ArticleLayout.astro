@@ -239,6 +239,33 @@ if (d.pillar === 'compare' && d.comparisonCriteria) {
   </article>
 </BaseLayout>
 
+<script>
+  /*
+   * Reveal the "Scrolls sideways." cue only where a region actually scrolls.
+   *
+   * `polishTables` ships every cue `hidden`, because whether a table overflows
+   * depends on the viewport and on the reader's text size — the buying guide's
+   * eleven columns always overflow, the two-row cost table never does, and the
+   * card-bearing tables are not in the document at all below 44rem. A cue
+   * printed unconditionally would be wrong on some page at some width, which is
+   * the same class of unverifiable claim the rest of this work is removing.
+   *
+   * Re-run on resize and on zoom, both of which change the answer.
+   */
+  const cued = () => {
+    for (const cue of document.querySelectorAll<HTMLElement>('.table-cue')) {
+      const region = cue.previousElementSibling;
+      // A region replaced by cards is `display: none`, so both widths are 0
+      // and the same comparison hides its cue.
+      cue.hidden = !(region instanceof HTMLElement)
+        || region.scrollWidth <= region.clientWidth + 1;
+    }
+  };
+  cued();
+  addEventListener('resize', cued, { passive: true });
+</script>
+
+
 <style>
   .article { padding-top: var(--s4); }
   /* The head, the body column and the newsletter all share one left edge and

@@ -126,10 +126,21 @@ const cartDiscountCodes = LAUNCH_OFFER.enabled ? LAUNCH_OFFER.code : undefined;
     }
   }
 
+  const CART_BUTTON_NAME = 'Open shopping cart';
+
   function paint(count: number) {
     document.querySelectorAll<HTMLElement>('[data-cart-count]').forEach((el) => {
       el.textContent = String(count);
       el.hidden = count <= 0;
+    });
+    // The badge is aria-hidden, so the count reaches a screen reader through the
+    // button's name or not at all. A count we cannot stand behind is left off
+    // rather than guessed at, the same rule the badge itself follows.
+    document.querySelectorAll<HTMLElement>('[data-sp-cart-open]').forEach((button) => {
+      button.setAttribute(
+        'aria-label',
+        count > 0 ? `${CART_BUTTON_NAME}, ${count} ${count === 1 ? 'item' : 'items'}` : CART_BUTTON_NAME,
+      );
     });
   }
 
@@ -140,9 +151,56 @@ const cartDiscountCodes = LAUNCH_OFFER.enabled ? LAUNCH_OFFER.code : undefined;
     return rows.length || null;
   }
 
+  /**
+   * U08: the controls Shopify's cart leaves unnamed.
+   *
+   * Observed in the live drawer with a line in it, September 8 2026. The
+   * component names some of its own controls and not others: "Close cart
+   * dialog" and "Remove item from cart" arrive with `aria-label`, while the
+   * quantity stepper is two buttons with no text and no label, the discount
+   * toggle's entire accessible name is "+", and the `<dialog>` has no name at
+   * all — there is no heading element in the shadow root to point
+   * `aria-labelledby` at, so the name has to be given directly.
+   *
+   * This is Shopify's DOM, not ours, and reaching into another component's
+   * shadow root is the kind of thing that breaks quietly when the vendor ships
+   * a change. Two properties keep it safe. It only ever *adds* a name to a
+   * control that has none, so the day Shopify labels these itself this code
+   * stops doing anything rather than fighting it; and it is driven by the
+   * MutationObserver already running below, so a re-render cannot leave a new
+   * unnamed button behind. If a selector stops matching, the result is the
+   * accessibility Shopify shipped, which is where we started.
+   *
+   * The names match what the buttons visibly do. "Shopping cart" is the cart's
+   * own visible title, reused rather than a second wording invented.
+   */
+  const CART_CONTROL_NAMES: ReadonlyArray<readonly [string, string]> = [
+    ['.decrement', 'Decrease quantity'],
+    ['.increment', 'Increase quantity'],
+    ['.discount-toggle-button', 'Add a discount code'],
+  ];
+
+  function nameControls(root: ShadowRoot) {
+    const dialog = root.querySelector('dialog');
+    if (dialog && !dialog.getAttribute('aria-label') && !dialog.getAttribute('aria-labelledby')) {
+      dialog.setAttribute('aria-label', 'Shopping cart');
+    }
+    for (const [selector, name] of CART_CONTROL_NAMES) {
+      for (const el of root.querySelectorAll(selector)) {
+        // Anything the component already names, in text or in a label, is left
+        // exactly as the component named it.
+        if (el.getAttribute('aria-label') || el.getAttribute('aria-labelledby')) continue;
+        if ((el.textContent ?? '').trim() && !el.matches('.discount-toggle-button')) continue;
+        el.setAttribute('aria-label', name);
+      }
+    }
+  }
+
   function sync() {
     const cart = document.getElementById('sublime-cart');
     if (!cart) return;
+    const root = (cart as any).shadowRoot as ShadowRoot | null;
+    if (root) nameControls(root);
     const live = countLines(cart);
     if (live !== null) {
       writeFallback(live);
@@ -158,10 +216,24 @@ const cartDiscountCodes = LAUNCH_OFFER.enabled ? LAUNCH_OFFER.code : undefined;
 
     paint(readFallback());
 
+    // The custom element upgrades asynchronously, so on a cold load the shadow
+    // root is not there yet and both the badge and the control names would be
+    // skipped for the life of the page. Poll briefly for it, then give up: the
+    // fallback is the accessibility and the count Shopify ships on its own.
     if (!(cart as any).__spObserved) {
       (cart as any).__spObserved = true;
-      const root = (cart as any).shadowRoot as ShadowRoot | null;
-      if (root) new MutationObserver(sync).observe(root, { childList: true, subtree: true });
+      let attempts = 0;
+      const attach = () => {
+        const root = (cart as any).shadowRoot as ShadowRoot | null;
+        if (root) {
+          nameControls(root);
+          new MutationObserver(sync).observe(root, { childList: true, subtree: true });
+          sync();
+          return;
+        }
+        if (++attempts < 20) setTimeout(attach, 250);
+      };
+      attach();
     }
 
     document.querySelectorAll<HTMLElement>('[data-sp-cart-open]').forEach((button) => {
