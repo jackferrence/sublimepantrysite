@@ -13,7 +13,7 @@
  * one file.
  */
 import Icon from './Icon.astro';
-import { LAUNCH_OFFER } from '../lib/commerce';
+import { LAUNCH_OFFER, SHIPPING } from '../lib/commerce';
 
 // The attribute is `discount-codes` (kebab-case). HTML lowercases attribute
 // names, so a camelCase `discountCodes` renders as `discountcodes` and the
@@ -27,7 +27,7 @@ const cartDiscountCodes = LAUNCH_OFFER.enabled ? LAUNCH_OFFER.code : undefined;
     <p><a href="/shop">See the packaging catalog</a></p>
   </div>
   <div slot="extension" class="cart-extension">
-    <p><Icon name="package" size={15} /> Ships free · US only</p>
+    <p><Icon name="package" size={15} /> {SHIPPING.shortNote}</p>
     {LAUNCH_OFFER.enabled && (
       <p><Icon name="check-circle" size={15} /> Code {LAUNCH_OFFER.code} applied at checkout</p>
     )}

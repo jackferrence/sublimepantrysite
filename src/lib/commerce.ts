@@ -136,6 +136,8 @@ export const SHIPPING = {
   rule: 'Free US shipping on orders of $45 or more; $6.25 below that. United States only.',
   /** For surfaces beside the kit's own price, where the threshold is cleared. */
   kitNote: 'Ships free in the US — the kit clears the $45 free-shipping threshold, discount included.',
+  /** For catalog cards and the cart, where the order total is not yet known. */
+  shortNote: 'Free US shipping over $45 · US only',
 } as const;
 
 export const LAUNCH_OFFER = {

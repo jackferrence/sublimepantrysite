@@ -7,7 +7,7 @@
  * If the article mentions none, this renders nothing at all.
  */
 import Card from './Card.astro';
-import { CATALOG } from '../lib/commerce';
+import { CATALOG, SHIPPING } from '../lib/commerce';
 
 interface Props {
   bodyHtml: string;
@@ -38,7 +38,7 @@ const mentioned = CATALOG.filter((product) => {
           ratio="4/5"
           fit="contain"
           price={product.displayPrice}
-          meta="Ships free · US"
+          meta={SHIPPING.shortNote}
         />
       ))}
     </div>

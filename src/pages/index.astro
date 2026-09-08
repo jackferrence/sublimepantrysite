@@ -5,7 +5,7 @@ import Card from '../components/Card.astro';
 import Img from '../components/Img.astro';
 import Mark from '../components/Mark.astro';
 import Newsletter from '../components/Newsletter.astro';
-import { CATALOG } from '../lib/commerce';
+import { CATALOG, SHIPPING } from '../lib/commerce';
 import { heroImage as articleHero, articleHref, type Article } from '../lib/articles';
 import { findAsset, largest, srcSet } from '../lib/assets';
 
@@ -103,7 +103,7 @@ const startHere = ['complete-batch-workflow', 'which-freeze-dryer', 'home-freeze
             ratio="4/5"
             fit="contain"
             price={product.displayPrice}
-            meta="Ships free · US"
+            meta={SHIPPING.shortNote}
           />
         ))}
       </div>
