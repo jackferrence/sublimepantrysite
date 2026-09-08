@@ -57,7 +57,22 @@ const LIFECYCLE_STAGES = new Set([
 ]);
 
 /** The page the qualifying-question follow-up posts from. See the header. */
-const FOLLOW_UP_SOURCE_PATH = '/thanks';
+/**
+ * What marks a submission as a lifecycle-preference update rather than an
+ * acquisition.
+ *
+ * This used to be `source_path === '/thanks'`, which classified by the page a
+ * form was rendered on. The footer newsletter form is rendered on /thanks too
+ * and reports the same path, so a real consented signup made from the footer
+ * there was classified as a follow-up: properties were reduced to the (absent)
+ * stage, the subscribe call was skipped, and the function returned 200. The
+ * person saw success and was never subscribed in either system, with nothing
+ * in any log to say so.
+ *
+ * A submission now declares what it is. Only the /thanks preference form sends
+ * this field; every newsletter form on the site omits it and is an acquisition.
+ */
+const FOLLOW_UP_SUBMISSION_TYPE = 'lifecycle_preference';
 
 /**
  * Cached client-credentials token. Module scope persists across invocations on
@@ -176,6 +191,7 @@ export default async (request) => {
   const stage = typeof payload.stage === 'string' ? payload.stage : '';
   const sourcePath = typeof payload.source_path === 'string' ? payload.source_path : '';
   const leadMagnet = typeof payload.lead_magnet === 'string' ? payload.lead_magnet : '';
+  const submissionType = typeof payload.submission_type === 'string' ? payload.submission_type : '';
 
   if (!email || !email.includes('@')) {
     return new Response('Bad Request', { status: 400 });
@@ -185,7 +201,12 @@ export default async (request) => {
   // is what kept this sync from ever writing a customer.
   const lifecycleStage = LIFECYCLE_STAGES.has(stage) ? stage : '';
   // Consent is not inferred, defaulted, or assumed. No consent, no write.
-  if (payload.marketing_consent !== true) {
+  //
+  // A lifecycle-preference update is exempt: it writes no consent, never
+  // subscribes, and only enriches someone who already opted in. Requiring a
+  // consent flag here is what forced the /thanks form to carry a hidden
+  // marketing_consent, which is consent manufactured by a survey answer.
+  if (submissionType !== FOLLOW_UP_SUBMISSION_TYPE && payload.marketing_consent !== true) {
     return new Response('Marketing consent required', { status: 400 });
   }
 
@@ -209,7 +230,7 @@ export default async (request) => {
   }
 
   const now = new Date().toISOString();
-  const isFollowUp = sourcePath === FOLLOW_UP_SOURCE_PATH;
+  const isFollowUp = submissionType === FOLLOW_UP_SUBMISSION_TYPE;
 
   const stageMetafield = lifecycleStage
     ? [{ namespace: 'sublime_pantry', key: 'lifecycle_stage', type: 'single_line_text_field', value: lifecycleStage }]
