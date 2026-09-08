@@ -252,6 +252,13 @@ p .btn-text, li .btn-text { display: inline; min-height: 0; }
 }
 .notice > :last-child { margin-bottom: 0; }
 
+/* A correction is not an explainer. Same frame, the one accent on the rule, so a
+   reader scanning a page cannot mistake a retracted claim for methodology. */
+.notice-correction {
+  background: var(--brand-tint);
+  border-left-color: var(--brand);
+}
+
 /* --- Forms ------------------------------------------------------------- */
 label { font-weight: 600; }
 
