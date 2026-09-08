@@ -37,6 +37,24 @@ const hero = heroImage(entry);
 const { html: tocHtml, toc } = withToc(d.bodyHtml);
 const bodyHtml = polishTables(tocHtml);
 
+/**
+ * Split the body at the first <h2> so the signup can sit after the first
+ * answer rather than only at the bottom of the page.
+ *
+ * Newsletter is the site's declared primary action, and it currently appears
+ * once, below Related articles, where a reader who got their answer in the
+ * opening section has already left. This puts one invitation directly after
+ * that opening section.
+ *
+ * It is a link to the checklist, not a second copy of the form: Newsletter
+ * renders `id="newsletter-email"` in its full variant, so a second non-compact
+ * instance on the same page would duplicate an element id and give the label a
+ * second target. One form per page, one prompt pointing at it.
+ */
+const firstH2 = bodyHtml.search(/<h2[\s>]/);
+const bodyOpening = firstH2 > 0 ? bodyHtml.slice(0, firstH2) : bodyHtml;
+const bodyRest = firstH2 > 0 ? bodyHtml.slice(firstH2) : '';
+
 // Ownership disclosure is generated, not typed. If the article references a
 // product we sell, the disclosure says so first — in the article, next to the
 // mention, rather than only on a policy page.
@@ -154,7 +172,18 @@ if (d.pillar === 'compare' && d.comparisonCriteria) {
 
         {d.riskClass === 'elevated' && <EducationalNotice />}
 
-        <div class="article-body" set:html={bodyHtml} />
+        <div class="article-body" set:html={bodyOpening} />
+
+        {bodyRest && (
+          <aside class="inline-signup" aria-labelledby="inline-signup-heading">
+            <p id="inline-signup-heading" class="inline-signup-title">Keep this beside the machine.</p>
+            <p>The free Starter Checklist covers the checks above in one printable page, and
+            <strong>The Dry Batch</strong> sends one of these answers a week.</p>
+            <a class="btn btn-secondary" href="/freeze-drying-starter-checklist" data-sp-event="article_inline_signup_click">Get the free checklist</a>
+          </aside>
+        )}
+
+        <div class="article-body" set:html={bodyRest} />
 
         <ToolsMentioned bodyHtml={bodyHtml} declared={d.products} />
 
@@ -271,6 +300,20 @@ if (d.pillar === 'compare' && d.comparisonCriteria) {
     font-family: var(--font-display); font-size: 1.1rem;
   }
   .article-faq details p { margin: var(--s1) 0 0; color: var(--ink-soft); }
+
+  /* The mid-article invitation. Quiet enough to read past: it interrupts the
+     article once, so it earns its place by being skimmable, not loud. */
+  .inline-signup {
+    margin: var(--s4) 0;
+    padding: var(--s3);
+    border-left: 3px solid var(--brand);
+    background: var(--brand-tint);
+    border-radius: var(--radius);
+    max-width: var(--measure);
+  }
+  .inline-signup-title { font-weight: 700; margin: 0 0 var(--s1); }
+  .inline-signup p { margin: 0 0 var(--s2); }
+  .inline-signup > :last-child { margin-bottom: 0; }
 
   .sources ol { font-size: .92rem; color: var(--ink-soft); }
   .tier-tag {

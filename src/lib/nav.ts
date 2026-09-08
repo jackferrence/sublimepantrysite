@@ -10,6 +10,13 @@
  * `pending` marks a route that is designed but not yet built. The entry stays
  * here so the PR that adds the page un-gates it by deleting one word, and so
  * the nav test can prove that nothing we link to 404s in the meantime.
+ *
+ * It is not a parking space for speculation. `/shop/pantry` and `/shop/trail`
+ * sat here naming a product taxonomy that no longer exists — the lines are now
+ * Snack, Reserve and Trail, and only the starter kit is an ACTIVE Shopify
+ * product. Both were removed rather than relabelled: renaming a route to a line
+ * that still does not exist buys nothing, and a nav config should describe what
+ * is real. Add the entry back in the PR that adds the page.
  */
 
 export interface NavItem {
@@ -26,8 +33,6 @@ export const PRIMARY_NAV: NavItem[] = [
     label: 'Shop',
     children: [
       { href: '/shop', label: 'All products' },
-      { href: '/shop/pantry', label: 'Pantry packaging', pending: true },
-      { href: '/shop/trail', label: 'Trail packaging', pending: true },
       { href: '/shipping-returns', label: 'Shipping & returns' },
     ],
   },
@@ -49,8 +54,6 @@ export const PRIMARY_NAV: NavItem[] = [
 
 export const FOOTER_SHOP: NavItem[] = [
   { href: '/shop', label: 'All products' },
-  { href: '/shop/pantry', label: 'Pantry packaging', pending: true },
-  { href: '/shop/trail', label: 'Trail packaging', pending: true },
   { href: '/shipping-returns', label: 'Shipping & returns' },
 ];
 
