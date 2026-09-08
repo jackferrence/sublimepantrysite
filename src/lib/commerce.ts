@@ -91,6 +91,24 @@ export const CATALOG: CatalogProduct[] = [
   },
 ];
 
+/**
+ * The ownership disclosure, written once.
+ *
+ * PRODUCT.md makes this obligation live, not imminent: every surface that
+ * mentions or recommends a product we sell discloses that we sell it, beside
+ * the recommendation rather than only on the disclosure page. Articles got this
+ * through ToolsMentioned and the product page hard-coded it, but the homepage,
+ * the checklist page and the shop cards showed our price with no disclosure at
+ * all. Three surfaces, one missing string, and no page-level review would have
+ * caught it — which is why it is a constant and an asserted invariant now.
+ */
+export const OWNERSHIP_LABEL = 'Sold by Sublime Pantry';
+
+/** Eyebrow for a card showing one of our own products. */
+export function ownedEyebrow(product: { eyebrow?: string }): string {
+  return product.eyebrow ? `${OWNERSHIP_LABEL} · ${product.eyebrow}` : OWNERSHIP_LABEL;
+}
+
 export const STARTER_KIT = CATALOG[0];
 
 /**

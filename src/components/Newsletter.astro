@@ -138,6 +138,9 @@ const Wrapper = compact ? 'div' : 'section';
       var email = data.get('email');
       try {
         if (email) sessionStorage.setItem('sp-lead-email', String(email));
+        // Evidence for /thanks. Only an acquisition sets it: a preference
+        // update is not a signup, and must not make the page claim one.
+        if (!isPreference) sessionStorage.setItem('sp-signup-submitted', String(Date.now()));
       } catch (err) {
         /* private mode — /thanks will simply ask for the address again */
       }

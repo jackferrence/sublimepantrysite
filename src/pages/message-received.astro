@@ -1,0 +1,62 @@
+---
+/**
+ * Contact success, separated from newsletter success.
+ *
+ * The contact form used to post to /thanks, a page that says "Confirmed",
+ * promises a checklist and tells you your first newsletter issue is on the
+ * way. None of that is true of someone reporting a typo, and a support request
+ * is not marketing consent.
+ *
+ * Like /thanks, the success state here is rendered only on evidence that a
+ * submission happened in this tab. A cold visitor is told what the page is for,
+ * not that something they never did succeeded.
+ */
+import PageLayout from '../layouts/PageLayout.astro';
+import Icon from '../components/Icon.astro';
+import { SUPPORT_EMAIL } from '../lib/paths';
+---
+<PageLayout
+  title="Message received"
+  description="We have your message."
+  path="/message-received"
+  breadcrumbs={[{ label: 'Message received', href: '/message-received' }]}
+  noindex
+>
+  <div data-contact-confirmed hidden>
+    <span class="kicker"><Icon name="check-circle" size={14} /> Message received</span>
+    <h1>Thanks — your message is in.</h1>
+    <p>A person reads every one of these. Expect a reply from <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a> within a couple of working days; if it takes longer than that, check your spam folder before assuming it went missing.</p>
+    <p>If you reported an error, thank you — corrections are logged publicly in our <a href="/corrections">corrections log</a> once we have checked them.</p>
+    <p><strong>This did not subscribe you to anything.</strong> Contacting us is not a newsletter signup, and we will not add you to a list because you wrote to us.</p>
+  </div>
+
+  <div data-contact-cold>
+    <span class="kicker">Contact</span>
+    <h1>Message received</h1>
+    <p>This page confirms a message sent through our <a href="/contact">contact form</a>. If you have landed here directly, nothing has been sent — the form is on the contact page.</p>
+    <p>You can also write to <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a> directly; it reaches the same person.</p>
+  </div>
+</PageLayout>
+
+<script is:inline>
+  /**
+   * Success is asserted only when this tab actually submitted the form. The
+   * confirmed block is hidden in the served HTML and revealed here, so a cold
+   * visitor — or anyone with JavaScript off — is never told a message was sent
+   * that was not.
+   */
+  (function () {
+    var sent = null;
+    try {
+      sent = sessionStorage.getItem('sp-contact-submitted');
+      if (sent) sessionStorage.removeItem('sp-contact-submitted');
+    } catch (err) {
+      /* private mode: the cold state stands, which is the safe direction */
+    }
+    if (!sent) return;
+    var ok = document.querySelector('[data-contact-confirmed]');
+    var cold = document.querySelector('[data-contact-cold]');
+    if (ok) ok.hidden = false;
+    if (cold) cold.hidden = true;
+  })();
+</script>
