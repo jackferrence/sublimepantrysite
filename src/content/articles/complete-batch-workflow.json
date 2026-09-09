@@ -1,38 +1,484 @@
 {
-  "title": "The complete batch workflow: from tray prep to sealed mylar",
-  "description": "The full home freeze-drying process done right: prep, cycle stages, the dryness test, and packaging inside the window that protects the batch.",
-  "kicker": "Guide",
+  "title": "The complete batch workflow.",
+  "description": "Prep, cycle, dryness check, absorber, seal, label, log — what each stage is documented on, and where the published record stops.",
+  "kicker": "workflow",
   "pillar": "guides",
+  "section": "Process",
   "riskClass": "elevated",
   "publishedDate": "2026-08-31",
-  "author": "Jack Ferrence",
-  "disclosure": "Sublime Pantry has no affiliate relationships, sponsorships, or paid placements as of publication: no outbound link here earns a commission. Sublime Pantry does sell its own packaging, and a link to our shop is a link to a product we make money on — those are labelled where they appear.",
+  "disclosure": "Sublime Pantry has no affiliate relationships, sponsorships, or paid placements as of publication. We sell packaging; where a product we sell appears, it is labeled.",
   "sources": [
     {
+      "title": "Can I Freeze-Dry That? A Practical Guide to Safe and Effective Freeze-Drying (January 2026)",
+      "url": "https://extension.usu.edu/foodsafety/research/can-i-freeze-dry-that-a-practical-guide-to-safe-and-effective-freeze-drying",
+      "publisher": "Utah State University Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Ask an Expert — Freeze-Drying Food at Home: Tips for Safe, Successful Results (May 15, 2026)",
+      "url": "https://extension.usu.edu/news/ask-an-expert-freeze-drying-food-at-home-tips-for-safe-successful-results",
+      "publisher": "Utah State University Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Buying a Home Freeze-Dryer: What to Know Before You Go",
+      "url": "https://extension.usu.edu/preserve-the-harvest/research/buying-a-home-freeze-dryer-what-to-know-before-you-go",
+      "publisher": "Utah State University Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Preserving food at home: Freeze-drying (rev. 2025)",
       "url": "https://extension.umn.edu/preserve-your-own-food/freeze-drying",
-      "title": "Preserving food at home: Freeze-drying",
       "publisher": "University of Minnesota Extension",
       "tier": "primary",
-      "accessDate": "2026-08-31"
+      "accessDate": "2026-09-06"
     },
     {
-      "url": "https://wallabygoods.com/blogs/news/how-to-store-freeze-dried-food-in-mylar-bags",
-      "title": "How to Store Freeze-Dried Food in Mylar Bags",
-      "publisher": "Wallaby Goods",
-      "tier": "secondary",
-      "accessDate": "2026-08-31"
+      "title": "Let's Preserve: Freeze-Drying (updated May 24, 2023)",
+      "url": "https://extension.psu.edu/lets-preserve-freeze-drying",
+      "publisher": "Penn State Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
     },
     {
-      "url": "https://harvestright.com/blogs/freeze-drying-learning-center/freeze-dryer-cost-and-electricity",
-      "title": "How Much Does It Cost to Run a Freeze Dryer?",
+      "title": "Freeze Drying For Home Use (fact sheet, PDF)",
+      "url": "https://ucanr.edu/sites/default/files/2024-07/399943.pdf",
+      "publisher": "UC Agriculture and Natural Resources / UC Master Food Preserver Program",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Preserving by Home Freeze Drying (AnswerLine, June 13, 2023)",
+      "url": "https://blogs.extension.iastate.edu/answerline/2023/06/13/preserving-by-home-freeze-drying/",
+      "publisher": "Iowa State University Extension and Outreach",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Preparing and Storing Your Freeze Dried Products for Best Use (az2097b, February 2025)",
+      "url": "https://www.extension.arizona.edu/sites/default/files/2025-03/az2097b-2025.pdf",
+      "publisher": "University of Arizona Cooperative Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Factors that Impact Small-Scale Freeze Dryer Effectiveness (FST-506NP, May 19, 2025)",
+      "url": "https://www.pubs.ext.vt.edu/content/pubs_ext_vt_edu/en/FST/FST-506/FST-506.html",
+      "publisher": "Virginia Cooperative Extension / Virginia Tech",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Testing water activity in cottage foods (reviewed 2024)",
+      "url": "https://extension.umn.edu/food/selling-and-distributing/cottage-food/testing-water-activity",
+      "publisher": "University of Minnesota Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Job Aid: Time and Temperature Control for Safety Foods (Food Code Table A and Table B)",
+      "url": "https://www.fda.gov/files/food/published/Job-Aid--Time-and-Temperature-Control-for-Safety-Foods.pdf",
+      "publisher": "U.S. Food and Drug Administration",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "21 CFR 113.3 — Definitions (Thermally Processed Low-Acid Foods Packaged in Hermetically Sealed Containers)",
+      "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-113/subpart-A/section-113.3",
+      "publisher": "U.S. Government Publishing Office / eCFR",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Evaluation and Definition of Potentially Hazardous Foods (December 31, 2001)",
+      "url": "https://www.fda.gov/files/food/published/Evaluation-and-Definition-of-Potentially-Hazardous-Foods.pdf",
+      "publisher": "U.S. Food and Drug Administration / Institute of Food Technologists",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "How Do I Know When My Freeze-Dried Food Is Completely Dry?",
+      "url": "https://harvestright.com/blogs/blog/how-do-i-know-when-my-freeze-dried-food-is-completely-dry",
       "publisher": "Harvest Right",
       "tier": "primary",
-      "accessDate": "2026-08-31"
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Master Freeze Drying: Check Doneness by Weight Change",
+      "url": "https://stayfreshfreezedry.com/blogs/freeze-dryer-101/checking-dryness-in-freeze-dried-food-through-weight-change",
+      "publisher": "Stay Fresh",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "How Long Does Freeze Dried Food Last? Shelf Life Guide",
+      "url": "https://harvestright.com/blogs/freeze-drying-learning-center/how-long-does-freeze-dried-food-last",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "How to Package Freeze-dried Food So It Keeps For 25 Years",
+      "url": "https://harvestright.com/blogs/blog/how-to-package-freeze-dried-food-so-it-keeps-for-25-years",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "How to Freeze Dry Like a Pro: 25 Tips for Better Results",
+      "url": "https://harvestright.com/blogs/blog/how-to-freeze-dry-like-a-pro-25-tips-for-better-results",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "What's the best way to prepare food for freeze drying?",
+      "url": "https://harvestright.com/question/preparing-food-for-freeze-drying/",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Harvest Right Home Freeze Dryers — FAQs",
+      "url": "https://harvestright.com/pages/faqs",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Home Freeze Dryer Owner's Manual (v02122025, Software Version 6)",
+      "url": "https://cdn.shopify.com/s/files/1/0882/1030/9367/files/Owners-Manual-v02122025-v2-web-comp.pdf?v=1770403950",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Oil Pump Maintenance & Filter Instructions",
+      "url": "https://cdn.shopify.com/s/files/1/0882/1030/9367/files/Oil-Pump-Maintenance-Schedule-042024-Web.pdf?v=1770404016",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Where to Put a Freeze Dryer — Placement, Power, and Setup Guide",
+      "url": "https://harvestright.com/blogs/freeze-drying-learning-center/freeze-dryer-placement-and-setup",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Owner's Manual, Rev 3 / Elite (A00143, September 4, 2026)",
+      "url": "https://cdn.shopify.com/s/files/1/0766/0997/8659/files/A00143___Owners_Manual_Rev_3___2026_09_04_compressed.pdf?v=1788540365",
+      "publisher": "Blue Alpine",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Blue Alpine FAQs",
+      "url": "https://bluealpinefreezedryers.com/pages/faqs",
+      "publisher": "Blue Alpine",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Stay Fresh Freeze Dryer Owner's Manual, Model 4H11560US",
+      "url": "https://images.thdstatic.com/catalog/pdfImages/01/01e2d457-9a99-4147-8d3f-1d806b6d59bc.pdf",
+      "publisher": "Stay Fresh",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Learn",
+      "url": "https://packfreshusa.com/learn-new/",
+      "publisher": "PackFreshUSA",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Oxygen Absorber — The Myth, The Legend",
+      "url": "https://packfreshusa.com/blog/oxygen-absorber-the-myth-the-legend/",
+      "publisher": "PackFreshUSA",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Learning About Oxygen Absorbers",
+      "url": "https://packfreshusa.com/blog/learning-about-oxygen-absorbers/",
+      "publisher": "PackFreshUSA",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Oxygen Absorber Indicators",
+      "url": "https://packfreshusa.com/blog/oxygen-absorber-indicators/",
+      "publisher": "PackFreshUSA",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Q & A",
+      "url": "https://packfreshusa.com/q-a-1/",
+      "publisher": "PackFreshUSA",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Myths & Misconceptions: Oxygen Absorbers & Mylar Bags",
+      "url": "https://packfreshusa.com/blog/myths-misconceptions-oxygen-absorbers-mylar-bags/",
+      "publisher": "PackFreshUSA",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Technical Reference Guide (Oxygen Absorbers)",
+      "url": "https://discountmylarbags.com/technical-reference-guide-oxygen-absorbers/",
+      "publisher": "Discount Mylar Bags",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Oxygen Absorbers (FN/Food Preservation/2011-01pr, October 2011)",
+      "url": "https://digitalcommons.usu.edu/cgi/viewcontent.cgi?article=1196&context=extension_curall",
+      "publisher": "Utah State University Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "StayFresh Oxygen Absorbers — Measuring Volume of Space",
+      "url": "https://www.sorbentsystems.com/o2absorbers_1.html",
+      "publisher": "Sorbent Systems (IMPAK Corporation)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "All About Oxygen Absorbers USA",
+      "url": "https://www.impakcorporation.com/oxygen_absorbers/all-about-o2-absorbers",
+      "publisher": "IMPAK Corporation",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "50-Pack Oxygen Absorbers",
+      "url": "https://harvestright.com/product/oxygen-absorbers-50-pack/",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Wallaby Goods FAQs — Mylar Bags & Long-Term Food Storage",
+      "url": "https://wallabygoods.com/pages/faqs",
+      "publisher": "Wallaby Goods",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "How to Properly Seal Mylar Bags",
+      "url": "https://wallabygoods.com/blogs/news/how-to-properly-seal-mylar-bags",
+      "publisher": "Wallaby Goods",
+      "tier": "secondary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Heat Sealing 7-Mil Mylar Bags",
+      "url": "https://www.topmylar.com/heat-sealing-mylar-bags",
+      "publisher": "Top Mylar",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Sealing Mylar Bags: Easy Methods Anyone Can Use",
+      "url": "https://packfreshusa.com/blog/sealing-mylar-bags-easy-methods-anyone-can-use/",
+      "publisher": "PackFreshUSA",
+      "tier": "secondary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Mylar Bags — Food Storage FAQ",
+      "url": "https://www.usaemergencysupply.com/information-center/self-reliance/food-storage-frequently-asked-questions/mylar-bags",
+      "publisher": "USA Emergency Supply",
+      "tier": "secondary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Tabletop Impulse Sealer — 12″ (H-190)",
+      "url": "https://www.uline.com/Product/Detail/H-190/Poly-Bag-Sealers/Tabletop-Impulse-Sealer-12",
+      "publisher": "ULINE",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "AIE 305 HD (heavy-duty double impulse sealer)",
+      "url": "https://www.theaiecompany.com/heavy-duty-sealers/aie305hd",
+      "publisher": "American International Electric, Inc.",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Understanding the factors affecting the seal integrity in heat sealed flexible food packages: A review (2021), DOI 10.1002/pts.2564",
+      "url": "https://onlinelibrary.wiley.com/doi/full/10.1002/pts.2564",
+      "publisher": "Ilhan, Turan, Gibson & ten Klooster, Packaging Technology and Science (Wiley)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Bacteriological Analytical Manual Ch. 22C: Examination of Flexible and Semirigid Food Containers for Integrity (January 2001)",
+      "url": "https://www.fda.gov/media/183495/download",
+      "publisher": "U.S. Food and Drug Administration",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Visual Inspection Quality Testing of Heat Sealed Packages",
+      "url": "https://www.sanatron.com/articles/seal-integrity-quality-testing/visual-inspection-quality-testing-of-heat-sealed-packages.php",
+      "publisher": "Sanatron",
+      "tier": "secondary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "PAKVF4 Specification Sheet",
+      "url": "https://www.sorbentsystems.com/specs/pakvf4.html",
+      "publisher": "Sorbent Systems (IMPAK Corporation)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "PAKDRY7500 Specification Sheet",
+      "url": "https://www.sorbentsystems.com/specs/pakdry7500.html",
+      "publisher": "Sorbent Systems (IMPAK Corporation)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Packaging Foods (Preserve the Harvest)",
+      "url": "https://extension.usu.edu/preserve-the-harvest/food-storage-packaging",
+      "publisher": "Utah State University Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Food Storage for Emergencies (Food Storage Booklet, FN/preservation/2013-01pr)",
+      "url": "https://extension.usu.edu/preserve-the-harvest/files/Food-Storage-Booklet.pdf",
+      "publisher": "Utah State University Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Safety of Stored Foods (rev. April 16, 2020)",
+      "url": "https://hgic.clemson.edu/factsheet/safety-of-stored-foods/",
+      "publisher": "Clemson University Home & Garden Information Center",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "How to Store Freeze Dried Food",
+      "url": "https://harvestright.com/blogs/blog/how-to-store-freeze-dried-food",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Home Freeze Dryer Owner's Manual (v122022)",
+      "url": "https://ecosystems.psu.edu/about/facilities/srcl/pdf/owners-manual_hr.pdf",
+      "publisher": "Harvest Right (hosted by Penn State)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Owner's Manual, Medium BA40MFD / Large BA70LFD, Rev 1 & 2 (A00106, July 17, 2026)",
+      "url": "https://cdn.shopify.com/s/files/1/0766/0997/8659/files/A00106___Owners_Manual_Rev_2___2026_07_17_compressed.pdf?v=1784323362",
+      "publisher": "Blue Alpine",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "How to Seal Mylar Bags for Long-Term Food Storage",
+      "url": "https://wallabygoods.com/blogs/news/how-to-seal-mylar-bags-for-long-term-food-storage",
+      "publisher": "Wallaby Goods",
+      "tier": "secondary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Comprehensive Oxygen Absorber Size Chart for Long-Term Food Storage",
+      "url": "https://wallabygoods.com/blogs/news/comprehensive-oxygen-absorber-size-chart-for-long-term-food-storage",
+      "publisher": "Wallaby Goods",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Oxygen Absorbers (Facts, PDF)",
+      "url": "https://www.sorbentsystems.com/Oxygen_Absorber_Facts.pdf",
+      "publisher": "Sorbent Systems (IMPAK Corporation)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
     }
   ],
-  "products": [
-    "freeze-dryer-packaging-starter-kit-100"
+  "faq": [
+    {
+      "question": "Do I need a water activity meter to know a batch is dry?",
+      "answer": "No published home protocol establishes a water activity number. The one extension-published jar method uses a vaccine-transport data logger with a roughly 30-hour four-standard calibration, and the publishing service still states the device &ldquo;was not developed for testing the water activity of food,&rdquo; calls the results indicative only, and recommends professional commercial testing to verify them [10]. The checks that are published for home use are the break test on the thickest pieces [14], the cut-in-half inspection [4], and tray weight repeated until it stops changing [15]. Published freeze-dried water activity figures exist &mdash; 0.08 to 0.33 [1], 0.08 to 0.330 [5], not above 0.6 in one small-scale study [9] &mdash; but none of those sources names the instrument, and none of them is a target you can verify at a workbench."
+    },
+    {
+      "question": "Is 0.85 the number I should be aiming for?",
+      "answer": "That figure is a regulatory scope trigger, not a dryness target. 21 CFR 113.3 uses it to define which foods a regulation covers [12], the Food Code's own decision tables use 0.88, 0.90, 0.92 and 0.95 instead [11], and FDA's own contractor report says &ldquo;Technically, an aw of 0.85 is inappropriately low as a general aw minimum because most pathogens are inhibited at values well above 0.86&rdquo; [13]. It is not a shelf-stability guarantee and it is not a mold threshold."
+    },
+    {
+      "question": "The bag never sucked down. Did the absorber fail?",
+      "answer": "Not on that evidence. An absorber removes oxygen, about a fifth of the air, so most of the air volume remains by design [32]. PackFreshUSA states that &ldquo;You may not always see that vacuum-packed look even though the oxygen has indeed been removed&rdquo; [31], Wallaby Goods calls the vacuum-packed look a misconception about oxygen removal [38], and Discount Mylar Bags notes that powders and some freeze-dried items will not shrink at all [33]. Check the seal instead: pull the cooled mouth open [42], bend the cooled top [56], and feel along the seal with thumb and forefinger under good light [46]."
+    },
+    {
+      "question": "How long can the trays sit before I bag them?",
+      "answer": "No source publishes a maximum, and every source pushes toward speed. The University of Minnesota states freeze-dried food absorbs moisture easily and must be packaged quickly [4]; Harvest Right states that food left out of an airtight container begins to reabsorb moisture from the air [53] and names delayed sealing as one of four causes of shortened shelf life [16]; Virginia Tech measured water activity rising after 24 hours of storage for every commodity except apples [9]. The practical reading is to have bags, absorbers and sealer ready before the door opens [17]."
+    },
+    {
+      "question": "Can I seal mylar with a household iron or a hair straightener?",
+      "answer": "Bag sellers publish both methods. PackFreshUSA gives a cotton setting with the steam function off and a rigid backing under the seal [41], Wallaby gives a wool setting and notes metal straightener plates work better than ceramic ones [39], USA Emergency Supply gives cotton, wool or high for about 20 seconds and suggests testing on a scrap first [42], and Top Mylar gives 375 to 425 °F for its 7-mil bags [40]. Two cautions: the film datasheets for foil laminates specify 400 °F and 425 °F [48][49], so a low setting under-seals, and a machine's mil rating meets two bag walls &mdash; &ldquo;7-mil on each side = 14 mil total sealing thickness&rdquo; [40]."
+    }
   ],
-  "bodyHtml": "<p><strong>The short version:</strong> a batch is decided at its edges — the prep before the cycle and the half hour after the door opens — and the machine handles the middle. This guide walks the whole workflow in order: prep for uniformity, run the cycle, then let a cut test rather than the timer decide the batch is finished. Package immediately afterwards, because freeze-dried food starts pulling moisture back out of the air the moment the door opens.</p>\n<h2 id=\"understand-what-the-machine-is-actually-doing\">Understand what the machine is actually doing</h2>\n<p>Home freeze dryers work in three stages, per University of Minnesota Extension.\nFirst, food is frozen solid, typically to between −30 and −50 °F. Second, in primary\ndrying, a vacuum pump lowers the chamber pressure until the ice <em>sublimates</em>:\ncrystals turn directly to vapor, removing up to about 90% of the water. Third,\nsecondary drying gently warms the trays to pull out another 1–2% of bound moisture.\nThat last small fraction is the difference between shelf-stable and spoiled, which is\nwhy “it looks dry” is never the standard.</p>\n<p>One safety fact frames everything else: <strong>freeze-drying does not kill\npathogens.</strong> Extension guidance is blunt about this: food that was unsafe going in\nis unsafe coming out, and organisms paused by drying can resume growing after\nrehydration. Clean prep, fresh ingredients, and normal kitchen temperature control\nmatter exactly as much as they do in ordinary cooking.</p>\n<h2 id=\"prep-uniformity-beats-everything\">Prep: uniformity beats everything</h2>\n<p>Cut pieces to a uniform, modest thickness. Thinner food dries faster and more\nevenly, and mixed sizes on one tray guarantee that something finishes wet. Load trays\nlevel and to the machine’s rated weight, not above it. Group similar foods in a\nbatch when you can: a tray of dense cooked meat chunks and a tray of raspberries want\nvery different amounts of dry time, and the batch only ends once.</p>\n<h2 id=\"the-cycle-mostly-patience\">The cycle: mostly patience</h2>\n<p>Cycle length depends on the food, the load and the machine, and published\nexamples for home units range from a few hours for high-sugar candy to well over\na day for dense or wet loads. Use your machine's own guidance for the food you\nare running: a figure from someone else's batch is not a schedule for yours.\nResist opening early. The expensive mistakes happen at the end, not the middle.</p>\n<h2 id=\"the-dryness-test-the-checkpoint-that-matters\">The dryness test: the checkpoint that matters</h2>\n<p>When the cycle ends, test before you trust. Extension guidance: take the thickest\npieces from the <em>center</em> trays, cut them in half, and inspect the middle for dark,\ncold, or moist spots. A properly finished piece snaps or crumbles; anything cool,\nflexible, or dark in the center means moisture remains. If you find any, return\n<strong>all</strong> the trays and add more dry time. A marginal piece you can find implies\nmarginal pieces you can’t. Properly freeze-dried food is extraordinarily dry: published water-activity readings\nfor finished product typically land between 0.08 and 0.33, with well-dried batches\nusually settling in the tighter 0.10–0.25 band. Those are typical observed values,\nnot a threshold you can test your way past at home.</p>\n<figure class=\"diagram-figure\"><div class=\"table-scroll\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 920 660\" role=\"img\" aria-labelledby=\"dt-title dt-desc\">\n  <title id=\"dt-title\">The dryness test: four checks to confirm a freeze-dried batch is done</title>\n  <desc id=\"dt-desc\">Four-step diagram: cool a piece first, snap it, inspect the thickest center, and — if you sell — record a water-activity reading using the method your state accepts. If any check fails, add two to six hours of final dry time.</desc>\n  <style>\n    .bg{fill:var(--sp-paper);}\n    .panel{fill:var(--sp-panel);stroke:var(--sp-line);stroke-width:1;}\n    .title{font:700 23px var(--sp-font-display);fill:var(--sp-ink);}\n    .sub{font:13px var(--sp-font-body);fill:var(--sp-ink2);}\n    .h{font:700 15px var(--sp-font-body);fill:var(--sp-ink);}\n    .b{font:12.5px var(--sp-font-body);fill:var(--sp-ink2);}\n    .cap{font:11px var(--sp-font-body);fill:var(--sp-ink3);}\n    .chipt{font:700 10.5px var(--sp-font-body);}\n    .lbl-good{font:700 11.5px var(--sp-font-body);fill:var(--sp-good);}\n    .lbl-bad{font:700 11.5px var(--sp-font-body);fill:var(--sp-danger);}\n    .stroke-ink{stroke:var(--sp-ink2);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;}\n    .num{font:700 13px var(--sp-font-body);fill:#FFFFFF;}\n  </style>\n\n  <rect class=\"bg\" x=\"0\" y=\"0\" width=\"920\" height=\"660\"/>\n\n  <!-- header -->\n  <text class=\"title\" x=\"24\" y=\"42\">The dryness test — how to know a batch is actually done</text>\n  <text class=\"sub\" x=\"24\" y=\"66\">Run every check on the thickest piece from a center tray — the last spot in the chamber to finish.</text>\n\n  <!-- ===== card 1: cool it first ===== -->\n  <g transform=\"translate(24,88)\">\n    <rect class=\"panel\" width=\"430\" height=\"228\" rx=\"10\"/>\n    <circle cx=\"30\" cy=\"30\" r=\"13\" fill=\"var(--sp-blue)\"/>\n    <text class=\"num\" x=\"30\" y=\"34.5\" text-anchor=\"middle\">1</text>\n    <text class=\"h\" x=\"52\" y=\"35\">Cool it first</text>\n    <rect x=\"298\" y=\"18\" width=\"112\" height=\"22\" rx=\"11\" fill=\"var(--sp-red-t)\"/>\n    <text class=\"chipt\" x=\"354\" y=\"32.5\" text-anchor=\"middle\" fill=\"var(--sp-danger)\">#1 FALSE POSITIVE</text>\n\n    <!-- illustration: warm piece + clock -->\n    <g transform=\"translate(28,66)\">\n      <!-- piece -->\n      <rect x=\"6\" y=\"52\" width=\"76\" height=\"34\" rx=\"8\" fill=\"var(--sp-gold-t)\" stroke=\"var(--sp-line2)\" stroke-width=\"1.5\"/>\n      <!-- heat waves -->\n      <path class=\"stroke-ink\" d=\"M24 44 q4 -7 0 -14 q-4 -7 0 -14\"/>\n      <path class=\"stroke-ink\" d=\"M44 44 q4 -7 0 -14 q-4 -7 0 -14\"/>\n      <path class=\"stroke-ink\" d=\"M64 44 q4 -7 0 -14 q-4 -7 0 -14\"/>\n      <!-- clock -->\n      <circle cx=\"122\" cy=\"52\" r=\"22\" fill=\"var(--sp-panel)\" stroke=\"var(--sp-ink2)\" stroke-width=\"2\"/>\n      <path class=\"stroke-ink\" d=\"M122 52 L122 38 M122 52 L132 58\"/>\n      <text class=\"cap\" x=\"122\" y=\"92\" text-anchor=\"middle\">wait 5–10 min</text>\n    </g>\n\n    <text class=\"b\" x=\"196\" y=\"86\">Warm food always feels dry — heat</text>\n    <text class=\"b\" x=\"196\" y=\"104\">masks moisture. Judge nothing straight</text>\n    <text class=\"b\" x=\"196\" y=\"122\">off the tray.</text>\n    <text class=\"b\" x=\"196\" y=\"148\">Pull the test piece and let it reach</text>\n    <text class=\"b\" x=\"196\" y=\"166\">room temperature before you decide.</text>\n    <text class=\"cap\" x=\"28\" y=\"204\">Chamber-warm “done” calls are how soft centers end up sealed in bags.</text>\n  </g>\n\n  <!-- ===== card 2: snap test ===== -->\n  <g transform=\"translate(466,88)\">\n    <rect class=\"panel\" width=\"430\" height=\"228\" rx=\"10\"/>\n    <circle cx=\"30\" cy=\"30\" r=\"13\" fill=\"var(--sp-blue)\"/>\n    <text class=\"num\" x=\"30\" y=\"34.5\" text-anchor=\"middle\">2</text>\n    <text class=\"h\" x=\"52\" y=\"35\">Snap, don’t squeeze</text>\n\n    <!-- bends = wet -->\n    <g transform=\"translate(36,74)\">\n      <path d=\"M0 30 q40 -34 80 0\" fill=\"none\" stroke=\"var(--sp-danger)\" stroke-width=\"9\" stroke-linecap=\"round\"/>\n      <path class=\"stroke-ink\" d=\"M8 44 q10 8 24 10 M72 44 q-10 8 -24 10\" opacity=\"0.7\"/>\n      <text class=\"lbl-bad\" x=\"40\" y=\"76\" text-anchor=\"middle\">bends = wet</text>\n    </g>\n    <!-- snap = dry -->\n    <g transform=\"translate(196,74)\">\n      <path d=\"M0 22 L34 14\" fill=\"none\" stroke=\"var(--sp-good)\" stroke-width=\"9\" stroke-linecap=\"round\"/>\n      <path d=\"M46 12 L80 20\" fill=\"none\" stroke=\"var(--sp-good)\" stroke-width=\"9\" stroke-linecap=\"round\"/>\n      <path class=\"stroke-ink\" d=\"M40 2 L38 -8 M46 4 L52 -6 M34 6 L26 0\" opacity=\"0.85\"/>\n      <text class=\"lbl-good\" x=\"40\" y=\"76\" text-anchor=\"middle\">clean snap = dry</text>\n    </g>\n\n    <text class=\"b\" x=\"316\" y=\"96\">A dry piece breaks</text>\n    <text class=\"b\" x=\"316\" y=\"114\">with a crisp snap.</text>\n\n    <text class=\"b\" x=\"36\" y=\"182\">Any bend, flex, or chew means water is still inside — no</text>\n    <text class=\"b\" x=\"36\" y=\"200\">exceptions. Powders: rub a pinch — clumping = moisture.</text>\n  </g>\n\n  <!-- ===== card 3: center check ===== -->\n  <g transform=\"translate(24,332)\">\n    <rect class=\"panel\" width=\"430\" height=\"228\" rx=\"10\"/>\n    <circle cx=\"30\" cy=\"30\" r=\"13\" fill=\"var(--sp-blue)\"/>\n    <text class=\"num\" x=\"30\" y=\"34.5\" text-anchor=\"middle\">3</text>\n    <text class=\"h\" x=\"52\" y=\"35\">Open the thickest center</text>\n\n    <!-- cross-section -->\n    <g transform=\"translate(34,70)\">\n      <ellipse cx=\"62\" cy=\"52\" rx=\"60\" ry=\"44\" fill=\"var(--sp-gold-t)\" stroke=\"var(--sp-line2)\" stroke-width=\"1.5\"/>\n      <ellipse cx=\"62\" cy=\"54\" rx=\"30\" ry=\"22\" fill=\"var(--sp-terra)\" opacity=\"0.55\"/>\n      <!-- droplet -->\n      <path d=\"M62 44 q8 12 0 18 q-8 -6 0 -18\" fill=\"var(--sp-blue)\"/>\n      <path d=\"M36 12 L46 26\" class=\"stroke-ink\" opacity=\"0.6\"/>\n      <text class=\"cap\" x=\"0\" y=\"6\">dry, airy shell</text>\n      <path d=\"M110 96 L84 66\" class=\"stroke-ink\" opacity=\"0.6\"/>\n      <text class=\"cap\" x=\"66\" y=\"112\">dense, dark, cool middle</text>\n    </g>\n\n    <text class=\"b\" x=\"196\" y=\"88\">Break it open. The middle should</text>\n    <text class=\"b\" x=\"196\" y=\"106\">match the edge — light, airy, uniform</text>\n    <text class=\"b\" x=\"196\" y=\"124\">all the way through.</text>\n    <text class=\"b\" x=\"196\" y=\"150\">A center that looks darker, feels cool,</text>\n    <text class=\"b\" x=\"196\" y=\"168\">or presses like sponge fails the batch.</text>\n    <text class=\"cap\" x=\"196\" y=\"200\">A cool middle = ice still sublimating.</text>\n  </g>\n\n  <!-- ===== card 4: water activity ===== -->\n  <g transform=\"translate(466,332)\">\n    <rect class=\"panel\" width=\"430\" height=\"228\" rx=\"10\"/>\n    <circle cx=\"30\" cy=\"30\" r=\"13\" fill=\"var(--sp-blue)\"/>\n    <text class=\"num\" x=\"30\" y=\"34.5\" text-anchor=\"middle\">4</text>\n    <text class=\"h\" x=\"52\" y=\"35\">Verify with a number</text>\n    <rect x=\"322\" y=\"18\" width=\"88\" height=\"22\" rx=\"11\" fill=\"var(--sp-green-t)\"/>\n    <text class=\"chipt\" x=\"366\" y=\"32.5\" text-anchor=\"middle\" fill=\"var(--sp-good)\">IF YOU SELL</text>\n\n    <!-- meter -->\n    <g transform=\"translate(34,66)\">\n      <rect x=\"0\" y=\"0\" width=\"120\" height=\"92\" rx=\"12\" fill=\"var(--sp-panel)\" stroke=\"var(--sp-ink2)\" stroke-width=\"2\"/>\n      <rect x=\"14\" y=\"14\" width=\"92\" height=\"40\" rx=\"4\" fill=\"var(--sp-green-t)\" stroke=\"var(--sp-line2)\"/>\n      <text x=\"60\" y=\"41\" text-anchor=\"middle\" style=\"font:700 19px var(--sp-font-body);fill:var(--sp-ink);\">0.23<tspan style=\"font:600 11px var(--sp-font-body);fill:var(--sp-ink2);\"> aw</tspan></text>\n      <circle cx=\"34\" cy=\"72\" r=\"6\" fill=\"none\" stroke=\"var(--sp-ink3)\" stroke-width=\"2\"/>\n      <rect x=\"52\" y=\"66\" width=\"54\" height=\"12\" rx=\"3\" fill=\"var(--sp-panel-alt)\"/>\n      <text class=\"cap\" x=\"60\" y=\"118\" text-anchor=\"middle\">water-activity meter</text>\n    </g>\n\n    <text class=\"b\" x=\"196\" y=\"86\">If you sell, your state decides what</text>\n    <text class=\"b\" x=\"196\" y=\"104\">counts as evidence. Record readings</text>\n    <text class=\"b\" x=\"196\" y=\"122\">in the batch log as a process record.</text>\n    <text class=\"b\" x=\"196\" y=\"150\" style=\"font-weight:700;fill:var(--sp-ink);\">A home reading is not a safety test.</text>\n    <text class=\"b\" x=\"196\" y=\"168\">The cut test above is what gates the bag.</text>\n  </g>\n\n  <!-- footer -->\n  <g transform=\"translate(24,576)\">\n    <rect width=\"872\" height=\"56\" rx=\"10\" fill=\"var(--sp-green-t)\" stroke=\"var(--sp-green)\" stroke-opacity=\"0.35\"/>\n    <path d=\"M26 28 m-11 0 a11 11 0 1 0 22 0 a11 11 0 1 0 -22 0\" fill=\"var(--sp-good)\"/>\n    <path d=\"M20.5 28 l4 4 l7 -8\" fill=\"none\" stroke=\"#FFFFFF\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n    <text class=\"b\" x=\"50\" y=\"24\" style=\"font-weight:700;fill:var(--sp-ink);\">Any check fails → return the trays and add 2–6 hours of final dry time, then re-test.</text>\n    <text class=\"b\" x=\"50\" y=\"43\">Work fast: thawed spots re-absorb moisture from the air within minutes.</text>\n  </g>\n</svg>\n</div><figcaption class=\"article-meta\">Four-step dryness test: cool the piece first, snap it instead of squeezing, open the thickest center, and, if you sell, record a water-activity reading by the method your state accepts. Any failed check means 2–6 more hours of dry time.</figcaption></figure>\n<h2 id=\"package-inside-the-window\">Package inside the window</h2>\n<p>Freeze-dried food is aggressively hygroscopic: it starts pulling moisture back out\nof the air the moment the door opens. Package promptly; don’t leave trays sitting\nout for hours, and on humid days move fast or stage finished trays in the (off,\nsealed) chamber.</p>\n<p>The standard for long-term storage is a true moisture and oxygen barrier:</p>\n<ul>\n<li><strong>Mylar bags, 5–7.5 mil,</strong> with a metallized layer: the workhorse for storage and\nthe default for cottage sellers.</li>\n<li><strong>Vacuum-sealed mason jars:</strong> excellent for foods you’ll open and reseal, and for\nthe pantry-visible stuff.</li>\n<li><strong>PETE containers with oxygen absorbers:</strong> acceptable per extension guidance,\nless common in practice.</li>\n</ul>\n<p>Size oxygen absorbers to the container, not the food: roughly 100 cc per quart of\nvolume as a rule of thumb, which works out to about 300–500 cc for a one-gallon\nmylar bag. Freeze-dried food is airy, so lean toward the high side rather than the\nlow. Seal with an impulse sealer (an iron or hair straightener works in a pinch),\nsqueeze out what air you can first, and make the seal continuous and wrinkle-free\nedge to edge. A good sign within the first day: the bag tightens slightly as the\nabsorber works. A pillow-soft bag at hour 24 means a seal failure: open, replace\nthe absorber, reseal.</p>\n<p>Label everything with the food, prep method (raw, cooked, powdered), and date, then\nstore below 70 °F, dark and dry. Commercially freeze-dried foods claim shelf lives\nup to 25 years; home results depend on your dryness, packaging, and storage, so\ntreat those claims as a ceiling, not a promise. High-fat foods\noxidize and fall well short of it.</p>\n<h2 id=\"the-workflow-on-one-card\">The workflow, on one card</h2>\n<p>Prep uniform → load level → run full cycle → cut-test center-tray pieces → extra dry\ntime if in doubt → package within the hour in real barrier packaging with sized\nabsorbers → verify seals at 24 hours → label and store cool, dark, dry. Log every batch (food, weight, hours, and results) in our free\n<a href=\"/tools/batch-log\">Batch Log</a>. Your own machine, loads and room conditions are\nthe variables no published chart accounts for, which is the case for keeping records\nof them.</p>\n",
-  "section": "Storage"
+  "howTo": [
+    {
+      "name": "Prepare the food",
+      "text": "Cut to about 1/4 to 1/2 inch and no thicker than the tray height [1][19], keep food below the lip of the tray [8], blanch or acid-dip browning-prone produce [6][4], trim fat and cut meat to 3/4 inch or less [8], and pre-freeze high-moisture loads 24 to 48 hours [19][4]. Raw meat, poultry, seafood, eggs and unpasteurized dairy must be fully cooked before freeze-drying or after rehydration [2][1]."
+    },
+    {
+      "name": "Ready the machine",
+      "text": "Defrost so the chamber is free of ice and water, check the door gasket, and confirm the drain valve is closed before the cycle starts [20][21]. Check the pump oil against the published interval &mdash; 4 to 5 batches on a standard pump, 20 to 30 on a Premier, sooner if it is cloudy [22]. Plug into a dedicated circuit, with no extension cord and no GFI outlet or surge protector [20][21]."
+    },
+    {
+      "name": "Run the cycle",
+      "text": "Expect 13 to 35 hours for most foods and more than two days for thick foods or casseroles [20][1]. Room temperature moves that figure: a 24-hour batch at 75 °F can run over 40 hours in a hot room [21]. Leave it alone while it runs; if power is lost, Blue Alpine machines hold refrigeration only until you assess the load [24]."
+    },
+    {
+      "name": "Add dry time before you decide the batch is finished",
+      "text": "A completed cycle is a timer finishing, not a measurement passing. Soft, cool or dark centers are answered by extending dry time or re-running, and by lowering pressure and shelf temperature or cutting thinner next time [21][24]."
+    },
+    {
+      "name": "Check the center of the thickest pieces",
+      "text": "Break several of the largest pieces from different trays and read the center: no moisture, no cold spots, no soft areas, no darkening against the surrounding food [14]. The University of Minnesota's version is to cut each piece in half and look for a dark spot in the middle [4]. The surface tells you nothing &mdash; it can feel completely dry while the center is not [14]."
+    },
+    {
+      "name": "Confirm with tray weight",
+      "text": "Weigh each tray at cycle completion and again after any extended drying; stable weight is the published endpoint, with most scale error inside 1 gram [15]. In the published worked example a tray read 249 g at cycle end and 242 g after more drying, so it was not done [15]. No single reading settles it &mdash; the endpoint is two weighings that agree."
+    },
+    {
+      "name": "Size the absorber and pick the bag",
+      "text": "Size from the container's residual air volume rather than food weight [35]. For a gallon of freeze-dried food the published recommendations run 500 cc [27][28][33], 700 cc [37] and 400 cc [57], and extra capacity is published as harmless [27][33]. Use 5 to 7 mil mylar with no clear window [1], and have the bags open before you open the absorbers [17][29]."
+    },
+    {
+      "name": "Fill, seal, label, store and log",
+      "text": "Keep food dust out of the seal line, seal within the material's published window &mdash; 375 to 425 °F for a 7-mil bag by flat iron, 400 to 425 °F on the film datasheets [40][48][49] &mdash; then verify mechanically: pull the cooled mouth open [42] and bend the cooled seal [56]. Do not judge by suck-down [31][38]. Label with date, contents, absorber size and location, store at 40 to 60 °F [51], and write the batch down."
+    }
+  ],
+  "related": [
+    "chewy-candy",
+    "storage-failure",
+    "storage-containers"
+  ],
+  "products": [
+    "starter-set-50-bags-50-absorbers-sealer"
+  ],
+  "bodyHtml": "<p><strong>The short version:</strong> a batch is a chain of decisions, and four of them land in the few minutes after the door opens. Harvest Right names four causes of shortened shelf life &mdash; food not completely dry before packaging, delayed sealing after the cycle, incorrect oxygen absorber sizing, and inappropriate storage conditions [16] &mdash; and three of those four are packaging choices rather than machine settings. Run the eight stages below in order, read the center of the thickest pieces before anything is bagged [14], and write down what you did.</p>\n<p>This is a workflow, not a safety clearance. Nothing here establishes that a given batch is safe to eat. Utah State Extension states that <strong>&ldquo;Freeze-drying does not kill bacteria. Instead, it preserves microorganisms in a dormant state&rdquo;</strong> [2], so what went into the dryer governs what comes out of it, and the University of Minnesota notes there is no heat treatment step anywhere in the process [4]. We make no shelf-life guarantee.</p>\n\n<table>\n<thead>\n<tr><th>Stage</th><th>The decision it turns on</th><th>What the published record supplies</th><th>Source</th></tr>\n</thead>\n<tbody>\n<tr><td>1. Prepare the food</td><td>Piece size, load, pretreatment</td><td>Pieces about 1/4 to 1/2 inch; food no higher than the lip of the tray; blanch or acid-dip browning-prone produce</td><td>[1][8][6]</td></tr>\n<tr><td>2. Ready the machine</td><td>Whether the machine is fit to start</td><td>Chamber free of ice and water, drain valve closed, door gasket checked before the batch</td><td>[20][21]</td></tr>\n<tr><td>3. Run the cycle</td><td>How long it takes</td><td>13 to 35 hours for most foods; a 24-hour batch at 75 °F can run over 40 hours in a hot room</td><td>[20][21]</td></tr>\n<tr><td>4. Add dry time if needed</td><td>Whether to extend</td><td>Extended dry time is the published response to soft, cool or dark centers</td><td>[21][24]</td></tr>\n<tr><td>5. Check before packaging</td><td>Is it dry</td><td>Break the thickest pieces and read the center; weigh trays until the weight stops changing</td><td>[14][15]</td></tr>\n<tr><td>6. Size the absorber and bag</td><td>How much oxygen there is to remove</td><td>Size from the container's residual air volume, not the food's weight</td><td>[35][27]</td></tr>\n<tr><td>7. Fill and seal</td><td>Closure integrity</td><td>Published seal temperatures run 375 to 425 °F; a machine's mil rating meets two bag walls, not one</td><td>[40][48][49]</td></tr>\n<tr><td>8. Label, store, log</td><td>What you cannot inspect later</td><td>40 to 60 °F storage; shelf life halves per 10.8 °F rise; absorber exposure is a process record</td><td>[51][29]</td></tr>\n</tbody>\n</table>\n\n<h2>Before the batch</h2>\n<p>Piece size is the one prep variable with a measured effect in the published record. A Virginia Tech study of small-scale freeze dryers found that <strong>larger 14 mm dice reached higher water activity than 7 mm dice</strong>, that water activity rose after 24 hours of storage for every commodity except apples, and that glass containers were less variable than plastic bags [9]. The publication names neither the dryer model nor the meter model.</p>\n<p>Utah State gives the general guide as 1/4 to 1/2 inch pieces [1]. Harvest Right instructs cutting food no thicker than the tray height and treats about three-quarters of tray height as a loading guide [19][18]; Arizona Extension says food should not sit higher than the lip of the tray [8]. Note that Harvest Right contradicts itself on layering: one page says pieces can touch and you do not need space between every piece [18], another says a single layer per tray with only corn, beans and peas slightly layered [19]. Both are live; neither is reconciled.</p>\n<table>\n<thead>\n<tr><th>Prep decision</th><th>Published guidance</th><th>Condition attached</th><th>Source</th></tr>\n</thead>\n<tbody>\n<tr><td>Piece thickness</td><td>1/4 to 1/2 inch; no thicker than tray height</td><td>General guide, not food-specific</td><td>[1][19]</td></tr>\n<tr><td>Tray fill</td><td>About 3/4 of tray height; not above the tray lip</td><td>Manufacturer guide and extension guide, stated differently</td><td>[18][8]</td></tr>\n<tr><td>Load weight, per batch</td><td>Harvest Right: 6&ndash;10 lb small, 10&ndash;15 medium, 18&ndash;27 large, 40&ndash;50 extra-large. Utah State (2019): 4&ndash;7, 7&ndash;10, 12&ndash;16 lb. Blue Alpine: about 8&ndash;16 lb medium, 14&ndash;24 lb large</td><td>Three publishers, materially different figures; none averaged here</td><td>[20][3][25]</td></tr>\n<tr><td>Wet loads</td><td>Blue Alpine caps wet loads at about 8 lb for a medium and 16 lb for a large to keep water out of the pump</td><td>Published inside its troubleshooting chapter, not as a spec</td><td>[24]</td></tr>\n<tr><td>Pre-freezing</td><td>24 to 48 hours in a freezer, particularly milk, eggs, soups and stews; Stay Fresh says over 24 hours on the trays in a deep freezer</td><td>Stated as shortening the freeze phase, not as required</td><td>[19][20][4][26]</td></tr>\n<tr><td>Blanching</td><td>Blanch or steam vegetables to inactivate enzymes and hold color; UC ANR adds 1/4 teaspoon citric acid per quart of blanching water</td><td>Extension guidance; no per-food minutes for freeze-drying</td><td>[6][4]</td></tr>\n<tr><td>Acid dip</td><td>1 teaspoon ascorbic acid per gallon of cool water for produce that cannot be blanched; ascorbic acid or lemon juice for apples, pears, peaches, apricots</td><td>Concentrations published for produce generally</td><td>[4][6]</td></tr>\n<tr><td>Skins</td><td>Pierce or cut fruits with skins so moisture can escape; Arizona gives a different reason for the same act &mdash; to stop them bursting</td><td>Two mechanisms, neither refuting the other</td><td>[19][8]</td></tr>\n<tr><td>Fat and meat</td><td>Trim visible fat and bone, cut to 3/4 inch or less, blot grease from cooked high-fat meat</td><td>Fat is not removed by the process</td><td>[8][1]</td></tr>\n<tr><td>Foods to keep out</td><td>Iowa State: high-fat foods, high-sugar foods and baked goods do not freeze dry successfully</td><td>Class-level statement; Harvest Right publishes bread guidance that conflicts with it</td><td>[7]</td></tr>\n<tr><td>Liners</td><td>Silicone mats or parchment for liquids, sticky foods and foods hard to release</td><td>No published effect on cycle time</td><td>[18]</td></tr>\n</tbody>\n</table>\n<p>Raw animal products are a decision made here, not later. Utah State states that raw meat, poultry, seafood, eggs and unpasteurized dairy <strong>&ldquo;should not be freeze-dried without proper preparation&rdquo;</strong> and must be fully cooked either before freeze-drying or after rehydration [2][1]. Penn State states the same thing about the process in general terms [5]. Harvest Right's own preparation page permits meat into the dryer raw or cooked on the same page that states freeze drying does not kill pathogens [19], so on that reading the cook step moves to consumption &mdash; that split is in the record and we do not reconcile it.</p>\n<p>Then the machine itself. Harvest Right requires defrosting between every food batch, with the chamber free of ice and water before a new batch starts, and a door gasket check before every batch [20]; the owner's manual adds confirming the drain valve is closed before every cycle [21]. Stay Fresh's manual instructs inspecting the chamber before each cycle and brushing residual water out of the drain pipe after defrosting [26]. Blue Alpine's manual asks for the shipping zip ties to be removed from under the door seal and, for cold food, a freeze cycle run for 30 minutes before loading [24]. Pump oil is on the same list: Harvest Right's maintenance schedule splits by pump &mdash; every 4 to 5 batches on the standard pump, every 20 to 30 on the Premier, or sooner if the oil is cloudy [22].</p>\n\n<h2>Run the cycle</h2>\n<p>The room is a cycle-time variable, and the manufacturer says so plainly. Harvest Right's owner's manual states that a batch <strong>&ldquo;that normally takes 24 hours to finish in a 75°F environment could take over 40 hours&rdquo;</strong> in hot temperatures [21]. Its FAQ gives 13 to 35 hours for fruits, vegetables, meats, meals and dairy, and about two hours for candy [20]; Utah State notes that thick foods such as meat or casseroles can take more than two days [1]. Blue Alpine's manual gives 18 to 36 hours while its FAQ gives around 26 hours [55][25]. Treat any single hour figure as conditional on load, thickness, starting temperature and room temperature, because none of these sources controls for them.</p>\n<table>\n<thead>\n<tr><th>Run condition</th><th>Published figure or instruction</th><th>Who publishes it</th><th>Source</th></tr>\n</thead>\n<tbody>\n<tr><td>Cycle length</td><td>13 to 35 hours most foods; about 2 hours for candy; over 2 days for thick foods; 18 to 36 hours, or around 26</td><td>Harvest Right, Utah State, Blue Alpine</td><td>[20][1][55][25]</td></tr>\n<tr><td>Room temperature</td><td>Ideal 50 to 75 °F (FAQ); optimal 45 to 75 °F and a safe range of 35 to 90 °F (placement guide)</td><td>Harvest Right, two documents</td><td>[20][23]</td></tr>\n<tr><td>Indoor or garage</td><td>The manual says the device is designed for indoor installation only; the placement guide lists garages with temperature considerations, and Blue Alpine's FAQ says most owners use a garage, mudroom or basement</td><td>Recorded unreconciled</td><td>[54][23][25]</td></tr>\n<tr><td>Circuit</td><td>Dedicated 15 amp circuit for small, medium and large, 20 amp for extra-large; the manual says 20 amp for large; Stay Fresh requires a dedicated outlet within five feet</td><td>Harvest Right FAQ, Harvest Right manual, Stay Fresh</td><td>[20][21][26]</td></tr>\n<tr><td>What not to plug into</td><td>&ldquo;Do not use surge protectors or plug your freeze dryer into a GFI outlet&rdquo;; no extension cord; Blue Alpine: &ldquo;Ensure that the freeze dryer is the only device on the circuit&rdquo;</td><td>Harvest Right manual, Blue Alpine manual</td><td>[21][55]</td></tr>\n<tr><td>Clearance</td><td>Blue Alpine's manual asks for 1 ft on all sides while its FAQ asks for 6 inches; Harvest Right publishes no numeric figure, only that the unit must not be boxed in</td><td>Recorded unreconciled</td><td>[24][25][20]</td></tr>\n<tr><td>Mist from the pump</td><td>&ldquo;This is normal&rdquo; &mdash; wrap the filter or fit the upgraded mist filter</td><td>Blue Alpine troubleshooting</td><td>[24]</td></tr>\n<tr><td>Power lost mid-cycle</td><td>Blue Alpine machines enter a limp mode &mdash; refrigeration only, no heat, no pump &mdash; to hold the food frozen pending your assessment</td><td>Blue Alpine manual</td><td>[24]</td></tr>\n<tr><td>Defrost</td><td>Between every food batch, except that candy mode batches can run consecutively; Stay Fresh publishes two hours at 130 °F</td><td>Harvest Right, Stay Fresh</td><td>[20][26]</td></tr>\n</tbody>\n</table>\n<p>When the cycle reports complete, that is a timer finishing, not a measurement passing. Harvest Right's manual routes a batch that packages wet back through more dry time [21], and Blue Alpine's troubleshooting chapter answers soggy or chewy food with extending dry time or re-running, lowering pressure and shelf temperature, and cutting pieces thinner [24]. Adding dry time costs a few hours; discovering the problem after sealing costs the batch.</p>\n\n<h2>Check before packaging</h2>\n<p>The one sentence to carry out of this section is Harvest Right's: <strong>&ldquo;The outside of a piece of food can feel completely dry even when moisture remains in the center&rdquo;</strong> [14]. Your hands read the surface. The published checks read the center, the tray, or both.</p>\n<table>\n<thead>\n<tr><th>Check</th><th>What it reads</th><th>Published wording</th><th>Source</th></tr>\n</thead>\n<tbody>\n<tr><td>Break test</td><td>Moisture, cold, softness or darkening at the center of the thickest pieces</td><td>&ldquo;Break them open and check the center. There should be no moisture, cold spots, or areas that feel soft&rdquo;; test several of the largest or thickest pieces from different trays</td><td>[14]</td></tr>\n<tr><td>Cut-in-half inspection</td><td>A dark spot in the middle</td><td>&ldquo;Cut each piece in half. Inspect for any dark spots in the middle of the food&rdquo;</td><td>[4]</td></tr>\n<tr><td>Tray weight, repeated</td><td>Whether mass is still leaving the tray</td><td>&ldquo;If the weight remains consistent, this indicates that the food is adequately dry&rdquo;; most scale error is within 1 gram. Worked example: 249 g at cycle end, 242 g after more drying &mdash; not done</td><td>[15]</td></tr>\n<tr><td>Moisture meter</td><td>A secondary reading before packaging</td><td>&ldquo;A moisture meter can provide another way to check food before packaging&rdquo;</td><td>[14]</td></tr>\n<tr><td>Texture endpoint</td><td>A qualitative target, not a measurement</td><td>Dried to a crisp or breakable texture; high-sugar fruit &ldquo;may be flexible, but not sticky&rdquo;</td><td>[3]</td></tr>\n</tbody>\n</table>\n<p><strong>There is no universal water activity number to hit, and no single reading settles the question.</strong> The published freeze-dried figures do not agree and none of them names the instrument used: Utah State gives approximately 0.3 or below with many products between 0.08 and 0.33 [1], Penn State gives 0.08 to 0.330 [5], and Virginia Tech observed that water activity &ldquo;did not ever rise above 0.6&rdquo; in its small-scale study [9]. The familiar 0.85 line is not a dryness target at all: 21 CFR 113.3 uses it to define which foods fall inside a regulation, not to certify shelf stability [12], the Food Code's own decision tables use 0.88, 0.90, 0.92 and 0.95 rather than 0.85 [11], and FDA's own contractor report states that <strong>&ldquo;Technically, an aw of 0.85 is inappropriately low as a general aw minimum because most pathogens are inhibited at values well above 0.86&rdquo;</strong> [13].</p>\n<p>Nor is there a home method that establishes a number. The one extension-published jar protocol uses a vaccine-transport data logger, a four-standard calibration taking roughly 30 hours, a 2-hour equilibration, three to five replicate readings and a spreadsheet correction &mdash; and the publishing service still states the device <strong>&ldquo;was not developed for testing the water activity of food,&rdquo;</strong> that results are indicative only, and that <strong>&ldquo;Professional commercial testing is strongly recommended to verify results&rdquo;</strong> [10]. Treat each check as answering its own narrow question: the break test finds a wet center, the weight test finds mass still leaving, and neither reports on pathogens, because freeze-drying does not kill them [2][5].</p>\n<p>Whatever you check, check it quickly and seal quickly. The University of Minnesota notes that freeze-dried food absorbs moisture easily and must be packaged promptly [4]; Virginia Tech measured water activity rising after 24 hours of storage for every commodity but apples [9]; Harvest Right states that food not put into an airtight container <strong>&ldquo;will begin to reabsorb moisture from the air and spoil&rdquo;</strong> [53]. Have the bags open and the sealer hot before the door opens [17].</p>\n\n<h2>Prepare packaging</h2>\n<p>Absorbers are sized from air, not from food. IMPAK sizes from the residual air in the package: its worked five-gallon example multiplies <strong>3,066 cc of residual air by 0.21 to reach 628.53 cc of oxygen</strong>, calling for a 750 cc packet [35]. PackFreshUSA runs the same arithmetic on a gallon: 3,785 cc of air, 21 percent oxygen, 795 cc, so 800 cc for an empty gallon container [27]. The line that changes behavior is theirs too: <strong>&ldquo;A pool filled with marbles will have the same interstitial air volume as one filled with basketballs&rdquo;</strong> [27]. Particle size is not the variable; how much air the food class traps is &mdash; PackFreshUSA publishes beans and rice at about 35 percent air, flour about 50 percent, and freeze-dried food and pasta about 75 percent [28].</p>\n<p>The published gallon recommendations span more than 2x, and freeze-dried is where most charts stop.</p>\n<table>\n<thead>\n<tr><th>Publisher</th><th>One-gallon recommendation as published</th><th>Condition attached</th><th>Source</th></tr>\n</thead>\n<tbody>\n<tr><td>PackFreshUSA</td><td>300 cc dense, 400 cc powder, 500 cc freeze-dried; 800 cc for an empty gallon</td><td>Air-volume class; the 800 cc figure assumes an empty container</td><td>[27][28]</td></tr>\n<tr><td>Discount Mylar Bags</td><td>300 cc dense, 500 cc bulky or freeze-dried</td><td>Dry food below 10 percent moisture; round up, never down</td><td>[33]</td></tr>\n<tr><td>Harvest Right</td><td>700 cc</td><td>&ldquo;For use in gallon-size Mylar bags&rdquo; &mdash; no food class, no fill level stated</td><td>[37]</td></tr>\n<tr><td>Utah State Extension (2011)</td><td>300 cc for a gallon or #10 can; 50 cc quart; 1,500 cc for five gallons</td><td>October 2011 fact sheet; the only university figures found</td><td>[34]</td></tr>\n<tr><td>Wallaby Goods</td><td>400 cc</td><td>Chart disclaimed by its own publisher as &ldquo;only the average amount&rdquo;</td><td>[57]</td></tr>\n<tr><td>IMPAK / Sorbent Systems</td><td>Chart runs by bag dimension and stops at &ldquo;Pasta and Thicker, less Dense Foods&rdquo;</td><td>Self-disclaimed: &ldquo;This Chart represents approximate cc sizes and should not be taken as a final authority&rdquo;</td><td>[58]</td></tr>\n</tbody>\n</table>\n<p>Overage is not a hazard in the published record: PackFreshUSA says using more absorbing power than necessary is a good idea [27], and Discount Mylar Bags says excess absorbers are harmless because they simply will not fully react [33]. Undersizing is the failure mode nobody can inspect afterwards.</p>\n<p>Absorber handling has a clock on it, and the published windows disagree: PackFreshUSA says to use or reseal them within 10 to 15 minutes while noting it takes about two hours for one to fill [29][31]; Utah State's fact sheet says within 15 minutes [34]. Leftovers go into a mason jar or a vacuum-sealed bag, where they consume that container's oxygen and then hold [29]. Two checks before you drop one in a bag: PackFreshUSA's tactile test &mdash; a viable absorber feels soft and powdery rather than hard and crunchy [30] &mdash; and Utah State's appearance test, where a spent absorber is brown and clumped against a fresh pink or gray powder [34]. The indicator pill is weaker evidence than either: pink or red reads as oxygen removed and blue as oxygen present, but purple is assigned opposite meanings by different suppliers [30].</p>\n<p>The bag matters as much as the packet. Utah State specifies 5 to 7 mil mylar with no clear plastic window, plus an oxygen absorber, for freeze-dried storage [1]. The reason a window disqualifies a bag is the foil, not the light: PackFreshUSA states that <strong>&ldquo;It is only the aluminum on the surface that keeps the oxygen out&rdquo;</strong> [32], and Utah State's packaging page states that plastics allow significant oxygen into the container in one to two years and that <strong>&ldquo;vacuum packaging is NOT a food preservation method by itself&rdquo;</strong> [50]. A mylar bag is also a liner rather than a package &mdash; USA Emergency Supply states it is not strongly resistant to insects and not resistant at all to rodents, so it belongs inside something rigid [42].</p>\n<p>One precondition governs all of it: absorbers are for dry food. Utah State's fact sheet limits their use to foods below 10 percent moisture and warns that high-moisture foods in reduced-oxygen packaging can produce botulism poisoning [34], and Discount Mylar Bags publishes the same 10 percent condition on its calculations [33]. One mechanism sits unresolved underneath the popular habit of adding a desiccant: IMPAK states that iron-based absorbers need at least 65 percent relative humidity before the rusting reaction begins, with a sodium activator enabling lower-humidity operation [36], and no manufacturer in this set publishes a low-humidity performance curve.</p>\n\n<h2>Seal, label, store</h2>\n<p>The peer-reviewed review of heat-sealed flexible packaging supplies the numbers the retail pages do not. It states that <strong>&ldquo;Creases and wrinkles in the sealing surface caused by the manufacturing process can act as capillary channels that may cause leaks&rdquo;</strong> [45], and puts a figure on closing them: a minimum sealing pressure of 1.8 N/mm² produced a leak-proof seal in the materials investigated. It adds that solid particle contamination can form microchannels through the sealing area, that seal strength rises with dwell time and temperature, and that squeeze-out of molten sealant increases linearly with pressure [45].</p>\n<table>\n<thead>\n<tr><th>Setting or rating</th><th>Published figure</th><th>Scope stated by the publisher</th><th>Source</th></tr>\n</thead>\n<tbody>\n<tr><td>Laminate seal conditions</td><td>400 °F / 40 PSI / 1 second (4.3 mil foil mylar); 425 °F / 40 PSI / 1 second (7.5 mil)</td><td>Film datasheets, per material</td><td>[48][49]</td></tr>\n<tr><td>Flat iron on 7-mil bags</td><td>375 to 425 °F</td><td>Bag manufacturer, for its own 7-mil bags</td><td>[40]</td></tr>\n<tr><td>Household iron</td><td>Wool setting (Wallaby); cotton setting with steam off and a rigid backing (PackFreshUSA); cotton, wool or high for about 20 seconds (USA Emergency Supply)</td><td>Three sellers, three settings, none tied to a temperature except by inference</td><td>[39][41][42]</td></tr>\n<tr><td>Hair straightener</td><td>Endorsed; Wallaby adds that metal plates work better than ceramic</td><td>Manufacturer blog</td><td>[39]</td></tr>\n<tr><td>Impulse sealer, 12&Prime; tabletop</td><td>Rated to 8 mil for bags but metalized food bags to 2.5 mil only; runs 446 to 464 °F; 8 to 10 seals per minute</td><td>Retailer catalog spec</td><td>[43]</td></tr>\n<tr><td>Heavy-duty double impulse</td><td>20 mil, 5 mm seal, 1,500 W, described as suitable for plastic lined, foil and gusset bags</td><td>Manufacturer page</td><td>[44]</td></tr>\n<tr><td>Reading a mil rating</td><td>&ldquo;7-mil on each side = 14 mil total sealing thickness&rdquo;</td><td>Bag manufacturer, explaining why vacuum sealers fail on mylar</td><td>[40]</td></tr>\n</tbody>\n</table>\n<p><strong>Bag suck-down is not a seal test.</strong> An absorber removes oxygen, which is about a fifth of the air, so four-fifths of the air volume remains by design [32]. PackFreshUSA states that <strong>&ldquo;You may not always see that vacuum-packed look even though the oxygen has indeed been removed&rdquo;</strong> [31], Wallaby calls the vacuum-packed appearance a misconception about oxygen removal [38], and Discount Mylar Bags notes powders and some freeze-dried items will not shrink at all [33]. What is published as verification is mechanical: run the visual continuity checklist for a seal that is continuous edge to edge with no wrinkles and no food particles in the seal area [41]; pull the cooled mouth of the bag open [42]; bend the cooled top and watch for separation [56]; and use hand as well as eye &mdash; FDA's container integrity manual instructs rubbing thumb and forefinger around the seal area, feeling for folds and ridges, under proper illumination [46]. Sanatron states the limit of that method outright: <strong>&ldquo;Visual inspection is subjective, unreliable, operator dependent&rdquo;</strong> [47].</p>\n<p>We do not publish a 24-hour re-check, because no source in this set publishes one. The closest published check is the trapped-air method for a bag inside a bucket &mdash; fold the bag down until air pillows up firmly and see whether it deflates &mdash; and it carries no stated wait interval at all [42].</p>\n<p>No source in this set publishes a label format either. What the record does supply is the reason each field exists, which is what makes a label worth writing.</p>\n<table>\n<thead>\n<tr><th>Field on the label</th><th>The later decision it feeds</th><th>Source</th></tr>\n</thead>\n<tbody>\n<tr><td>Date packed</td><td>UC ANR does not recommend consuming home freeze-dried product beyond 5 to 10 years after processing</td><td>[6]</td></tr>\n<tr><td>Contents and form (whole, sliced, powder)</td><td>Absorber sizing runs on the air-volume class of the food, not its weight</td><td>[28][35]</td></tr>\n<tr><td>Fat content or cut</td><td>High fat content increases the risk of rancidity in storage, and oxidative rancidity is accelerated by heat, light, oxygen and metal ions</td><td>[1][51]</td></tr>\n<tr><td>Absorber size used</td><td>Incorrect absorber sizing is one of the four named causes of shortened shelf life</td><td>[16]</td></tr>\n<tr><td>Where it is stored</td><td>Shelf life halves per 10.8 °F rise, and storage time decreases significantly above 75 °F</td><td>[51][52]</td></tr>\n</tbody>\n</table>\n<p>Storage conditions carry the only rate rule anyone publishes. Utah State states that for every 10.8 degrees of temperature rise you halve the shelf life of stored food, with a storage range of 40 to 60 °F [51]; Clemson states that storage time decreases significantly above 75 °F [52]; Harvest Right conditions its own packaging claims on cool temperatures, low humidity, minimal light, a stable environment and below 85 °F [17], and states that food left out of an airtight container begins to reabsorb moisture from the air [53]. Light guidance is qualitative everywhere &mdash; minimal light, stored dark &mdash; and no source in this set attaches a number to it [17].</p>\n<p>The duration claims themselves are contested, and we publish all of them rather than picking one. Harvest Right gives up to 25 years or longer under ideal conditions [16]. Utah State gives 10 to 15 years and sometimes up to 25 for commercial product while recommending against home-preserved freeze-dried food beyond 5 to 10 years [1], and elsewhere states flatly that <strong>&ldquo;no real data exists on the shelf-life of home freeze-dried products&rdquo;</strong> because the first home unit went on sale in 2013, anchoring instead to 8 to 10 years for commercially canned metal-mylar product [3]. UC ANR says the 25-year figure has not been corroborated by university studies for home freeze dryers [6]. Iowa State says <strong>&ldquo;There is no verification that food will last 25 years at this point&rdquo;</strong> [7].</p>\n\n<h2>Record the batch</h2>\n<p>The four causes Harvest Right names for shortened shelf life &mdash; incomplete drying, delayed sealing, wrong absorber size, poor storage [16] &mdash; are all process facts, and none of them can be recovered by looking at the bag six months later. A log is how they stay knowable. Write down the food and its form, the piece thickness and load weight, the pre-freeze, the cycle length and any extended dry time, the dryness checks you ran and what they showed, the tray weights if you weighed them [15], the absorber size and how long the packets were open before sealing [29][34], the bag and the seal method, the pack date, and where the bags went.</p>\n<p>Two entries pay for the habit on their own. The first is absorber exposure time, which is a process record and not an inspection &mdash; nothing you can do to a sealed bag later recovers it [29][34]. The second is pump maintenance: Harvest Right's interval is counted in batches, 4 to 5 on a standard pump and 20 to 30 on a Premier [22], and Blue Alpine's manual gives 4 to 5 loads while its warranty binds coverage to a change every 120 hours of use, with no published hours-per-batch conversion between them [24]. A batch count is the only way to know where you sit against either figure.</p>\n<p>Two things the log cannot do. It cannot make a batch safe: freeze-drying does not kill bacteria, so a clean record on a raw-input batch is still a raw-input batch [2][1]. And it cannot substitute for the storage conditions themselves, which govern remaining life independently of anything written down [51][6].</p>\n\n<h2>What we could not source</h2>\n<ul>\n<li><strong>No home method establishes a water activity number.</strong> The single extension-published jar protocol runs on a vaccine-transport data logger, labels its own output indicative only, and recommends professional commercial testing to verify results [10]. The three freeze-dried figures we found &mdash; Utah State's 0.08 to 0.33, Penn State's 0.08 to 0.330, Virginia Tech's observation that it did not rise above 0.6 &mdash; name no instrument between them [1][5][9].</li>\n<li><strong>No residual-moisture target is published.</strong> Every figure in the record is framed as moisture removed, not moisture remaining: 98 to 99 percent [15], about 90 percent by sublimation plus 1 to 2 percent in desorption [4]. Nobody publishes a &ldquo;dry to X percent remaining&rdquo; endpoint.</li>\n<li><strong>No wait interval exists for the trapped-air check.</strong> The pillow-and-deflate method is published with no time attached, so the widely repeated next-day re-check has no source behind it [42].</li>\n<li><strong>No home-usable seal integrity test.</strong> FDA's leak method is destructive &mdash; it requires injecting air through a needle and watching for bubbles under water [46] &mdash; and the non-destructive alternative is visual inspection, which its own equipment industry calls operator-dependent [47].</li>\n<li><strong>No mechanism is published for one absorber per bag.</strong> It appears as practice, never with a stated reason, and other suppliers publish charts built from multiple smaller packets [33][57].</li>\n<li><strong>No manufacturer publishes an absorber class for freeze-dried food.</strong> IMPAK's chart stops at pasta and less dense foods and disclaims itself as approximate [58]; only PackFreshUSA's 75-percent-air column [28] and Discount Mylar's bulky or freeze-dried entry [33] cross the line, and no source publishes a figure for a specific freeze-dried food.</li>\n<li><strong>No impulse sealer publishes a duty cycle.</strong> The closest published figure is a throughput rate of 8 to 10 seals per minute [43], which is not the same thing as how long a hand sealer can run.</li>\n<li><strong>Loading guidance contradicts itself inside one manufacturer.</strong> Pieces can touch on one Harvest Right page [18] and belong in a single layer on another [19]. We report both.</li>\n<li><strong>No light threshold.</strong> Minimal light and dark storage is the whole of the published guidance; no lux figure, exposure duration or loss percentage appears anywhere in this set [17][51].</li>\n<li><strong>No long-run shelf-life study for home freeze-dried food.</strong> Utah State, UC ANR and Iowa State all state that the 25-year figure is unverified for home units [3][6][7], and the first home unit only went on sale in 2013 [3].</li>\n<li><strong>Two on-topic extension documents were not retrievable.</strong> The National Center for Home Food Preservation publishes no home freeze-drying method in its drying section, and an LSU AgCenter research-based FAQ was located by title but could not be fetched. Nothing on this page is attributed to either.</li>\n</ul>\n\n<h2>Next</h2>\n<ul>\n<li><a href=\"/guides/first-five-batches\">Your first five batches, in order</a> &mdash; the same workflow, sequenced for someone starting out.</li><li><a href=\"/troubleshooting/chewy-candy\">When a batch comes out chewy</a> &mdash; what a missed endpoint looks like afterwards.</li><li><a href=\"/compare/storage-containers\">Storage containers compared</a> &mdash; the packaging decision this workflow ends at.</li>\n</ul>\n<p><strong>Sold by Sublime Pantry:</strong> <a href=\"/shop/starter-set-50-bags-50-absorbers-sealer\">Starter Set</a> &mdash; the packaging half of this workflow in one order, sealer included.</p>",
+  "updatedDate": "2026-09-09"
 }

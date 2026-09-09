@@ -1,0 +1,227 @@
+{
+  "title": "What bag thickness actually means",
+  "description": "Mil is thickness. Barrier is OTR and WVTR. A sourced reference to what each figure measures, what every material publishes, and what nobody publishes.",
+  "kicker": "reference",
+  "pillar": "guides",
+  "section": "Packaging",
+  "riskClass": "standard",
+  "publishedDate": "2026-09-07",
+  "disclosure": "Sublime Pantry has no affiliate relationships, sponsorships, or paid placements as of publication. We sell packaging; where a product we sell appears, it is labeled.",
+  "sources": [
+    {
+      "title": "PAKVF4 Specification Sheet",
+      "url": "https://www.sorbentsystems.com/specs/pakvf4.html",
+      "publisher": "Sorbent Systems (IMPAK Corp.)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "PAKVF56T Specification Sheet",
+      "url": "https://www.sorbentsystems.com/specs/pakvf56t.html",
+      "publisher": "Sorbent Systems (IMPAK Corp.)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "PAKDRY7500 Specification Sheet",
+      "url": "https://www.sorbentsystems.com/specs/pakdry7500.html",
+      "publisher": "Sorbent Systems (IMPAK Corp.)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "PAKDRY1500 Specification Sheet",
+      "url": "https://www.sorbentsystems.com/specs/pakdry1500.html",
+      "publisher": "Sorbent Systems (IMPAK Corp.)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "PAKVF2.5M Specification Sheet",
+      "url": "https://www.sorbentsystems.com/specs/pakvf25.html",
+      "publisher": "Sorbent Systems (IMPAK Corp.)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "PAKVF3.5M Specification Sheet",
+      "url": "https://www.sorbentsystems.com/specs/pakvf35m.html",
+      "publisher": "Sorbent Systems (IMPAK Corp.)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "PAKVF5M Specification Sheet (PDF)",
+      "url": "https://www.sorbentsystems.com/specs/PAKVF5M.pdf",
+      "publisher": "Sorbent Systems (IMPAK Corp.)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "PAKVF4K Specification Sheet (PDF)",
+      "url": "https://www.sorbentsystems.com/specs/pakvf4k.pdf",
+      "publisher": "Sorbent Systems (IMPAK Corp.)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "PAKVAC4.0 Specification Sheet (PDF)",
+      "url": "https://www.sorbentsystems.com/specs/pakvac4.pdf",
+      "publisher": "Sorbent Systems (IMPAK Corp.)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "MIL-PRF-131K Grade 1000m Spec",
+      "url": "https://www.sorbentsystems.com/specs/mil-prf-131k-grade-1000.html",
+      "publisher": "Sorbent Systems (IMPAK Corp.) / US DoD spec",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "MIL-PRF-81705E Type I Class 1 Grade 600m Spec",
+      "url": "https://www.sorbentsystems.com/specs/mil-prf-81705e-grade-600m.html",
+      "publisher": "Sorbent Systems (IMPAK Corp.) / US DoD spec",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Technology / Material Specification index",
+      "url": "https://www.sorbentsystems.com/technology.html",
+      "publisher": "Sorbent Systems (IMPAK Corp.)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Mylar Base Barrier Bags and Pouches",
+      "url": "https://www.sorbentsystems.com/mylar.html",
+      "publisher": "Sorbent Systems (IMPAK Corp.)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "AVK2HHZ - 3.75\"x8.0\"x2.25\" Clear/Kraft Hang Hole Stand Up Vista Pouch",
+      "url": "https://impakcorporation.com/flexible_packaging/AVK2HHZ",
+      "publisher": "IMPAK Corporation",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Kraft Bags - Kraft Stand Up Pouches & Flat Bags",
+      "url": "https://www.sorbentsystems.com/kraft-bags.html",
+      "publisher": "Sorbent Systems (IMPAK Corp.)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Paper Stand-Up Barrier Pouches with Window, Kraft, 6x9x3\" (S-22248)",
+      "url": "https://www.uline.com/Product/Detail/S-22248/Barrier-Pouches/Kraft-Stand-Up-Barrier-Pouches-with-Window-6-x-9-x-3",
+      "publisher": "ULINE",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Uline Vacuum Bags for FoodSaver 6x10\" (S-20395)",
+      "url": "https://www.uline.com/Product/Detail/S-20395/Food-Bags/Uline-Vacuum-Bags-for-Foodsaver-6-x-10",
+      "publisher": "ULINE",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Information About our Mylar Layer",
+      "url": "https://discountmylarbags.com/information-about-our-mylar-layer/",
+      "publisher": "Discount Mylar Bags",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Mylar Bags - 7.5 Mil Heavy Duty",
+      "url": "https://discountmylarbags.com/7-5-mil-heavy-duty-mylar-bags/",
+      "publisher": "Discount Mylar Bags",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Mylar MRE Pouches with Oxygen Absorbers",
+      "url": "https://wallabygoods.com/products/mylar-mre-pouches",
+      "publisher": "Wallaby Goods",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "7.5 Mil MRE Mylar Full-Portion Bags and Oxygen Absorbers",
+      "url": "https://packfreshusa.com/7-5-mil-mre-mylar-full-portion-bags-and-oxygen-absorbers/",
+      "publisher": "PackFreshUSA",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Gallon 7 Mil Premium Mylar Food Storage Bags",
+      "url": "https://packfreshusa.com/gallon-7-mil-premium-century-mylar-bags-and-oxygen-absorbers/",
+      "publisher": "PackFreshUSA",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Gallon 5 Mil Heavy Duty Mylar Food Storage Bags",
+      "url": "https://packfreshusa.com/gallon-5-mil-heavy-duty-mylar-bags-and-oxygen-absorbers/",
+      "publisher": "PackFreshUSA",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "5-Gallon Standard Mylar Food Storage Bags",
+      "url": "https://packfreshusa.com/5-gallon-mylar-bags-and-oxygen-absorbers/",
+      "publisher": "PackFreshUSA",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "5.5 mil Kraft with Window Stand Up Pouches",
+      "url": "https://packfreshusa.com/5-5-mil-stand-up-pouches-kraft-with-window/",
+      "publisher": "PackFreshUSA",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Packaging Foods (Preserve the Harvest)",
+      "url": "https://extension.usu.edu/preserve-the-harvest/food-storage-packaging",
+      "publisher": "Utah State University Extension",
+      "tier": "secondary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Heat Sealing 7-Mil Mylar Bags",
+      "url": "https://www.topmylar.com/heat-sealing-mylar-bags",
+      "publisher": "Top Mylar",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Does a 7 mil bag store food longer than a 5 mil bag?",
+      "answer": "Not according to the published figures. Metallized PET at 2.5, 3.5 and 5.0 mil all publish the same 0.02 cc/m²/24 hrs OTR and 0.05 gr/100 in²/24 hrs WVTR [5][6][7]. Thickness moves puncture and burst, not the published barrier."
+    },
+    {
+      "question": "Is 7.5 mil measured per side or total?",
+      "answer": "It depends on the seller. Wallaby states 7.5 mil per side, 15 mil total [20]; Discount Mylar Bags states per side [19]; PackFresh's MRE page gives 7.5 mil with no qualifier [21]. The manufacturer datasheet at 7.5 mil describes the film, meaning one wall [3]."
+    },
+    {
+      "question": "Can I compare OTR numbers from two different brands?",
+      "answer": "Usually not as printed. Three unit systems appear across these datasheets [1][9][3], one square meter is about 1,550 square inches, and most sheets publish the ASTM method with no temperature or humidity [1][2][5][6][7][8][9]."
+    },
+    {
+      "question": "How much worse is a vacuum-sealer bag than a foil mylar bag?",
+      "answer": "The published figures are 0.001 cc/m²/24 hrs for a 4.3 mil foil laminate [1] and 4.25 cc/100 in²/24 hrs for a 4.0 mil nylon/PE vacuum film [9]. Different area bases, so convert before quoting a ratio."
+    },
+    {
+      "question": "Do kraft bags with a clear window block light?",
+      "answer": "The window panel does not. All three kraft window pouches sourced are foil-free — IMPAK states \"This product does not have foil lining\" [15], and the ULINE and PackFresh window pouches publish paper/PET/NY/LLDPE and kraft/PET/PE structures respectively [16][25]. No manufacturer publishes a light-transmission percentage [18]."
+    }
+  ],
+  "products": [
+    "freeze-dryer-packaging-starter-kit-100"
+  ],
+  "bodyHtml": "<p><strong>The short version:</strong> Mil is a thickness measurement and nothing more. Barrier performance is reported separately as OTR (oxygen transmission rate) and WVTR (water vapor transmission rate), and those figures track the foil or metallized layer inside the laminate, not the mil count on the label. A 4.3 mil foil mylar publishes an oxygen transmission rate of 0.001 cc/m&sup2;/24 hrs [1] while a 4.0 mil nylon/PE vacuum-sealer film publishes 4.25 cc/100 in&sup2;/24 hrs [9] &mdash; near-identical thickness, different barrier by orders of magnitude.</p>\n<h2>Mil is thickness, and sellers do not measure it the same way</h2>\n<p>One mil is one thousandth of an inch. On a manufacturer datasheet it describes the film &mdash; a single bag wall. IMPAK's PAKDRY7500 sheet states \"7.5 mils (minimum)\" as the film gauge [3]. In the retail channel the same number is used three different ways for nominally the same product.</p>\n<p>Wallaby Goods states <strong>\"7.5 mil per side (15 mil total)\"</strong> [20]. Discount Mylar Bags states 7.5 mil per side [19]. PackFreshUSA's MRE page states 7.5 mil with no per-side qualifier [21], while that same seller's 5 mil and 7 mil gallon pages do say per side [23][22]. A buyer comparing two \"7.5 mil\" bags may be comparing one wall against two.</p>\n<p>Thickness also sets the stack a sealer has to fuse. Top Mylar puts it directly: \"7-mil on each side = 14 mil total sealing thickness\" [27] &mdash; two walls, not one, counted against a machine's rating.</p>\n<h2>OTR and WVTR: what they measure</h2>\n<p>These are the barrier numbers, and they are reported in units that do not line up across brands. Three different area bases appear across the datasheets in this category: cc/m&sup2;/24 hrs [1][2][7][5][6][8], cc/100 in&sup2;/24 hrs [9], and cc per 100 sq in/24 hrs at 100% oxygen [3][4]. One square meter is roughly 1,550 square inches, so 0.001 cc/m&sup2;/24 hrs [1] and 4.25 cc/100 in&sup2;/24 hrs [9] cannot be read side by side without converting.</p>\n<table><thead><tr><th>Figure</th><th>What it measures</th><th>Test method as published</th><th>Units seen</th><th>Conditions published?</th></tr></thead><tbody><tr><td><strong>Mil</strong></td><td>Film thickness, one wall unless a seller says otherwise</td><td>ASTM D374 on the military specs [10][11]; unstated elsewhere</td><td>mil (0.001 in)</td><td>Per-side vs total unresolved in retail [19][20][21]</td></tr><tr><td><strong>OTR</strong></td><td>Oxygen passing through the film per area per day</td><td>ASTM D-3985 [1 method noted as MOCON][8][9]; ASTM D-3985 at 100% O&#8322; [3][4]</td><td>cc/m&sup2;/24 hrs; cc/100 in&sup2;/24 hrs; cc/100 sq in/24 hrs at 100% O&#8322;</td><td>77&deg;F @ 90% RH stated on PAKDRY7500 and PAKDRY1500 only [3][4]; method-only elsewhere [1][2][5][6][7][8][9]</td></tr><tr><td><strong>WVTR / MVTR</strong></td><td>Water vapor passing through the film per area per day</td><td>ASTM F-1249 [1][5][8][9][10][11]</td><td>gr/100 in&sup2;/24 hrs; g/100 in&sup2;/day</td><td>100&deg;F on PAKDRY sheets [3][4]; 37.8&deg;C @ 90% RH on the military specs [10][11]; unstated elsewhere [1][2][5][6][7][8][9]</td></tr><tr><td><strong>Puncture / burst</strong></td><td>Force to penetrate the film; pressure to rupture it</td><td>FTMS 101-C Method 2065 [1][3][9][10]; TAPPI T403 Mullen burst [1][5][7]</td><td>psi in some sheets, lbs in others</td><td>Reported in different quantities by the same test family [1][2][3]</td></tr></tbody></table>\n<p>Two of those four are conditions-complete on only two datasheets in the set. Everything else gives the ASTM method and no temperature or relative humidity, which is why a clean cross-brand barrier ranking is not available from published data.</p>\n<h2>Every material, with all four figures</h2>\n<p>Figures are reproduced in the units each manufacturer published. They are not normalized. Cells marked <strong>MKT</strong> come from marketing pages with no test method attached.</p>\n<table><thead><tr><th>Material</th><th>Thickness (mil)</th><th>OTR as published</th><th>WVTR as published</th><th>Puncture / burst</th></tr></thead><tbody><tr><td><strong>Foil laminate mylar, PAKVF4</strong> (48GaPET/PE/.00035 foil/LLDPE)</td><td>4.3 [1]</td><td>0.001 cc/m&sup2;/24 hrs [1]</td><td>&lt;0.0005 gr/100 in&sup2;/24 hrs [1]</td><td>Puncture &gt;18 psi; Mullen burst 69 psi [1]</td></tr><tr><td><strong>Foil laminate mylar, PAKVF56T</strong></td><td>5.6 [2]</td><td>0.001 cc/m&sup2;/24 hrs certified max, 0.0006 measured [2]</td><td>&lt;0.005 gr/100 in&sup2;/24 hrs certified max, 0.0003 measured [2]</td><td>Puncture 19.1 lbs; Mullen burst 57 lb/in&sup2; [2]</td></tr><tr><td><strong>Foil laminate, PAKDRY7500</strong> (the published 7.5 mil sheet)</td><td>7.5 minimum [3]</td><td>&lt;0.0005 cc/100 sq in/24 hrs, 100% O&#8322;, 77&deg;F @ 90% RH [3]</td><td>&lt;0.0006 gms/100 sq in/24 hrs, 100&deg;F [3]</td><td>Puncture &gt;38 lbs; burst &gt;130 psi [3]</td></tr><tr><td><strong>Metallized PET, PAKDRY1500</strong> &mdash; anti-static, semiconductor use, <strong>not food-grade</strong> [4]</td><td>7.0 [4]</td><td>&lt;0.0005 cc/100 sq in/24 hrs, 100% O&#8322;, 77&deg;F @ 90% RH [4]</td><td>&lt;0.0006 gms/100 sq in/24 hrs, 100&deg;F [4]</td><td>Puncture &gt;38 lbs; burst &gt;130 psi [4]</td></tr><tr><td><strong>Metallized PET, PAKVF2.5M</strong></td><td>2.5 [5]</td><td>0.02 cc/m&sup2;/24 hrs [5]</td><td>0.05 gr/100 in&sup2;/24 hrs [5]</td><td>Puncture &gt;13 psi; burst &gt;50 psi [5]</td></tr><tr><td><strong>Metallized PET, PAKVF3.5M</strong></td><td>3.5 [6]</td><td>0.02 cc/m&sup2;/24 hrs [6]</td><td>0.05 gr/100 in&sup2;/24 hrs [6]</td><td>Puncture &gt;16 psi; burst &gt;70 psi [6]</td></tr><tr><td><strong>Metallized PET, PAKVF5M</strong></td><td>5.0 [7]</td><td>0.02 cc/m&sup2;/24 hrs [7]</td><td>0.05 gr/100 in&sup2;/24 hrs [7]</td><td>Puncture &gt;16 psi; burst &gt;70 psi [7]</td></tr><tr><td><strong>Foil-lined kraft, PAKVF4K</strong> (kraft/PE/foil/LDPE)</td><td>5.0 [8]</td><td>0.01 cc/m&sup2;/24 hrs [8]</td><td>0.0005 gr/100 in&sup2;/24 hrs [8]</td><td>Puncture not published; tensile 29 psi MD / 20 psi XMD [8]</td></tr><tr><td><strong>Kraft with clear window</strong> (IMPAK vista pouch; front KPET/LLDPE, back kraft/LLDPE, no foil)</td><td>4.7 [14]</td><td>Not published [14][15]</td><td>Not published [14][15]</td><td>Not published [14]</td></tr><tr><td><strong>Kraft with window</strong> (ULINE, paper/PET/NY/LLDPE)</td><td>6&ndash;7 [16]</td><td>Not published [16]</td><td>Not published [16]</td><td>Not published [16]</td></tr><tr><td><strong>Kraft with window</strong> (PackFresh, kraft/PET/PE) <strong>MKT</strong></td><td>5.5 [25]</td><td>\"&lt;=0.5\" with no unit and no method [25]</td><td>\"&lt;=0.5\" with no unit and no method [25]</td><td>Not published; seal strength &gt;=40.0 N/15mm given instead [25]</td></tr><tr><td><strong>Vacuum-sealer film, PAKVAC4.0</strong> (60ga nylon/adhesive/PE, transparent)</td><td>4.0 [9]</td><td>4.25 cc/100 in&sup2;/24 hrs [9]</td><td>0.26 gr/100 in&sup2;/24 hrs [9]</td><td>Puncture 20.5 lb; burst not published [9]</td></tr><tr><td><strong>Vacuum-sealer bag, embossed</strong> (ULINE, 5-ply)</td><td>3 smooth side / 8 embossed side [17]</td><td>Not published [17]</td><td>Not published [17]</td><td>Not published [17]</td></tr><tr><td><strong>MIL-PRF-131K Grade 1000m</strong></td><td>6.2, ASTM D374 [10]</td><td>Reported as 0.0005 g/100 in&sup2;/day @ 23.0&deg;C, 0% RH under ASTM F1249 &mdash; a grams figure under the water-vapor method [10]</td><td>0.0005 g/100 in&sup2;/day @ 37.8&deg;C, 90% RH [10]</td><td>Puncture 31.0 lbs; tensile 7,687 psi MD &amp; TD [10]</td></tr><tr><td><strong>MIL-PRF-81705E Type I Cl.1 Grade 600m</strong></td><td>6.4, ASTM D374 [11]</td><td>Not published [11]</td><td>0.0003 g/100 in&sup2;/day @ 37.8&deg;C, 90% RH [11]</td><td>Puncture 32.0 lbs; tensile 7,251 psi MD &amp; TD [11]</td></tr><tr><td><strong>Consumer \"MRE\" 7.5 mil</strong> (PackFresh) <strong>MKT</strong></td><td>7.5 [21]</td><td>Described as \"extremely low Oxygen Transmission Rate (OTR) due to their thick foil laminate layer\"; no number [21]</td><td>Not published [21]</td><td>Not published [21]</td></tr><tr><td><strong>Consumer \"MRE\" 7.5 mil</strong> (Wallaby) <strong>MKT</strong></td><td>7.5 per side / 15 total [20]</td><td>Not published [20]</td><td>Not published [20]</td><td>Not published [20]</td></tr><tr><td><strong>Consumer \"MRE\" 7.5 mil</strong> (Discount Mylar Bags) <strong>MKT</strong></td><td>7.5 per side [19]</td><td>Not published for the finished bag; the site's 0.4 g/m&sup2;/day figure is scoped \"for only the Mylar layer\" [18]</td><td>Not published [19]</td><td>Not published [19]</td></tr><tr><td><strong>Foil laminate, \"Standard 4.3 mil\"</strong> (PackFresh, 5-gal) <strong>MKT</strong></td><td>4.3 [24]</td><td>\"extremely low\" with no number [24]</td><td>Not published [24]</td><td>\"burst strength of over 140 psi\" [24]</td></tr><tr><td><strong>Metallized PET at ~4.3 mil</strong></td><td colspan=\"4\">No manufacturer searched publishes one; the indexed metallized grades are 2.5, 3.5 and 5.0 mil, and 4.3 mil is a foil laminate [12][1]</td></tr></tbody></table>\n<h2>Light</h2>\n<p>No manufacturer in this source set publishes a percent light-transmission figure for a finished food-storage bag. The only numeric optical property found anywhere is 3.0% haze, and that is scoped to the bare PET layer, not the laminate [18]. Everything else is qualitative: Wallaby calls its pouches \"light-blocking\" [20], and Discount Mylar Bags describes its bags in superlative light-barrier terms with no measurement attached [19].</p>\n<p>Where light does become a documented trade-off is the window. Kraft pouches with a clear panel drop the foil to get it &mdash; IMPAK flags one such pouch plainly: \"This product does not have foil lining\" [15], its structure published as front KPET/LLDPE, back kraft/LLDPE [14]. ULINE sells a kraft window pouch as a barrier pouch at paper/PET/NY/LLDPE, also foil-free and with no OTR or WVTR published [16], and PackFresh's kraft window pouch is kraft/PET/PE [25]. Three sellers, no foil in any of them.</p>\n<h2>Puncture and burst</h2>\n<p>This is where mil does earn its keep, and the numbers move with thickness inside a single manufacturer's line: metallized PET runs puncture &gt;13 psi and burst &gt;50 psi at 2.5 mil, and &gt;16 psi / &gt;70 psi at both 3.5 and 5.0 mil [5][6][7]. On the foil side, PAKVF4 at 4.3 mil publishes puncture &gt;18 psi and Mullen burst 69 psi [1], and PAKDRY7500 at 7.5 mil publishes puncture &gt;38 lbs and burst &gt;130 psi [3].</p>\n<p>Across brands, the ranking falls apart. Some sheets report puncture in psi, others in pounds, under the same FTMS 101 test family: &gt;18 psi [1] against 19.1 lbs [2] against &gt;38 lbs [3] against 31.0 lbs and 32.0 lbs on the two military specs [10][11]. Those are not the same measurement, and no conversion between them is published.</p>\n<p>On the retail side, PackFreshUSA's \"burst strength of over 140 psi\" appears identically on its 4.3 mil, 5 mil and 7 mil pages [24][23][22]. The same figure attached to three thicknesses reads as site-wide copy rather than a per-material measurement, and that seller publishes no puncture figure at all.</p>\n<h2>Why 7 mil is a durability claim, not a shelf-life claim</h2>\n<p>Utah State University Extension states the mechanism in one line: \"The foil layer dramatically reduces the transmission of oxygen and moisture through the film\" [26]. The same source is blunt about what the plastic alone does: \"Plastics are not that resistant to oxygen transfer and will allow significant oxygen levels into the container in 1 to 2 years\" [26].</p>\n<p>The datasheets agree. A 4.3 mil foil laminate publishes 0.001 cc/m&sup2;/24 hrs [1]; a 4.0 mil nylon/PE vacuum-sealer film publishes 4.25 cc/100 in&sup2;/24 hrs [9]. Nearly the same thickness, and the barrier claim is not close &mdash; the difference is the foil, not the mil. Metallized grades at 2.5, 3.5 and 5.0 mil all publish the same 0.02 cc/m&sup2;/24 hrs and 0.05 gr/100 in&sup2;/24 hrs [5][6][7]: doubling the thickness inside that line does not move the published barrier figure at all. IMPAK is also the only manufacturer here that publishes foil gauge &mdash; .00035 in on PAKVF4, .0005 in on PAKVF4PC, with the stated industry-standard competitor gauge at .000285 in [13].</p>\n<p>Two more facts sit against the idea that more mil means longer storage. Consumer \"MRE\" bags are sold at 7.5 mil [21][19][20], while the genuine defense materials are 6.2 mil [10] and 6.4 mil [11] &mdash; thinner, and the ones publishing full puncture and seal data. And a 7.0 mil high-barrier film exists on paper, PAKDRY1500, but its own datasheet describes an anti-static coating for semiconductor and electronics packaging, so it is not a food option [4].</p>\n<p>What mil does predict is handling and sealing: puncture and burst within a product line [5][6][7], and the stack your sealer has to fuse &mdash; 7 mil per side is 14 mil of material in the jaw [27].</p>\n<p>Sublime Pantry has not bench-tested any of these bags or films. Everything above is what the manufacturers and the extension source publish.</p>\n<h2>What we could not source</h2>\n<ul><li><strong>Any barrier number from PackFreshUSA.</strong> No OTR, no WVTR, no puncture force, no seal temperature on any page checked [21][22][23][24][25].</li><li><strong>A metallized PET film at ~4.3 mil.</strong> The indexed metallized grades are 2.5, 3.5 and 5.0 mil; 4.3 mil is a foil laminate [12][1]. A comparison of \"4.3 mil metallized\" cannot be built.</li><li><strong>Percent light transmission for any finished bag.</strong> The only optical figure in the set is 3.0% haze for bare PET [18]; every other light claim is qualitative [19][20].</li><li><strong>Barrier data from Wallaby Goods.</strong> Thickness and a multi-layer aluminum description only &mdash; no OTR, WVTR, layer stack, puncture or seal temperature [20].</li><li><strong>First-party FoodSaver-brand specifications.</strong> None published; the ULINE equivalent at least gives 5-ply construction at 3 mil smooth / 8 mil embossed [17].</li><li><strong>Test conditions on most datasheets.</strong> Only PAKDRY7500 and PAKDRY1500 publish temperature and RH [3][4]; the rest give the ASTM method alone [1][2][5][6][7][8][9].</li><li><strong>An oxygen figure for MIL-PRF-81705E</strong>, which publishes none [11]; and MIL-PRF-131K reports its OTR in grams under ASTM F1249, the water-vapor method, which we are not restating as a clean oxygen number [10].</li><li><strong>Seal temperatures for most materials.</strong> Published for PAKVF4 and PAKVF56T at 400&deg;F [1][2], PAKDRY7500 at 425&deg;F [3], and a 275&ndash;500&deg;F range on the military specs [10][11]. Discount Mylar Bags' 250&ndash;300&deg;F figure is scoped to the bare PET layer, not the laminate [18].</li></ul>\n\n<h2>Next</h2>\n<ul>\n<li><a href=\"/guides/oxygen-absorbers-cc\">What the cc number on an absorber means</a> &mdash; the other half of a packaging decision.</li><li><a href=\"/guides/mylar-absorber-myths\">Six beliefs the manufacturers contradict</a> &mdash; including the one about thickness and oxygen.</li><li><a href=\"/compare/storage-containers\">Storage containers compared</a> &mdash; bags against jars and buckets.</li>\n</ul>\n<p><strong>Sold by Sublime Pantry:</strong> <a href=\"/shop/freeze-dryer-packaging-starter-kit\">Freeze-Drying Packaging Starter Kit</a> &mdash; 7 mil bags in three sizes, with a matched absorber for each.</p>"
+}

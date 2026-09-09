@@ -1,0 +1,147 @@
+{
+  "title": "Freeze-drying kefir grains, sourdough starter, and cultures",
+  "description": "What is documented about culture survival in freeze-drying — lab lyophilization figures, the one manufacturer claim, and the numbers nobody has published.",
+  "kicker": "cultures",
+  "pillar": "guides",
+  "section": "Cultures",
+  "riskClass": "standard",
+  "publishedDate": "2026-09-07",
+  "disclosure": "Sublime Pantry has no affiliate relationships, sponsorships, or paid placements as of publication. We sell packaging; where a product we sell appears, it is labeled.",
+  "sources": [
+    {
+      "title": "How to Freeze Dry and Revive Sourdough Starter",
+      "url": "https://stayfreshfreezedry.com/blogs/learn-about-freeze-drying/how-to-freeze-dry-and-revive-sourdough-starter",
+      "publisher": "Stay Fresh",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Starter Culture for Fermentation (+ Freeze Drying Tips)",
+      "url": "https://homesteadingfamily.com/starter-culture-for-fermentation/",
+      "publisher": "Homesteading Family",
+      "tier": "secondary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Ask an Expert – Freeze-Drying Food at Home: Tips for Safe, Successful Results",
+      "url": "https://extension.usu.edu/news/ask-an-expert-freeze-drying-food-at-home-tips-for-safe-successful-results",
+      "publisher": "Utah State University Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Can I Freeze-Dry That? A Practical Guide to Safe and Effective Freeze Drying",
+      "url": "https://extension.usu.edu/foodsafety/research/can-i-freeze-dry-that-a-practical-guide-to-safe-and-effective-freeze-drying",
+      "publisher": "Utah State University Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Impact of Freezing and Freeze Drying on Lactobacillus rhamnosus GG Survival",
+      "url": "https://www.mdpi.com/2304-8158/14/10/1817",
+      "publisher": "Foods (MDPI)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Combinatorial Effects of Protective Agents on Survival Rate of the Yeast Starter, Saccharomyces cerevisiae 88-4, after Freeze-Drying",
+      "url": "https://www.mdpi.com/2076-2607/9/3/613",
+      "publisher": "Microorganisms (MDPI)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Effect of freeze-drying on viability and in vitro probiotic properties of a mixture of lactic acid bacteria and yeasts isolated from kefir",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/20822567/",
+      "publisher": "Journal of Dairy Research (Cambridge University Press)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Effect of storage parameters on freeze-dried kefir grains (Kök Tas, 2015)",
+      "url": "https://onlinelibrary.wiley.com/doi/10.1111/1471-0307.12196",
+      "publisher": "International Journal of Dairy Technology",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Effect of the Freeze-Drying Process on the Physicochemical and Microbiological Properties of Mexican Kefir Grains",
+      "url": "https://www.mdpi.com/2227-9717/7/3/127",
+      "publisher": "Processes (MDPI)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Buying a Home Freeze-Dryer: What to Know Before You Go (April 2019, PDF)",
+      "url": "https://digitalcommons.usu.edu/cgi/viewcontent.cgi?article=2999&context=extension_curall",
+      "publisher": "Utah State University Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Freeze Drying For Home Use (fact sheet, PDF)",
+      "url": "https://ucanr.edu/sites/default/files/2024-07/399943.pdf",
+      "publisher": "UC Agriculture and Natural Resources",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Master Freeze Drying: Check Doneness by Weight Change",
+      "url": "https://stayfreshfreezedry.com/blogs/freeze-dryer-101/checking-dryness-in-freeze-dried-food-through-weight-change",
+      "publisher": "Stay Fresh",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Storing Freeze Dried Food",
+      "url": "https://harvestright.com/blogs/blog/storing-freeze-dried-food",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Does freeze-drying keep a sourdough starter alive?",
+      "answer": "One manufacturer states that freeze drying retains the culture “without losing its fermentative potential,” publishing no survival figure or measurement [1]. A secondary source states fermentation activity declines within a year even as nutritional value persists [2]. No home-machine survival percentage has been published by anyone, and Sublime Pantry has not tested it."
+    },
+    {
+      "question": "What percentage of cultures survive freeze-drying?",
+      "answer": "In laboratory studies, L. rhamnosus GG survived at about 12% when dried in water alone and 15.17% ± 4.43 in trehalose plus skim milk [5]; a yeast starter survived at 0.01–0.27% with no protective agent and 94.2–97% in a skim milk, maltose and maltitol blend [6]. These are lab lyophilization figures, not home freeze dryer figures."
+    },
+    {
+      "question": "Are there published numbers for kefir grains?",
+      "answer": "Three peer-reviewed studies address freeze-dried kefir grains directly [7][8][9]. We confirmed they exist and are on topic, but could not retrieve their figures — the papers returned paywalls, 403 responses, and CAPTCHA challenges. No number from them appears in this article."
+    },
+    {
+      "question": "Do I need a cryoprotectant at home?",
+      "answer": "The lab record shows protective agents moving yeast survival from 0.01–0.27% to 94.2–97% [6], and changing L. rhamnosus GG survival as well [5]. No manufacturer or extension source addresses cryoprotection for home freeze-drying, so there is no published home practice to follow — that absence is the finding."
+    },
+    {
+      "question": "How should freeze-dried cultures be stored?",
+      "answer": "No source publishes storage temperature, humidity, or packaging conditions specific to home freeze-dried cultures [1][2]. General storage guidance for freeze-dried food is mylar plus an oxygen absorber, kept cool, dark, dry and below 85°F [13]; extension services dispute the 25-year claim attached to it and recommend 5–10 years for home-produced food [10][11]."
+    }
+  ],
+  "howTo": [
+    {
+      "name": "Dry the starter at its most active",
+      "text": "Freeze-dry the starter while it is lively and bubbling, spread thinly on parchment [1]. No source specifies a thickness or a drying temperature for cultures."
+    },
+    {
+      "name": "Pre-freeze and load",
+      "text": "Pre-freeze the trays overnight and fill them about three-quarters full; the published cycle estimate is roughly 24 hours [2, secondary]."
+    },
+    {
+      "name": "Confirm the tray has stopped losing weight",
+      "text": "Weigh the tray at cycle completion and again after any extended dry time, allowing about a 1 g scale error; consistent weight indicates the food is adequately dry [12]."
+    },
+    {
+      "name": "Rehydrate with filtered water",
+      "text": "Revive with warm filtered water rather than tap water, because chlorine may hinder yeast recovery [1]."
+    }
+  ],
+  "related": [
+    "home-freeze-dryers"
+  ],
+  "bodyHtml": "<p><strong>The short version:</strong> Every survival percentage published for freeze-dried cultures comes from laboratory lyophilization, not from a home machine — <em>Lactobacillus rhamnosus</em> GG fell to about 12% survival when dried in water alone, and a yeast starter dried without protective agents survived at 0.01&ndash;0.27% [5][6]. One home-machine manufacturer states that freeze drying keeps a sourdough starter's fermentative potential, without publishing a survival figure, a measurement method, or a cryoprotectant [1]. No source compares a home unit's results to the lab record, so what a kitchen freeze dryer does to a live culture is undocumented rather than settled.</p>\n\n<h2>What the peer-reviewed record actually measures</h2>\n<p>The clearest number in the literature is the gap between freezing and drying. Freezing and thawing <em>L. rhamnosus</em> GG in liquid nitrogen left 90.94% &plusmn; 12.82 of cells viable; putting the same organism through a full freeze-drying cycle in water as the sole medium left roughly 12% [5]. The damage the studies measure is mostly in the drying, not the freezing.</p>\n<p>The second number is what protective agents do. A yeast starter dried with no protective agent survived at 0.01&ndash;0.27%; the same strain dried in a skim milk, maltose and maltitol blend survived at 94.2&ndash;97% immediately after drying, and 61% after 42 weeks of refrigerated storage [6].</p>\n\n<table>\n  <thead>\n    <tr><th>Organism</th><th>Condition</th><th>Survival</th><th>Source</th></tr>\n  </thead>\n  <tbody>\n    <tr><td><em>L. rhamnosus</em> GG</td><td>Freeze&ndash;thaw only, liquid nitrogen &minus;196&nbsp;&deg;C, 2&nbsp;h</td><td>90.94% &plusmn; 12.82</td><td>[5]</td></tr>\n    <tr><td><em>L. rhamnosus</em> GG</td><td>Freeze&ndash;thaw only, &minus;80&nbsp;&deg;C, 2&nbsp;h</td><td>77.19% &plusmn; 13.30</td><td>[5]</td></tr>\n    <tr><td><em>L. rhamnosus</em> GG</td><td>Freeze&ndash;thaw only, &minus;40&nbsp;&deg;C, 2&nbsp;h</td><td>77.68% &plusmn; 3.29</td><td>[5]</td></tr>\n    <tr><td><em>L. rhamnosus</em> GG</td><td>Full freeze-drying, water as sole medium</td><td>~12%</td><td>[5]</td></tr>\n    <tr><td><em>L. rhamnosus</em> GG</td><td>Full freeze-drying, PBS</td><td>~2%</td><td>[5]</td></tr>\n    <tr><td><em>L. rhamnosus</em> GG</td><td>Full freeze-drying, 5% trehalose + 10% skim milk</td><td>15.17% &plusmn; 4.43</td><td>[5]</td></tr>\n    <tr><td><em>S. cerevisiae</em> 88-4</td><td>No protective agents</td><td>0.01&ndash;0.27%</td><td>[6]</td></tr>\n    <tr><td><em>S. cerevisiae</em> 88-4</td><td>Skim milk + maltose + maltitol, immediately after drying</td><td>94.2&ndash;97%</td><td>[6]</td></tr>\n    <tr><td><em>S. cerevisiae</em> 88-4</td><td>Same blend, after 42 weeks refrigerated</td><td>61%</td><td>[6]</td></tr>\n  </tbody>\n</table>\n<p>Read the table as a range, not a forecast. These are single strains, in named media, under laboratory freezing and vacuum control. They tell you what the process can do to a culture; they do not tell you what your machine did to yours.</p>\n\n<h2>What a home unit does not provide</h2>\n<p>No source we could retrieve compares a home freeze dryer to a laboratory lyophilizer for culture survival. The comparison is absent in both directions &mdash; nobody publishes that home units match lab results, and nobody publishes that they fall short.</p>\n<p>What is visible is a difference in method, stated here as an observation about equipment rather than a claim about outcome. The studies above use programmable freezing ramps, liquid nitrogen or &minus;80&nbsp;&deg;C ultra-freezers, and cryoprotectant blends formulated to a specified percentage [5][6]. A consumer machine offers a single freeze stage, a fixed vacuum, and no formulation step. Whether that difference costs one order of magnitude in viability or none is exactly the number nobody has published.</p>\n\n<h2>Sourdough starter: one manufacturer claim, one source that disagrees</h2>\n<p>The only manufacturer statement we located is Stay Fresh: &ldquo;A unique preservation technology, freeze drying, retains this live culture without losing its fermentative potential&rdquo; [1]. That page publishes no survival percentage, no measurement method, and no mention of cryoprotection anywhere.</p>\n<p>A secondary source disagrees on duration: it describes freeze-dried starter as shelf stable for 20&ndash;25 years and holding 90&ndash;95% of nutritional value, while stating that bacterial and fermentation activity declines within one year if the starter is meant to be revived as an active culture, and recommending annual replacement [2]. Neither side addresses the other, and neither publishes a measurement. Both positions are recorded here as published; we have not reconciled them and have not tested either.</p>\n<h2>The preparation steps that are published</h2>\n<ul>\n  <li>Dry the starter while it is &ldquo;lively, bubbling,&rdquo; spread thinly on parchment [1].</li>\n  <li>Pre-freeze trays overnight and fill them about three-quarters full; the cycle is described as roughly 24 hours [2, secondary].</li>\n  <li>Rehydrate with warm filtered water: tap water's chlorine &ldquo;may hinder yeast recovery&rdquo; [1].</li>\n</ul>\n<p>That is the whole published procedure. No source specifies a drying temperature for cultures, a target residual moisture, a cryoprotectant, or a way to check that the culture is alive short of trying to feed it.</p>\n\n<h2>Kefir grains: three studies exist, and the numbers are behind walls</h2>\n<p>Three peer-reviewed studies address freeze-dried kefir directly: a <em>Journal of Dairy Research</em> paper on viability and probiotic properties of a kefir-derived bacteria-and-yeast mixture [7], K&ouml;k Tas on storage parameters for freeze-dried kefir grains [8], and a <em>Processes</em> paper on Mexican kefir grains [9]. We confirmed all three exist and match the topic. We could not retrieve their survival figures &mdash; the attempts returned paywalls, 403s, and CAPTCHA challenges.</p>\n<p>So the honest state of kefir grains here is: the research has been done, it is on point, and this article cannot tell you what it found. Anyone publishing a kefir-grain survival percentage without institutional access to those papers is not getting it from them.</p>\n\n<h2>Drying a culture does not make anything safe</h2>\n<p>The same mechanism that keeps a starter alive keeps everything else alive. Utah State University Extension's Jose Brandao: &ldquo;Freeze-drying does not kill bacteria. Instead, it preserves microorganisms in a dormant state&rdquo; [3]. Dormant organisms reactivate when water is added back [3][4]. That is the appeal of the process for a culture and the reason it changes nothing about the safety of the milk, flour, or water the culture lives in.</p>\n\n<h2>Storage: what is claimed and what extension services say</h2>\n<p>Harvest Right states that properly packaged freeze-dried food &ldquo;can last up to 25 years or longer under ideal conditions&rdquo; in mylar with an oxygen absorber, kept cool, dark, dry and below 85&nbsp;&deg;F [13]. Three extension sources push back on the figure for home-produced food: Utah State University states that &ldquo;no real data exists on the shelf-life of home freeze-dried products,&rdquo; noting the first home unit went on sale in 2013 [10], and UC ANR states the claim &ldquo;has not been corroborated by university studies for home freeze dryers,&rdquo; recommending consumption within 5&ndash;10 years [11].</p>\n<p>For cultures the record is thinner still. No source we found publishes storage temperature, humidity, or packaging conditions for a home freeze-dried starter [1][2] &mdash; and the one long-term storage figure in the peer-reviewed record moves in the other direction, with yeast viability falling from 94.2&ndash;97% to 61% over 42 weeks in refrigerated storage, in a formulated protective medium [6].</p>\n<p>On the dryness endpoint, Stay Fresh publishes the most specific method we located: weigh the tray at cycle completion and again after extended drying, allowing about a 1&nbsp;g scale error, and treat consistent weight as adequately dry [12]. Packaging for long-term storage is mylar plus an oxygen absorber in the sources above [13]; our Freeze-Drying Packaging Starter Kit (100 mylar bags in three sizes, 100 absorbers, labels) is one way to buy that combination &mdash; <strong>Sold by Sublime Pantry.</strong></p>\n\n<h2>What we could not source</h2>\n<ul>\n  <li><strong>Kefir grain survival percentages.</strong> Three on-topic peer-reviewed studies identified [7][8][9]; all three unretrievable across repeated attempts (paywall, 403, CAPTCHA). Titles and existence confirmed; no figures obtained.</li>\n  <li><strong>Yogurt culture viability after home freeze-drying.</strong> A relevant paper on probiotic survival in freeze-dried yogurt starter cultures was identified but not fetched or verified. No manufacturer viability claim for yogurt cultures was verified.</li>\n  <li><strong>Any home-versus-lab comparison.</strong> Searched directly for whether home units can reproduce lab lyophilization survival rates. No source makes the comparison in either direction.</li>\n  <li><strong>Extension guidance on cultures.</strong> No extension service publishes freeze-drying guidance specific to sourdough starter, kefir grains, or yogurt cultures. The National Center for Home Food Preservation publishes no home freeze-drying guidance at all &mdash; its freezing and drying pages cover conventional methods, and its freeze-drying educator page is subscriber-gated.</li>\n  <li><strong>A residual-moisture target.</strong> Every moisture figure in the category is framed as percent removed, never percent remaining &mdash; for cultures or for anything else.</li>\n  <li><strong>A cryoprotectant practice for home use.</strong> The lab record shows protective agents changing survival by orders of magnitude [5][6]; no manufacturer or extension source mentions cryoprotection for home freeze-drying at all.</li>\n</ul>\n\n<h2>Next</h2>\n<ul>\n<li><a href=\"/guides/freeze-drying-milk\">Freeze-drying milk</a> &mdash; the dairy record, where several of these sources overlap.</li><li><a href=\"/guides/mushrooms-herbs-small-stuff\">Mushrooms, herbs, and the small stuff</a> &mdash; other small loads with their own handling.</li><li><a href=\"/guides/complete-batch-workflow\">The complete batch workflow</a> &mdash; the standard run these depart from.</li>\n</ul>"
+}

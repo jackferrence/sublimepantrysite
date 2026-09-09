@@ -22,8 +22,6 @@ const dir = join(root, 'src/content/articles');
  */
 const UNCITED_REGISTER_ALLOWLIST = new Set([
   'batch-not-dry',
-  'complete-batch-workflow',
-  'cottage-economics',
   // Still the thin, generated-comparison article: its replacement was held
   // back because reconciling it against src/lib/machines.ts would have meant
   // choosing between two sourced figures, which is research, not a copy edit.
