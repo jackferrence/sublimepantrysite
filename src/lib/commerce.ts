@@ -91,6 +91,24 @@ export const CATALOG: CatalogProduct[] = [
   },
 ];
 
+/**
+ * The ownership disclosure, written once.
+ *
+ * PRODUCT.md makes this obligation live, not imminent: every surface that
+ * mentions or recommends a product we sell discloses that we sell it, beside
+ * the recommendation rather than only on the disclosure page. Articles got this
+ * through ToolsMentioned and the product page hard-coded it, but the homepage,
+ * the checklist page and the shop cards showed our price with no disclosure at
+ * all. Three surfaces, one missing string, and no page-level review would have
+ * caught it — which is why it is a constant and an asserted invariant now.
+ */
+export const OWNERSHIP_LABEL = 'Sold by Sublime Pantry';
+
+/** Eyebrow for a card showing one of our own products. */
+export function ownedEyebrow(product: { eyebrow?: string }): string {
+  return product.eyebrow ? `${OWNERSHIP_LABEL} · ${product.eyebrow}` : OWNERSHIP_LABEL;
+}
+
 export const STARTER_KIT = CATALOG[0];
 
 /**
@@ -136,6 +154,8 @@ export const SHIPPING = {
   rule: 'Free US shipping on orders of $45 or more; $6.25 below that. United States only.',
   /** For surfaces beside the kit's own price, where the threshold is cleared. */
   kitNote: 'Ships free in the US — the kit clears the $45 free-shipping threshold, discount included.',
+  /** For catalog cards and the cart, where the order total is not yet known. */
+  shortNote: 'Free US shipping over $45 · US only',
 } as const;
 
 export const LAUNCH_OFFER = {

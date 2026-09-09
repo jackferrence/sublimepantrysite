@@ -1,7 +1,7 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
 import Card from '../components/Card.astro';
-import { CATALOG } from '../lib/commerce';
+import { CATALOG, SHIPPING, ownedEyebrow } from '../lib/commerce';
 ---
 <PageLayout
   title="Freeze-Drying Starter Checklist"
@@ -70,13 +70,13 @@ import { CATALOG } from '../lib/commerce';
             href={product.detailsHref ?? '/shop'}
             title={product.title}
             dek={product.note}
-            kicker={product.eyebrow}
+            kicker={ownedEyebrow(product)}
             image={product.image}
             imageAlt={product.imageAlt}
             ratio="4/5"
             fit="contain"
             price={product.displayPrice}
-            meta="Ships free · US"
+            meta={SHIPPING.shortNote}
           />
         ))}
       </div>

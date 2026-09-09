@@ -10,7 +10,7 @@
 import PageLayout from '../layouts/PageLayout.astro';
 import Icon from '../components/Icon.astro';
 import Img from '../components/Img.astro';
-import { CATALOG, CATEGORY_ORDER, SHOPIFY_PUBLIC_DOMAIN, SHIPPING } from '../lib/commerce';
+import { CATALOG, CATEGORY_ORDER, SHOPIFY_PUBLIC_DOMAIN, SHIPPING, ownedEyebrow } from '../lib/commerce';
 
 const groups = CATEGORY_ORDER.map((category) => ({
   category,
@@ -52,7 +52,7 @@ const groups = CATEGORY_ORDER.map((category) => ({
             </div>
 
             <div class="product-card-body">
-              <span class="kicker">{product.eyebrow}</span>
+              <span class="kicker">{ownedEyebrow(product)}</span>
               <h3><a href={product.detailsHref ?? `https://${SHOPIFY_PUBLIC_DOMAIN}/products/${product.handle}`}>{product.title}</a></h3>
               <p class="product-card-note">{product.note}</p>
 
@@ -79,7 +79,7 @@ const groups = CATEGORY_ORDER.map((category) => ({
                 </div>
               </shopify-context>
 
-              <p class="product-ships"><Icon name="package" size={15} /> Ships free · US</p>
+              <p class="product-ships"><Icon name="package" size={15} /> {SHIPPING.shortNote}</p>
 
               <div class="commerce-fallback" data-commerce-fallback hidden>
                 <p>Live pricing is temporarily unavailable.</p>

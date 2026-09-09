@@ -7,7 +7,7 @@ import Img from '../../components/Img.astro';
 import ProductReviews from '../../components/ProductReviews.astro';
 import StickyBuyBar from '../../components/StickyBuyBar.astro';
 import LaunchOffer from '../../components/LaunchOffer.astro';
-import { STARTER_KIT, SHOPIFY_PUBLIC_DOMAIN, SHIPPING } from '../../lib/commerce';
+import { STARTER_KIT, SHOPIFY_PUBLIC_DOMAIN, SHIPPING, ownedEyebrow } from '../../lib/commerce';
 import { SUPPORT_EMAIL } from '../../lib/paths';
 import { getProductReviews } from '../../lib/reviews';
 import { heroImage, articleHref } from '../../lib/articles';
@@ -163,7 +163,7 @@ const trackProps = JSON.stringify({ product_handle: STARTER_KIT.handle, sku: STA
 
       <!-- Buy box -->
       <div class="buybox">
-        <span class="kicker">Sold by Sublime Pantry · Validation launch</span>
+        <span class="kicker">{ownedEyebrow(STARTER_KIT)}</span>
         <h1>Freeze-Drying Packaging Starter Kit</h1>
         <p class="buybox-dek">One matched set of bags, absorbers and labels for your first serious run of freeze-dried food.</p>
 
@@ -191,10 +191,24 @@ const trackProps = JSON.stringify({ product_handle: STARTER_KIT.handle, sku: STA
             </div>
           </template>
 
+          <!--
+            What paints before the Storefront JS answers. It used to read
+            the price, then "In stock", then "Add to cart". "In stock" asserted an
+            inventory state nothing had fetched yet and "Add to cart" was an
+            anchor that navigated off-site. A customer clicking it during the
+            loading window left the page instead of adding anything, and if the
+            kit were out of stock the page said otherwise until hydration.
+
+            The price is server-rendered on purpose and stays. What goes is the
+            claim about availability and the label promising an action this
+            element cannot perform. The link is kept rather than disabled so the
+            page still works with no JavaScript at all — it just says where it
+            actually goes.
+          -->
           <div class="buybox-commerce" shopify-loading-placeholder>
             <p class="buybox-price">{STARTER_KIT.displayPrice}</p>
-            <p class="buybox-stock"><Icon name="check-circle" size={15} /> In stock</p>
-            <a class="btn btn-primary buybox-button" href={`https://${SHOPIFY_PUBLIC_DOMAIN}/products/${STARTER_KIT.handle}`} rel="noopener">Add to cart</a>
+            <p class="buybox-stock">Checking availability…</p>
+            <a class="btn btn-secondary buybox-button" href={`https://${SHOPIFY_PUBLIC_DOMAIN}/products/${STARTER_KIT.handle}`} rel="noopener" data-sp-event="storefront_placeholder_click" data-sp-props={trackProps}>View kit in our store</a>
           </div>
         </shopify-context>
 

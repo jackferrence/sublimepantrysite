@@ -9,7 +9,7 @@ import { SUPPORT_EMAIL } from '../lib/paths';
   <p>Prefer your own mail client, or writing about an order or a return? Email <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a> — it reaches the same person. For a return, please write before sending anything back; the <a href="/shipping-returns">returns process</a> explains why.</p>
 
   <div class="card contact-panel">
-    <form name="contact" method="POST" action="/thanks" data-netlify="true" netlify-honeypot="bot-field">
+    <form name="contact" method="POST" action="/message-received" data-netlify="true" netlify-honeypot="bot-field">
       <input type="hidden" name="form-name" value="contact" />
       <p hidden aria-hidden="true"><label>Don't fill this out: <input name="bot-field" /></label></p>
 
@@ -42,3 +42,22 @@ import { SUPPORT_EMAIL } from '../lib/paths';
   @media (min-width: 560px) { .field-grid { grid-template-columns: 1fr 1fr; } }
   textarea { min-height: 9rem; resize: vertical; }
 </style>
+
+<script is:inline>
+  /**
+   * Marks that this tab really submitted the contact form, so
+   * /message-received can show a success state without asserting one to a
+   * visitor who simply opened the URL.
+   */
+  (function () {
+    var form = document.querySelector('form[name="contact"]');
+    if (!form) return;
+    form.addEventListener('submit', function () {
+      try {
+        sessionStorage.setItem('sp-contact-submitted', String(Date.now()));
+      } catch (err) {
+        /* private mode: /message-received shows its neutral state */
+      }
+    });
+  })();
+</script>

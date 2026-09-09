@@ -16,12 +16,36 @@ import Icon from '../components/Icon.astro';
   breadcrumbs={[{ label: 'Thanks', href: '/thanks' }]}
   noindex
 >
-  <span class="kicker"><Icon name="check-circle" size={14} /> Confirmed</span>
-  <h1>Got it — your checklist is ready.</h1>
-  <p>The printable Freeze-Drying Starter Checklist is below. Your first issue of <strong>The Dry Batch</strong> arrives within a week.</p>
-  <p><a class="btn btn-primary" href="/freeze-drying-starter-checklist">Open the Starter Checklist</a></p>
+  <!--
+    Two states, and the served HTML is the cold one.
 
-  <section class="stage card" aria-labelledby="stage-heading">
+    This page said "Confirmed" and "your first issue arrives within a week" to
+    anyone who opened the URL, including someone who had never submitted
+    anything — the same defect class as a buy box asserting "In stock" before
+    any inventory is fetched. The success state is now revealed only on evidence
+    that this tab actually submitted the signup form.
+
+    Rendering the cold state by default is the safe direction: a real subscriber
+    with JavaScript off sees a page that gives them the checklist without
+    claiming anything about their subscription, rather than a stranger being
+    told they subscribed.
+  -->
+  <div data-signup-confirmed hidden>
+    <span class="kicker"><Icon name="check-circle" size={14} /> Confirmed</span>
+    <h1>Got it — your checklist is ready.</h1>
+    <p>The printable Freeze-Drying Starter Checklist is below. Your first issue of <strong>The Dry Batch</strong> arrives within a week.</p>
+    <p><a class="btn btn-primary" href="/freeze-drying-starter-checklist">Open the Starter Checklist</a></p>
+  </div>
+
+  <div data-signup-cold>
+    <span class="kicker">Starter checklist</span>
+    <h1>The Freeze-Drying Starter Checklist</h1>
+    <p>One printable page of the checks worth running on every batch. It is free to open whether or not you subscribe.</p>
+    <p><a class="btn btn-primary" href="/freeze-drying-starter-checklist">Open the Starter Checklist</a></p>
+    <p class="meta">This page normally confirms a newsletter signup. If you have landed here directly, nothing has been submitted — the signup form is at the bottom of any page.</p>
+  </div>
+
+  <section class="stage card" aria-labelledby="stage-heading" data-signup-confirmed hidden>
     <h2 id="stage-heading">One quick question.</h2>
     <p>It decides what we send you first. Skip it if you'd rather not say.</p>
 
@@ -67,6 +91,19 @@ import Icon from '../components/Icon.astro';
 
 <script is:inline>
   (function () {
+    // Reveal the success state only when this tab submitted the signup form.
+    var submitted = null;
+    try {
+      submitted = sessionStorage.getItem('sp-signup-submitted');
+    } catch (err) {
+      /* private mode: the cold state stands, which is the safe direction */
+    }
+    if (submitted) {
+      document.querySelectorAll('[data-signup-confirmed]').forEach(function (el) { el.hidden = false; });
+      var cold = document.querySelector('[data-signup-cold]');
+      if (cold) cold.hidden = true;
+    }
+
     var form = document.querySelector('.stage form');
     if (!form) return;
     var stored = null;
