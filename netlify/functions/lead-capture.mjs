@@ -42,9 +42,23 @@
  *     timestamp is not when consent was given. It writes the stage and touches
  *     nothing else — including the consent record.
  *
- * Development / unconfigured behaviour: when the Shopify env vars are missing,
- * the function returns 204 without attempting any API call. It is a documented
- * no-op, not a silent failure of a real call.
+ * Unconfigured behaviour: LOUD. Every missing variable is named in an error log
+ * and the function returns 500.
+ *
+ * It used to return 204 with a `console.info`, described here as "a documented
+ * no-op, not a silent failure of a real call". That distinction is real in the
+ * source and worthless in production: a 204 is a success, `info` does not
+ * appear beside errors, and the resulting graph — no writes, no failures — is
+ * pixel-identical to nobody signing up. The function ran without Shopify
+ * credentials for its whole life and the first evidence was a customer list
+ * with zero `sp-lead` tags in it, found by hand.
+ *
+ * Returning 500 costs nothing that matters. The browser calls this with
+ * `navigator.sendBeacon` (see Newsletter.astro) and never reads the status, and
+ * Netlify Forms has already recorded the lead — so the invariant above holds:
+ * this function still cannot be the reason a lead is lost. What a 500 buys is
+ * a non-zero error rate on the Netlify function graph the day it breaks,
+ * instead of a silence that looks like calm.
  */
 
 const API_VERSION = '2026-07';
@@ -212,9 +226,11 @@ export default async (request) => {
 
   const shop = process.env.SHOPIFY_SHOP_DOMAIN;
   if (!shop) {
-    // Documented no-op: Netlify Forms already captured this lead.
-    console.info('[lead-capture] SHOPIFY_SHOP_DOMAIN absent; skipping customer sync.');
-    return new Response(null, { status: 204 });
+    console.error(
+      '[lead-capture] SHOPIFY_SHOP_DOMAIN is not set; cannot sync customer. ' +
+        'Set it in Netlify → Site configuration → Environment variables (scope: Functions).',
+    );
+    return new Response(null, { status: 500 });
   }
 
   let token;
@@ -222,11 +238,17 @@ export default async (request) => {
     token = await getAccessToken(shop);
   } catch (error) {
     console.error('[lead-capture] Could not obtain an access token:', error.message);
-    return new Response(null, { status: 202 });
+    return new Response(null, { status: 500 });
   }
   if (!token) {
-    console.info('[lead-capture] No Shopify credentials configured; skipping customer sync.');
-    return new Response(null, { status: 204 });
+    // Name them. "No Shopify credentials configured" sent whoever read it back
+    // to the source to find out which ones.
+    console.error(
+      '[lead-capture] No Shopify credentials; cannot sync customer. Set ' +
+        'SHOPIFY_ADMIN_API_TOKEN, or SHOPIFY_CLIENT_ID and SHOPIFY_CLIENT_SECRET, ' +
+        'in Netlify → Site configuration → Environment variables (scope: Functions).',
+    );
+    return new Response(null, { status: 500 });
   }
 
   const now = new Date().toISOString();
@@ -303,9 +325,11 @@ export default async (request) => {
 
     return new Response(null, { status: 204 });
   } catch (error) {
-    // Log without the email address; Netlify Forms still holds the lead.
+    // Log without the email address; Netlify Forms still holds the lead. The
+    // status is 500 and not 202: the sync we were asked to do did not happen,
+    // and 202 Accepted graphs as a success on the function's error rate.
     console.error('[lead-capture] Shopify sync failed:', error.message);
-    return new Response(null, { status: 202 });
+    return new Response(null, { status: 500 });
   }
 };
 

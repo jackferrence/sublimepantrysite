@@ -19,14 +19,19 @@
  *
  * Usage — one command:
  *
- *   SHOPIFY_STORE_DOMAIN=<shop>.myshopify.com \
- *   SHOPIFY_ADMIN_TOKEN=<token> \
+ *   SHOPIFY_SHOP_DOMAIN=<shop>.myshopify.com \
+ *   SHOPIFY_ADMIN_API_TOKEN=<token> \
  *   NETLIFY_BUILD_HOOK_URL=<url> \
  *   node scripts/create-webhooks.mjs
  *
  * Credentials, same two paths as netlify/functions/lead-capture.mjs:
- *   SHOPIFY_ADMIN_TOKEN / SHOPIFY_ADMIN_API_TOKEN    (takes precedence)
- *   SHOPIFY_CLIENT_ID + SHOPIFY_CLIENT_SECRET        (client credentials grant)
+ *   SHOPIFY_ADMIN_API_TOKEN                    (takes precedence)
+ *   SHOPIFY_CLIENT_ID + SHOPIFY_CLIENT_SECRET  (client credentials grant)
+ *
+ * One spelling only — see .env.example. This script used to read
+ * SHOPIFY_STORE_DOMAIN with SHOPIFY_SHOP_DOMAIN as a fallback, while the
+ * Netlify function read only the latter, so the domain could be set correctly
+ * for one and invisibly absent for the other.
  *
  * Scopes needed: write_products (to manage webhooks), read_products,
  * read_inventory. A token minted for the customer bridge has none of those, and
@@ -51,24 +56,24 @@ const fail = (message) => {
   process.exit(1);
 };
 
-const shop = process.env.SHOPIFY_STORE_DOMAIN || process.env.SHOPIFY_SHOP_DOMAIN;
+const shop = process.env.SHOPIFY_SHOP_DOMAIN;
 const callbackUrl = process.env.NETLIFY_BUILD_HOOK_URL;
 
-if (!shop) fail('Set SHOPIFY_STORE_DOMAIN to the <shop>.myshopify.com domain.');
+if (!shop) fail('Set SHOPIFY_SHOP_DOMAIN to the <shop>.myshopify.com domain.');
 if (!callbackUrl) fail('Set NETLIFY_BUILD_HOOK_URL to the Netlify build hook for `main`.');
 if (!/^https:\/\/api\.netlify\.com\/build_hooks\/[A-Za-z0-9]+$/.test(callbackUrl)) {
   fail(`NETLIFY_BUILD_HOOK_URL does not look like a Netlify build hook: ${callbackUrl}`);
 }
 
 async function getAccessToken() {
-  const staticToken = process.env.SHOPIFY_ADMIN_TOKEN || process.env.SHOPIFY_ADMIN_API_TOKEN;
+  const staticToken = process.env.SHOPIFY_ADMIN_API_TOKEN;
   if (staticToken) return staticToken;
 
   const clientId = process.env.SHOPIFY_CLIENT_ID;
   const clientSecret = process.env.SHOPIFY_CLIENT_SECRET;
   if (!clientId || !clientSecret) {
     fail(
-      'No Shopify credentials. Set SHOPIFY_ADMIN_TOKEN, or SHOPIFY_CLIENT_ID and\n' +
+      'No Shopify credentials. Set SHOPIFY_ADMIN_API_TOKEN, or SHOPIFY_CLIENT_ID and\n' +
         '  SHOPIFY_CLIENT_SECRET. The app needs write_products, read_products and\n' +
         '  read_inventory on a released version.',
     );

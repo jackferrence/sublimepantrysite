@@ -7,7 +7,14 @@
  * it only holds identifiers and editorial copy that Shopify does not own.
  */
 
-/** Storefront domain used by the Shopify Storefront Web Components. */
+/** Storefront domain used by the Shopify Storefront Web Components.
+ *
+ *  Not the `SHOPIFY_SHOP_DOMAIN` environment variable, despite the near-identical
+ *  name. This is a public build-time constant compiled into the page for the
+ *  storefront components; that is a server-side credential read by the Netlify
+ *  functions and scripts. They happen to hold the same string today and are
+ *  different namespaces with different trust levels — do not fold one into the
+ *  other, and do not "fix" this name to match. */
 export const SHOPIFY_STORE_DOMAIN =
   'zd-store-01m146jmxxhw739y7t7y11s669-paky1ta3.myshopify.com';
 
@@ -145,93 +152,6 @@ const SEALER_REQUIRED =
 
 export const CATALOG: CatalogProduct[] = [
   {
-    handle: 'freeze-dryer-packaging-starter-kit-100',
-    sku: 'MSMBS7MIL001',
-    // Shopify's title verbatim, re-confirmed against the live store 2026-09-09.
-    // U04 had regressed: this field said "Reserve Starter Kit — 100 Mylar Bags +
-    // Absorbers + Labels" while Shopify had been renamed back to the name below,
-    // so the page and the checkout disagreed again. Shopify owns the name.
-    title: 'Freeze-Drying Packaging Starter Kit — 100 Bags, Absorbers & Labels',
-    shortTitle: 'Freeze-Drying Packaging Starter Kit',
-    // The eyebrow said "Validation launch", which described our business stage
-    // rather than the product, on every card that showed the kit. Section 8.4
-    // of the audit: no roadmap, no staged-product descriptions. Where the kit
-    // ships from is a fact a buyer needs and it is still stated, on the product
-    // page and in the shipping policy, next to the terms it affects.
-    eyebrow: 'Freeze-drying packaging',
-    note: '100 assorted 7 mil Mylar bags, 100 matched oxygen absorbers, 100 labels, and PackFreshUSA’s storage guide. One matched set.',
-    image:
-      'https://cdn.shopify.com/s/files/1/0883/4875/4197/files/packfreshusa-7mil-mylar-box-set-100-pack.jpg?v=1788393303',
-    imageAlt:
-      'PackFreshUSA 7 mil Mylar bag, oxygen absorber, and label box set used for the Sublime Pantry Freeze-Drying Packaging Starter Kit',
-    detailsHref: '/shop/freeze-dryer-packaging-starter-kit',
-    displayPrice: '$74.99 USD',
-    category: 'Packaging',
-    images: [
-      {
-        src: 'https://cdn.shopify.com/s/files/1/0883/4875/4197/files/packfreshusa-7mil-mylar-box-set-100-pack.jpg?v=1788393303',
-        alt:
-          'PackFreshUSA 7 mil Mylar bag, oxygen absorber, and label box set used for the Sublime Pantry Freeze-Drying Packaging Starter Kit',
-        kind: 'studio',
-        source: 'manufacturer',
-      },
-    ],
-    line: 'bundle',
-    whatsIncluded: [
-      '100 7 mil Mylar bags: 30 pint, 40 quart, 30 gallon',
-      '100 matched oxygen absorbers: 30 \u00d7 100cc, 40 \u00d7 300cc, 30 \u00d7 500cc',
-      '100 adhesive labels for batch and date identification',
-      "PackFreshUSA's food-storage guide",
-    ],
-    whatYoullNeed: [
-      { label: 'A way to verify the batch is fully dry before you seal it', href: '/troubleshooting/batch-not-dry' },
-      { label: 'A heat sealer \u2014 Mylar bags are not resealable without one', href: '/guides/complete-batch-workflow' },
-      { label: 'A decision about jars or PETE for anything you open often', href: '/compare/storage-containers' },
-      { label: 'Somewhere cool, dark and dry to keep the sealed bags', href: '/troubleshooting/storage-failure' },
-    ],
-    highlights: [
-      'Absorber sizes are matched to the bag sizes, so there is nothing to work out at packaging time.',
-      'One order instead of four.',
-      "7 mil Mylar, per the manufacturer's documentation for this kit.",
-      'One hundred packages: enough to run several foods and learn which sizes you actually use before buying bulk.',
-    ],
-    faq: [
-      {
-        q: 'Do I need a heat sealer?',
-        a: 'Yes, and the sealer matters. Mylar has to be heat sealed to hold a barrier \u2014 folding or taping does not work \u2014 and PackFreshUSA, who supply these bags, specify that sealing 7 mil Mylar properly takes a 600 watt sealer. A light-duty impulse sealer or a household iron may close the bag without giving you the seal the barrier depends on. Check your sealer against that figure before you rely on it.',
-      },
-      {
-        q: 'Which absorber size goes with which bag?',
-        a: 'The kit is matched: 100cc absorbers with the pint bags, 300cc with the quart bags, 500cc with the gallon bags. That pairing is why the kit exists \u2014 it removes the size guesswork.',
-      },
-      {
-        q: 'Can I package a batch that is still slightly damp?',
-        a: 'No. Packaging cannot rescue an under-dried batch, and sealing residual moisture into a bag is how stored food goes soft or spoils. Verify dryness first.',
-      },
-      {
-        q: 'How long does it ship?',
-        a: 'Orders are placed with PackFreshUSA after purchase and ship directly to you. See shipping and returns for current handling times and the returns window.',
-      },
-      {
-        q: 'Are the bags reusable?',
-        a: 'A bag can be cut open and re-sealed lower down a few times, losing capacity each time. Plan on one absorber per seal \u2014 an absorber exposed to air is spent.',
-      },
-      {
-        q: 'Does the kit guarantee a storage life?',
-        a: 'No. Packaging cannot establish that a food was prepared, dried or stored correctly, and no bag or absorber can give a shelf life to a batch that went in wet. What the kit does is stop oxygen, light and moisture reaching food that was already dry.',
-      },
-      {
-        q: 'Are these Sublime Pantry-manufactured bags?',
-        a: 'No. They are supplied and shipped by PackFreshUSA and sold here by Sublime Pantry. Nothing in the kit is made by us, and nothing in it has been tested by us.',
-      },
-      {
-        q: 'Is this a freeze dryer?',
-        a: 'No. It is the packaging and labeling step that comes after drying. If you are still choosing a machine, start with the buyer guide.',
-      },
-    ],
-    relatedArticles: ['complete-batch-workflow', 'storage-containers', 'storage-failure'],
-  },
-  {
     handle: 'snack-bags-6x6-50-pack-absorbers',
     sku: 'SP-SNK-50',
     title: 'Snack Bags 6×6 — 50 Pack with Absorbers',
@@ -321,7 +241,7 @@ export const CATALOG: CatalogProduct[] = [
     handle: '100cc-oxygen-absorber-refill-100-count',
     sku: 'SP-OA100-100',
     title: '100cc Oxygen Absorber Refill — 100 Count',
-    shortTitle: '100cc Absorber Refill',
+    shortTitle: '100cc Oxygen Absorber Refill',
     eyebrow: 'Absorber refill',
     note: '100 × 100cc oxygen absorbers in ten sealed 10-packs. The size that pairs with a pint bag and smaller.',
     image: '',
@@ -531,7 +451,7 @@ export const CATALOG: CatalogProduct[] = [
     handle: '300cc-oxygen-absorber-refill-100-count',
     sku: 'SP-OA300-100',
     title: '300cc Oxygen Absorber Refill — 100 Count',
-    shortTitle: '300cc Absorber Refill',
+    shortTitle: '300cc Oxygen Absorber Refill',
     eyebrow: 'Absorber refill',
     note: '100 × 300cc oxygen absorbers in ten sealed 10-packs. The size that pairs with a quart bag.',
     image: '',
@@ -598,35 +518,6 @@ export function ownedEyebrow(product: { eyebrow?: string }): string {
   return product.eyebrow ? `${OWNERSHIP_LABEL} · ${product.eyebrow}` : OWNERSHIP_LABEL;
 }
 
-export const STARTER_KIT = CATALOG[0];
-
-/**
- * Launch promotion.
- *
- * `enabled` MUST stay false until the offer has been verified end to end
- * against the live store. The site must never advertise a code that would fail
- * at checkout.
- *
- * Verified 2026-09-03 against the live Storefront API with a real cart:
- *   WELCOME10 → applicable: true
- *   $59.99 → $54.00 (list price has since moved to $74.99)
- *   delivery options → a single "Standard" at $0.00
- *   cart total → $54.00
- *
- * Re-confirmed by real order #1001 (2026-09-03): PAID, $54.00, $0.00 shipping.
- *
- * Note on how free shipping is delivered: NOT by a shipping discount. The
- * Domestic "Standard" rate ($6.25) carries a rate condition granting $0.00 when
- * TOTAL_PRICE >= $45.00. The discounted total of $54.00 clears that threshold,
- * so both halves of the offer are real. No automatic free-shipping discount is
- * needed, and none exists.
- *
- * The $45 threshold is the dependency to watch: if the starter kit's price
- * drops below $50, or a cheaper product becomes the primary offer, the
- * post-discount total can fall under $45 and the "free shipping" half of this
- * claim silently stops being true. Re-verify before changing price.
- * At the current $74.99 list, WELCOME10 leaves $67.49 — comfortably clear.
- */
 /**
  * The shipping rule, stated once.
  *
@@ -641,19 +532,54 @@ export const SHIPPING = {
   flatRate: 6.25,
   /** The one sentence. Used verbatim wherever the rule is stated in full. */
   rule: 'Free US shipping on orders of $45 or more; $6.25 below that. United States only.',
-  /** For surfaces beside the kit's own price, where the threshold is cleared. */
-  kitNote: 'Ships free in the US — the kit clears the $45 free-shipping threshold, discount included.',
+  /**
+   * For surfaces beside a single product's price.
+   *
+   * It used to read "the kit clears the $45 threshold, discount included",
+   * which was true only of the $74.99 boxed set. That product is archived, and
+   * at the current range the top price is the Season Set at $47.99: it is the
+   * only item that clears $45 on its own, and nothing clears it after a
+   * discount. So this states the condition instead of asserting it is met.
+   */
+  itemNote: 'Free US shipping once the order reaches $45.',
   /** For catalog cards and the cart, where the order total is not yet known. */
   shortNote: 'Free US shipping over $45 · US only',
 } as const;
 
+/**
+ * Launch promotion.
+ *
+ * `enabled` MUST stay false until the offer has been verified end to end
+ * against the live store. The site must never advertise a code that would fail
+ * at checkout.
+ *
+ * History, because this failed once in a way worth not repeating. The original
+ * `welcome10` was scoped in Shopify to a single product,
+ * `freeze-dryer-packaging-starter-kit-100`. When that product was archived on
+ * 2026-09-09 the code still read as ACTIVE in the admin while applying to
+ * nothing a buyer could add to a cart. A scoped discount is a dependency on a
+ * product's lifecycle that nothing in this repo can see.
+ *
+ * Replaced 2026-09-09. The old discount was retired rather than deleted — its
+ * code is now WELCOME10RETIRED and it carries the one real use from order
+ * #1001 — and a new WELCOME10 created with `customerGets.items.all = true`.
+ * Verified on creation via the Admin API: ACTIVE, 10%, all items, all
+ * customers, once per customer, no usage limit, no end date.
+ *
+ * The free-shipping half of the offer is deliberately gone. It used to say
+ * "orders of $45 or more ship free", which was true of the rule but false as a
+ * promise attached to *this* offer: a 10% discount is applied before the
+ * threshold is evaluated, so the discount itself can push an order under the
+ * bar it is being advertised alongside. That is not specific to $45 — it
+ * recurs at any threshold, because the discount always moves the total the
+ * threshold is testing. The offer is 10% off. The shipping rule is stated
+ * separately, from SHIPPING, where it is not conditioned on a promotion.
+ */
 export const LAUNCH_OFFER = {
   enabled: true,
   code: 'WELCOME10',
-  /** 10% off, via a Shopify code discount scoped to the starter kit. */
+  /** 10% off every product. Not scoped — see the note above. */
   percentOff: 10,
-  /** Delivered by the >= $45 free-shipping rate condition, not by a discount. */
-  freeShipping: true,
   headline: 'New here? Take 10% off your first order with WELCOME10.',
-  detail: 'Applied at checkout. Orders of $45 or more ship free in the US.',
+  detail: 'Applied at checkout.',
 } as const;

@@ -2,7 +2,15 @@
 
 Flow is **already installed** on the store (verified via the Admin API). These workflows must be built in **Shopify Admin → Apps → Flow**; they cannot be created from this repo.
 
-Hero SKU referenced throughout: **`MSMBS7MIL001`** (Freeze-Drying Packaging Starter Kit).
+**No workflow keys on a SKU.** They used to, all on `MSMBS7MIL001` — the boxed
+starter kit — which made every one of them silently dead when that product was
+archived on 2026-09-09. A condition naming one SKU is a dependency on that
+product's lifecycle, and Flow gives you no warning when it stops matching.
+
+Every order is now ours to assemble and ship, so "did this order contain the
+hero product" is not a question worth asking: the answer is always yes. The
+conditions below key on the order existing, or on an order tag we write
+ourselves.
 
 ## Conventions used below
 
@@ -12,43 +20,44 @@ Hero SKU referenced throughout: **`MSMBS7MIL001`** (Freeze-Drying Packaging Star
 
 ---
 
-## FLOW 1 — Manual PackFresh fulfillment alert
+## FLOW 1 — Assemble-and-ship alert
 
-**Purpose:** every starter-kit order requires a human to place a supplier order at PackFreshUSA. Nothing about that is automated, by design.
+**Purpose:** every paid order requires a human to assemble or pick it and buy a label. Nothing about that is automated, by design.
 
 - **Trigger:** `Order paid`
-- **Condition:** `Order` → `Line items` → `any` → `Variant / SKU` `contains` `MSMBS7MIL001`
+- **Condition:** none. Every order we take is one we pack.
+  - This was `Line items` → `any` → `Variant / SKU` `contains` `MSMBS7MIL001`. Repointed 2026-09-09: that SKU is archived, so the condition matched nothing and the alert stopped firing.
 - **Actions, in order:**
-  1. `Add order tags` → `PACKFRESH-MANUAL`
-  2. `Add order tags` → `VALIDATION-DROPSHIP`
-  3. `Add customer tags` → `starter-kit-buyer`
-  4. `Send internal email`
+  1. `Add order tags` → `ASSEMBLE-AND-SHIP`
+  2. `Add customer tags` → `packaging-buyer`
+  3. `Send internal email`
      - **To:** the store owner address
-     - **Subject:** `Manual PackFreshUSA order required — {{order.name}}`
+     - **Subject:** `Order to assemble and ship — {{order.name}}`
      - **Body must include:**
        - `{{order.name}}` (order number)
        - `{{order.shippingAddress.name}}`
        - `{{order.shippingAddress.address1}}`, `address2`, `city`, `provinceCode`, `zip`, `countryCode`
-       - each line item's title, SKU and quantity
+       - each line item's title, SKU and quantity — the bill of materials to assemble from
        - a link to `docs/MANUAL-FULFILLMENT.md`'s SOP
 
-> **Do not add any action that places the supplier order.** PackFreshUSA ordering stays manual through soft launch. Flow's job is to make sure a human is told, with everything they need in one message.
+> The old `VALIDATION-DROPSHIP` order tag is retired with the workflow it described. Nothing is drop-shipped.
 
 ---
 
-## FLOW 2 — New starter-kit buyer segmentation
+## FLOW 2 — New packaging-buyer segmentation
 
 **Purpose:** a purchase is the strongest evidence we have that someone owns a freeze dryer. Move them out of the pre-owner audience.
 
 - **Trigger:** `Order paid`
-- **Condition:** `Order` → `Line items` → `any` → `Variant / SKU` `contains` `MSMBS7MIL001`
+- **Condition:** none — see Flow 1. Everything in the catalog is freeze-drying packaging, so any order carries the same signal.
+  - Repointed off `MSMBS7MIL001` on 2026-09-09.
 - **Actions:**
-  1. `Add customer tags` → `starter-kit-buyer`
+  1. `Add customer tags` → `packaging-buyer`
   2. `Add customer tags` → `freeze-drying-owner`
   3. `Remove customer tags` → `stage-considering`
      - Only this one. Do **not** remove `stage-new-owner`, `stage-active-owner` or `stage-cottage-seller`: those remain true after a purchase, and a cottage seller who buys packaging is still a cottage seller.
-  4. **[app]** `Shopify Email` / `Shopify Messaging` → enter the *Starter-kit buyer* automation, **if and only if** that action appears in your action list.
-     - **Fallback if it does not:** leave this out. Build Flow C in `docs/EMAIL-AUTOMATIONS.md` as a *customer-tag-triggered* automation inside Shopify Messaging instead, keyed on `starter-kit-buyer`. The tag written in step 1 is the trigger. This is the more robust design anyway.
+  4. **[app]** `Shopify Email` / `Shopify Messaging` → enter the *Packaging buyer* automation, **if and only if** that action appears in your action list.
+     - **Fallback if it does not:** leave this out. Build Flow C in `docs/EMAIL-AUTOMATIONS.md` as a *customer-tag-triggered* automation inside Shopify Messaging instead, keyed on `packaging-buyer`. The tag written in step 1 is the trigger. This is the more robust design anyway.
 
 Note that Flow 1 and Flow 2 share a trigger and condition. Keep them as two workflows: one is an operations alert, one is marketing segmentation, and you will want to disable or edit them independently.
 
@@ -72,7 +81,7 @@ Note that Flow 1 and Flow 2 share a trigger and condition. Keep them as two work
 
 Using a dedicated `seq-*` tag rather than triggering the email directly from Flow keeps the email tool's entry condition visible inside the email tool, and lets you re-enrol or suppress someone by editing a tag.
 
-**Guard:** add a condition `Customer` → `tags` `does not contain` `starter-kit-buyer` on the pre-owner branch, so a buyer never drops back into a "should you buy a freeze dryer" sequence.
+**Guard:** add a condition `Customer` → `tags` `does not contain` `packaging-buyer` on the pre-owner branch, so a buyer never drops back into a "should you buy a freeze dryer" sequence.
 
 ---
 
@@ -82,7 +91,8 @@ Using a dedicated `seq-*` tag rather than triggering the email directly from Flo
 
 - **Trigger:** `Order fulfilled`
   - Shopify does not expose a reliable *delivered* trigger for manually fulfilled orders without a carrier-tracked integration. `Order fulfilled` fires when tracking is added, which is the closest honest signal we have. Compensate with a wait.
-- **Condition:** `Order` → `Line items` → `any` → `SKU` `contains` `MSMBS7MIL001`
+- **Condition:** none — every product we sell is reviewable.
+  - Repointed off `MSMBS7MIL001` on 2026-09-09. Judge.me is keyed per product, so the request lands against whatever they actually bought; see `docs/REVIEWS-INTEGRATION.md`.
 - **Actions:**
   1. `Wait` → `7 days` (approximate transit + first-use time)
   2. `Add customer tags` → `review-eligible`
@@ -95,18 +105,18 @@ See `docs/REVIEWS-INTEGRATION.md`.
 
 ## FLOW 5 — Fulfillment exception alert
 
-**Purpose:** a manual dropship order that nobody actioned is the single most likely way to burn an early customer.
+**Purpose:** an order that nobody assembled is the single most likely way to burn an early customer.
 
 - **Trigger:** `Order paid`
 - **Actions, in order:**
-  1. `Condition` → `Order` → `tags` `contains` `PACKFRESH-MANUAL`
+  1. `Condition` → `Order` → `tags` `contains` `ASSEMBLE-AND-SHIP` (written by Flow 1)
   2. `Wait` → `2 days`
   3. `Condition` → `Order` → `Fulfillment status` `is not` `Fulfilled`
   4. `Send internal email`
      - **Subject:** `UNFULFILLED after 48h — {{order.name}}`
      - **Body:** order number, order date, customer shipping destination, and a direct link to the order.
 
-The wait must come after the tag condition so the workflow does not hold state for every order on the store. Two days is a starting threshold — tighten it once you know PackFreshUSA's real turnaround.
+The wait must come after the tag condition so the workflow does not hold state for every order on the store. Two days was sized around a supplier's turnaround; now that we pack in-house, tighten it — the only thing between a paid order and a label is us.
 
 ---
 

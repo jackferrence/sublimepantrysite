@@ -48,20 +48,35 @@ Prefer **Judge.me's own** post-fulfillment request over building one in Flow:
 
 1. Judge.me Admin → **Settings → Review requests**.
 2. Trigger: after fulfillment.
-3. Delay: **7–14 days**. Orders are manually dropshipped from PackFreshUSA, so transit is slower and less predictable than a normal Shopify fulfillment. Asking too early produces no review or a bad one.
+3. Delay: **7–14 days**. We pack and ship in-house, so transit is a normal domestic parcel rather than a supplier's turnaround plus transit — but the delay still wants to cover first use, not just delivery. Asking before they have sealed a bag produces no review or a bad one.
 4. Enable the "verified buyer" badge so reviews carry provenance.
 
 Shopify Flow 4 (`docs/SHOPIFY-FLOW-WORKFLOWS.md`) applies a `review-eligible` customer tag for segmentation. It should **not** also send a request — that would double-email the customer.
 
 ## Product mapping
 
-| Field | Value |
-|---|---|
-| Shopify product ID (`external_id`) | `9601875640597` |
-| Handle | `freeze-dryer-packaging-starter-kit-100` |
-| SKU | `MSMBS7MIL001` |
+Judge.me keys on the Shopify numeric product ID as its `external_id`. All eight
+live products, read from the Admin API on 2026-09-09:
 
-The Shopify product ID is hardcoded in `SHOPIFY_PRODUCT_IDS` in `src/lib/reviews.ts`. **Add an entry there whenever a product is added to `CATALOG`**, or that product silently renders without reviews.
+| Handle | SKU | Shopify product ID |
+|---|---|---|
+| `snack-bags-6x6-50-pack-absorbers` | `SP-SNK-50` | `9605612241173` |
+| `snack-bags-6x6-100-pack-absorbers` | `SP-SNK-100` | `9605612273941` |
+| `100cc-oxygen-absorber-refill-100-count` | `SP-OA100-100` | `9605612306709` |
+| `mini-heat-sealer-for-mylar-bags` | `SP-TOOL-HM150` | `9605612339477` |
+| `starter-set-50-bags-50-absorbers-sealer` | `SP-BUNDLE-STARTER` | `9605612405013` |
+| `season-set-100-bags-100-absorbers-sealer` | `SP-BUNDLE-SEASON` | `9605612437781` |
+| `quart-bags-8x12-50-pack-300cc-absorbers` | `SP-QT-50` | `9605612470549` |
+| `300cc-oxygen-absorber-refill-100-count` | `SP-OA300-100` | `9605612503317` |
+
+These are hardcoded in `SHOPIFY_PRODUCT_IDS` in `src/lib/reviews.ts`. **Add an
+entry there whenever a product is added to `CATALOG`**, or that product silently
+renders without reviews. `tests/reviews-wiring.test.mjs` fails the build if the
+two lists drift apart, because "silently renders without reviews" is precisely
+the failure nobody notices.
+
+The single entry that used to be here was the boxed starter kit, archived
+2026-09-09 and removed from the catalog.
 
 ## Verification before trusting the display
 

@@ -14,7 +14,7 @@ Entry conditions are **customer tags**, written by `netlify/functions/lead-captu
 ## FLOW A — Pre-owner
 
 **Entry:** customer tag `seq-pre-owner` (set by Flow 3 from `stage-considering`).
-**Exit:** on tag `starter-kit-buyer` or `freeze-drying-owner`. Someone who buys a machine or a kit mid-sequence should stop being sold a machine.
+**Exit:** on tag `packaging-buyer` or `freeze-drying-owner`. Someone who buys a machine or a kit mid-sequence should stop being sold a machine.
 
 | # | Send | Subject intent | Content | Primary link |
 |---|---|---|---|---|
@@ -30,27 +30,31 @@ Do not sell the packaging starter kit in Flow A. These readers do not own a free
 ## FLOW B — Owner
 
 **Entry:** customer tag `seq-owner` (from `stage-new-owner` or `stage-active-owner`).
-**Exit:** on tag `starter-kit-buyer` — they've bought; move them to Flow C.
+**Exit:** on tag `packaging-buyer` — they've bought; move them to Flow C.
 
 | # | Send | Subject intent | Content | Primary link |
 |---|---|---|---|---|
 | 1 | Immediately | Checklist + first-batch workflow | The checklist, then the full batch workflow | `/guides/complete-batch-workflow` |
 | 2 | +2 days | How to verify dryness | Checking the thickest pieces, centre-tray behaviour, what "done" looks like | `/troubleshooting/batch-not-dry` |
 | 3 | +5 days | Packaging and oxygen absorbers | Bag choice, absorber sizing, heat sealing, seal inspection | `/compare/storage-containers` |
-| 4 | +8 days | The starter kit | The kit as the consolidated answer to email 3, with `WELCOME10` | `/shop/freeze-dryer-packaging-starter-kit` |
+| 4 | +8 days | The Starter Set | Bags, absorbers and the sealer as one consolidated answer to email 3, with `WELCOME10` | `/shop/starter-set-50-bags-50-absorbers-sealer` |
 
-Email 4 must not mention `WELCOME10` until the discount exists in Shopify and `LAUNCH_OFFER.enabled` is `true` in `src/lib/commerce.ts`. Those two must flip together.
+**Email 4 was repointed on 2026-09-09 and the live automation must be edited to match.** It sold the boxed Freeze-Drying Packaging Starter Kit and linked `/shop/freeze-dryer-packaging-starter-kit`, which is archived; that URL now 301s to `/shop`, so the send was pushing subscribers through a redirect to a page that no longer sold what the email described. The Starter Set is the honest replacement: it is the same consolidated answer to email 3 — bags, matched absorbers, and the sealer that closes them — in a product we actually stock.
+
+Email 4 must not mention `WELCOME10` unless the discount exists in Shopify and `LAUNCH_OFFER.enabled` is `true` in `src/lib/commerce.ts`. Those two must flip together. As of 2026-09-09 both are true: `WELCOME10` is 10% off **all products** with no product scoping. The previous code was scoped to the archived kit alone and applied to nothing — do not re-scope a promotional code to a single product again.
+
+**Do not promise free shipping in this email**, or in any offer copy. The discount is applied before the shipping threshold is evaluated, so a 10% discount can drop an order back under the bar the email just promised it would clear.
 
 **Cottage sellers** (`seq-seller`) run Flow B initially. They are owners with a commercial motive; the packaging content is directly relevant. Add a fifth email pointing to `/guides/cottage-economics` and `/start-selling`. Split this into a separate sequence only once there is enough volume to justify it.
 
-## FLOW C — Starter-kit buyer
+## FLOW C — Packaging buyer
 
-**Entry:** customer tag `starter-kit-buyer` (set by Flow 2 on `Order paid`).
+**Entry:** customer tag `packaging-buyer` (set by Flow 2 on `Order paid`).
 
 | # | Send | Subject intent | Content |
 |---|---|---|---|
-| 1 | Immediately | What happens next | Order confirmed, honest fulfillment expectation — the kit ships direct from PackFreshUSA and is ordered manually, so set a realistic window. Do not promise a delivery date you cannot meet. |
-| 2 | On fulfillment +2 days | Packaging workflow | How to use the kit: bag/absorber pairing, sealing, inspection |
+| 1 | Immediately | What happens next | Order confirmed, honest fulfillment expectation — we assemble and ship it ourselves from our own stock, so set a realistic window against our own packing time. Do not promise a delivery date you cannot meet. |
+| 2 | On fulfillment +2 days | Packaging workflow | How to use what they bought: bag/absorber pairing, sealing, inspection |
 | 3 | +7 days | Storage mistakes | The failure modes that show up weeks later, and how to avoid them |
 | 4 | +14 days | Review request / feedback | See `docs/REVIEWS-INTEGRATION.md` — prefer Judge.me's own request over duplicating it here |
 
@@ -62,7 +66,7 @@ Use **Shopify's built-in abandoned checkout recovery**. It is the only system th
 
 - Enable in **Settings → Notifications → Abandoned checkout**, or as a Shopify Email automation.
 - One email is enough at soft-launch volume. Send at ~4–10 hours.
-- Reference `WELCOME10` **only** once the discount exists — and consider not discounting a recovery at all, since contribution margin is already negative at the validation price (see `PRODUCT.md`). Recovering an order at a further 10% off may be worth less than the email.
+- `WELCOME10` exists and applies to everything, so it *can* be referenced here. Consider not discounting a recovery at all: contribution margin is thin, and recovering an order at a further 10% off may be worth less than the email. Do not pair it with a free-shipping promise.
 
 ## Browse abandonment
 

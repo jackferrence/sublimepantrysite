@@ -147,7 +147,6 @@ const STATIC_PAGES = [
   { path: '/compare', kicker: 'Comparisons', title: 'Comparisons with stated criteria' },
   { path: '/recipes', kicker: 'Recipes', title: 'Freeze-drying recipes' },
   { path: '/shop', kicker: 'Shop', title: 'Freeze-drying supplies, without the junk drawer.' },
-  { path: '/shop/freeze-dryer-packaging-starter-kit', kicker: 'Sold by Sublime Pantry', title: 'Freeze-Drying Packaging Starter Kit' },
   { path: '/about', kicker: 'About', title: 'About Sublime Pantry' },
   { path: '/start-selling', kicker: 'Cottage business', title: 'Start selling what you dry' },
   { path: '/tools/batch-log', kicker: 'Free tool', title: 'The Batch Log & Cost Tracker' },

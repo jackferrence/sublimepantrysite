@@ -54,46 +54,50 @@ Nothing to install. Two other apps are present that are unrelated to this stack 
 
 ---
 
-## 2. Discounts — ✅ mostly done, **one defect to fix**
+## 2. Discounts — ✅ done, rebuilt 2026-09-09
 
-### 2a. `WELCOME10` — created, working, but capped at ONE TOTAL USE 🚨
+### 2a. `WELCOME10` — replaced, now unscoped
 
-Verified live against the Storefront API on 2026-09-03: the code applies and takes $59.99 to $54.00.
+The original `welcome10` was **scoped to a single product**, `freeze-dryer-packaging-starter-kit-100`. When that product was archived on 2026-09-09 the code went on reading `ACTIVE` in the admin while applying to nothing a buyer could put in a cart. The site was advertising a code that would fail at checkout.
 
-**But `usageLimit` is set to `1`.** In Shopify that is the *store-wide total*, not per customer:
+§2b of this file predicted it in as many words — *"when you add products, `WELCOME10` will silently discount only the starter kit"* — which is worth noting: the defect was known, written down, and still shipped, because nothing checked it.
 
-> "Limit number of times this discount can be used in total"
+**What exists now,** created via the Admin API on 2026-09-09 and verified on creation:
 
-**The first customer who uses WELCOME10 consumes it permanently. Customer #2 gets "this discount code isn't valid."**
+| Field | Value |
+|---|---|
+| Code | `WELCOME10` |
+| Value | 10% off |
+| Applies to | **All products** (`customerGets.items.all = true`) — not a product selection |
+| Customers | All |
+| Per customer | Once (`appliesOncePerCustomer: true`) |
+| Total usage limit | None (`usageLimit: null`) |
+| Combines with | Shipping discounts only |
+| Ends | Never |
 
-**Fix:** Discounts → `welcome10` → **uncheck "Limit number of times this discount can be used in total"** → Save.
+The previous discount was **retired, not deleted** — it carries the one real use from order #1001. Its code is now `WELCOME10RETIRED` and it has an end date in the past.
 
-Leave **"Limit to one use per customer" checked** — that is `appliesOncePerCustomer`, which is already set correctly and is the restriction you actually want.
+**Rule going forward: never scope a promotional code to a product selection.** A scoped code is a dependency on that product's lifecycle, and nothing in the repo or the admin warns you when it stops matching.
 
-Verify afterwards — `usageLimit` must be `null`:
+### 2b. Automatic free shipping — **not needed, do not create**
 
-```graphql
-{ codeDiscountNodes(first: 5) { edges { node { codeDiscount {
-  ... on DiscountCodeBasic { title usageLimit appliesOncePerCustomer } } } } } }
-```
+The Domestic shipping rate already grants $0.00 above the threshold (§3). A separate automatic free-shipping discount would be a second mechanism doing the same job, with two ways to misconfigure it. Skip it.
 
-### 2b. Two lower-priority notes on `WELCOME10`
+### 2c. Offer enabled on the site ✅
 
-- **`combinesWith.shippingDiscounts` is `false`.** This blocks nothing today, because free shipping comes from a *rate condition*, not a discount (see §3). Set it to true anyway so a future shipping discount can stack. Discounts → `welcome10` → Combinations → tick "Shipping discounts".
-- **The discount is scoped to the starter kit specifically**, not to the whole order (`customerGets.items` is a product selection). Identical behaviour on a one-product catalog. But when you add products, `WELCOME10` will silently discount only the starter kit. Change to "Entire order" if you want it to cover everything.
-- The code is stored lowercase (`welcome10`). Harmless: Shopify matches discount codes case-insensitively, verified live with `WELCOME10`. The site renders the uppercase form.
+`LAUNCH_OFFER.enabled` is `true` in `src/lib/commerce.ts`. What that actually
+does today, verified against the built output:
 
-### 2c. Automatic free shipping — **not needed, do not create**
+- **The cart pre-applies the code.** `CartDrawer.astro` passes `discount-codes="WELCOME10"` to `<shopify-cart>` and shows "Code WELCOME10 applied at checkout". This is the functional half and it works.
+- **Nothing else displays the offer.** `LaunchOffer.astro` — the promo chip — is imported by no page. It has been an orphan since the visual system was rebuilt in #13; the `<LaunchOffer>` tag was dropped from the templates and the component was left behind.
 
-The original plan called for a separate automatic free-shipping discount. It is unnecessary: the Domestic shipping rate already grants $0.00 above $45 (§3), and the discounted total of $54.00 clears it.
+An earlier version of this section claimed the offer rendered on the homepage,
+`/shop`, the product pages and the checklist page. It does not, and has not
+since #13. Where a promo chip *should* appear is a merchandising decision, not a
+bug fix — either wire `LaunchOffer` back into those templates or delete the
+component, but do not leave the docs asserting a placement that is not there.
 
-Adding one would be a second mechanism doing the same job, with two ways to misconfigure it. Skip it.
-
-### 2d. Offer enabled on the site ✅
-
-`LAUNCH_OFFER.enabled` is now `true`, so the offer renders on the homepage, `/shop`, the product page and the checklist page, and `WELCOME10` is pre-applied to the cart component.
-
-**This depends on §2a being fixed.** If the usage cap stays at 1, the site will be advertising a code that dies after a single customer.
+**The offer copy is 10% off and nothing more.** It previously also promised "orders of $45 or more ship free". That was removed on 2026-09-09 and must not come back: the discount is applied *before* the shipping threshold is evaluated, so the 10% can push an order under the bar the same sentence promises it will clear. This is not specific to $45 — it recurs at any threshold, because the discount always moves the total the threshold is testing. State the shipping rule separately, unconditioned on a promotion.
 
 ## 3. Shipping — ✅ correctly configured (earlier guidance here was wrong)
 
@@ -260,7 +264,7 @@ live Admin API during the visual restart.
 | --- | --- |
 | Starter kit product | `ACTIVE`, published to Online Store, inventory 5 |
 | Storefront reachability | `/shop` and the PDP hydrate live prices; no separate Headless channel is needed |
-| `WELCOME10` discount | `ACTIVE`, 10%, once per customer, scoped to `freeze-dryer-packaging-starter-kit-100`, all customers, no end date |
+| `WELCOME10` discount | `ACTIVE`, 10%, once per customer, **all products**, all customers, no end date. Rebuilt 2026-09-09; the scoped predecessor is retired as `WELCOME10RETIRED`. |
 | Free shipping | Delivery zone "Domestic" = US only. Two Standard rates: $6.25, and $0.00 conditioned on `TOTAL_PRICE >= $45.00` |
 | Refund policy | Set: 30 days, original condition and packaging, refund to original payment method within 10 business days of approval |
 | Shipping policy | **Not set** — see §10 |

@@ -63,7 +63,7 @@ Applied by Shopify Flow after purchase (see `docs/SHOPIFY-FLOW-WORKFLOWS.md`):
 
 | Tag | Meaning |
 |---|---|
-| `starter-kit-buyer` | Bought SKU `MSMBS7MIL001` |
+| `packaging-buyer` | Placed any paid order. Renamed from `starter-kit-buyer` on 2026-09-09, which keyed on SKU `MSMBS7MIL001` — a product now archived, so the old tag could gain no new members. One customer carries the retired tag, from order #1001. |
 | `freeze-drying-owner` | Inferred owner status from a purchase |
 
 **Only one `stage-*` tag should be authoritative at a time.** The function adds the newly submitted stage but does not remove the old one, because a stale removal would be a destructive write on a customer we may have mis-stage-detected. Stage transitions are resolved in Flow, which is allowed to remove superseded `stage-*` tags. Segments should therefore be written against the *most advanced* stage tag present, not "has exactly one".

@@ -386,11 +386,30 @@ test('STOCK: nothing is "sold out" or coming "back in stock"', () => {
 });
 
 /**
- * Every "Starter Kit" that is not the tail of a name the catalog approves.
+ * Every product-name tail that is not the tail of a name the catalog approves.
  *
  * Anchors on the phrase and reads backwards. Matching forwards from a capital
  * letter swallows whatever precedes it and reports "Sublime Pantry
  * Freeze-Drying Packaging Starter Kit" as a wrong name.
+ *
+ * The anchors are derived from the catalog, not written down: the last two
+ * words of every *short* name, plus "Starter Kit", which is retired. Deriving
+ * them is the point — the version pinned to one hard-coded anchor covered one
+ * of eight products, so seven names could drift with nothing firing.
+ *
+ * Short names only, and that is load-bearing. Taking tails from the full
+ * merchandising titles too puts "Mylar Bags" in the anchor set, off the end of
+ * "Mini Heat Sealer for Mylar Bags" — and then every citation of the supplier
+ * Discount Mylar Bags reads as us calling a product by a name we do not have.
+ * The short name is the one prose actually uses, so it is the one to anchor on.
+ *
+ * Known limit, stated rather than papered over: this catches a wrong *prefix*
+ * on a name whose approved form is longer than the anchor. "Reserve Starter
+ * Kit" fires against "Freeze-Drying Packaging Starter Kit". But where the
+ * approved short name is itself only the two anchor words — "Starter Set",
+ * "Season Set" — there is no prefix left to disagree with, and "Reserve Starter
+ * Set" would pass. Those two names are covered by the pinned Shopify titles in
+ * tests/homepage-and-shop.test.mjs and by the scheduled title monitor instead.
  *
  * Two exemptions, both the same idea: the name belongs to someone else.
  *
@@ -403,15 +422,30 @@ test('STOCK: nothing is "sold out" or coming "back in stock"', () => {
  * it. Without this, the shape reads a competitor's product name as us calling
  * our own kit a third thing — which is the opposite of what it guards.
  */
-function thirdNameOffenders(found, allowed, file = '') {
+/** The last two words of a name — the tail a wrong prefix would attach to. */
+const tailOf = (name) => name.trim().split(/\s+/).slice(-2).join(' ');
+
+/** "Starter Kit" is retired: no live product carries it, so any use is wrong. */
+const RETIRED_TAIL = 'Starter Kit';
+
+function anchorsFor(names) {
+  return [...new Set([...names.map(tailOf), RETIRED_TAIL])].filter(Boolean);
+}
+
+function thirdNameOffenders(found, allowed, file = '', anchorNames = allowed) {
   const offenders = [];
+  const anchors = anchorsFor(anchorNames);
   for (const { where, statement } of found) {
     if (where === 'sources') continue;
     if (ATTRIBUTED(statement)) continue;
-    for (const m of statement.matchAll(/Starter Kit\b/g)) {
-      const upTo = statement.slice(0, m.index + m[0].length);
-      if (allowed.some((name) => upTo.endsWith(name))) continue;
-      offenders.push(`${file}[${where}] a third name for the kit: "…${upTo.slice(-60)}"`);
+    for (const anchor of anchors) {
+      // Escaped: catalog names carry ×, —, ( and other regex metacharacters.
+      const re = new RegExp(anchor.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'g');
+      for (const m of statement.matchAll(re)) {
+        const upTo = statement.slice(0, m.index + m[0].length);
+        if (allowed.some((name) => upTo.endsWith(name))) continue;
+        offenders.push(`${file}[${where}] a name the catalog does not have: "…${upTo.slice(-60)}"`);
+      }
     }
   }
   return offenders;
@@ -431,19 +465,26 @@ test('PRODUCT NAME: the site calls the product one thing, and it is the catalog 
   // half neither can reach, Shopify being renamed underneath both, is what the
   // scheduled title monitor is for.
   const commerce = readFileSync(join(root, 'src/lib/commerce.ts'), 'utf8');
-  const title = commerce.match(/^\s*title: '(.+)',$/m)[1];
-  const shortTitle = commerce.match(/^\s*shortTitle: '(.+)',$/m)[1];
-  assert.ok(title.startsWith(shortTitle), 'the short name is not a shortening of the full one');
+  // Every product, not the first one. `match` read a single title for as long
+  // as the catalog had one product worth guarding; it then went on reading the
+  // first of eight while the other seven were unguarded.
+  const titles = [...commerce.matchAll(/^\s*title: '(.+)',$/gm)].map((m) => m[1]);
+  const shortTitles = [...commerce.matchAll(/^\s*shortTitle: '(.+)',$/gm)].map((m) => m[1]);
+  assert.equal(titles.length, shortTitles.length, 'a product has a title without a short name');
+  assert.ok(titles.length >= 8, 'the name sweep is reading fewer products than the catalog has');
+  for (const [i, title] of titles.entries()) {
+    assert.ok(title.startsWith(shortTitles[i]), `the short name is not a shortening of "${title}"`);
+  }
 
   // Anchor on the phrase and read backwards: every occurrence of "Starter Kit"
   // must be the tail of an approved name. Matching forwards from a capital
   // letter swallows whatever precedes it — "Sublime Pantry Freeze-Drying
   // Packaging Starter Kit" in alt text, a breadcrumb trail in prose — and
   // reports a correct name as a wrong one.
-  const allowed = [shortTitle, title.split(' — ')[0]];
+  const allowed = [...new Set([...shortTitles, ...titles, ...titles.map((t) => t.split(' — ')[0])])];
   const offenders = [];
   for (const { file, surfaces: found } of pages()) {
-    offenders.push(...thirdNameOffenders(found, allowed, `${file} `));
+    offenders.push(...thirdNameOffenders(found, allowed, `${file} `, shortTitles));
   }
   assert.deepEqual([...new Set(offenders)], [], 'the site calls the product something the catalog does not');
 });

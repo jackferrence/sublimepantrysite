@@ -7,12 +7,18 @@ name: Shopify title monitor
 # is not the PR's fault and it blocks unrelated work. It runs daily and opens an
 # issue instead.
 #
-# What it closes: tests/homepage-and-shop.test.mjs pins Shopify's title in a
-# hard-coded constant, and tests/claim-shapes.test.mjs asserts every surface
-# agrees with the catalog. Both compare strings that live in this repo, so
-# neither can see Shopify being renamed underneath them. That happened twice in
-# two days, and both times the whole suite stayed green while the page and the
-# checkout disagreed about what the customer was buying.
+# What it closes: tests/homepage-and-shop.test.mjs pins Shopify's titles in a
+# hard-coded map, and tests/claim-shapes.test.mjs asserts every surface agrees
+# with the catalog. Both compare strings that live in this repo, so neither can
+# see Shopify being renamed underneath them. That happened twice in two days,
+# and both times the whole suite stayed green while the page and the checkout
+# disagreed about what the customer was buying.
+#
+# It checks both site constants — src/lib/commerce.ts and the pinned map — and
+# every live handle, not just one product. It also judges `status`: the Admin
+# API returns an archived product's title as readily as a live one, so a
+# title-only check agreed with Shopify about the name of a product nobody could
+# buy for as long as the boxed starter kit sat archived in the catalog.
 
 on:
   schedule:
@@ -45,8 +51,14 @@ jobs:
       - name: Check live Shopify titles against the catalog
         id: check
         env:
-          SHOPIFY_STORE_DOMAIN: ${{ secrets.SHOPIFY_STORE_DOMAIN }}
-          SHOPIFY_ADMIN_TOKEN: ${{ secrets.SHOPIFY_ADMIN_TOKEN }}
+          # One name, one place. The secrets carry the same names the scripts read,
+          # so there is no mapping here to get wrong. `SHOPIFY_ADMIN_TOKEN` is gone
+          # rather than renamed: no such secret ever existed, so the line that
+          # referenced it passed an empty string, and the check has always
+          # authenticated through the client-credentials grant below.
+          SHOPIFY_SHOP_DOMAIN: ${{ secrets.SHOPIFY_SHOP_DOMAIN }}
+          SHOPIFY_CLIENT_ID: ${{ secrets.SHOPIFY_CLIENT_ID }}
+          SHOPIFY_CLIENT_SECRET: ${{ secrets.SHOPIFY_CLIENT_SECRET }}
         run: |
           set +e
           node scripts/check-shopify-title.mjs 2>&1 | tee /tmp/title-check.txt

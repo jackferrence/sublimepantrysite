@@ -2,10 +2,11 @@
 /**
  * The generic product page.
  *
- * One template for every catalog product except the Freeze-Drying Packaging
- * Starter Kit, which keeps its own page: it is a different kind of listing (a
- * supplier's boxed set, drop-shipped, with its own spec table and how-to) and
- * folding it in here would make this template a switch statement.
+ * One template for every catalog product. It had an exception — the boxed
+ * Freeze-Drying Packaging Starter Kit kept a hand-built page, because it was a
+ * supplier's set that we drop-shipped rather than something we packed. That
+ * product is archived and every remaining item is assembled from our own
+ * stock, so there is nothing left for a second template to express.
  *
  * Everything a buyer needs to decide is server-rendered: title, price,
  * availability, contents, what they still have to supply, and the questions.
@@ -28,6 +29,8 @@ import {
   OWNERSHIP_LABEL,
   ownedEyebrow,
 } from '../../lib/commerce';
+import ProductReviews from '../../components/ProductReviews.astro';
+import { getProductReviews } from '../../lib/reviews';
 import { stockedCatalog, NOT_STOCKED_LABEL, stockNoteFor } from '../../lib/stock';
 import { SUPPORT_EMAIL } from '../../lib/paths';
 import { heroImage, articleHref } from '../../lib/articles';
@@ -36,12 +39,8 @@ export async function getStaticPaths() {
   // Declared inside, not above: Astro extracts getStaticPaths into its own
   // module at build, so anything it closes over from the frontmatter is
   // undefined by the time it runs.
-  /** The starter kit is excluded — it has a hand-built page of its own. */
-  const BESPOKE = new Set(['freeze-dryer-packaging-starter-kit-100']);
   const catalog = await stockedCatalog();
-  return catalog
-    .filter((product) => !BESPOKE.has(product.handle))
-    .map((product) => ({ params: { handle: product.handle }, props: { product } }));
+  return catalog.map((product) => ({ params: { handle: product.handle }, props: { product } }));
 }
 
 const { product } = Astro.props;
@@ -50,6 +49,17 @@ const articles = await getCollection('articles');
 const related = product.relatedArticles
   .map((id) => articles.find((entry) => entry.id === id))
   .filter((entry): entry is (typeof articles)[number] => Boolean(entry));
+
+/**
+ * Judge.me reviews, fetched at build for this product.
+ *
+ * Every product gets this, not one: the kit's hand-built page was the only
+ * caller until 2026-09-09, so archiving it left the whole integration wired to
+ * nothing. Judge.me renders nothing when a product has no published reviews —
+ * ProductReviews omits the section entirely rather than showing an empty state
+ * — so there is no placeholder risk in asking for all eight.
+ */
+const reviews = await getProductReviews(product);
 
 const path = `/shop/${product.handle}`;
 const trackProps = JSON.stringify({ product_handle: product.handle, sku: product.sku });
@@ -83,6 +93,16 @@ const productSchema: Record<string, unknown> = {
     seller: { '@type': 'Organization', name: 'Sublime Pantry' },
   },
 };
+
+// AggregateRating is emitted only when real, published reviews exist. Emitting
+// it otherwise would be a rating claim with nothing behind it.
+if (reviews.aggregate) {
+  productSchema.aggregateRating = {
+    '@type': 'AggregateRating',
+    ratingValue: reviews.aggregate.ratingValue,
+    reviewCount: reviews.aggregate.reviewCount,
+  };
+}
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -201,6 +221,8 @@ const faqSchema = {
           </details>
         ))}
       </section>
+
+      <ProductReviews reviews={reviews} />
     </div>
 
     {related.length > 0 && (

@@ -10,6 +10,11 @@
  * name, so the assertion is that our copy of it is Shopify's, and that no
  * surface writes a third one.
  *
+ * That product is archived as of 2026-09-09 — we no longer resell PackFreshUSA's
+ * boxed set — and the pin below covers all eight live products rather than the
+ * one. Pinning a single product was itself part of the failure: seven titles
+ * could move without anything here noticing.
+ *
  * The homepage exists to convert a consented subscription and pointed at two
  * other things first. The hero's own button now goes to the form.
  *
@@ -47,35 +52,57 @@ const text = (html) =>
     .replace(/&amp;/g, '&')
     .replace(/\s+/g, ' ');
 
-const kit = CATALOG[0];
-
 /**
- * Shopify's title for the kit, read from the live store.
+ * Shopify's title for every live product, read from the live store.
  *
  * Hard-coded on purpose: a test that reads the name from the same constant the
  * page reads it from would pass whatever that constant said.
  *
- * Re-read from the Admin API on 2026-09-09 and it had moved. The product was
- * renamed in Shopify back to the name below, and nothing failed — the site kept
- * publishing "Reserve Starter Kit — 100 Mylar Bags + Absorbers + Labels" while
- * the cart and the checkout said this, which is U04 again in the other
- * direction. That is the limit of this test: it catches the site drifting from
- * a name someone wrote down, not the name being changed underneath it. The only
- * real fix is reading the title from Shopify during the build; until then, this
- * constant has to be re-read against the live store whenever the kit is touched.
+ * Read from the Admin API on 2026-09-09, filtered to `status:active`. Every
+ * ACTIVE handle is here and nothing else is — an archived product must not
+ * appear, because the catalog must not list one.
+ *
+ * This still only catches the site drifting from a name someone wrote down, not
+ * the name being changed underneath it. That half is scripts/check-shopify-title.mjs,
+ * which now reads this map as well as the catalog.
  */
-const SHOPIFY_TITLE = 'Freeze-Drying Packaging Starter Kit — 100 Bags, Absorbers & Labels';
+const SHOPIFY_TITLES = {
+  'snack-bags-6x6-50-pack-absorbers': 'Snack Bags 6×6 — 50 Pack with Absorbers',
+  'snack-bags-6x6-100-pack-absorbers': 'Snack Bags 6×6 — 100 Pack with Absorbers',
+  '100cc-oxygen-absorber-refill-100-count': '100cc Oxygen Absorber Refill — 100 Count',
+  'mini-heat-sealer-for-mylar-bags': 'Mini Heat Sealer for Mylar Bags',
+  'starter-set-50-bags-50-absorbers-sealer': 'Starter Set — 50 Bags, 50 Absorbers, Sealer',
+  'season-set-100-bags-100-absorbers-sealer': 'Season Set — 100 Bags, 100 Absorbers, Sealer',
+  'quart-bags-8x12-50-pack-300cc-absorbers': 'Quart Bags 8×12 — 50 Pack with 300cc Absorbers',
+  '300cc-oxygen-absorber-refill-100-count': '300cc Oxygen Absorber Refill — 100 Count',
+};
 
-test('U04: the site calls the product what Shopify calls it', () => {
-  assert.equal(kit.title, SHOPIFY_TITLE, 'the catalog title has drifted from the Shopify product title');
-  assert.ok(SHOPIFY_TITLE.startsWith(kit.shortTitle), 'the short name is not a shortening of the real one');
+test('U04: the site calls every product what Shopify calls it', () => {
+  assert.deepEqual(
+    CATALOG.map((p) => p.handle).sort(),
+    Object.keys(SHOPIFY_TITLES).sort(),
+    'the catalog and the pinned Shopify titles disagree about which products exist',
+  );
+  for (const product of CATALOG) {
+    const shopify = SHOPIFY_TITLES[product.handle];
+    assert.equal(product.title, shopify, `${product.handle}: the catalog title has drifted from the Shopify title`);
+    assert.ok(
+      shopify.startsWith(product.shortTitle),
+      `${product.handle}: the short name is not a shortening of the real one`,
+    );
+  }
 });
 
-test('U04: no surface writes a third name for the kit', () => {
-  // The retired name is now the other one: Shopify moved back to the
-  // "Freeze-Drying Packaging Starter Kit" title, so "Reserve Starter Kit" is
-  // the name no surface may publish.
-  const retired = /Reserve Starter Kit/i;
+test('the archived kit is gone from the catalog, not merely hidden', () => {
+  const archived = 'freeze-dryer-packaging-starter-kit-100';
+  assert.ok(!CATALOG.some((p) => p.handle === archived), 'an ARCHIVED Shopify product is still in the catalog');
+});
+
+test('U04: no surface publishes a retired product name', () => {
+  // Both names the boxed set ever had are retired together: the product is
+  // archived, so neither may appear on a published page. "Reserve Starter Kit"
+  // was the earlier title; "Freeze-Drying Packaging Starter Kit" the later one.
+  const retired = /Reserve Starter Kit|Freeze-Drying Packaging Starter Kit/i;
   const offenders = globSync('**/*.html', { cwd: dist })
     .filter((f) => retired.test(readFileSync(join(dist, f), 'utf8')))
     .concat(
@@ -92,10 +119,19 @@ test('U04: no surface writes a third name for the kit', () => {
   assert.deepEqual(offenders, [], 'the old product name is still published');
 });
 
-test('U04: the product URL is unchanged', () => {
-  assert.equal(kit.detailsHref, '/shop/freeze-dryer-packaging-starter-kit');
-  assert.ok(existsSync(join(dist, 'shop/freeze-dryer-packaging-starter-kit.html')));
-  assert.equal(kit.handle, 'freeze-dryer-packaging-starter-kit-100', 'the Shopify handle is the join key; it does not move');
+test('the archived product URL redirects rather than rendering or 404ing', () => {
+  // It had inbound links, so a 404 is the worse of the two failures. What must
+  // not happen is the third option: a page that still looks purchasable.
+  assert.ok(
+    !existsSync(join(dist, 'shop/freeze-dryer-packaging-starter-kit.html')),
+    'the archived product still renders a page',
+  );
+  const redirects = readFileSync(join(dist, '_redirects'), 'utf8');
+  assert.match(
+    redirects,
+    /^\/shop\/freeze-dryer-packaging-starter-kit\s+\/shop\s+301$/m,
+    'the archived product URL does not redirect to /shop',
+  );
 });
 
 test('M07: the homepage hero leads to the thing the page is for', () => {
@@ -134,7 +170,7 @@ test('U05: the hero preview is the checklist, not a monogram', () => {
 test('the homepage answers its own questions, and each answer is a limit', () => {
   const t = text(page('index.html'));
   assert.match(t, /We have not bench-tested freeze dryers/);
-  assert.match(t, /PackFreshUSA ships it directly to you/);
+  assert.match(t, /Every item is assembled from our own stock and shipped by Sublime Pantry/);
   assert.match(t, /We publish freeze-drying guidance and sell packaging/);
 });
 
@@ -149,14 +185,13 @@ test('U06: the shop describes the product, not the roadmap', () => {
   ]) {
     assert.ok(!t.includes(staging), `shop still carries staging copy: "${staging}"`);
   }
-  // The fulfillment fact a buyer needs is not roadmap, and it stays.
-  assert.match(t, /PackFreshUSA supplies it and ships it directly to you/);
+  // The fulfillment fact a buyer needs is not roadmap, and it stays — it is
+  // just a different fact now that nothing is drop-shipped.
+  assert.match(t, /Everything on this page is held here and packed by us/);
   assert.match(t, /heat sealer is required and is not included/);
 });
 
-test('the product page states what the kit cannot do', () => {
-  const t = text(page('shop/freeze-dryer-packaging-starter-kit.html'));
-  assert.match(t, /Does the kit guarantee a storage life\?\s*No\./);
-  assert.match(t, /Are these Sublime Pantry-manufactured bags\?\s*No\./);
-  assert.ok(!t.includes('sold in most starter packs'), 'the unsourced comparison to other sellers is still published');
-});
+// Removed with the product: 'the product page states what the kit cannot do'
+// asserted the FAQ on shop/freeze-dryer-packaging-starter-kit.html, a page that
+// no longer exists. The equivalent limits for the live range are asserted by
+// the generic PDP tests; there is nothing here to re-point it at.
