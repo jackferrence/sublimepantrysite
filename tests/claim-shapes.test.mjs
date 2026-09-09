@@ -104,7 +104,30 @@ function surfaces(html) {
     }
   }
 
-  const body = html.replace(/<script[\s\S]*?<\/script>/g, ' ').replace(/<style[\s\S]*?<\/style>/g, ' ');
+  let body = html.replace(/<script[\s\S]*?<\/script>/g, ' ').replace(/<style[\s\S]*?<\/style>/g, ' ');
+
+  // 1b. The source register, as its own surface.
+  //
+  //     Every statement in it is somebody else's published title, publisher and
+  //     access date. "How to Package Freeze-dried Food So It Keeps For 25 Years"
+  //     is Harvest Right's title for their own page; quoting it accurately is
+  //     the entire point of a citation, and SHELF LIFE reading it as our promise
+  //     inverts what the register is for.
+  //
+  //     It is tagged rather than dropped. Deleting a region would leave a piece
+  //     of every page that no shape could ever see — which is the failure this
+  //     extractor exists to prevent — so the text is still extracted, still
+  //     addressable, and merely skipped by `sweep` unless a shape asks for it.
+  for (const block of body.matchAll(/<section class="sources"[\s\S]*?<\/section>/g)) {
+    const region = block[0];
+    for (const item of region.matchAll(/<li\b[^>]*>([\s\S]*?)<\/li>/g)) {
+      push('sources', item[1].replace(/<[^>]+>/g, ' '));
+    }
+    for (const sentence of tidy(region.replace(/<[^>]+>/g, ' ')).split(/(?<=[.!?])\s+/)) {
+      push('sources', sentence);
+    }
+  }
+  body = body.replace(/<section class="sources"[\s\S]*?<\/section>/g, ' ');
 
   // 2. Readable attribute values — alt, aria-label, title, placeholder, and
   //    <meta content>, which is where the site-wide description lives.
@@ -160,10 +183,14 @@ const pages = () =>
  * or an alt attribute has nowhere to put the qualification and therefore must
  * not carry the claim at all.
  */
-function sweep({ shape, allow, label }) {
+function sweep({ shape, allow, label, includeSources = false }) {
   const offenders = [];
   for (const { file, surfaces: found } of pages()) {
     for (const { where, statement } of found) {
+      // Attribution by construction: a source register entry is a quotation of
+      // someone else's title. A shape that genuinely wants to read it — one
+      // checking that we cite what we say we cite, say — opts in.
+      if (where === 'sources' && !includeSources) continue;
       if (!shape.test(statement)) continue;
       shape.lastIndex = 0;
       if (allow(statement, where)) continue;
@@ -174,6 +201,58 @@ function sweep({ shape, allow, label }) {
 }
 
 /* ------------------------------------------------------------------ */
+
+/**
+ * A statement carrying a bracketed citation marker is quoting a source.
+ *
+ * Used by two shapes, so it is written once. "from $4,595 — sold out on
+ * 2026-09-05 [18]" is a sourced fact about a manufacturer's own listing: the
+ * stocking claim is theirs, and so is the price. Without this, a comparison
+ * article citing a third-party price that happens to equal one of ours reads as
+ * an undisclosed offer, and a machine that a publisher lists as sold out reads
+ * as a claim about our shelf.
+ *
+ * It is deliberately narrow. It licenses the *presence of a source*, not the
+ * wording — a sentence with a citation still has to survive every other shape.
+ */
+const ATTRIBUTED = (statement) => /\[\d+\]/.test(statement);
+
+/**
+ * Claiming a product will be, or has been, stocked again.
+ *
+ * `restock` is qualified because "restocking fee" is a returns-policy term and
+ * has nothing to do with whether a product is coming back. It fired on
+ * /shipping-returns, which is the shape being wrong rather than the copy.
+ */
+const STOCK_SHAPE =
+  /\bsold\s*out\b|\bback\s+in\s+stock\b|\brestock(?:ing|ed|s)?\b(?!\s+fees?\b)|\bin\s+stock\s+soon\b|\bcoming\s+back\b|\bwhen\s+it\s+returns\b/i;
+
+/* ------------------------------------------------------------------ */
+
+/**
+ * Both narrowings are asserted in both directions.
+ *
+ * A shape that has been loosened to stop a false positive is only worth having
+ * if it still fires on the thing it was written for, and the loosening is
+ * exactly the edit nobody re-checks. These fail if `restock` stops matching a
+ * real restocking promise, or if the citation allowance grows into "any price
+ * near a number".
+ */
+test('the narrowed rules still fire on what they were written for', () => {
+  // STOCK: the returns-policy sense is out, the stocking promise is not.
+  assert.ok(!STOCK_SHAPE.test('A 15% restocking fee applies to opened items.'));
+  assert.ok(!STOCK_SHAPE.test('Restocking fees are deducted from the refund.'));
+  assert.ok(STOCK_SHAPE.test('We restock this every spring.'));
+  assert.ok(STOCK_SHAPE.test('It will be restocked in October.'));
+  assert.ok(STOCK_SHAPE.test('Sold out.'));
+  assert.ok(STOCK_SHAPE.test('Back in stock soon.'));
+
+  // OWNERSHIP: a citation attributes a figure; a bare price does not.
+  assert.ok(ATTRIBUTED('Harvest Right lists the medium at $2,995 [18].'));
+  assert.ok(!ATTRIBUTED('Harvest Right lists the medium at $2,995.'));
+  assert.ok(!ATTRIBUTED('$14.99 USD'));
+  assert.ok(!ATTRIBUTED('Priced at $14.99 in 2026'), 'a bare year is not a citation');
+});
 
 test('SHIPPING: free shipping is never claimed without its condition', () => {
   // Three tenses and two noun phrases, because it has been written in all of
@@ -291,11 +370,9 @@ test('STOCK: nothing is "sold out" or coming "back in stock"', () => {
   // "Out of stock" is deliberately not here: for a product we do stock, it is a
   // true statement of a present state, and banning it would push the copy
   // towards something vaguer rather than something more honest.
-  const shape =
-    /\bsold\s*out\b|\bback\s+in\s+stock\b|\brestock(?:ing|ed|s)?\b|\bin\s+stock\s+soon\b|\bcoming\s+back\b|\bwhen\s+it\s+returns\b/i;
   assert.deepEqual(
     sweep({
-      shape,
+      shape: STOCK_SHAPE,
       label: 'asserts a stocking history the product does not have',
       // A bracketed citation marker is attribution: "from $4,595 — sold out on
       // 2026-09-05 [18]" is a sourced fact about a manufacturer's own listing,
@@ -319,9 +396,17 @@ test('OWNERSHIP: any page showing our product price discloses that we sell it', 
   assert.ok(prices.length >= 2, 'the price sweep is reading fewer prices than the catalog has');
   const missing = [];
   for (const { file, surfaces: f } of pages()) {
-    const all = f.map((x) => x.statement).join(' ');
-    if (all.includes(label)) continue;
-    for (const price of prices) if (all.includes(price)) missing.push(`${file}: ${price}`);
+    // The disclosure is a page-level fact: if it is anywhere on the page, the
+    // price on that page is disclosed. Only the *price* is judged per
+    // statement, because that is where attribution lives.
+    if (f.some((x) => x.statement.includes(label))) continue;
+    for (const { where, statement } of f) {
+      for (const price of prices) {
+        if (!statement.includes(price)) continue;
+        if (ATTRIBUTED(statement)) continue;
+        missing.push(`${file} [${where}]: ${price}`);
+      }
+    }
   }
   assert.deepEqual([...new Set(missing)], [], `pages show a price without "${label}"`);
 });
@@ -381,4 +466,32 @@ test('the extractor reaches every surface a claim has hidden in', () => {
   assert.ok(has('title', 'Storage comparison'), 'SVG title not reached');
   assert.ok(has('prose', 'longest — decades-class, sealed'), 'SVG text label not reached');
   assert.ok(has('prose', 'An ordinary sentence.'), 'prose not split into sentences');
+});
+
+test('the source register is extracted, and is not swept as our voice', () => {
+  // A real citation whose own title carries a shelf-life duration.
+  const sample = `
+    <html><body>
+      <p>Our own sentence about storage.</p>
+      <section class="sources" aria-labelledby="sources-heading"><h2>Sources</h2><ol>
+        <li><a href="https://example.com/x">How to Package Freeze-dried Food So It Keeps For 25 Years</a>
+            — Harvest Right, accessed 2026-08-31</li>
+      </ol></section>
+    </body></html>`;
+  const found = surfaces(sample);
+
+  // Still reached. Dropping the region outright would leave part of every
+  // article that no shape could ever look at.
+  assert.ok(
+    found.some((x) => x.where === 'sources' && x.statement.includes('Keeps For 25 Years')),
+    'the source register is no longer extracted at all',
+  );
+  // And attributed to nothing else: the title must not also arrive as prose,
+  // or the shapes would read it as ours by another route.
+  assert.ok(
+    !found.some((x) => x.where !== 'sources' && x.statement.includes('Keeps For 25 Years')),
+    'a source title is leaking into a swept surface',
+  );
+  // The page's own sentence is untouched by the carve-out.
+  assert.ok(found.some((x) => x.where === 'prose' && x.statement.includes('Our own sentence')));
 });
