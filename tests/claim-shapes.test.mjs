@@ -175,6 +175,58 @@ function sweep({ shape, allow, label }) {
 
 /* ------------------------------------------------------------------ */
 
+/**
+ * A statement carrying a bracketed citation marker is quoting a source.
+ *
+ * Used by two shapes, so it is written once. "from $4,595 — sold out on
+ * 2026-09-05 [18]" is a sourced fact about a manufacturer's own listing: the
+ * stocking claim is theirs, and so is the price. Without this, a comparison
+ * article citing a third-party price that happens to equal one of ours reads as
+ * an undisclosed offer, and a machine that a publisher lists as sold out reads
+ * as a claim about our shelf.
+ *
+ * It is deliberately narrow. It licenses the *presence of a source*, not the
+ * wording — a sentence with a citation still has to survive every other shape.
+ */
+const ATTRIBUTED = (statement) => /\[\d+\]/.test(statement);
+
+/**
+ * Claiming a product will be, or has been, stocked again.
+ *
+ * `restock` is qualified because "restocking fee" is a returns-policy term and
+ * has nothing to do with whether a product is coming back. It fired on
+ * /shipping-returns, which is the shape being wrong rather than the copy.
+ */
+const STOCK_SHAPE =
+  /\bsold\s*out\b|\bback\s+in\s+stock\b|\brestock(?:ing|ed|s)?\b(?!\s+fees?\b)|\bin\s+stock\s+soon\b|\bcoming\s+back\b|\bwhen\s+it\s+returns\b/i;
+
+/* ------------------------------------------------------------------ */
+
+/**
+ * Both narrowings are asserted in both directions.
+ *
+ * A shape that has been loosened to stop a false positive is only worth having
+ * if it still fires on the thing it was written for, and the loosening is
+ * exactly the edit nobody re-checks. These fail if `restock` stops matching a
+ * real restocking promise, or if the citation allowance grows into "any price
+ * near a number".
+ */
+test('the narrowed rules still fire on what they were written for', () => {
+  // STOCK: the returns-policy sense is out, the stocking promise is not.
+  assert.ok(!STOCK_SHAPE.test('A 15% restocking fee applies to opened items.'));
+  assert.ok(!STOCK_SHAPE.test('Restocking fees are deducted from the refund.'));
+  assert.ok(STOCK_SHAPE.test('We restock this every spring.'));
+  assert.ok(STOCK_SHAPE.test('It will be restocked in October.'));
+  assert.ok(STOCK_SHAPE.test('Sold out.'));
+  assert.ok(STOCK_SHAPE.test('Back in stock soon.'));
+
+  // OWNERSHIP: a citation attributes a figure; a bare price does not.
+  assert.ok(ATTRIBUTED('Harvest Right lists the medium at $2,995 [18].'));
+  assert.ok(!ATTRIBUTED('Harvest Right lists the medium at $2,995.'));
+  assert.ok(!ATTRIBUTED('$14.99 USD'));
+  assert.ok(!ATTRIBUTED('Priced at $14.99 in 2026'), 'a bare year is not a citation');
+});
+
 test('SHIPPING: free shipping is never claimed without its condition', () => {
   // Three tenses and two noun phrases, because it has been written in all of
   // them: "Ships free · US only", "shipped free while we validate fulfillment",
@@ -291,11 +343,9 @@ test('STOCK: nothing is "sold out" or coming "back in stock"', () => {
   // "Out of stock" is deliberately not here: for a product we do stock, it is a
   // true statement of a present state, and banning it would push the copy
   // towards something vaguer rather than something more honest.
-  const shape =
-    /\bsold\s*out\b|\bback\s+in\s+stock\b|\brestock(?:ing|ed|s)?\b|\bin\s+stock\s+soon\b|\bcoming\s+back\b|\bwhen\s+it\s+returns\b/i;
   assert.deepEqual(
     sweep({
-      shape,
+      shape: STOCK_SHAPE,
       label: 'asserts a stocking history the product does not have',
       // A bracketed citation marker is attribution: "from $4,595 — sold out on
       // 2026-09-05 [18]" is a sourced fact about a manufacturer's own listing,
@@ -319,9 +369,17 @@ test('OWNERSHIP: any page showing our product price discloses that we sell it', 
   assert.ok(prices.length >= 2, 'the price sweep is reading fewer prices than the catalog has');
   const missing = [];
   for (const { file, surfaces: f } of pages()) {
-    const all = f.map((x) => x.statement).join(' ');
-    if (all.includes(label)) continue;
-    for (const price of prices) if (all.includes(price)) missing.push(`${file}: ${price}`);
+    // The disclosure is a page-level fact: if it is anywhere on the page, the
+    // price on that page is disclosed. Only the *price* is judged per
+    // statement, because that is where attribution lives.
+    if (f.some((x) => x.statement.includes(label))) continue;
+    for (const { where, statement } of f) {
+      for (const price of prices) {
+        if (!statement.includes(price)) continue;
+        if (ATTRIBUTED(statement)) continue;
+        missing.push(`${file} [${where}]: ${price}`);
+      }
+    }
   }
   assert.deepEqual([...new Set(missing)], [], `pages show a price without "${label}"`);
 });
