@@ -27,7 +27,6 @@ const UNCITED_REGISTER_ALLOWLIST = new Set([
   // choosing between two sourced figures, which is research, not a copy edit.
   'home-freeze-dryers',
   'rehydration-problems',
-  'storage-containers',
   'vacuum-error',
 ]);
 

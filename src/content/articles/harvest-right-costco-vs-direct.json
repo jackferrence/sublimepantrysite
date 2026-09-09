@@ -1,0 +1,239 @@
+{
+  "title": "Harvest Right at Costco vs direct: what actually differs",
+  "description": "Costco and direct pricing, promotions, box contents, warranty and returns for Harvest Right home freeze dryers, every figure read on 2026-09-06.",
+  "kicker": "pricing",
+  "pillar": "compare",
+  "section": "Machines",
+  "riskClass": "standard",
+  "publishedDate": "2026-09-07",
+  "disclosure": "Sublime Pantry has no affiliate relationships, sponsorships, or paid placements as of publication. We sell packaging; where a product we sell appears, it is labeled.",
+  "comparisonCriteria": [
+    {
+      "label": "Price on the access date",
+      "note": "Every price read 2026-09-06. Costco cells record a retrieval outcome, not a price — no Costco price string was readable for any of the four sizes."
+    },
+    {
+      "label": "What's included",
+      "note": "No channel publishes an itemized box list. Home Depot names a Mylar starter kit in the Small, Medium and Large titles but not the X-Large; direct sells through a configurator."
+    },
+    {
+      "label": "Pump included",
+      "note": "The Premier oil pump ships standard. Oil-free is a paid upgrade at $1,495 in the direct configurator and is never standard on any size."
+    },
+    {
+      "label": "Warranty",
+      "note": "Three-year limited from the manufacturer, years 2-3 sealed refrigeration only. Costco's own two pages disagree: 24 months on one, 3-Year Limited on the other."
+    },
+    {
+      "label": "Return policy",
+      "note": "Direct is 30 days with a 15% restocking fee; Costco-bought is 90 days and a full refund per Harvest Right's own Costco page. Amazon's terms could not be sourced."
+    },
+    {
+      "label": "Current promotions",
+      "note": "All three live promotions carry no resolvable end date: Harvest Right's sitewide sale, Costco's two stacked offers, and a Home Depot holiday tag with no discounted price."
+    }
+  ],
+  "faq": [
+    {
+      "question": "Is a Harvest Right freeze dryer cheaper at Costco?",
+      "answer": "That cannot be answered from published sources as of 2026-09-06. All four sizes are confirmed present at Costco by item number, but no Costco price string was readable: the Medium page returned content twice with no price in either pass, and the Small, Large and X-Large pages returned HTTP 403. Third-party forum price claims all carried 2025 dates and were not used."
+    },
+    {
+      "question": "What actually differs between buying at Costco and buying direct?",
+      "answer": "The return terms, and they are fully sourced on both sides. Harvest Right's Costco page gives 90 days from ship date and a full refund with no restocking fee mentioned. Its direct policy gives 30 days, refund less shipping, and a 15% restocking fee — $359.25 on a $2,395.00 Medium."
+    },
+    {
+      "question": "Does Home Depot charge more than harvestright.com?",
+      "answer": "On 2026-09-06, yes on three sizes and no on the fourth: Home Depot was $100 above direct on the Small, Medium and Large, and at exactly $4,995.00 on the X-Large, matching direct. Tractor Supply matched the direct Medium Black price of $2,395.00 the same day."
+    },
+    {
+      "question": "Is the warranty different if I buy at Costco?",
+      "answer": "Harvest Right states a three-year limited warranty on its own pages, and Costco's item page states a 3-Year Limited Warranty. Costco's technical and warranty services page for the same machine states 24 months with an extended-warranty option. That discrepancy was unresolved on the access date; anyone buying at Costco should confirm the term in writing before relying on years two and three."
+    },
+    {
+      "question": "Can I buy one on Amazon?",
+      "answer": "No first-party Harvest Right machine listing was found on 2026-09-06 — only third-party trays and accessories plus one legacy ASIN that did not retrieve. Amazon search and product pages are robots-disallowed, so no live Amazon price or return term is asserted here."
+    }
+  ],
+  "sources": [
+    {
+      "title": "Harvest Right (homepage)",
+      "url": "https://harvestright.com/",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Home Freeze Dryer (product page)",
+      "url": "https://harvestright.com/products/home-pro-freeze-dryer-bundle",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Home Freeze Dryer — Shopify product JSON",
+      "url": "https://harvestright.com/products/home-pro-freeze-dryer-bundle.json",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Warranty",
+      "url": "https://harvestright.com/pages/warranty",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Costco Return Policy & Warranty",
+      "url": "https://harvestright.com/pages/costco-return-policy-warranty",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Return Policy",
+      "url": "https://harvestright.com/pages/return-policy",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Find a Freeze Dryer in Stores",
+      "url": "https://harvestright.com/pages/find-us-in-stores",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Harvest Right Home Pro Medium Freeze Dryer (item 4000251483)",
+      "url": "https://www.costco.com/p/-/harvest-right-home-pro-medium-freeze-dryer/4000251483",
+      "publisher": "Costco",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Costco Technical and Warranty Services — Home Pro Medium",
+      "url": "https://productsupport.costco.com/customer/device/HarvestRight/HomeProMediumFreezeDryer/",
+      "publisher": "Costco",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Harvest Right Home Pro Large Freeze Dryer (item 4000275914)",
+      "url": "https://www.costco.com/p/-/harvest-right-home-pro-large-freeze-dryer/4000275914",
+      "publisher": "Costco",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Harvest Right Home Pro Extra Large Stainless Steel Freeze Dryer (item 4000275905)",
+      "url": "https://www.costco.com/p/-/harvest-right-home-pro-extra-large-stainless-steel-freeze-dryer/4000275905",
+      "publisher": "Costco",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Harvest Right 17.4 in. Black Home Pro Small Freeze Dryer with 4 Stainless Steel Trays (item 4000300735)",
+      "url": "https://www.costco.com/p/-/harvest-right-174-in-black-home-pro-small-freeze-dryer-with-4-stainless-steel-trays/4000300735",
+      "publisher": "Costco",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Harvest Right brand page",
+      "url": "https://www.homedepot.com/b/Harvest-Right/N-5yc1vZn26",
+      "publisher": "The Home Depot",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Harvest Right 4-Tray High Capacity Black Aluminum Home Pro 6-10 lbs. per Batch Freeze Dryer with Mylar Starter Kit (N-HRFDSBK-PP)",
+      "url": "https://www.homedepot.com/p/Harvest-Right-4-Tray-High-Capacity-Black-Aluminum-Home-Pro-6-10-lbs-per-Batch-Freeze-Dryer-with-Mylar-Starter-Kit-N-HRFDSBK-PP/336721060",
+      "publisher": "The Home Depot",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Harvest Right 5-Tray Medium Black Aluminum Home Pro 10-15 lbs. per Batch Freeze Dryer with Mylar Starter Kit (HRFD-SBL)",
+      "url": "https://www.homedepot.com/p/Harvest-Right-5-Tray-Medium-Black-Aluminum-Home-Pro-10-15-lbs-per-Batch-Freeze-Dryer-with-Mylar-Starter-Kit-HRFD-SBL/305561747",
+      "publisher": "The Home Depot",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Harvest Right 5-Tray Medium Stainless Steel Aluminum Home Pro 18-27 lbs. per Batch Freeze Dryer with Mylar Starter Kit (HRFD-SSS)",
+      "url": "https://www.homedepot.com/p/Harvest-Right-5-Tray-Medium-Stainless-Steel-Aluminum-Home-Pro-18-27-lbs-per-Batch-Freeze-Dryer-with-Mylar-Starter-Kit-HRFD-SSS/305561727",
+      "publisher": "The Home Depot",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Harvest Right 6-Tray Large Black Aluminum Home Pro Freeze Dryer with Mylar Starter Kit (HRFD-LBL)",
+      "url": "https://www.homedepot.com/p/Harvest-Right-6-Tray-Large-Black-Aluminum-Home-Pro-Freeze-Dryer-with-Mylar-Starter-Kit-HRFD-LBL/305561684",
+      "publisher": "The Home Depot",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Harvest Right 6-Tray Large White Aluminum Home Pro 18-27 lbs. per Batch Freeze Dryer with Mylar Starter Kit (HRFD-LWH)",
+      "url": "https://www.homedepot.com/p/Harvest-Right-6-Tray-Large-White-Aluminum-Home-Pro-18-27-lbs-per-Batch-Freeze-Dryer-with-Mylar-Starter-Kit-HRFD-LWH/305455219",
+      "publisher": "The Home Depot",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Harvest Right 7-Tray X-Large Stainless Steel Home Pro Freeze Dryer with Xl Premier Pump (HRFDXLSS)",
+      "url": "https://www.homedepot.com/p/Harvest-Right-7-Tray-X-Large-Stainless-Steel-Home-Pro-Freeze-Dryer-with-Xl-Premier-Pump-HRFDXLSS/326330162",
+      "publisher": "The Home Depot",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Harvest Right 5-Tray Medium Black Freeze Dryer with Premier Pump & Mylar Starter Kit (item 228075199)",
+      "url": "https://www.tractorsupply.com/tsc/product/harvest-right-5-tray-medium-black-freeze-dryer-with-premier-pump-mylar-starter-kit",
+      "publisher": "Tractor Supply Co.",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Harvest Right Medium Size Home Freeze Dryer, Black",
+      "url": "https://www.walmart.com/ip/Harvest-Right-Medium-Size-Home-Freeze-Dryer-Black/557836805",
+      "publisher": "Walmart",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Harvest Right Freeze Dryer / Dehydrator (legacy ASIN B07H7VVT68)",
+      "url": "https://www.amazon.com/Harvest-Right-Freeze-Dryer-Dehydrator/dp/B07H7VVT68",
+      "publisher": "Amazon",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Online returns and shipping policy fragment",
+      "url": "https://www.homedepot.com/hdus/en_US/DTCCOM/HomePage/Header/fragments/ENT_HFS_Body_Overlay_Frg_4B.htm",
+      "publisher": "The Home Depot",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "What is Costco's return policy?",
+      "url": "https://customerservice.costco.com/app/answers/detail/a_id/1191/~/what-is-costcos-return-policy",
+      "publisher": "Costco",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Amazon Returns Policy",
+      "url": "https://www.amazon.com/gp/help/customer/display.html?nodeId=GKM69DUUYKQWKWX7",
+      "publisher": "Amazon",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    }
+  ],
+  "related": [
+    "home-freeze-dryers"
+  ],
+  "bodyHtml": "<p><strong>The short version:</strong> On 2026-09-06 no Costco price string was readable for any of the four Harvest Right sizes, so a Costco-versus-direct price comparison cannot be made from published sources. What can be compared is the paperwork: Harvest Right's own Costco page gives a Costco-bought unit <strong>90 days and a full refund</strong>, while its direct policy gives <strong>30 days less shipping and a 15% restocking fee</strong>. [5][6]</p>\n\n<p>That return difference is the one fully sourced, material gap between the two channels. Everything else — price, promotion dates, box contents — is either identical, unpublished, or unreadable at Costco on the access date.</p>\n\n<h2>Price by size and channel, 2026-09-06</h2>\n\n<p>Every figure below was read on <strong>2026-09-06</strong>. Costco cells record a retrieval outcome, not a price, because that is what the pages returned.</p>\n\n<table>\n<thead>\n<tr><th>Size</th><th>harvestright.com</th><th>Costco</th><th>Home Depot</th><th>Amazon</th></tr>\n</thead>\n<tbody>\n<tr>\n<td><strong>Small</strong></td>\n<td>Black <strong>$1,695.00</strong> (compare-at $2,495.00); Stainless $2,395.00 — 2026-09-06 [3]</td>\n<td>Listed, item 4000300735; page returned <strong>HTTP 403</strong>, no price read — 2026-09-06 [12]</td>\n<td><strong>$1,795.00</strong>, SKU N-HRFDSBK-PP — 2026-09-06 [14]</td>\n<td>No first-party machine listing found; one legacy ASIN, not retrievable — 2026-09-06 [22]</td>\n</tr>\n<tr>\n<td><strong>Medium</strong></td>\n<td>Black/Pale Blue/White/Copper <strong>$2,395.00</strong> (was $3,195.00); Stainless $2,795.00 — 2026-09-06 [3]</td>\n<td>Listed, item 4000251483; page returned content twice and <strong>contained no price string in either pass</strong> — 2026-09-06 [8]</td>\n<td>Black <strong>$2,495.00</strong> (HRFD-SBL, \"Limit 2 per order\"); Stainless $2,595.00 — 2026-09-06 [15][16]</td>\n<td>None found — 2026-09-06 [22]</td>\n</tr>\n<tr>\n<td><strong>Large</strong></td>\n<td>Black/White <strong>$2,995.00</strong> (was $3,895.00); Stainless $3,395.00 — 2026-09-06 [3]</td>\n<td>Listed, item 4000275914; <strong>HTTP 403</strong> — 2026-09-06 [10]</td>\n<td>Black <strong>$3,095.00</strong>; White $3,095.00 — 2026-09-06 [17][18]</td>\n<td>None found — 2026-09-06 [22]</td>\n</tr>\n<tr>\n<td><strong>X-Large</strong></td>\n<td>Stainless only <strong>$4,995.00</strong> (was $5,295.00) — 2026-09-06 [3]</td>\n<td>Listed, item 4000275905; <strong>HTTP 403</strong> — 2026-09-06 [11]</td>\n<td><strong>$4,995.00</strong> (HRFDXLSS) — <strong>the only size at parity with direct</strong> — 2026-09-06 [19]</td>\n<td>None found — 2026-09-06 [22]</td>\n</tr>\n</tbody>\n</table>\n\n<p>Two relationships fall out of that table. Home Depot sits <strong>$100 above</strong> harvestright.com on Small, Medium and Large, and exactly at parity on X-Large [3][14][15][17][19]. And a fifth channel undercuts Home Depot: Tractor Supply listed the Medium Black at <strong>$2,395.00</strong>, matching harvestright.com to the dollar, marked \"Stocked &amp; Ready\" on 2026-09-06 [20]. Harvest Right's own store-finder names Tractor Supply and Home Depot — <strong>not Costco</strong> — even though Costco carries all four sizes and Harvest Right maintains a Costco-specific warranty and return page [7][5].</p>\n\n<h2>The terms that actually differ</h2>\n\n<table>\n<thead>\n<tr><th>Criterion</th><th>Direct (harvestright.com)</th><th>Costco</th><th>Home Depot</th><th>Amazon</th></tr>\n</thead>\n<tbody>\n<tr>\n<td><strong>Price read on access date</strong></td>\n<td>$1,695.00–$4,995.00 across four sizes — 2026-09-06 [3]</td>\n<td><strong>Not readable</strong> on any of the four item pages — 2026-09-06 [8][10][11][12]</td>\n<td>$1,795.00–$4,995.00 — 2026-09-06 [13][14][19]</td>\n<td>Not readable; search and product pages robots-blocked — 2026-09-06 [22]</td>\n</tr>\n<tr>\n<td><strong>What the listing names</strong></td>\n<td>One product, \"Home Freeze Dryer\", size options S/M/L/XL with a bundle configurator — 2026-09-06 [2]</td>\n<td>\"Home Pro Medium Freeze Dryer\" and equivalents, by item number — 2026-09-06 [8]</td>\n<td>Titles name tray count, colour, batch range and \"<strong>with Mylar Starter Kit</strong>\" on S/M/L — 2026-09-06 [14][15][16][17][18]</td>\n<td>No first-party machine listing to name — 2026-09-06 [22]</td>\n</tr>\n<tr>\n<td><strong>Pump included</strong></td>\n<td>Premier oil pump ships standard; oil-free is a <strong>paid upgrade, never standard</strong>, $1,495 in the bundle configurator — 2026-09-06 [2]</td>\n<td>Premier pump per the product page — 2026-09-06 [8]</td>\n<td>X-Large title reads \"with Xl Premier Pump\"; S/M/L titles do not name the pump — 2026-09-06 [19][14][15]</td>\n<td>Not applicable — 2026-09-06 [22]</td>\n</tr>\n<tr>\n<td><strong>Warranty</strong></td>\n<td>\"Three year limited warranty\": year 1 full from ship date, years 2–3 limited to compressor, condenser, evaporator and sealed tubing — 2026-09-06 [2][4]</td>\n<td><strong>Contradicted on Costco's own properties:</strong> the product page says \"3-Year Limited Warranty\" [8] while Costco's technical and warranty services page says \"<strong>24 months</strong>\" with an extended option — 2026-09-06 [9]</td>\n<td>Not separately stated; manufacturer terms apply — 2026-09-06 [13]</td>\n<td>Not applicable — 2026-09-06 [22]</td>\n</tr>\n<tr>\n<td><strong>Return policy</strong></td>\n<td><strong>30 days</strong> from ship date, refund \"less shipping costs and less a restocking fee of <strong>15%</strong>\" — 2026-09-06 [6]</td>\n<td><strong>90 days</strong> from ship date, \"<strong>full refund</strong>\", no restocking fee mentioned, per Harvest Right's Costco page — 2026-09-06 [5]</td>\n<td>\"Most products have a 90-day-from-purchase return policy\"; no restocking fee in the retrieved text — 2026-09-06 [23]</td>\n<td>Policy page robots-blocked; <strong>no Amazon return term is asserted here</strong> — 2026-09-06 [25]</td>\n</tr>\n<tr>\n<td><strong>Promotions live</strong></td>\n<td>Sitewide \"up to $900 off\" with <strong>no end date published</strong> — 2026-09-06 [1][2]</td>\n<td>Costco Direct Savings (2+ items, up to $400 off) and Spend &amp; Save ($1,499+, up to $500 off) both present; <strong>date ranges did not resolve</strong> — 2026-09-06 [8]</td>\n<td>A \"Labor Day\" tag on the Small with <strong>no discounted price and no end date</strong> — 2026-09-06 [14]</td>\n<td>None to record — 2026-09-06 [22]</td>\n</tr>\n</tbody>\n</table>\n\n<p>Every price, promotion and policy line above is a reading of a live page on the access date. Sale prices here carry no published end dates, so any of them can move without notice.</p>\n\n<h2>What the promos actually do</h2>\n\n<p>Three promotions were running across these channels on 2026-09-06, and none of them is dated in a way a buyer can plan around.</p>\n\n<ul>\n<li><strong>Harvest Right's sitewide \"up to $900 off.\"</strong> The banner is real, and the compare-at deltas on the product JSON show where the $900 lands: Small $800, Medium $800, <strong>Large $900</strong>, X-Large $300 [3][1]. The deepest discount is on the Large, not the flagship. The sale publishes <strong>no end date</strong>; the only dated promotion on the site is a sweepstakes ending 11/16/26 [1][2].</li>\n<li><strong>Costco Direct Savings and Spend &amp; Save.</strong> Both were confirmed live on the Medium item page, at up to $400 off for two or more items and up to $500 off on a $1,499+ order. The page carried date ranges, but <strong>the literal dates did not resolve in the fetched content</strong>, so they are not stated here [8].</li>\n<li><strong>Home Depot's \"Labor Day\" tag.</strong> Present on the Small listing with <strong>no discounted price attached and no end date</strong> [14]. On the access date it was a label, not a number.</li>\n</ul>\n\n<p>Because Costco's price could not be read, the arithmetic that matters most — whether a Costco promotion beats a direct sale price — is not computable from published sources on this date. Anyone comparing the two has to read the Costco item page as a member, with the direct price open alongside it.</p>\n\n<h2>What's in the box at each</h2>\n\n<p>No channel publishes an itemized box list. What each channel publishes is a title and a configurator, and those disagree in a way worth knowing before you buy.</p>\n\n<ul>\n<li><strong>Direct.</strong> One product page, \"Home Freeze Dryer\", with size, colour and pump chosen in a configurator. The oil-free pump is an upgrade at $1,495 in that configurator and is never standard on any size [2].</li>\n<li><strong>Costco.</strong> The Medium item page names the Premier pump and gives a lead time of \"approximately 2 - 4 weeks\" [8]. Costco's separate technical and warranty services page for the same machine lists a 127 lb unit weight, against 119 lbs on harvestright.com [9][2].</li>\n<li><strong>Home Depot.</strong> Small, Medium and Large titles all end \"<strong>with Mylar Starter Kit</strong>\" [14][15][16][17][18]. The X-Large title instead reads \"with Xl Premier Pump\" and does not name a starter kit [19]. Home Depot's own titles also carry spec errors: it labels the 4-tray Small \"High Capacity\" [14], and gives the Medium Stainless an \"18-27 lbs. per Batch\" range that matches the Large, not the Medium it sells one listing over at \"10-15 lbs. per Batch\" [16][15].</li>\n<li><strong>Tractor Supply.</strong> Title names both the Premier pump and the Mylar starter kit, at the direct price [20].</li>\n<li><strong>Amazon.</strong> Nothing to itemize — no first-party Harvest Right machine listing was found, only a legacy ASIN that did not retrieve [22].</li>\n</ul>\n\n<p>A bundled starter kit is a packaging allowance, not a storage plan, and none of these listings states how many bags or absorbers it contains.If you want to know what you are actually starting with, count it against your own container sizes.</p>\n\n<h2>Returns</h2>\n\n<p>This is where the channel choice has real money in it, and it is the one comparison fully sourced on both sides.</p>\n\n<table>\n<thead>\n<tr><th>Bought at</th><th>Window</th><th>Restocking fee</th><th>Shipping</th><th>Read on</th></tr>\n</thead>\n<tbody>\n<tr><td><strong>Harvest Right direct</strong></td><td>30 days from ship date [6]</td><td><strong>15%</strong> [6]</td><td>Refund is \"less shipping costs\"; pre-shipment cancellation refunded less a 3% card processing fee [6]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Costco</strong></td><td><strong>90 days</strong> from ship date [5]</td><td><strong>None stated</strong> — \"full refund\" [5]</td><td>Not stated; pre-shipment cancellation is a full refund with no 3% fee stated [5]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Home Depot</strong></td><td>\"Most products have a 90-day-from-purchase return policy\" [23]</td><td>None mentioned in the retrieved text [23]</td><td>\"There are no return shipping charges applicable for returns made to The Home Depot retail stores\" [23]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Amazon</strong></td><td>Not sourced [25]</td><td>Not sourced [25]</td><td>Not sourced [25]</td><td>2026-09-06</td></tr>\n</tbody>\n</table>\n\n<p>Harvest Right's own words on the two policies, side by side: direct, \"customers may return their freeze dryers for a refund less shipping costs and less a restocking fee of 15%\" [6]; Costco, \"<strong>Once the freeze dryer(s) ships, if it is within 90 days of ship date, customers may return their freeze dryers for a full refund</strong>\" [5]. On a $2,395.00 Medium, a 15% restocking fee is $359.25 before shipping — that is the sourced arithmetic, and it is the part of this comparison that does not depend on a price string anyone could read.</p>\n\n<p>One more caution that applies whichever channel you use: the warranty is written narrowly. Harvest Right states that \"any modifications or add-on after-market accessories will void the warranty in its entirety\", that using an extension cord instead of a direct line connection voids it, and that \"if you are not the original owner of the freeze dryer, the warranty no longer applies\" [4]. A secondhand unit and a machine on an extension cord are both outside coverage as the policy is written.</p>\n\n<h2>What we could not source</h2>\n\n<ul>\n<li><strong>Costco member pricing for any of the four sizes.</strong> The Medium item page returned content twice and contained no price string in either pass [8]; the Large, X-Large and Small item pages and the freeze-dryer category page all returned HTTP 403 [10][11][12]. Forum price claims surfaced in search but carried 2025 dates and were not used.</li>\n<li><strong>Exact date ranges for Costco's Spend &amp; Save and Costco Direct Savings promotions.</strong> Both are confirmed live and the page carries date ranges; the literal dates did not resolve in the fetched content [8].</li>\n<li><strong>Costco's own return policy wording.</strong> The customer-service page is robots-disallowed and every other route returned HTTP 403, so Costco's own text is quoted nowhere here — only Harvest Right's restatement of it on its Costco page [24][5].</li>\n<li><strong>Any Amazon price or return term, for this or any brand.</strong> Search and product pages are robots-disallowed; the policy page did not retrieve [22][25].</li>\n<li><strong>The Costco warranty discrepancy.</strong> \"24 months\" on the technical and warranty services page against \"3-Year Limited Warranty\" on the item page and three years from the manufacturer [9][8][4]. Unresolved on the access date.</li>\n<li><strong>Walmart's price for the Medium.</strong> The listing exists but rendered no price [21].</li>\n<li><strong>Home Depot's major-appliance rules.</strong> The 90-day standard and the shipping language came from Home Depot's own fragment; the major-appliance window, any restocking fee and packaging requirements were not served [23].</li>\n<li><strong>Tractor Supply's return policy.</strong> Not attempted — it surfaced as a Harvest Right channel after the retail scope was set [7][20].</li>\n</ul>\n\n<h2>Next</h2>\n<ul>\n<li><a href=\"/compare/home-freeze-dryers\">Home freeze dryers compared</a> &mdash; the wider field, spec by spec.</li><li><a href=\"/guides/which-freeze-dryer\">Which home freeze dryer to buy</a> &mdash; the decision this price comparison feeds.</li><li><a href=\"/guides/freeze-dryer-maintenance-you-can-plan-for\">Maintenance you can plan for</a> &mdash; what the warranty difference means in practice.</li>\n</ul>"
+}

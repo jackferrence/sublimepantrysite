@@ -1,271 +1,307 @@
 {
-  "title": "Freeze-drying fruit, vegetables, and meat: how the process differs",
-  "description": "The same machine runs three different jobs. Sugar, fat, and pathogen risk each change the prep, the cycle, and the storage math — and the published guidance is thinner than most articles admit.",
-  "kicker": "Comparison",
+  "title": "Freeze-drying fruit, vegetables, and meat: how the process differs.",
+  "description": "How prep, cycle behavior, fat and sugar, rehydration, storage, and the safety line differ across fruit, vegetables, and meat — with the gaps named.",
+  "kicker": "food groups",
   "pillar": "compare",
-  "section": "Food groups",
+  "section": "Food behavior",
   "riskClass": "elevated",
   "publishedDate": "2026-09-05",
-  "updatedDate": "2026-09-05",
-  "author": "Jack Ferrence",
-  "disclosure": "Sublime Pantry has no affiliate relationships, sponsorships, or paid placements as of publication: no outbound link here earns a commission. Sublime Pantry does sell its own packaging, and a link to our shop is a link to a product we make money on — those are labelled where they appear.",
-  "image": {
-    "src": "/images/lines/pantry-hero.jpg",
-    "alt": "Freeze-dried fruit laid out on a table in kraft bags"
-  },
+  "disclosure": "Sublime Pantry has no affiliate relationships, sponsorships, or paid placements as of publication. We sell packaging; where a product we sell appears, it is labeled.",
   "comparisonCriteria": [
     {
-      "label": "Prep before drying",
-      "note": "What sources say to do to the food between the cutting board and the tray. Judged on whether a named authority states it for freeze-drying specifically, not carried over from freezing or dehydrating."
+      "label": "Prep",
+      "note": "What has to happen before the food reaches a tray — cutting, pretreatment, blanching, cooking, fat and bone removal."
     },
     {
-      "label": "Typical cycle",
-      "note": "Total cycle hours as stated in manufacturer documentation, freeze through final dry. These are manufacturer figures for their own machines under their own conditions, not measured results, and load depth and slice thickness move them."
+      "label": "Cycle behavior",
+      "note": "Published cycle figures and what drives them. Every hour figure is conditional on machine size, load weight, piece size, and starting temperature; no source controls for these."
     },
     {
       "label": "Fat and sugar",
-      "note": "How the food's composition fights the process. Sublimation removes water only, so sugar slows the cycle and fat survives it intact — two different problems with two different consequences."
+      "note": "How each group interacts with the two components sublimation does not remove or shorten."
     },
     {
       "label": "Rehydration",
-      "note": "How the food comes back. Judged strictly on what published sources state; where no authority gives a ratio or a time, that is recorded as absent rather than filled in."
+      "note": "Whether the group is rehydrated at all, with what, and whether a published ratio exists."
     },
     {
-      "label": "Storage life (stated range)",
-      "note": "Ranges as published, with the storage conditions the source attached to them. A number without conditions is not a range, and the distinction between commercial and home product is preserved."
+      "label": "Storage range with conditions",
+      "note": "Published shelf-life figures with the packaging and environment each is conditioned on — and who disputes them."
     },
     {
       "label": "Safety line",
-      "note": "What has to be true for the food to be safe, and who says so. Water activity governs whether organisms can grow; it says nothing about whether they are already present."
-    }
-  ],
-  "faq": [
-    {
-      "question": "Does freeze-drying kill bacteria?",
-      "answer": "No. Utah State, Penn State, Minnesota, and Iowa State Extension all state that freeze-drying does not kill microorganisms — it preserves them in a dormant state, and they can reactivate when the food is rehydrated [1][2][4][6]. Lyophilization is the standard laboratory method for keeping bacterial cultures alive [26]. Cook meat and eggs either before freeze-drying or after rehydration [1]."
-    },
-    {
-      "question": "Why does fruit take so much longer than vegetables?",
-      "answer": "Sugar. Sugars bind water through hydrogen bonding, and high-sugar matrices have low collapse temperatures that narrow the safe processing window, pushing more of the work into the slow secondary drying stage [19][22]. Harvest Right's published times show the effect: 46–52 hours for whole grapes and blueberries against 20–28 hours for most vegetables [13]."
-    },
-    {
-      "question": "Can you freeze-dry fatty meat?",
-      "answer": "The process will run, but fat is what limits the result. Sublimation removes water only — lipids remain in the finished product [24][19] — and the porous structure freeze-drying creates increases oxygen exposure, with lipid oxidation a principal driver of quality loss in meat [23][24]. Trimming fat and choosing leaner cuts follows from that chemistry, though it is worth knowing that no extension service states it as guidance [4][6]."
-    },
-    {
-      "question": "Do vegetables have to be blanched before freeze-drying?",
-      "answer": "The published guidance is less definitive than it appears. Maine Extension says most vegetables need blanching, excepting tomatoes, peppers, and onions [5]; Minnesota says most can be blanched [4]; Harvest Right calls it optional and useful when you want a cooked texture after rehydrating [12]. The detailed vegetable lists and blanching times most articles cite come from manufacturers or from extension guides written for freezing, not freeze-drying [3][7][12]."
-    },
-    {
-      "question": "How long does home freeze-dried food actually last?",
-      "answer": "Penn State gives the only home-specific figures found: a few months in zip-top bags, about two to three years vacuum-packed, and many years in glass jars with an oxygen absorber, stored cool, dry, and dark [2]. The widely repeated 25 years is attributed by Minnesota to commercially prepared food [4], and Iowa State states plainly that for home product \"there is no verification that food will last 25 years at this point in time\" [6]."
-    },
-    {
-      "question": "What water activity should freeze-dried food reach?",
-      "answer": "Below 0.60 is the practical target for dry storage, because that is where xerophilic molds and osmophilic yeasts stop growing [9]. FDA's 0.85 figure describes exemption from low-acid canned food regulation, not a safety guarantee [14]. Properly freeze-dried food comes in well under both: roughly 0.18–0.27 for fruit and vegetables [20][21] and 0.05–0.07 for lean beef [19]."
-    },
-    {
-      "question": "Can a table tell me when my food is finished?",
-      "answer": "No. A published cycle duration belongs to the food, load and machine it was measured on; it is not a completion test for your batch. Check the thickest pieces from the middle of a tray and add dry time if any centre is cool, soft or damp."
+      "note": "Where the food-safety determination sits for each group, given that the process itself is not a kill step."
     }
   ],
   "sources": [
     {
-      "title": "Ask an Expert – Freeze-Drying Food at Home: Tips for Safe, Successful Results",
+      "title": "Can I Freeze-Dry That? A Practical Guide to Safe and Effective Freeze-Drying (January 2026)",
+      "url": "https://extension.usu.edu/foodsafety/research/can-i-freeze-dry-that-a-practical-guide-to-safe-and-effective-freeze-drying",
+      "publisher": "Utah State University Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Ask an Expert — Freeze-Drying Food at Home: Tips for Safe, Successful Results (May 15, 2026)",
       "url": "https://extension.usu.edu/news/ask-an-expert-freeze-drying-food-at-home-tips-for-safe-successful-results",
       "publisher": "Utah State University Extension",
-      "tier": "secondary",
-      "accessDate": "2026-09-05"
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Buying a Home Freeze-Dryer: What to Know Before You Go",
+      "url": "https://digitalcommons.usu.edu/cgi/viewcontent.cgi?article=2999&context=extension_curall",
+      "publisher": "Utah State University Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Preserving food at home: Freeze-drying",
+      "url": "https://extension.umn.edu/preserve-your-own-food/freeze-drying",
+      "publisher": "University of Minnesota Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Tips for Freeze Drying at Home (April 25, 2024)",
+      "url": "https://extension.umaine.edu/food-health/2024/04/25/tips-for-freeze-drying-at-home/",
+      "publisher": "University of Maine Cooperative Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Freeze Drying For Home Use",
+      "url": "https://ucanr.edu/sites/default/files/2024-07/399943.pdf",
+      "publisher": "UC Agriculture & Natural Resources / UC Master Food Preserver Program",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Preserving by Home Freeze Drying (AnswerLine, June 13, 2023)",
+      "url": "https://blogs.extension.iastate.edu/answerline/2023/06/13/preserving-by-home-freeze-drying/",
+      "publisher": "Iowa State University Extension and Outreach",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
     },
     {
       "title": "Let's Preserve: Freeze-Drying",
       "url": "https://extension.psu.edu/lets-preserve-freeze-drying",
       "publisher": "Penn State Extension",
-      "tier": "secondary",
-      "accessDate": "2026-09-05"
+      "tier": "primary",
+      "accessDate": "2026-09-06"
     },
     {
-      "title": "Let's Preserve: Freezing Vegetables",
-      "url": "https://extension.psu.edu/lets-preserve-freezing-vegetables",
-      "publisher": "Penn State Extension",
-      "tier": "secondary",
-      "accessDate": "2026-09-05"
+      "title": "Preparing and Storing Your Freeze Dried Products for Best Use (az2097b, February 2025)",
+      "url": "https://www.extension.arizona.edu/sites/default/files/2025-03/az2097b-2025.pdf",
+      "publisher": "University of Arizona Cooperative Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
     },
     {
-      "title": "Preserving food at home: Freeze-drying",
-      "url": "https://extension.umn.edu/preserving-and-preparing/freeze-drying-food",
-      "publisher": "University of Minnesota Extension",
-      "tier": "secondary",
-      "accessDate": "2026-09-05"
+      "title": "Freeze Drying Foods",
+      "url": "https://hgic.clemson.edu/freeze-drying-foods/",
+      "publisher": "Clemson Cooperative Extension (HGIC)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
     },
     {
-      "title": "Tips for Freeze Drying at Home",
-      "url": "https://extension.umaine.edu/food-health/2024/04/25/tips-for-freeze-drying-at-home/",
-      "publisher": "University of Maine Cooperative Extension",
-      "tier": "secondary",
-      "accessDate": "2026-09-05"
-    },
-    {
-      "title": "Preserving by Home Freeze Drying (AnswerLine)",
-      "url": "https://blogs.extension.iastate.edu/answerline/2023/06/13/preserving-by-home-freeze-drying/",
-      "publisher": "Iowa State University Extension and Outreach",
-      "tier": "secondary",
-      "accessDate": "2026-09-05"
-    },
-    {
-      "title": "Drying (home food preservation resources)",
-      "url": "https://nchfp.uga.edu/how/dry/",
-      "publisher": "National Center for Home Food Preservation, University of Georgia",
-      "tier": "secondary",
-      "accessDate": "2026-09-05"
-    },
-    {
-      "title": "Freezing Vegetables",
-      "url": "https://extension.colostate.edu/resource/freezing-vegetables/",
-      "publisher": "Colorado State University Extension",
-      "tier": "secondary",
-      "accessDate": "2026-09-05"
-    },
-    {
-      "title": "Water Activity of Foods (MF3674), Getty & Gaikwad, September 2024",
-      "url": "https://bookstore.ksre.ksu.edu/download/water-activity-of-foods_MF3674",
-      "publisher": "K-State Research and Extension",
-      "tier": "secondary",
-      "accessDate": "2026-09-05"
-    },
-    {
-      "title": "What Kind of Food Can I Freeze Dry?",
-      "url": "https://harvestright.com/blogs/blog/what-kind-of-food-can-i-freeze-dry",
+      "title": "Harvest Right Home Freeze Dryers — FAQs",
+      "url": "https://harvestright.com/pages/faqs",
       "publisher": "Harvest Right",
       "tier": "primary",
-      "accessDate": "2026-09-05"
+      "accessDate": "2026-09-06"
     },
     {
-      "title": "Rehydrating Freeze Dried Meats",
-      "url": "https://harvestright.com/blogs/blog/rehydrating-freeze-dried-meats",
-      "publisher": "Harvest Right",
-      "tier": "primary",
-      "accessDate": "2026-09-05"
-    },
-    {
-      "title": "How to Freeze Dry Your Garden Harvest",
+      "title": "What's the best way to prepare food for freeze drying?",
       "url": "https://harvestright.com/question/preparing-food-for-freeze-drying/",
       "publisher": "Harvest Right",
       "tier": "primary",
-      "accessDate": "2026-09-05"
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "What Foods Can You Freeze Dry? A Complete Guide",
+      "url": "https://harvestright.com/blogs/freeze-drying-learning-center/what-foods-can-you-freeze-dry",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Rehydrating Freeze Dried Fruits and Vegetables",
+      "url": "https://harvestright.com/blogs/blog/rehydrating-freeze-dried-fruits-and-vegetables",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "How to Rehydrate Freeze Dried Food — Tips and Techniques",
+      "url": "https://harvestright.com/blogs/freeze-drying-learning-center/how-to-rehydrate-freeze-dried-food",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "How Long Does Freeze Dried Food Last? Shelf Life Guide",
+      "url": "https://harvestright.com/blogs/freeze-drying-learning-center/how-long-does-freeze-dried-food-last",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Storing Freeze Dried Food",
+      "url": "https://harvestright.com/blogs/blog/storing-freeze-dried-food",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Blue Alpine FAQs",
+      "url": "https://bluealpinefreezedryers.com/pages/faqs",
+      "publisher": "Blue Alpine",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "How Do You Freeze Dry Fruits, Berries, and Melons?",
+      "url": "https://bluealpinefreezedryers.com/blogs/all-about-freeze-drying/how-to-freeze-dry-fruits-berries-and-melons",
+      "publisher": "Blue Alpine",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "How Do I Know When My Freeze-Dried Food Is Completely Dry?",
+      "url": "https://harvestright.com/blogs/blog/how-do-i-know-when-my-freeze-dried-food-is-completely-dry",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Blueberries and Other Foods With Skins (staff post, November 22, 2024)",
+      "url": "https://support.bluealpinefreezedryers.com/forum/technical-support-forum-1/blueberries-and-other-foods-with-skins-19",
+      "publisher": "Blue Alpine official support forum",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
     },
     {
       "title": "Harvest Right Freeze Drying Time Chart",
       "url": "https://trimleaf.com/pages/harvest-right-freeze-drying-time-chart",
-      "publisher": "Harvest Right (hosted by Trimleaf)",
-      "tier": "primary",
-      "accessDate": "2026-09-05"
+      "publisher": "Trimleaf (retailer, reproducing Harvest Right tested times)",
+      "tier": "secondary",
+      "accessDate": "2026-09-06"
     },
     {
-      "title": "Water Activity (aw) in Foods — Inspection Technical Guide No. 39",
-      "url": "https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/inspection-technical-guides/water-activity-aw-foods",
-      "publisher": "U.S. Food and Drug Administration",
-      "tier": "primary",
-      "accessDate": "2026-09-05"
+      "title": "Freeze Drying Raw Meat: What You Need to Know",
+      "url": "https://trimleaf.com/blogs/articles/freeze-drying-raw-meat-what-you-need-to-know",
+      "publisher": "Trimleaf (retailer)",
+      "tier": "secondary",
+      "accessDate": "2026-09-06"
     },
     {
-      "title": "Fish and Fishery Products Hazards and Controls Guidance, Appendix 4: Bacterial Pathogen Growth and Inactivation (Table A-1)",
+      "title": "Freeze Drying Potatoes: A Complete Guide",
+      "url": "https://montanahomesteadharvest.com/freeze-drying-potatoes-a-complete-guide/",
+      "publisher": "Montana Homestead Harvest",
+      "tier": "secondary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Jerky and Food Safety",
+      "url": "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/meat-fish/jerky",
+      "publisher": "USDA Food Safety and Inspection Service",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Appendix 4: Bacterial Pathogen Growth and Inactivation (Fish and Fishery Products Hazards and Controls Guidance)",
       "url": "https://www.fda.gov/media/80390/download",
       "publisher": "U.S. Food and Drug Administration",
       "tier": "primary",
-      "accessDate": "2026-09-05"
+      "accessDate": "2026-09-06"
     },
     {
-      "title": "Commercial Item Description A-A-20365: Fruits, Freeze Dried",
-      "url": "https://www.ams.usda.gov/sites/default/files/media/AA_20365_Fruits_Freeze_Dried.pdf",
-      "publisher": "USDA Agricultural Marketing Service",
+      "title": "Food — Chapter 3. Factors that Influence Microbial Growth (Table 3-2)",
+      "url": "https://downloads.regulations.gov/FDA-2010-D-0434-0004/content.pdf",
+      "publisher": "U.S. Food and Drug Administration",
       "tier": "primary",
-      "accessDate": "2026-09-05"
+      "accessDate": "2026-09-06"
     },
     {
-      "title": "SI Units — Temperature",
-      "url": "https://www.nist.gov/pml/owm/si-units-temperature",
-      "publisher": "National Institute of Standards and Technology",
+      "title": "Packaging and Storing Dried Foods (content revised 2014, reviewed 2020)",
+      "url": "https://nchfp.uga.edu/how/dry/drying-general/packaging-and-storing-dried-foods",
+      "publisher": "National Center for Home Food Preservation, University of Georgia",
       "tier": "primary",
-      "accessDate": "2026-09-05"
+      "accessDate": "2026-09-06"
     },
     {
-      "title": "Vapor Pressure of Water at Its Triple Point (Guildner, Johnson & Jones), J. Res. NBS 80A(3):505–521, 1976",
-      "url": "https://nvlpubs.nist.gov/nistpubs/jres/80A/jresv80An3p505_A1b.pdf",
-      "publisher": "National Bureau of Standards / NIST",
+      "title": "Conditioning Dried Foods (AnswerLine, August 15, 2023; reviewed 6/2025)",
+      "url": "https://blogs.extension.iastate.edu/answerline/2023/08/15/conditioning-dried-foods/",
+      "publisher": "Iowa State University Extension and Outreach",
       "tier": "primary",
-      "accessDate": "2026-09-05"
+      "accessDate": "2026-09-06"
     },
     {
-      "title": "Application of Freeze-Drying Technology in the Food Industry: A Review, Foods 15(4):790",
-      "url": "https://doi.org/10.3390/foods15040790",
-      "publisher": "MDPI",
-      "tier": "secondary",
-      "accessDate": "2026-09-05"
-    },
-    {
-      "title": "Impact of Three Different Dehydration Methods on Nutritional Values and Sensory Quality of Dried Broccoli, Oranges, and Carrots, Foods 9(10):1464",
-      "url": "https://doi.org/10.3390/foods9101464",
-      "publisher": "MDPI",
+      "title": "Drying Vegetables (June 10, 2024)",
+      "url": "https://hgic.clemson.edu/factsheet/drying-vegetables/",
+      "publisher": "Clemson University Home & Garden Information Center",
       "tier": "primary",
-      "accessDate": "2026-09-05"
+      "accessDate": "2026-09-06"
     },
     {
-      "title": "Efficient freeze-drying of foamed strawberry puree: a study on drying kinetics and physicochemical properties",
-      "url": "https://doi.org/10.1039/d4fb00227j",
-      "publisher": "Sustainable Food Technology, Royal Society of Chemistry",
+      "title": "FST-506NP — Factors that Impact Small-Scale Freeze Dryer Effectiveness (May 19, 2025)",
+      "url": "https://www.pubs.ext.vt.edu/content/pubs_ext_vt_edu/en/FST/FST-506/FST-506.html",
+      "publisher": "Virginia Cooperative Extension / Virginia Tech",
       "tier": "primary",
-      "accessDate": "2026-09-05"
+      "accessDate": "2026-09-06"
     },
     {
-      "title": "Freeze-Drying of Plant-Based Foods, Foods 9(1):87",
-      "url": "https://doi.org/10.3390/foods9010087",
-      "publisher": "MDPI",
-      "tier": "secondary",
-      "accessDate": "2026-09-05"
-    },
-    {
-      "title": "A Comprehensive Review on Lipid Oxidation in Meat and Meat Products",
-      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6827023/",
-      "publisher": "Antioxidants (PubMed Central)",
-      "tier": "secondary",
-      "accessDate": "2026-09-05"
-    },
-    {
-      "title": "A comprehensive review of drying meat products and the associated effects and changes",
-      "url": "https://www.frontiersin.org/journals/nutrition/articles/10.3389/fnut.2022.1057366/full",
-      "publisher": "Frontiers in Nutrition",
-      "tier": "secondary",
-      "accessDate": "2026-09-05"
-    },
-    {
-      "title": "Practical Advice on Scientific Design of Freeze-Drying Process: 2023 Update (Tchessalov et al.)",
-      "url": "https://doi.org/10.1007/s11095-023-03607-9",
-      "publisher": "Pharmaceutical Research (Springer)",
+      "title": "Quality and Sensory Characteristics of Selected Freeze-Dried Foods After 50 Years Storage (MS thesis, 2024)",
+      "url": "https://scholarsarchive.byu.edu/etd/11075",
+      "publisher": "Brigham Young University, ScholarsArchive",
       "tier": "primary",
-      "accessDate": "2026-09-05"
+      "accessDate": "2026-09-06"
     },
     {
-      "title": "Preservation of Bacteria by Lyophilization",
-      "url": "https://www.sciencedirect.com/science/article/pii/S0065216408705069",
-      "publisher": "Advances in Applied Microbiology (ScienceDirect)",
+      "title": "Impact of Different Dehydration Methods on Drying Efficiency, Nutritional and Physico-Chemical Quality of Strawberries Slices (Processes 13(7):2065, 2025)",
+      "url": "https://www.mdpi.com/2227-9717/13/7/2065",
+      "publisher": "MDPI Processes",
       "tier": "primary",
-      "accessDate": "2026-09-05"
+      "accessDate": "2026-09-06"
     },
     {
-      "title": "At-home freeze drying: A growing trend with food safety concerns (Pilet, February 2025)",
-      "url": "https://www.foodsafetynews.com/2025/02/at-home-freeze-drying-a-growing-trend-with-food-safety-concerns/",
-      "publisher": "Food Safety News",
-      "tier": "secondary",
-      "accessDate": "2026-09-05"
-    },
-    {
-      "title": "Humidity Fixed Points of Binary Saturated Aqueous Solutions (Greenspan), J. Res. NBS 81A(1):89–96, 1977",
-      "url": "https://nvlpubs.nist.gov/nistpubs/jres/81A/jresv81An1p89_A1b.pdf",
-      "publisher": "National Bureau of Standards / NIST",
+      "title": "Effect of freeze-drying and production process on the chemical composition and fatty acids profile of avocado pulp (Rev. Chil. Nutr. 41(4):404-411, 2014)",
+      "url": "https://www.redalyc.org/pdf/469/46933006009.pdf",
+      "publisher": "Revista Chilena de Nutrición",
       "tier": "primary",
-      "accessDate": "2026-09-05"
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Using Dehydration to Preserve Fruits, Vegetables, and Meats (348-597, January 28, 2025)",
+      "url": "https://www.pubs.ext.vt.edu/348/348-597/348-597.html",
+      "publisher": "Virginia Cooperative Extension / Virginia Tech",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
     }
   ],
-  "bodyHtml": "<p><strong>The short version:</strong> one machine, three different jobs. Fruit runs longest because sugar binds water and slows the final drying stage; vegetables sit in the middle and are the group where blanching guidance actually applies; meat is the shortest on prep and the longest on caution, because freeze-drying removes water but leaves fat behind and kills nothing. The differences that matter are composition — sugar, fat, water — and pathogen risk, and only the last one can hurt you.</p>\n<h2 id=\"what-the-machine-actually-does-and-what-it-doesn-t\">What the machine actually does, and what it doesn't</h2>\n<p>Freeze-drying runs in three stages: freezing, primary drying, and secondary drying [25][19].</p>\n<p>In primary drying the chamber pressure drops below water's triple point — 0.01 °C and 611.657 Pa, about 4.58 torr [17][18] — and ice passes straight to vapor without melting. That stage removes most of the water and is the longest of the three [25].</p>\n<p>Secondary drying raises the shelf temperature to pull off the water still bound to sugars and proteins [25]. This is the stage where composition, not total water content, sets the clock. A food that is 90 percent water but holds none of it tightly can finish faster than a food that is 80 percent water and holds a lot of it in a sugar matrix.</p>\n<p>That is the whole mechanical explanation for why the three groups behave differently. What the process does not do is equally important, and it comes up again in the safety section: sublimation removes water. It does not remove fat, and it does not remove bacteria.</p>\n<h2 id=\"how-to-read-the-comparison\">How to read the comparison</h2>\n<p>Before any of the numbers below, the criteria they were judged against.</p>\n<p><strong>Prep</strong> is scored on whether a named authority states it for freeze-drying specifically. A great deal of published blanching guidance was written for freezing and gets quietly reused; where that happened, it is flagged rather than borrowed.</p>\n<p><strong>Cycle times</strong> are manufacturer figures for manufacturer machines. Sublime Pantry has not bench-tested any freeze dryer, and nothing here is a measured result. Slice thickness, load depth, and starting temperature all move these numbers.</p>\n<p><strong>Fat and sugar</strong> is about composition fighting the process, and the two fight it differently. Sugar costs time. Fat costs shelf life.</p>\n<p><strong>Rehydration</strong> is scored strictly on published sources. Where nobody publishes a ratio, that is recorded as absent. It would be easy to fill those cells with plausible numbers and there is no basis for doing it.</p>\n<p><strong>Storage life</strong> is only reported with the conditions the source attached. A shelf-life number without storage conditions is not a range, and the difference between commercially produced and home-produced food is preserved throughout.</p>\n<p><strong>Safety line</strong> is what has to be true, and who says it. Water activity governs whether organisms can grow. It says nothing about whether they are already present.</p>\n<div class=\"table-scroll\">\n<table>\n<caption>How the three food groups differ, criterion by criterion.</caption>\n<thead>\n<tr><th></th><th>Fruit</th><th>Vegetables</th><th>Meat</th></tr>\n</thead>\n<tbody>\n<tr><th scope=\"row\">Prep before drying</th><td>Cut to uniform pieces. Browning-prone fruit gets an ascorbic acid dip — Minnesota Extension gives 1 tsp ascorbic acid to 1 gallon cool water [4]. Maine names apples, bananas, and pears and allows diluted lemon juice as an alternative [5]. Skins on whole berries and grapes resist vapor escape, so manufacturers advise slicing or piercing [12].</td><td>Blanching, with an important caveat about who says so. Maine is the only extension service that names vegetables: \"Most vegetables need to be blanched before being freeze dried... The exception is tomatoes, peppers, and onions\" [5]. The detailed list everyone repeats — green beans, broccoli, cauliflower, carrots, asparagus, peas, Brussels sprouts — is Harvest Right's, and Harvest Right calls blanching optional [12].</td><td>Cook it. Four extension services state that freeze-drying does not kill bacteria [1][2][4][6], and they agree meat must be cooked at some point — Utah State says \"either before freeze-drying or after rehydration\" [1]. They disagree on whether raw meat may go in the machine at all; that conflict is unresolved and covered below. Trim fat before it goes on the tray.</td></tr>\n<tr><th scope=\"row\">Typical cycle</th><td>Longest and widest spread of the three. Harvest Right's time chart — which we read on the retailer Trimleaf's site rather\nthan on Harvest Right's own, and which we could not locate on the manufacturer's\ndomain — gives 24–28 h for apples, 25–27 h for bananas, 26–32 h for strawberries,\nand 46–52 h for whole blueberries and grapes [13].</td><td>Tighter and shorter than fruit. Harvest Right publishes 20–24 h for asparagus, 20–23 h for kale, 20–26 h for peas, 24–28 h for broccoli and corn, and 30–32 h for potatoes [13].</td><td>Broadly comparable to vegetables and driven mostly by thickness and load depth. Harvest Right publishes cycle times by cut in its time chart [13]; lean, thinly sliced cooked meat is at the fast end of that set.</td></tr>\n<tr><th scope=\"row\">Fat and sugar</th><td>Sugar is the whole story. Sugars bind water, and high-sugar matrices have low glass-transition and collapse temperatures, which narrows the safe processing window and pushes work into the slow secondary drying stage [19][22]. Fat is not a factor.</td><td>Low sugar and low fat, which is why vegetables sit in the middle. Less bound water than fruit means less time in secondary drying; no meaningful fat means no oxidation clock running in storage.</td><td>Fat is the limiting factor, and it is a storage problem rather than a cycle problem. Sublimation removes water; lipids are not water and remain in the finished product [24][19]. The porous, high-surface-area structure freeze-drying creates increases oxygen exposure, and lipid oxidation is a principal driver of quality loss in meat products [23][24].</td></tr>\n<tr><th scope=\"row\">Rehydration</th><td>Usually not rehydrated — most freeze-dried fruit is eaten dry [2][12]. Penn State describes soaking in water or spraying with water, and gives no ratio and no time [2].</td><td>Method only, no numbers. Penn State says add them to a bowl of hot water [2]; Harvest Right says cover with hot water and soak until tender, and notes peas, corn, tomatoes, and peppers are often eaten dry without rehydrating [12].</td><td>The thinnest evidence anywhere in this comparison. None of the nine extension sources\nreviewed for this article (registered below, all accessed September 5, 2026)\npublishes a ratio or a time. The only figure in the sourced set is Harvest Right's \"about 1/3 hot water to the freeze dried meat,\" which does not state units [11].</td></tr>\n<tr><th scope=\"row\">Storage life (stated range)</th><td>None of the extension sources reviewed for this article (accessed September 5, 2026)\npublishes a fruit-specific range. Penn State's packaging-based figures apply across foods: a few months in zip-top bags, about two to three years vacuum-packed, and \"many years\" in glass jars with an oxygen absorber, stored cool, dry, and dark [2].</td><td>Same Penn State packaging figures as fruit [2]. Iowa State is the source to read before quoting anything longer: freeze-dried foods \"supposedly have a 25-year shelf-life under proper storage conditions... Because they are so new, there is no verification that food will last 25 years at this point in time\" [6].</td><td>No defensible number exists for home-freeze-dried meat. The mechanism is well established — residual fat oxidizes and sets the practical limit — but the specific \"5–15 years for meat versus 25–30 for produce\" figures circulating online trace to retailers, not to extension services or manufacturer documentation, so they are not repeated here.</td></tr>\n<tr><th scope=\"row\">Safety line</th><td>The easy case. Fruit is acidic and reaches roughly aw 0.18–0.27 when properly dried [20][21], well under any growth threshold. Clean fruit, dried and sealed promptly, carries the lowest risk of the three.</td><td>Measured at roughly aw 0.18–0.21 when properly dried [20]. Vegetables are low-acid, so the aw number is doing more work here than it is with fruit — but the same rule applies: drying stops growth, it does not remove what is already there [1][4][6].</td><td>The one that needs the most care. Freeze-dried lean beef measures around aw 0.05–0.07 [19] — drier than fruit — and that low number is exactly what makes it deceptive. Meat carries the pathogen load that fruit and vegetables usually do not, and low aw preserves organisms rather than killing them [1][26]. Once rehydrated it is perishable again and needs refrigeration [27].</td></tr>\n</tbody>\n</table>\n</div>\n<h2 id=\"fruit-sugar-buys-you-time-you-have-to-pay-for\">Fruit: sugar buys you time you have to pay for</h2>\n<p>Fruit is the group people start with and the group that ties up the machine longest.</p>\n<p>The reason is sugar. Sugars hold water through hydrogen bonding, and high-sugar matrices have low glass-transition and collapse temperatures — the safe processing window narrows, and more of the work moves into the slow secondary drying stage [19][22]. Whole skins compound it: intact blueberry and grape skins resist vapor escape, which is why Harvest Right's published times for those run 46–52 hours against 24–28 for sliced apples [13].</p>\n<p>Pretreatment is about color, not safety. Penn State explains the mechanism plainly — enzymatic browning, the same reaction that darkens a cut apple [2] — and Minnesota gives the working solution: one teaspoon of ascorbic acid to one gallon of cool water, for produce that cannot be blanched [4]. Maine names apples, bananas, and pears, and allows diluted lemon juice as an alternative [5].</p>\n<p>A federal purchasing specification for freeze-dried fruit exists — USDA Commercial\nItem Description A-A-20365 [16] — and an earlier version of this page quoted a\nmoisture limit from it. We have withdrawn that number; see\n<a href=\"#what-nobody-has-published-yet\">what nobody has published yet</a> for why.</p>\n<p>Fruit is also where packaging decisions start, because most home batches are small, opened often, and eaten dry.</p>\n<h2 id=\"vegetables-the-blanching-question-and-who-is-really-answering-it\">Vegetables: the blanching question, and who is really answering it</h2>\n<p>Vegetables sit in the middle on every axis. Lower sugar than fruit means less bound water and shorter cycles — Harvest Right publishes 20–28 hours for most, with potatoes the outlier at 30–32 [13]. Negligible fat means no oxidation clock running once they are sealed.</p>\n<p>The interesting part is blanching, and it is worth being precise about who says what.</p>\n<p>Maine is the only extension service that names vegetables: most need blanching, and the exceptions are tomatoes, peppers, and onions [5]. The stated purpose is quality — brief boiling \"helps to prevent changes to color, texture, and flavor, caused by enzymes\" during long storage [5]. Colorado State explains the underlying mechanism in its freezing guidance: the enzymes that matured the vegetable go on causing loss of quality, flavor, color, texture, and nutrients, and heat slows or stops them [8].</p>\n<p>Minnesota is permissive rather than prescriptive — \"most vegetables and firm fruits can be blanched\" [4]. Iowa State does not state its own position; it reports Utah State's recommendation to blanch to prevent discoloration [6], and Utah State's own freeze-drying page does not mention blanching at all [1].</p>\n<p>So the familiar detailed list — green beans, broccoli, cauliflower, carrots, asparagus, peas, Brussels sprouts — comes from Harvest Right, not from an extension service, and Harvest Right frames blanching as optional, for when you want the vegetables to rehydrate with a cooked texture [12]. Harvest Right gives exactly one hard instruction: blanch potatoes, or they oxidize and turn black [10].</p>\n<p>And the blanching time tables people cite were written for freezing. Penn State's times — broccoli 3 minutes, green beans 2–3, carrots 2 sliced and 5 whole, peas 1½–2½ — appear in its guide to freezing vegetables [3], and the National Center for Home Food Preservation's tables sit under freezing as well [7]. They may well transfer. Nobody has published research saying they do.</p>\n<h2 id=\"meat-fat-is-the-constraint-and-it-survives-the-process\">Meat: fat is the constraint, and it survives the process</h2>\n<p>Meat inverts the pattern. The cycle is unremarkable. Everything difficult about it happens before the machine and after it.</p>\n<p><strong>Fat does not sublimate.</strong> The process removes water; lipids are not water and stay in the finished product [24][19]. Worse, freeze-drying creates a porous, high-surface-area structure — the same structure that makes it rehydrate well — and that structure increases oxygen exposure. Lipid oxidation is a principal driver of quality loss in meat products [23][24], and\nit arrives as rancid off-flavors. That is a quality signal and only a quality signal:\nit establishes nothing about microbiological safety, and its absence establishes\nnothing either.</p>\n<p>This is where honesty about sourcing matters. \"Choose lean cuts\" is sound reasoning from the oxidation literature, but none of the extension sources\nreviewed here says it. Minnesota and Iowa State say only that high-fat foods do not freeze-dry well and should be avoided [4][6] — a statement about the machine, not about storage. Utah State's single fat statement names mayonnaise [1]. The named exclusion list of peanut butter, chocolate, butter, honey, syrup, and jam is Harvest Right's, and the reason it gives is that the dryer leaves oil behind, which is again a process statement rather than a rancidity warning [10]. Trim the fat because the chemistry says so, not because an extension service told you to.</p>\n<p>Meat is also where output tends to be built into complete meals, and where packaging takes real abuse.</p>\n<h2 id=\"the-safety-line-what-freeze-drying-does-not-do\">The safety line: what freeze-drying does not do</h2>\n<p>This is the part of the topic where being vague would be the actual failure, so here it is directly.</p>\n<p><strong>Freeze-drying is not a kill step.</strong> Four extension services state it independently. Utah State: freeze-drying \"does not kill bacteria... Instead, it preserves microorganisms in a dormant state\" [1]. Penn State: \"the freeze-drying process does not kill harmful bacteria that can cause foodborne illness\" [2]. Minnesota: \"There is no heat treatment step in the freeze-drying process. So it doesn't kill illness-causing microorganisms such as bacteria and viruses\" [4]. Iowa State: microorganisms \"remain viable, but dormant\" [6].</p>\n<p>The cleanest evidence is that lyophilization is the standard laboratory method for <em>preserving</em> bacterial cultures [26]. The process is used deliberately to keep organisms alive.</p>\n<p>And rehydration wakes them. Utah State: \"If moisture is reintroduced, such as during rehydration or improper storage, bacteria can become active again\" [1]. Iowa State: bacteria \"will reactivate upon rehydration\" [6]. Once rehydrated, the food is no longer shelf-stable and needs refrigeration if it is not eaten [27].</p>\n<p><strong>The extension services contradict each other on raw meat, and that is worth knowing.</strong> Minnesota says meat, poultry, and seafood \"can be freeze-dried raw or cooked\" [4]. Penn State likewise permits raw, requiring cooking before eating [2]. Utah State takes the other position: raw animal products \"pose food safety risks and should not be freeze-dried without proper preparation\" [1]. There is no consensus to report, so none is manufactured here. What they all agree on is that the food gets cooked at some point — Utah State's framing, \"either before freeze-drying or after rehydration\" [1], is the clearest statement of the shared position. Cooking first is the more conservative route, and it is what food-safety specialists advise for high-risk foods [27].</p>\n<p><strong>Water activity is the number that governs growth.</strong> FDA states it exactly: \"If the water activity of food is controlled to 0.85 or less in the finished product, it is not subject to the regulations of 21 CFR Parts 108, 113, and 114\" [14]. Read that for what it is — a description of regulatory scope, not a safety guarantee and not advice. The 0.85 figure exists because that is the minimum at which <em>Staphylococcus aureus</em> forms toxin; the organism can grow at 0.83 [15].</p>\n<p>Below the pathogen thresholds sit the spoilage organisms, and they are why 0.60 rather than 0.85 is the practical target for dry storage. Working down the range: most spoilage bacteria stop around 0.95–0.91, most yeasts 0.91–0.87, most molds 0.87–0.80, xerophilic molds 0.75–0.65, and osmophilic yeasts 0.65–0.60 [9]. Below 0.60, nothing on that list grows.</p>\n<p>Properly freeze-dried food clears that easily. Measured values land around aw 0.18–0.27 for fruit and vegetables [20][21] and as low as 0.05–0.07 for lean freeze-dried beef [19]. Which is the trap: meat can be the driest thing in your pantry and still be the riskiest, because low water activity preserves what is already there.</p>\n<p>One distinction underneath all of this. Water activity is not moisture percentage. Moisture percentage counts all the water in the food, including water bound to sugars and proteins that no organism can use. Water activity measures only what is <em>available</em> [9][14]. Two foods can carry identical moisture percentages and behave completely differently in storage.</p>\n<h2 id=\"water-activity-what-a-home-instrument-can-and-cannot-tell-you\">Water activity: what a home instrument can and cannot tell you</h2>\n<p>Everything above rests on a number most home operators never measure. Water activity\nequals the equilibrium relative humidity of the air above the food, divided by 100, and\na laboratory meter runs into the thousands of dollars.</p>\n<p><strong>A consumer instrument is not a safety determination.</strong> An earlier version of\nthis page gave a step-by-step method for checking water activity with a $10–25 digital\nhygrometer calibrated against saturated salt slurries [28], and described the result as\na pass/fail check against 0.60. We have removed it. The reasoning was sound and the\nlimits were stated, but no extension service publishes that protocol as a validated\nhome method, and a numbered procedure ending in a threshold reads as a test you can\npass — which is exactly what a consumer hygrometer cannot give you. It is least\naccurate at the low end of the scale, which is the end that matters here.</p>\n<p><strong>What to use instead.</strong> University of Minnesota Extension publishes a\n<a href=\"https://extension.umn.edu/food-entrepreneurs/testing-water-activity-cottage-foods\">documented\nlower-cost testing method for cottage foods</a>, written around specific equipment and\nspecific correction tools — read it against the equipment it actually names rather than\nas a generic procedure. If you are selling, your state’s Department of Agriculture or\nhealth department decides what counts as evidence, and a finalized recipe is confirmed\nby a laboratory. If you are not selling, the cut test earlier in this article is the\ncheck that governs whether a batch goes in a bag.</p>\n<p>Water activity also tells you nothing about pathogens. A low reading means organisms\ncannot grow. It does not mean they are not there, and it is not a substitute for\ncooking meat. Sublime Pantry has not bench-tested this or any freeze dryer.</p>\n<h2 id=\"what-nobody-has-published-yet\">What nobody has published yet</h2>\n<p>Most articles on this topic present a settled body of knowledge. It is not settled, and the gaps are large enough to be worth stating.</p>\n<p><strong>There is no research-based home freeze-drying guidance from the field's reference body.</strong> The National Center for Home Food Preservation's drying resources do not cover freeze-drying [7]. Minnesota Extension says why, on the record: \"The National Center for Home Food Preservation has not published any research-based recipes yet. Validating freeze-drying recipes is a challenge due to the differences in at-home freeze-drying equipment\" [4].</p>\n<p><strong>The 25-year figure does not describe home-produced food.</strong> Minnesota attributes it to commercially prepared product [4]. Iowa State addresses the home claim directly: freeze-dried foods \"supposedly have a 25-year shelf-life under proper storage conditions... Because they are so new, there is no verification that food will last 25 years at this point in time\" [6], and adds that \"very little university research has been done on in-home freeze drying\" [6]. Manufacturers state the figure without conditions and without that caveat [10]. Sublime Pantry makes no shelf-life guarantee, and neither should anyone selling you a machine.</p>\n<p><strong>Nobody publishes rehydration ratios.</strong> Not one extension service in this set gives a water-to-food ratio or a soak time. Penn State describes method only [2]; Iowa State, relaying Utah State, says to start with a small amount of water and allow ample time [6]. The confident ratio tables in circulation come from retailers of freeze-dried food.</p>\n<p><strong>We could not read the USDA specification we cited.</strong> USDA Commercial Item\nDescription A-A-20365, <em>Fruits, Freeze Dried</em>, is real and is published by the\nAgricultural Marketing Service [16]. An earlier version of this page stated that it\nsets moisture at not more than 2.0 percent. The document is distributed as a scanned,\nimage-based PDF, and we could not extract or confirm that clause from it. We are not\nin a position to restate a figure we have not read, so the number is withdrawn rather\nthan left standing behind a link that looks like verification. The link is kept so you\ncan read the specification yourself, and the figure will return if and when we can\nconfirm it.</p>\n<p>None of this means home freeze-drying is unsafe or that the machines do not work. It means the specific numbers deserve more skepticism than they usually get, and that the parts with real evidence behind them — cook the meat, trim the fat, get the water activity down, seal it properly — are the parts worth acting on.</p>"
+  "faq": [
+    {
+      "question": "Do fruit, vegetables, and meat need different machine settings?",
+      "answer": "Published settings vary by food, but the only manufacturer that prints a per-food settings table is Blue Alpine — for example 16 hours on a delicate profile at 900–1100 mTorr and 105–110 °F for ¾-inch banana chunks, against 48–72 hours at 500–800 mTorr and 85–95 °F for ½–¾-inch watermelon cubes [19]. Harvest Right publishes one general figure covering meats, meals, and dairy: 13 to 35 hours [11]. Treat any single figure as conditional on machine size, load weight, piece thickness, and starting temperature; none of the sources controls for those."
+    },
+    {
+      "question": "Does meat have to be cooked before it goes in?",
+      "answer": "The published guidance splits, and it splits inside one institution. Utah State's January 2026 guide places raw meat, poultry, seafood, and eggs among foods not to freeze-dry, each with a required cooking temperature [1], while its May 2026 Ask an Expert says such foods must be fully cooked “either before freeze-drying or after rehydration” [2]. The University of Minnesota states meat, poultry, and seafood can be freeze-dried raw or cooked [4], and Harvest Right says the same on a page that also states freeze drying does not kill pathogens [12]. What every one of those sources agrees on is that a cooking step exists somewhere — before the tray or before the plate."
+    },
+    {
+      "question": "Why do vegetables get blanched when fruit does not?",
+      "answer": "Blanching is aimed at enzymes, not pathogens. UC ANR instructs blanching or steaming to inactivate enzymes and preserve color, flavor, and nutrients [6]; the University of Maine says most vegetables need blanching to prevent changes to color, texture, and flavor [5]. Light-colored fruit gets an acid dip instead — one teaspoon ascorbic acid per gallon of cool water, per the University of Minnesota [4], with apples, bananas, and pears named as candidates [5]. Neither step is a kill step."
+    },
+    {
+      "question": "Which group has the shortest storage life?",
+      "answer": "No source publishes a ranking by group, so there is none to give. What is published is a mechanism: fat is not removed by sublimation — “Freeze drying removes water, but oil remains” [13] — and Harvest Right states foods containing higher amounts of fat generally have shorter storage lives [17]. Utah State attaches the same caution to high-fat foods, adding that high fat content prevents adequate drying [1]. That points at fatty meat and at high-fat produce like avocado, but the boundary is qualitative: no source at any tier publishes a fat-percentage ceiling for any food."
+    },
+    {
+      "question": "Can under-dried or moisture-affected food be re-dried?",
+      "answer": "In the dried-food literature, yes, conditionally, and the condition is uniform. The National Center for Home Food Preservation states foods affected by moisture but not spoiled should be used immediately or redried and repackaged, and that moldy foods should be discarded [28]. Clemson [30] and Iowa State [29] publish the same permission and the same mold exclusion. That permission is written about condensation and moisture pickup; no source we reviewed extends it to a failed oxygen absorber, a jar that lost its seal, or food held above a stated temperature. Sublime Pantry does not publish a recovery protocol of its own, and re-drying does not address whatever was on the food before it went in."
+    }
+  ],
+  "bodyHtml": "<p><strong>The short version:</strong> The machine treats all three groups the same way — it freezes water and sublimates it — so the differences live in what you do before loading and after opening. Fruit is a cutting-and-browning problem, vegetables are a blanching problem, and meat is a fat-and-handling problem, and only meat carries a cooking step that the published guidance argues about. None of the three is made safe by the process itself: freeze drying is a preservation process, not a food-safety process [6].</p><h2>The six criteria, side by side</h2><p>Every figure below is published by the source cited, not measured by us. Cycle times are conditional on machine size, load weight, piece thickness, and starting temperature, and no source controls for those variables.</p><div class=\"table-scroll\">\n<table>\n<caption>How fruit, vegetables and meat differ, criterion by criterion</caption><thead><tr><th></th><th>Fruit</th><th>Vegetables and starches</th><th>Meat</th></tr></thead><tbody><tr><th scope=\"row\">Prep</th><td>Uniform pieces, ¼–½ in for general drying guidance [3]; ¾ in banana chunks and ½–¾ in watermelon cubes per Blue Alpine [19]. Acid dip for light-colored fruit — 1 tsp ascorbic acid per gallon water [4]; apples, bananas, pears named [5]. Skins pierced or cut [12][21].</td><td>Blanch or steam to inactivate enzymes [6]; most vegetables need it [5]. Potatoes blanched or cooked first; raw potatoes darken [24]. Beans cooked or soaked [1]. Herbs are the exception — no blanching guidance names them [7].</td><td>Trim visible fat and bone; cut no thicker than ¾ in; single layer within the tray lip [9]. High-fat cuts such as bacon: cook first and blot the grease [9]. The cooking step is disputed — see the safety line.</td></tr><tr><th scope=\"row\">Cycle behavior</th><td>13–35 h general manufacturer range [11]. Blue Alpine: bananas 16 h; a generic fruit profile 24 h; watermelon <strong>48–72 h</strong>, the longest published fruit figure [19]. Harvest Right: “Pineapple and watermelon can take longer” [11]. Utah State: fresh pineapple 48 to 52 hours [3].</td><td>Harvest Right tested times via a retailer: potatoes 9 h freeze plus 7 h dry, 30–32 h total, 125 °F shelf [22]. Sugar prolongs cycles: dense and high-sugar foods may take 48 to 52 hours [6][3].</td><td>No extension or manufacturer figure for meat alone; the general 13–35 h band covers “meats, meals, dairy” [11]. Secondary figures: sliced beef 22–26 h, ground beef 26–30 h [23]. Utah State: thick foods such as meat or casseroles can take more than two days [1].</td></tr><tr><th scope=\"row\">Fat and sugar</th><td>Sugar is the live variable. High-sugar foods run longer [3][6]; Utah State describes finished high-sugar fruit as “flexible, but not sticky” [3]. Fat matters only at the avocado end — general high-fat caution [9], with a peer-reviewed counterpoint on fatty acid retention [34].</td><td>Low fat, low sugar, and the group the published guidance argues about least. Iowa State places baked goods, high-fat foods, and high-sugar foods together among those that “do not freeze dry successfully” [7].</td><td>Fat is the governing variable. “Freeze drying removes water, but oil remains” [13]. Utah State: high fat content prevents adequate drying, increasing the risk of rancidity and pathogen survival [1]. Arizona: mixed dishes freeze dry well if they are not overly greasy [9].</td></tr><tr><th scope=\"row\">Rehydration</th><td>Soak in a bowl of water or spritz [14]; produce may use room-temperature or warm water [15]. Lab measurement on a pilot unit: freeze-dried strawberry slices reached 64.90% rehydration capacity against 53.11% for hot-air drying [33].</td><td>Warm water, or straight into soups and stews with extra liquid — for potatoes, 10–15 minutes [24]. Herbs, onions, and bell peppers need no rehydration at all and go directly into food [7].</td><td><strong>No numeric ratio from any primary source.</strong> Harvest Right instructs that raw meat is never rehydrated on the counter, while produce may be [15].</td></tr><tr><th scope=\"row\">Storage range with conditions</th><td>Published as one envelope for all three, not by group. Harvest Right: up to 25 years or longer under ideal conditions — mylar plus an oxygen absorber, cool, low humidity, minimal light, below 85 °F [16][17]. Blue Alpine: 25+ years in a high-quality mylar bag [18]. Utah State: 10–15 years, sometimes 25, conditioned on airtight moisture-proof packaging [1] — and, separately, that “no real data exists on the shelf-life of home freeze-dried products” [3]. UC ANR does not recommend consuming home freeze-dried product beyond 5–10 years [6]; Iowa State: “There is no verification that food will last 25 years at this point” [7]. Fat shortens it in every framing [1][17].</td><td>Published as one envelope for all three, not by group. Harvest Right: up to 25 years or longer under ideal conditions — mylar plus an oxygen absorber, cool, low humidity, minimal light, below 85 °F [16][17]. Blue Alpine: 25+ years in a high-quality mylar bag [18]. Utah State: 10–15 years, sometimes 25, conditioned on airtight moisture-proof packaging [1] — and, separately, that “no real data exists on the shelf-life of home freeze-dried products” [3]. UC ANR does not recommend consuming home freeze-dried product beyond 5–10 years [6]; Iowa State: “There is no verification that food will last 25 years at this point” [7]. Fat shortens it in every framing [1][17].</td><td>Published as one envelope for all three, not by group. Harvest Right: up to 25 years or longer under ideal conditions — mylar plus an oxygen absorber, cool, low humidity, minimal light, below 85 °F [16][17]. Blue Alpine: 25+ years in a high-quality mylar bag [18]. Utah State: 10–15 years, sometimes 25, conditioned on airtight moisture-proof packaging [1] — and, separately, that “no real data exists on the shelf-life of home freeze-dried products” [3]. UC ANR does not recommend consuming home freeze-dried product beyond 5–10 years [6]; Iowa State: “There is no verification that food will last 25 years at this point” [7]. Fat shortens it in every framing [1][17].</td></tr><tr><th scope=\"row\">Safety line</th><td>Enzymatic and cosmetic. Pretreatment addresses browning, not pathogens [4][5].</td><td>Blanching addresses enzymes, not pathogens [6]. Bacteria remain “viable, but dormant” [7].</td><td>The determination sits on handling history and a cooking step. Sources disagree about where that step goes [1][2][4][12].</td></tr></tbody></table>\n</div><h2>Prep</h2><p>Arizona Extension gives the tightest published dimension in the category, and it is for meat: trim visible fat and bone, cut no thicker than ¾ inch, and keep food below the lip of the tray [9]. For produce, the numbers are looser — ¼ to ½ inch as general guidance [3], with the one manufacturer that prints per-food geometry specifying ¾-inch banana chunks and ½–¾-inch watermelon cubes [19].</p><p>The group-level difference is what the pretreatment is for. Vegetables get heat: UC ANR instructs blanching or steaming “to inactivate enzymes, preserve color, flavor, and nutrients” [6], and the University of Maine says most vegetables need it [5]. Fruit gets acid instead — one teaspoon of ascorbic acid to one gallon of cool water for produce that cannot be blanched [4]. Meat gets neither; it gets fat and bone removed [9].</p><p>Skins are a fruit-only problem, and the two tiers give different reasons for the same action. Blue Alpine's support forum states plainly that “any food with a skin will have a harder time freeze drying. Blueberries are especially difficult,” and ranks purée above halving above piercing [21]. Arizona Extension prescribes puncturing cranberries and blueberries to prevent them from bursting [9]. Neither addresses the other's mechanism.</p><h2>Cycle behavior</h2><p>Watermelon is the outlier: 48 to 72 hours at 500–800 mTorr and 85–95 °F [19], roughly two to five times the general 13–35 hour band Harvest Right publishes for meats, meals, and dairy [11]. Utah State's comparable figure for a dense, high-sugar fruit is 48 to 52 hours for fresh pineapple [3].</p><p>Water content drives length in every source [4]. Sugar extends it — dense and high-sugar foods are the ones both Utah State and UC ANR attach the 48-to-52-hour figure to [3][6]. Fat is described as slowing the process but is not tied to a published cycle-time figure by any source; the instruction is to remove it rather than to plan around it [1][9].</p><p>Starches sit in the middle, and the only tested-time figure found for one is secondhand: potatoes at 9 hours freeze plus 7 hours dry, 30–32 hours total, on a 125 °F shelf [22]. For meat there is no separate primary figure at all — only the 13–35 hour band that lumps it with meals and dairy [11], and Utah State's note that thick foods such as meat or casseroles can take more than two days [1].</p><h2>Fat and sugar</h2><p>“Freeze drying removes water, but oil remains” [13]. That single manufacturer sentence explains most of what separates meat from the other two groups, and Utah State states the consequence: “High fat content prevents adequate drying, increasing the risk of rancidity and pathogen survival” [1]. Harvest Right's storage guidance carries the same finding in gentler terms — foods containing higher amounts of fat generally have shorter storage lives [17].</p><p>The boundary is qualitative everywhere. No source at any tier publishes a fat-percentage ceiling for any food, so “trim it” is the whole of the published instruction. Blue Alpine's version of the rule names very oil-based foods such as peanut butter as an exception rather than a threshold [18].</p><p>Sugar is the fruit-side variable, and the published framings differ in temperature. Utah State describes high-sugar foods as finishing “flexible, but not sticky” [3] — permissive, and about fruit. Harvest Right's language about the honey and syrup end is that high-sugar foods become a sticky, difficult-to-handle mess [13]. Neither source draws the line between those two tiers of sugar itself.</p><p>Fruit does have a fat case: avocado. General high-fat caution applies [9], and the one peer-reviewed measurement found reports that freeze-drying “did not statistically affect the fatty acids profile, except the linoleic acid,” attributing further degradation more to storage conditions than to the drying process [34].</p><h2>Rehydration</h2><p>The one measured comparison in the pack is fruit: freeze-dried strawberry slices reached 64.90% rehydration capacity against 53.11% for hot-air-dried slices, at 9.49% final moisture — on a laboratory unit running 49 hours at under 40 °C and 0.055 mbar, not a consumer machine [33].</p><p>Practice differs by group more than mechanism does. Fruit is soaked or spritzed [14]. Vegetables go into warm water or straight into soups and stews with extra liquid; potatoes take 10 to 15 minutes [24]. Herbs, onions, and bell peppers are not rehydrated at all — they go directly into food [7].</p><p>Meat is where the published record stops. <strong>No primary source publishes a rehydration ratio for meat.</strong> What Harvest Right does publish is a handling rule that splits the groups: raw meat is never rehydrated on the counter, while fruits and vegetables may use room-temperature or warm water [15]. Virginia Tech goes further for produce, instructing that dried fruits and vegetables be reconstituted in the refrigerator to prevent growth of microorganisms [35]; Clemson sets the same requirement only past a two-hour soak [30].</p><h2>Storage range, and the conditions attached to it</h2><p>Measured water activity in freeze-dried food, where anyone has measured it, runs low: 0.02 to 0.3 across products stored one to two years and fifty years in one thesis dataset [32], and Virginia Cooperative Extension's small-scale freeze dryer study reports that “the water activity did not ever rise above 0.6” [31]. That same study found larger 14 mm dice reached higher water activity than 7 mm dice, that water activity rose after 24 hours of storage for every commodity except apples, and that glass containers were less variable than plastic bags [31]. The instrument and dryer models are not named in the publication.</p><p>The shelf-life figures themselves are not group-specific, and they are contested. Harvest Right publishes up to 25 years or longer under ideal conditions, tied to mylar plus an oxygen absorber, cool temperatures, low humidity, minimal light, and storage below 85 °F [16][17]; Blue Alpine publishes 25+ years tied to a high-quality mylar bag [18]. Utah State publishes 10–15 years, sometimes up to 25, conditioned on airtight moisture-proof packaging [1], while a separate Utah State publication states that “no real data exists on the shelf-life of home freeze-dried products” and anchors instead to an 8-to-10-year conservative estimate for commercially produced metal-mylar product [3]. UC ANR states the 25-year claim “has not been corroborated by university studies for home freeze dryers” and does not recommend consuming home freeze-dried product beyond 5–10 years [6]. Iowa State: “There is no verification that food will last 25 years at this point” [7]. We publish all of these rather than picking one, and we make no shelf-life guarantee of our own.</p><p>Harvest Right names four causes of shortened shelf life: food not completely dry before packaging, delayed sealing after the cycle, incorrect oxygen absorber sizing, and inappropriate storage conditions [16]. Three of those four are packaging decisions made in the ten minutes after the door opens. Our <strong>Freeze-Drying Packaging Starter Kit</strong> — 100 mylar bags in three sizes, 100 absorbers, and labels — covers that window. <em>Sold by Sublime Pantry.</em></p><p>The dryness endpoint is the same test for all three groups, and it is a center test, not a surface test: “The outside of a piece of food can feel completely dry even when moisture remains in the center” [20]. Harvest Right's instruction is to break open several of the largest or thickest pieces from different trays and check for moisture, cold spots, or soft areas [20]; the University of Minnesota's version is to cut each piece in half and look for dark spots in the middle [4].</p><h2>The safety line</h2><p>Start with what went into the dryer, because that is what determines what comes out. “Freeze-drying does not kill bacteria. Instead, it preserves microorganisms in a dormant state,” per Jose Brandao of Utah State University Extension [2]. Penn State: “The freeze-drying process does not kill harmful bacteria that can cause foodborne illness” [8]. The University of Maine says the same [5], UC ANR calls freeze drying a preservation process rather than a food safety process [6], the University of Minnesota notes there is no heat treatment step in it [4], and Harvest Right's own page states that freeze drying does not kill pathogens [12]. The handling history of the food before it reached the tray — its source, its temperature history, whether it was ever cooked — is the safety determination. Appearance after the cycle is not, and freeze-drying does not make unsafe food safe.</p><p>Dormancy is not the same as absence. FDA's growth-minimum tables put <em>Salmonella</em> at a minimum water activity of 0.94, <em>Listeria monocytogenes</em> at 0.92, and pathogenic <em>E. coli</em> at 0.95 [26][27]. A properly dried product sits far below all three, which is why nothing grows in the bag — and why nothing in the bag was killed either. Reintroduce water and the food re-enters the range those organisms grow in. Iowa State's phrasing for the dried product is that bacteria remain “viable, but dormant” [7].</p><p>That is why meat carries a cooking step and the other two groups do not, and why the published guidance argues about where the step goes. Utah State's January 2026 guide lists raw meat, poultry, seafood, eggs, and unpasteurized dairy among foods not to freeze-dry, each with a required cooking temperature [1]. Its May 2026 Ask an Expert states such foods must be fully cooked “either before freeze-drying or after rehydration” [2]. The University of Minnesota states meat, poultry, and seafood can be freeze-dried raw or cooked [4]; Harvest Right says the same [12]. For dehydrated meat, which is a different process with a deeper literature, USDA FSIS requires steaming or roasting to 160 °F, and poultry to 165 °F, before drying, and notes that “after drying, bacteria become much more heat resistant” [25]. We describe these positions; we do not advise which to follow, and we have not tested any of them.</p><p>Recovery advice comes after all of that, not before it, and it is not ours. Six extension services permit re-drying and repackaging of dried food that has taken up moisture, uniformly gated on the absence of mold: the National Center for Home Food Preservation states that foods affected by moisture but not spoiled “should be used immediately or redried and repackaged,” and that “moldy foods should be discarded” [28]; Clemson publishes the same construction for vegetables [30]; Iowa State instructs returning food to the dryer if condensation appears during conditioning, and discarding at any sign of mold [29]. Those instructions are written about condensation and moisture pickup. No source we reviewed extends them to a failed oxygen absorber, a jar that lost its seal, or food held above a stated temperature or humidity, so we do not extend them either, and we publish no protocol of our own for those cases. Re-drying addresses moisture. It does not address handling history.</p><p>One ordering we will not assert: no source we reviewed ranks rancidity against microbial growth as the limiting failure mode for high-fat dried food. Utah State names rancidity as a risk for high-fat foods [1]; Clemson, NCHFP, FSIS, and Utah State frame storage limits microbially [28][30][25][3]. Nobody publishes an order between them, so none is given here.</p><h2>What we could not source</h2><ul><li><strong>Fresh-to-dried yield for any of the three groups.</strong> Of the extension publications reviewed on 2026-09-06 — Utah State (January 2026 [1], May 2026 [2], and [3]), University of Minnesota [4], University of Maine (April 2024) [5], UC ANR [6], Iowa State (June 2023) [7], Penn State [8], University of Arizona (February 2025) [9], and Clemson [10] — none publishes a yield percentage for any fruit, vegetable, or meat.</li><li><strong>A fat-percentage threshold.</strong> No source at any tier gives a numeric fat ceiling for any food. The lean preference is qualitative in every publication reviewed [1][13][17].</li><li><strong>A rehydration ratio for meat.</strong> No primary source publishes one. The figures that exist for other foods are secondary [24].</li><li><strong>A residual-moisture target.</strong> Every published figure is framed as percent removed — 97%, roughly 90% plus 1–2% desorption, up to 98% [6][4][5] — never as percent remaining.</li><li><strong>Any ranking of the three groups.</strong> Not by ease, not by cycle length, not by shelf life. No source publishes one, so none appears above.</li><li><strong>Mushrooms as a freeze-drying subject.</strong> Of the extension publications reviewed on 2026-09-06 and listed above, none addresses freeze-drying mushrooms; the mushroom guidance those services publish is for dehydrating and freezing.</li><li><strong>Blueberry-specific cycle times</strong> from any manufacturer. The nearest published analog is grapes at 20 hours [19].</li><li><strong>An instrument for the water activity figures.</strong> None of the three sources reporting freeze-dried water activity names the meter used [1][31][32].</li></ul>\n\n<h2>Next</h2>\n<ul>\n<li><a href=\"/guides/freeze-drying-eggs\">Freeze-drying eggs</a> &mdash; a fourth group with its own risk class.</li><li><a href=\"/guides/mushrooms-herbs-small-stuff\">Mushrooms, herbs, and the small stuff</a> &mdash; loads that behave unlike any of the three.</li><li><a href=\"/guides/complete-batch-workflow\">The complete batch workflow</a> &mdash; the run all three groups pass through.</li>\n</ul>",
+  "updatedDate": "2026-09-09"
 }
