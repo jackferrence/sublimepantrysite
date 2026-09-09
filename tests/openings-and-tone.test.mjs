@@ -86,7 +86,12 @@ test('M13: the site does not grade its readers or its competitors', () => {
   const retired = ['nothing invented', 'we will not pretend', "inspector's bad day", 'first serious run'];
 
   for (const { file, text } of pages()) {
-    assert.doesNotMatch(text, readerJudgment, `${file}: judges the reader`);
+    // The source register lists cited works under their published titles, and
+    // one of them is PackFreshUSA's "Sealing Mylar Bags: Easy Methods Anyone
+    // Can Use". That is their headline being quoted, not the site telling a
+    // reader anyone can do it, and rewriting it would misquote the source.
+    const ownVoice = text.replace(/Easy Methods Anyone Can Use/g, ' ');
+    assert.doesNotMatch(ownVoice, readerJudgment, `${file}: judges the reader`);
     assert.doesNotMatch(text, competitorJudgment, `${file}: judges other publishers`);
     for (const phrase of retired) {
       assert.ok(!text.toLowerCase().includes(phrase), `${file}: retired M13 phrase "${phrase}" is still published`);

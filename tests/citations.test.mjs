@@ -22,13 +22,14 @@ const dir = join(root, 'src/content/articles');
  */
 const UNCITED_REGISTER_ALLOWLIST = new Set([
   'batch-not-dry',
-  'chewy-candy',
   'complete-batch-workflow',
   'cottage-economics',
+  // Still the thin, generated-comparison article: its replacement was held
+  // back because reconciling it against src/lib/machines.ts would have meant
+  // choosing between two sourced figures, which is research, not a copy edit.
   'home-freeze-dryers',
   'rehydration-problems',
   'storage-containers',
-  'storage-failure',
   'vacuum-error',
 ]);
 
@@ -43,7 +44,23 @@ const articles = readdirSync(dir)
   .filter((f) => f.endsWith('.json'))
   .map((f) => {
     const id = basename(f, '.json');
-    return { id, ...JSON.parse(readFileSync(join(dir, f), 'utf8')) };
+    const a = { id, ...JSON.parse(readFileSync(join(dir, f), 'utf8')) };
+    /*
+     * Every surface the article ships, not just the body.
+     *
+     * FAQ answers and howTo steps render on the page and carry [n] markers of
+     * their own, so a register entry cited only from an FAQ answer is cited.
+     * Reading bodyHtml alone reported one as an orphan, and the fix that
+     * suggests — delete the source — would have deleted a real citation and
+     * left the FAQ claim unattributed. Same reasoning as the extractor in
+     * claim-shapes.test.mjs: a string that ships is a surface.
+     */
+    a.citedText = [
+      a.bodyHtml,
+      ...(a.faq ?? []).flatMap((q) => [q.question, q.answer]),
+      ...(a.howTo ?? []).flatMap((h) => [h.name, h.text]),
+    ].join(' ');
+    return a;
   });
 
 test('there are articles to check', () => {
@@ -52,7 +69,7 @@ test('there are articles to check', () => {
 
 test('every [n] resolves to a source in the register', () => {
   for (const a of articles) {
-    const cited = [...a.bodyHtml.matchAll(/\[(\d+)\]/g)].map((m) => Number(m[1]));
+    const cited = [...a.citedText.matchAll(/\[(\d+)\]/g)].map((m) => Number(m[1]));
     const dangling = [...new Set(cited)].filter((n) => n < 1 || n > a.sources.length);
     assert.deepEqual(
       dangling,
@@ -65,7 +82,7 @@ test('every [n] resolves to a source in the register', () => {
 test('every register entry is cited in the body', () => {
   for (const a of articles) {
     if (UNCITED_REGISTER_ALLOWLIST.has(a.id)) continue;
-    const cited = new Set([...a.bodyHtml.matchAll(/\[(\d+)\]/g)].map((m) => Number(m[1])));
+    const cited = new Set([...a.citedText.matchAll(/\[(\d+)\]/g)].map((m) => Number(m[1])));
     const uncited = a.sources.map((_, i) => i + 1).filter((n) => !cited.has(n));
     assert.deepEqual(uncited, [], `${a.id}: register entries ${JSON.stringify(uncited)} are never cited`);
   }
@@ -75,7 +92,7 @@ test('the uncited-register allowlist only shrinks', () => {
   for (const id of UNCITED_REGISTER_ALLOWLIST) {
     const a = articles.find((x) => x.id === id);
     assert.ok(a, `allowlisted article ${id} no longer exists — drop it from the list`);
-    const cited = new Set([...a.bodyHtml.matchAll(/\[(\d+)\]/g)].map((m) => Number(m[1])));
+    const cited = new Set([...a.citedText.matchAll(/\[(\d+)\]/g)].map((m) => Number(m[1])));
     const uncited = a.sources.map((_, i) => i + 1).filter((n) => !cited.has(n));
     assert.ok(
       uncited.length > 0,
