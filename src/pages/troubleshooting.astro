@@ -17,7 +17,7 @@ const listing: Record<string, { title: string; description: string }> = {
   },
   'vacuum-error': {
     title: "Machine shows a vacuum error or won't pull down",
-    description: "A vacuum error means the chamber can't reach or hold pressure. Here's the leak hunt in order of likelihood: door gasket, drain valve, hose, then pump.",
+    description: "A vacuum error means the chamber can't reach or hold pressure. Here are the four mechanical checks in the order they cost you least: door gasket, drain valve, hose, then pump.",
   },
   'rehydration-problems': {
     title: 'Rehydrated food is tough, mushy, or tastes flat',
@@ -36,7 +36,7 @@ const jsonLd = [
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
     name: 'Fix this batch',
-    description: 'One symptom per page, with the likely causes in order and the fix for each.',
+    description: 'One symptom per page, with the causes ordered by what costs least to rule out, and the fix for each.',
     url: 'https://www.sublimepantry.com/troubleshooting/',
     isPartOf: { '@id': 'https://www.sublimepantry.com/#website' },
     mainEntity: {
@@ -52,7 +52,7 @@ const jsonLd = [
 ];
 ---
 <PageLayout
-  title="Freeze Dryer Troubleshooting"
+  title="Work through the problem in this batch"
   description="Narrow, specific fixes for common home freeze-drying failures: batches that aren't dry, vacuum errors, chewy candy, rehydration problems, and storage failures."
   path="/troubleshooting"
   breadcrumbs={[{ label: 'Troubleshooting', href: '/troubleshooting' }]}
@@ -60,8 +60,8 @@ const jsonLd = [
   jsonLd={jsonLd}
 >
   <span class="kicker">Troubleshooting</span>
-  <h1>Fix this batch</h1>
-  <p class="lede">One symptom per page, with the likely causes in order and the fix for each.</p>
+  <h1>Work through the problem in this batch.</h1>
+  <p class="lede">Start with what you can observe, then follow the checks for that symptom. One symptom per page, and the causes are ordered by what costs you least to rule out — not by how often they happen, which nobody has measured.</p>
 
   <div class="card-grid hub-grid">
     {entries.map((entry) => (
@@ -78,8 +78,17 @@ const jsonLd = [
       />
     ))}
   </div>
+
+  <section class="hub-next card" aria-labelledby="keep-the-result">
+    <h2 id="keep-the-result">Keep the result with the batch</h2>
+    <p>Write down what happened, what you checked and what changed. Next time the same symptom appears, the notes are the difference between diagnosing it and guessing again. The free Batch Log keeps them in this browser.</p>
+    <a class="btn btn-secondary" href="/tools/batch-log">Open the Batch Log</a>
+  </section>
 </PageLayout>
 
 <style>
   .hub-grid { margin-top: var(--s4); }
+  .hub-next { margin-top: var(--s5); padding: var(--s4); }
+  .hub-next h2 { margin: 0 0 var(--s2); font-size: var(--h3); }
+  .hub-next p { color: var(--ink-soft); max-width: 62ch; }
 </style>
