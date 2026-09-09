@@ -7,9 +7,18 @@
  * their sections and Camping stays top-level on purpose: it is a distinct
  * audience, not a subtopic of Learn.
  *
+ * Two flags, two different facts, and they must not be merged into one.
+ *
  * `pending` marks a route that is designed but not yet built. The entry stays
  * here so the PR that adds the page un-gates it by deleting one word, and so
  * the nav test can prove that nothing we link to 404s in the meantime.
+ *
+ * `unlisted` marks a route that exists and is deliberately kept out of the nav.
+ * /recipes is the case: the page is live and useful, and U06 says not to give
+ * it a nav slot until it has recipes in it. Overloading `pending` for this
+ * would have been one word cheaper and would have destroyed what `pending`
+ * guarantees — the nav test asserts that a pending route does NOT exist, and a
+ * flag that means both "missing" and "hidden" can prove neither.
  *
  * It is not a parking space for speculation. `/shop/pantry` and `/shop/trail`
  * sat here naming a product taxonomy that no longer exists — the lines are now
@@ -25,6 +34,8 @@ export interface NavItem {
   label: string;
   /** Route not built yet. Filtered out of every rendered nav. */
   pending?: boolean;
+  /** Route exists, deliberately not linked. Filtered out of every rendered nav. */
+  unlisted?: boolean;
   children?: NavItem[];
 }
 
@@ -42,13 +53,15 @@ export const PRIMARY_NAV: NavItem[] = [
       { href: '/guides', label: 'Guides' },
       { href: '/troubleshooting', label: 'Troubleshooting' },
       { href: '/compare', label: 'Comparisons' },
-      { href: '/recipes', label: 'Recipes' },
+      { href: '/recipes', label: 'Recipes', unlisted: true },
       { href: '/start-selling', label: 'Selling what you dry' },
     ],
   },
   { href: '/camping', label: 'Camping', pending: true },
-  { href: '/tools/batch-log', label: 'Batch Log' },
-  { href: '/newsletter', label: 'Newsletter', pending: true },
+  // The hub, not the tool. The header should not need editing every time the
+  // toolbox grows, and /tools/batch-log is still its own route.
+  { href: '/tools', label: 'Tools' },
+  { href: '/newsletter', label: 'Newsletter' },
   { href: '/about', label: 'About' },
 ];
 
@@ -61,9 +74,9 @@ export const FOOTER_LEARN: NavItem[] = [
   { href: '/guides', label: 'Guides' },
   { href: '/troubleshooting', label: 'Troubleshooting' },
   { href: '/compare', label: 'Comparisons' },
-  { href: '/recipes', label: 'Recipes' },
+  { href: '/recipes', label: 'Recipes', unlisted: true },
   { href: '/camping', label: 'Camping', pending: true },
-  { href: '/tools/batch-log', label: 'Batch Log' },
+  { href: '/tools', label: 'Tools' },
   { href: '/start-selling', label: 'Selling what you dry' },
 ];
 
@@ -79,10 +92,10 @@ export const FOOTER_COMPANY: NavItem[] = [
   { href: '/rss.xml', label: 'RSS' },
 ];
 
-/** Drop every entry whose page does not exist yet, children included. */
+/** Drop every entry we do not link — unbuilt or deliberately unlisted. */
 export function live(items: NavItem[]): NavItem[] {
   return items
-    .filter((item) => !item.pending)
+    .filter((item) => !item.pending && !item.unlisted)
     .map((item) => (item.children ? { ...item, children: live(item.children) } : item))
     .filter((item) => !item.children || item.children.length > 0);
 }
@@ -108,5 +121,15 @@ export function isCurrentSection(path: string, item: NavItem): boolean {
   return (item.children ?? []).some((child) => hit(child.href));
 }
 
-/** The Dry Batch archive, linked from the footer once the hub exists. */
-export const NEWSLETTER_ARCHIVE: NavItem = { href: '/newsletter', label: 'Read past issues', pending: true };
+/**
+ * The Dry Batch archive.
+ *
+ * `unlisted`, not `pending`, and the distinction is the whole reason the two
+ * flags exist. /newsletter is built — `pending` would now be a false statement
+ * about the route, and the nav test would say so. What is missing is not the
+ * page but the thing the label promises: "Read past issues" says there are past
+ * issues, and there are none. So the route exists and we choose not to link it.
+ *
+ * Drop `unlisted` in the PR that publishes the first issue.
+ */
+export const NEWSLETTER_ARCHIVE: NavItem = { href: '/newsletter', label: 'Read past issues', unlisted: true };

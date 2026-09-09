@@ -1,0 +1,91 @@
+---
+/**
+ * The tools hub.
+ *
+ * Cards come from `TOOLS`, so a calculator added to that list appears here
+ * without touching this file. Each card leads with the question the tool
+ * settles rather than the tool's name, because a reader deciding whether to
+ * open something is matching it against a question they already have.
+ */
+import PageLayout from '../layouts/PageLayout.astro';
+import { liveTools } from '../lib/tools';
+
+const tools = liveTools();
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Free freeze-drying tools',
+    description: 'Free tools for recording and comparing home freeze-drying batches.',
+    url: 'https://www.sublimepantry.com/tools/',
+    isPartOf: { '@id': 'https://www.sublimepantry.com/#website' },
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: tools.map((tool, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        url: `https://www.sublimepantry.com${tool.href}`,
+        name: tool.name,
+      })),
+    },
+  },
+];
+---
+<PageLayout
+  title="Free freeze-drying tools"
+  description="Free tools for home freeze-drying: record what each batch cost, compare runs, and keep the details worth repeating. No account, and records stay in your browser."
+  path="/tools"
+  breadcrumbs={[{ label: 'Tools', href: '/tools' }]}
+  width="wrap"
+  jsonLd={jsonLd}
+>
+  <span class="kicker">Tools</span>
+  <h1>Answer the question, then keep the answer.</h1>
+  <p class="lede">Free tools for the parts of freeze-drying worth writing down. No account. Records stay in your browser, and you can export them.</p>
+
+  <ul class="tool-grid">
+    {tools.map((tool) => (
+      <li class="card tool">
+        <p class="tool-question">{tool.answers}</p>
+        <h2 class="tool-name"><a href={tool.href}>{tool.name}</a></h2>
+        <p class="tool-summary">{tool.summary}</p>
+        <p class="tool-open"><a class="btn-text" href={tool.href}>Open the {tool.name}</a></p>
+      </li>
+    ))}
+  </ul>
+
+  <section class="card tool-note" aria-labelledby="tool-note-heading">
+    <h2 id="tool-note-heading">Where your records live</h2>
+    <p>Everything these tools store is kept in the browser you enter it in. There is no account, no server copy and no sync between devices, and we never see it. Clearing your browser data removes it, so export a copy when the record matters. See our <a href="/privacy">privacy policy</a>.</p>
+  </section>
+</PageLayout>
+
+<style>
+  .tool-grid {
+    list-style: none;
+    margin: var(--s4) 0 0;
+    padding: 0;
+    display: grid;
+    gap: var(--s3);
+    max-width: 54rem;
+  }
+  @media (min-width: 760px) { .tool-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+  .tool { padding: var(--s4); display: flex; flex-direction: column; gap: var(--s1); }
+  .tool-question {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    color: var(--ink);
+  }
+  .tool-name { margin: var(--s1) 0 0; font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; }
+  .tool-name a { color: var(--brand); text-decoration: none; }
+  .tool-name a:hover { text-decoration: underline; }
+  .tool-summary { margin: var(--s1) 0 0; color: var(--ink-soft); flex: 1; }
+  .tool-open { margin: var(--s2) 0 0; }
+
+  .tool-note { margin-top: var(--s5); padding: var(--s4); max-width: 54rem; }
+  .tool-note h2 { margin: 0 0 var(--s2); font-size: var(--h3); }
+  .tool-note p { color: var(--ink-soft); max-width: 66ch; margin: 0; }
+</style>
