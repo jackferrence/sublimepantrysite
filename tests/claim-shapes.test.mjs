@@ -385,6 +385,38 @@ test('STOCK: nothing is "sold out" or coming "back in stock"', () => {
   );
 });
 
+/**
+ * Every "Starter Kit" that is not the tail of a name the catalog approves.
+ *
+ * Anchors on the phrase and reads backwards. Matching forwards from a capital
+ * letter swallows whatever precedes it and reports "Sublime Pantry
+ * Freeze-Drying Packaging Starter Kit" as a wrong name.
+ *
+ * Two exemptions, both the same idea: the name belongs to someone else.
+ *
+ *   - the source register, where every entry is a publisher's own title
+ *   - any statement carrying a citation marker
+ *
+ * The second is what the comparison articles need. Home Depot and Tractor
+ * Supply list Harvest Right machines as "... Freeze Dryer with Mylar Starter
+ * Kit", and quoting a retailer's listing title exactly is the point of citing
+ * it. Without this, the shape reads a competitor's product name as us calling
+ * our own kit a third thing — which is the opposite of what it guards.
+ */
+function thirdNameOffenders(found, allowed, file = '') {
+  const offenders = [];
+  for (const { where, statement } of found) {
+    if (where === 'sources') continue;
+    if (ATTRIBUTED(statement)) continue;
+    for (const m of statement.matchAll(/Starter Kit\b/g)) {
+      const upTo = statement.slice(0, m.index + m[0].length);
+      if (allowed.some((name) => upTo.endsWith(name))) continue;
+      offenders.push(`${file}[${where}] a third name for the kit: "…${upTo.slice(-60)}"`);
+    }
+  }
+  return offenders;
+}
+
 test('PRODUCT NAME: the site calls the product one thing, and it is the catalog name', () => {
   // A product name is a claim about what the customer receives, and it has now
   // drifted twice — once when the site and Shopify disagreed, once when Shopify
@@ -411,16 +443,7 @@ test('PRODUCT NAME: the site calls the product one thing, and it is the catalog 
   const allowed = [shortTitle, title.split(' — ')[0]];
   const offenders = [];
   for (const { file, surfaces: found } of pages()) {
-    for (const { where, statement } of found) {
-      // Someone else's published title is not us calling the product a third
-      // thing. Same reasoning as every other shape's treatment of the register.
-      if (where === 'sources') continue;
-      for (const m of statement.matchAll(/Starter Kit\b/g)) {
-        const upTo = statement.slice(0, m.index + m[0].length);
-        if (allowed.some((name) => upTo.endsWith(name))) continue;
-        offenders.push(`${file} [${where}] a third name for the kit: "…${upTo.slice(-60)}"`);
-      }
-    }
+    offenders.push(...thirdNameOffenders(found, allowed, `${file} `));
   }
   assert.deepEqual([...new Set(offenders)], [], 'the site calls the product something the catalog does not');
 });
@@ -540,6 +563,44 @@ test('the extractor reaches every surface a claim has hidden in', () => {
   assert.ok(has('title', 'Storage comparison'), 'SVG title not reached');
   assert.ok(has('prose', 'longest — decades-class, sealed'), 'SVG text label not reached');
   assert.ok(has('prose', 'An ordinary sentence.'), 'prose not split into sentences');
+});
+
+test('PRODUCT NAME still fires on a third name, and only clears a cited one', () => {
+  const allowed = ['Freeze-Drying Packaging Starter Kit'];
+  const judge = (html) => thirdNameOffenders(surfaces(html), allowed);
+
+  // Fires. The injection that proved the shape when it was written: a wrong
+  // name in prose, and a wrong name in an alt attribute — the surface that
+  // escaped the first rename and the reason this reads attributes at all.
+  assert.equal(judge('<p>Order the Reserve Starter Kit today.</p>').length, 1, 'a third name in prose no longer fires');
+  assert.equal(
+    judge('<img alt="the Sublime Pantry Heritage Starter Kit">').length,
+    1,
+    'a third name in alt text no longer fires',
+  );
+
+  // Clears. A retailer's own listing title, quoted with its citation — the
+  // real statements from the Harvest Right comparison, in both surfaces they
+  // reach.
+  assert.deepEqual(
+    judge('<p>Home Depot. Small, Medium and Large titles all end "with Mylar Starter Kit" [14][15][16].</p>'),
+    [],
+  );
+  assert.deepEqual(
+    judge('<table><tr><td>Titles name tray count, colour and "with Mylar Starter Kit" on S/M/L — 2026-09-06 [14][15]</td></tr></table>'),
+    [],
+  );
+
+  // The exemption is per statement, not per page: a cited sentence next to an
+  // uncited one must not launder it.
+  assert.equal(
+    judge('<p>Home Depot lists it "with Mylar Starter Kit" [14].</p><p>Order the Reserve Starter Kit today.</p>').length,
+    1,
+    'a citation in one statement is clearing another',
+  );
+
+  // And the real name is still fine.
+  assert.deepEqual(judge('<p>The Freeze-Drying Packaging Starter Kit ships from PackFreshUSA.</p>'), []);
 });
 
 test('the source register is extracted, and is not swept as our voice', () => {
