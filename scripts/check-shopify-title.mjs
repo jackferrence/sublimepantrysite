@@ -35,14 +35,17 @@
  *   1  a title has moved, or Shopify could not be reached, or no credentials
  *
  * Credentials, same two paths as netlify/functions/lead-capture.mjs:
- *   SHOPIFY_ADMIN_TOKEN / SHOPIFY_ADMIN_API_TOKEN   (takes precedence)
- *   SHOPIFY_CLIENT_ID + SHOPIFY_CLIENT_SECRET       (client credentials grant)
- * plus SHOPIFY_STORE_DOMAIN / SHOPIFY_SHOP_DOMAIN. Scope required: read_products.
+ *   SHOPIFY_ADMIN_API_TOKEN                    (takes precedence)
+ *   SHOPIFY_CLIENT_ID + SHOPIFY_CLIENT_SECRET  (client credentials grant)
+ * plus SHOPIFY_SHOP_DOMAIN. Scope required: read_products.
  *
- * Both spellings are accepted on purpose. The repo secrets are named
- * SHOPIFY_ADMIN_TOKEN and SHOPIFY_STORE_DOMAIN; .env.example and the Netlify
- * function use SHOPIFY_ADMIN_API_TOKEN and SHOPIFY_SHOP_DOMAIN. Reading both
- * beats inventing a third convention or silently reading the wrong one.
+ * One spelling. This used to read SHOPIFY_STORE_DOMAIN || SHOPIFY_SHOP_DOMAIN
+ * and SHOPIFY_ADMIN_TOKEN || SHOPIFY_ADMIN_API_TOKEN, on the reasoning that
+ * accepting both beat picking one. It does not: two spellings mean a variable
+ * can be set correctly under the name a given file does not read, and the
+ * failure is indistinguishable from having set nothing. The GitHub repo secrets
+ * were renamed to match these names, so nothing maps between vocabularies
+ * anywhere.
  */
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -56,6 +59,8 @@ const fail = (message) => {
   process.exit(1);
 };
 
+const unescape = (v) => v.replace(/\\'/g, "'").replace(/\\"/g, '"');
+
 /** Every handle/title pair the site publishes, read from the catalog source. */
 function catalogTitles() {
   const src = readFileSync(join(root, 'src/lib/commerce.ts'), 'utf8');
@@ -65,13 +70,40 @@ function catalogTitles() {
   // Astro/TS toolchain in CI.
   const re = /handle: '([^']+)',[\s\S]{0,2000}?\n {4}title: (?:'((?:[^'\\]|\\.)*)'|"((?:[^"\\]|\\.)*)")/g;
   for (const m of src.matchAll(re)) {
-    entries.push({ handle: m[1], title: (m[2] ?? m[3]).replace(/\\'/g, "'").replace(/\\"/g, '"') });
+    entries.push({ source: 'src/lib/commerce.ts', handle: m[1], title: unescape(m[2] ?? m[3]) });
+  }
+  return entries;
+}
+
+/**
+ * The titles pinned in the test suite.
+ *
+ * These are the *other* site constant that names a product, and the one the
+ * failure message has always told people to update. Reading only the catalog
+ * left it possible for the catalog and the pinned map to be corrected apart
+ * from each other, with this script reporting agreement either way. Both are
+ * site constants; both are checked.
+ */
+function pinnedTitles() {
+  const src = readFileSync(join(root, 'tests/homepage-and-shop.test.mjs'), 'utf8');
+  const block = src.match(/const SHOPIFY_TITLES = \{([\s\S]*?)\n\};/);
+  if (!block) {
+    fail(
+      'Could not find SHOPIFY_TITLES in tests/homepage-and-shop.test.mjs. It was renamed or\n' +
+        '  removed. Fix this parser rather than deleting the check — the pinned map is half\n' +
+        '  of what this script exists to compare.',
+    );
+  }
+  const entries = [];
+  const re = /'([^']+)':\s*(?:'((?:[^'\\]|\\.)*)'|"((?:[^"\\]|\\.)*)")/g;
+  for (const m of block[1].matchAll(re)) {
+    entries.push({ source: 'tests/homepage-and-shop.test.mjs', handle: m[1], title: unescape(m[2] ?? m[3]) });
   }
   return entries;
 }
 
 async function getAccessToken(shop) {
-  const staticToken = process.env.SHOPIFY_ADMIN_TOKEN || process.env.SHOPIFY_ADMIN_API_TOKEN;
+  const staticToken = process.env.SHOPIFY_ADMIN_API_TOKEN;
   if (staticToken) return staticToken;
 
   const clientId = process.env.SHOPIFY_CLIENT_ID;
@@ -104,20 +136,48 @@ const QUERY = `
   }
 `;
 
-const shop = process.env.SHOPIFY_STORE_DOMAIN || process.env.SHOPIFY_SHOP_DOMAIN;
-if (!shop) fail('Neither SHOPIFY_STORE_DOMAIN nor SHOPIFY_SHOP_DOMAIN is set. This check cannot run without one.');
+/**
+ * The site may only publish ACTIVE products.
+ *
+ * Status is queried and judged, not merely fetched. The Admin API returns an
+ * archived product's title exactly as happily as a live one, so a title check
+ * alone would have gone on agreeing with Shopify about the name of a product
+ * nobody could buy — which is what happened to the boxed starter kit, archived
+ * 2026-09-09 while every surface still sold it.
+ */
+const REQUIRED_STATUS = 'ACTIVE';
+
+const shop = process.env.SHOPIFY_SHOP_DOMAIN;
+if (!shop) fail('SHOPIFY_SHOP_DOMAIN is not set. This check cannot run without it.');
 
 const token = await getAccessToken(shop);
 if (!token) {
   fail(
-    'No Shopify credentials. Set SHOPIFY_ADMIN_TOKEN, or SHOPIFY_CLIENT_ID and\n' +
+    'No Shopify credentials. Set SHOPIFY_ADMIN_API_TOKEN, or SHOPIFY_CLIENT_ID and\n' +
       '  SHOPIFY_CLIENT_SECRET. This exits non-zero rather than skipping: a check that\n' +
       '  quietly passes when it cannot run is how the drift it guards went unseen.',
   );
 }
 
-const expected = catalogTitles();
-if (expected.length === 0) fail('Parsed no products out of src/lib/commerce.ts — the check would pass vacuously.');
+const catalog = catalogTitles();
+if (catalog.length === 0) fail('Parsed no products out of src/lib/commerce.ts — the check would pass vacuously.');
+const pinned = pinnedTitles();
+if (pinned.length === 0) fail('Parsed no products out of tests/homepage-and-shop.test.mjs — the check would pass vacuously.');
+
+const expected = [...catalog, ...pinned];
+
+// The two site constants must agree with each other before either is compared
+// to Shopify. If they disagree, the comparison below would report one of them
+// as correct and hide the split.
+const catalogHandles = catalog.map((p) => p.handle).sort();
+const pinnedHandles = pinned.map((p) => p.handle).sort();
+if (catalogHandles.join('\u0000') !== pinnedHandles.join('\u0000')) {
+  fail(
+    'The catalog and the pinned test titles list different products.\n\n  ' +
+      `src/lib/commerce.ts:            ${catalogHandles.join(', ')}\n  ` +
+      `tests/homepage-and-shop.test.mjs: ${pinnedHandles.join(', ')}`,
+  );
+}
 
 let payload;
 try {
@@ -141,25 +201,36 @@ if (payload.errors) fail(`Shopify Admin API errors: ${JSON.stringify(payload.err
 const live = new Map((payload.data?.products?.nodes ?? []).map((n) => [n.handle, n]));
 const problems = [];
 
-for (const { handle, title } of expected) {
+for (const { handle, title, source } of expected) {
   const node = live.get(handle);
   if (!node) {
-    problems.push(`${handle}\n    the site sells it; Shopify did not return it (deleted, or the handle moved)`);
+    problems.push(`${handle} (${source})\n    the site sells it; Shopify did not return it (deleted, or the handle moved)`);
     continue;
   }
+  if (node.status !== REQUIRED_STATUS) {
+    problems.push(
+      `${handle} (${source})\n    Shopify status: ${node.status}, not ${REQUIRED_STATUS}\n` +
+        `    the site publishes it as purchasable; Shopify will not sell it`,
+    );
+  }
   if (node.title !== title) {
-    problems.push(`${handle}\n    Shopify: ${node.title}\n    site:    ${title}`);
+    problems.push(`${handle} (${source})\n    Shopify: ${node.title}\n    site:    ${title}`);
   }
 }
 
 if (problems.length) {
   fail(
-    `The product name has moved in Shopify. Shopify owns the name; the site copies it.\n\n  ` +
+    `The site and Shopify disagree about a product. Shopify owns the name and the\n` +
+      `  status; the site copies both.\n\n  ` +
       problems.join('\n\n  ') +
-      `\n\n  Fix: update the catalog entry in src/lib/commerce.ts and the SHOPIFY_TITLE\n` +
-      `  constant in tests/homepage-and-shop.test.mjs, then re-run. Every surface that\n` +
-      `  names the product follows from those two.`,
+      `\n\n  Fix: update the catalog entry in src/lib/commerce.ts and the SHOPIFY_TITLES\n` +
+      `  map in tests/homepage-and-shop.test.mjs, then re-run. Every surface that names\n` +
+      `  the product follows from those two. If a product is no longer ACTIVE, remove it\n` +
+      `  from both and redirect its /shop URL — do not leave it listed.`,
   );
 }
 
-console.log(`✓ Shopify agrees with the site on all ${expected.length} product titles.`);
+console.log(
+  `✓ Shopify agrees with the site on all ${catalog.length} products: every handle is ${REQUIRED_STATUS}, ` +
+    `and both the catalog and the pinned test titles match Shopify's.`,
+);

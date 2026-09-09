@@ -37,9 +37,28 @@ export interface ProductReviews {
 
 const EMPTY: ProductReviews = { reviews: [], aggregate: null, configured: false };
 
-/** Shopify numeric product ID, needed as Judge.me's `external_id`. */
+/**
+ * Shopify numeric product ID, needed as Judge.me's `external_id`.
+ *
+ * Read from the Admin API on 2026-09-09. The single entry that used to live
+ * here was the boxed starter kit, which is archived; these are the eight
+ * ACTIVE products. A handle absent from this map resolves to EMPTY, so a
+ * missing entry costs a review section rather than a broken build.
+ *
+ * NOTE: nothing calls getProductReviews right now. The only caller was the
+ * kit's hand-built product page, removed with the product. Wiring this into
+ * src/pages/shop/[handle].astro is a separate change; the map is kept correct
+ * so that change does not start from a stale value.
+ */
 const SHOPIFY_PRODUCT_IDS: Record<string, string> = {
-  'freeze-dryer-packaging-starter-kit-100': '9601875640597',
+  'snack-bags-6x6-50-pack-absorbers': '9605612241173',
+  'snack-bags-6x6-100-pack-absorbers': '9605612273941',
+  '100cc-oxygen-absorber-refill-100-count': '9605612306709',
+  'mini-heat-sealer-for-mylar-bags': '9605612339477',
+  'starter-set-50-bags-50-absorbers-sealer': '9605612405013',
+  'season-set-100-bags-100-absorbers-sealer': '9605612437781',
+  'quart-bags-8x12-50-pack-300cc-absorbers': '9605612470549',
+  '300cc-oxygen-absorber-refill-100-count': '9605612503317',
 };
 
 async function getJson(url: string): Promise<any | null> {

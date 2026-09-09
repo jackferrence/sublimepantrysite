@@ -21,9 +21,8 @@
  * flag that means both "missing" and "hidden" can prove neither.
  *
  * It is not a parking space for speculation. `/shop/pantry` and `/shop/trail`
- * sat here naming a product taxonomy that no longer exists — the lines are now
- * Snack, Reserve and Trail, and only the starter kit is an ACTIVE Shopify
- * product. Both were removed rather than relabelled: renaming a route to a line
+ * sat here naming a product taxonomy that no longer exists. Both were removed
+ * rather than relabelled: renaming a route to a line
  * that still does not exist buys nothing, and a nav config should describe what
  * is real. Add the entry back in the PR that adds the page.
  */

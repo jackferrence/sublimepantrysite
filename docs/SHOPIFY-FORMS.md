@@ -41,10 +41,10 @@ In Shopify Admin → Customers → Segments:
 
 | Segment name | Definition |
 |---|---|
-| Pre-owner leads | `customer_tags CONTAINS 'stage-considering'` AND `customer_tags NOT CONTAINS 'starter-kit-buyer'` |
+| Pre-owner leads | `customer_tags CONTAINS 'stage-considering'` AND `customer_tags NOT CONTAINS 'packaging-buyer'` |
 | Owner leads | `customer_tags CONTAINS 'stage-new-owner' OR customer_tags CONTAINS 'stage-active-owner'` |
 | Cottage sellers | `customer_tags CONTAINS 'stage-cottage-seller'` |
-| Starter-kit buyers | `customer_tags CONTAINS 'starter-kit-buyer'` |
+| Packaging buyers | `customer_tags CONTAINS 'packaging-buyer'` |
 | Site-sourced leads | `customer_tags CONTAINS 'source-site'` |
 | Shopify-sourced leads | `customer_tags CONTAINS 'source-shopify-store'` |
 

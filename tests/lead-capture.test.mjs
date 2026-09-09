@@ -7,14 +7,50 @@ const post = (body) => new Request('https://x/.netlify/functions/lead-capture', 
 });
 const valid = { email: 'a@b.com', stage: 'new-owner', marketing_consent: true, source_path: '/', lead_magnet: 'freeze-drying-starter-checklist' };
 
-test('no credentials at all -> 204 no-op', async () => {
+/** Captures console.error so a test can assert the variable was named. */
+function withErrorLog(run) {
+  const lines = [];
+  const real = console.error;
+  console.error = (...args) => lines.push(args.join(' '));
+  return Promise.resolve(run()).finally(() => { console.error = real; }).then(() => lines);
+}
+
+/** Credentials present and Shopify stubbed, so a test can reach the real path. */
+function withShopify(run) {
+  process.env.SHOPIFY_SHOP_DOMAIN = 'x.myshopify.com';
+  process.env.SHOPIFY_ADMIN_API_TOKEN = 'shpat_test';
+  delete process.env.SHOPIFY_CLIENT_ID; delete process.env.SHOPIFY_CLIENT_SECRET;
+  const real = globalThis.fetch;
+  globalThis.fetch = async () =>
+    new Response(JSON.stringify({ data: { customers: { edges: [] }, customerCreate: { customer: { id: '1' }, userErrors: [] } } }), { status: 200 });
+  return Promise.resolve(run()).finally(() => { globalThis.fetch = real; });
+}
+
+// These two asserted 204 — a success — for a sync that never happened. That is
+// the bug, written down as the expected behaviour: the function ran without
+// Shopify credentials for its whole life, reported no errors because by this
+// contract there were none, and the first evidence was a customer list with
+// zero sp-lead tags. A missing credential must be indistinguishable from
+// nothing else, least of all from working.
+test('no shop domain -> 500, naming SHOPIFY_SHOP_DOMAIN', async () => {
   delete process.env.SHOPIFY_SHOP_DOMAIN; delete process.env.SHOPIFY_ADMIN_API_TOKEN;
   delete process.env.SHOPIFY_CLIENT_ID; delete process.env.SHOPIFY_CLIENT_SECRET;
-  assert.equal((await fn(post(valid))).status, 204);
+  let status;
+  const logged = await withErrorLog(async () => { status = (await fn(post(valid))).status; });
+  assert.equal(status, 500, 'a missing credential still reports success');
+  assert.ok(logged.some((l) => l.includes('SHOPIFY_SHOP_DOMAIN')), 'the log does not name the variable');
 });
-test('shop set but no credentials -> 204 no-op', async () => {
+test('shop set but no credentials -> 500, naming all three', async () => {
   process.env.SHOPIFY_SHOP_DOMAIN = 'x.myshopify.com';
-  assert.equal((await fn(post(valid))).status, 204);
+  delete process.env.SHOPIFY_ADMIN_API_TOKEN;
+  delete process.env.SHOPIFY_CLIENT_ID; delete process.env.SHOPIFY_CLIENT_SECRET;
+  let status;
+  const logged = await withErrorLog(async () => { status = (await fn(post(valid))).status; });
+  assert.equal(status, 500);
+  const line = logged.join(' ');
+  for (const name of ['SHOPIFY_ADMIN_API_TOKEN', 'SHOPIFY_CLIENT_ID', 'SHOPIFY_CLIENT_SECRET']) {
+    assert.ok(line.includes(name), `the log does not name ${name}`);
+  }
 });
 test('consent refused before any network call', async () => {
   assert.equal((await fn(post({ ...valid, marketing_consent: false }))).status, 400);
@@ -23,18 +59,30 @@ test('an unrecognised stage is dropped, not refused', async () => {
   // The signup form never asks the question — it lives on /thanks — so
   // rejecting a submission for not knowing the answer yet is what kept this
   // sync from ever writing a customer.
-  process.env.SHOPIFY_SHOP_DOMAIN = 'x.myshopify.com';
-  delete process.env.SHOPIFY_CLIENT_ID; delete process.env.SHOPIFY_CLIENT_SECRET;
-  delete process.env.SHOPIFY_ADMIN_API_TOKEN;
-  assert.equal((await fn(post({ ...valid, stage: 'nope' }))).status, 204);
-  assert.equal((await fn(post({ ...valid, stage: undefined }))).status, 204);
+  //
+  // Credentials are stubbed in rather than absent. This used to pass with none
+  // set, which meant it proved only that the no-op path returned the same code
+  // for both inputs; it never reached the branch it names.
+  await withShopify(async () => {
+    assert.equal((await fn(post({ ...valid, stage: 'nope' }))).status, 204);
+    assert.equal((await fn(post({ ...valid, stage: undefined }))).status, 204);
+  });
 });
-test('client credentials failure -> 202, lead not lost', async () => {
+test('client credentials failure -> 500, lead not lost', async () => {
+  // 202 Accepted before, which graphs as a success. The lead is still safe —
+  // Netlify Forms holds it and the browser uses sendBeacon — but a token
+  // exchange that failed is a failure, and the function's error rate is the
+  // only place anyone would see it.
+  process.env.SHOPIFY_SHOP_DOMAIN = 'x.myshopify.com';
+  delete process.env.SHOPIFY_ADMIN_API_TOKEN;
   process.env.SHOPIFY_CLIENT_ID = 'id'; process.env.SHOPIFY_CLIENT_SECRET = 'secret';
   const real = globalThis.fetch;
   globalThis.fetch = async () => new Response('{"error":"shop_not_permitted"}', { status: 401 });
-  assert.equal((await fn(post(valid))).status, 202);
+  const logged = await withErrorLog(async () => {
+    assert.equal((await fn(post(valid))).status, 500);
+  });
   globalThis.fetch = real;
+  assert.ok(logged.some((l) => l.includes('access token')), 'the failure is not logged at error level');
 });
 test('client credentials success -> token used as X-Shopify-Access-Token', async () => {
   process.env.SHOPIFY_CLIENT_ID = 'id'; process.env.SHOPIFY_CLIENT_SECRET = 'secret';

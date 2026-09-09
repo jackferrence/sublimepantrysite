@@ -34,7 +34,7 @@ test('the support address reaches every surface a customer would look on', () =>
     'shipping-returns.html',
     'terms.html',
     'privacy.html',
-    'shop/freeze-dryer-packaging-starter-kit.html',
+    'shop/starter-set-50-bags-50-absorbers-sealer.html',
   ]) {
     assert.ok(built(file).includes(SUPPORT_EMAIL), `${file} must give the support address`);
   }
@@ -75,9 +75,17 @@ test('the terms are linked from the footer, not orphaned', () => {
 
 test('privacy names every processor that actually receives data', () => {
   const html = built('privacy.html');
-  for (const processor of ['Netlify', 'Klaviyo', 'Shopify', 'Shopify Payments', 'Plausible', 'PackFreshUSA']) {
+  for (const processor of ['Netlify', 'Klaviyo', 'Shopify', 'Shopify Payments', 'Plausible']) {
     assert.ok(html.includes(processor), `privacy must name ${processor}`);
   }
+  // PackFreshUSA was on this list while they drop-shipped the boxed kit and
+  // received buyers' addresses. That product is archived and we fulfil from our
+  // own stock, so naming them as a processor would over-disclose — it would
+  // claim we hand your address to a third party we no longer send it to.
+  assert.ok(
+    !/<li><strong>PackFreshUSA<\/strong>/.test(html),
+    'PackFreshUSA is still listed as a processor receiving customer data',
+  );
   assert.ok(html.includes('local storage'), 'the Batch Log storage claim must be stated');
 });
 
@@ -116,9 +124,19 @@ test('the policy does not promise to update itself later', () => {
 });
 
 test('the buy box and the shipping page agree about who ships the box', () => {
-  const pdp = built('shop/freeze-dryer-packaging-starter-kit.html');
-  assert.ok(!pdp.includes('Packed &amp; shipped by us'), 'PackFreshUSA ships direct during the launch');
-  assert.ok(pdp.includes('PackFreshUSA'), 'the buy box must say who ships it');
+  // Inverted on 2026-09-09, when the last drop-shipped product was archived.
+  // The assertion is the same one — the buy box and /shipping-returns must tell
+  // the buyer the same story about who packs the box — but the true story is
+  // now that we do, on every product, with no order splitting in two.
+  assert.match(
+    built('shipping-returns.html'),
+    /is assembled from our own wholesale stock, held here, and packed and shipped by us/,
+    'the shipping page no longer states who ships',
+  );
+  assert.ok(
+    !built('shop.html').includes('ships it directly to you'),
+    'the shop still describes a drop-shipped product',
+  );
 });
 
 test('no page reintroduces the source-cost claim', () => {
@@ -127,7 +145,7 @@ test('no page reintroduces the source-cost claim', () => {
   // true. It is an easy sentence to write again from memory — this is the
   // ratchet that catches it. (Drafting these terms is how that was discovered.)
   const offenders = [];
-  for (const file of ['terms.html', 'privacy.html', 'shop.html', 'shop/freeze-dryer-packaging-starter-kit.html']) {
+  for (const file of ['terms.html', 'privacy.html', 'shop.html', 'shop/season-set-100-bags-100-absorbers-sealer.html']) {
     if (/source cost|no markup|priced at cost/i.test(built(file))) offenders.push(file);
   }
   assert.deepEqual(offenders, [], 'the kit is not sold at source cost at $74.99');

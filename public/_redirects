@@ -1,0 +1,9 @@
+# Netlify redirects. Copied verbatim into dist/ at build, the same single-source
+# convention public/_headers uses.
+#
+# The boxed Freeze-Drying Packaging Starter Kit was archived in Shopify on
+# 2026-09-09 when we stopped reselling PackFreshUSA's set. Its product page had
+# inbound links, so the handle redirects to /shop rather than 404ing: a reader
+# following an old link lands on the range that replaced it. 301, because the
+# product is not coming back under this handle.
+/shop/freeze-dryer-packaging-starter-kit    /shop    301

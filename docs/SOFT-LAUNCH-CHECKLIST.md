@@ -39,9 +39,9 @@ Legend: ⬜ not done · 🟡 partial · ✅ verified · 🔒 blocked
 | 18 | Cart opens | "View cart" opens the dialog; ESC closes it | ⬜ |
 | 19 | Quantity change / remove | Works inside the Shopify cart component | ⬜ |
 | 20 | Checkout handoff | Checkout button reaches Shopify checkout, top-level, not framed | ⬜ |
-| 21 | `WELCOME10` applies | 10% comes off at checkout | ✅ verified live: $59.99 → $54.00 |
-| 21a | **`WELCOME10` usable more than once** | `usageLimit` is `null`, not `1` | 🚨 **FAILING — capped at 1 total use** |
-| 22 | Free shipping applies alongside the discount | Cart at $54.00 returns one `Standard` option at $0.00 | ✅ verified live |
+| 21 | `WELCOME10` applies | 10% comes off at checkout, on **any** product | ✅ rebuilt unscoped 2026-09-09; verify against a live cart on a non-bundle SKU |
+| 21a | **`WELCOME10` usable more than once** | `usageLimit` is `null`, not `1` | ✅ verified `null` on the rebuilt discount, 2026-09-09 |
+| 22 | ~~Free shipping applies alongside the discount~~ | **Withdrawn.** The offer no longer promises free shipping — a 10% discount is applied before the threshold is evaluated and can drop the order under it. See `docs/SHOPIFY-ADMIN-SETUP.md` §2c | n/a |
 | 23 | Checkout branding | Logo/colours read as Sublime Pantry, not a default store | ⬜ |
 | 24 | Shipping rates | One `Standard` rate at $6.25 with a free-over-$45 condition. Correct — an earlier note here wrongly called these duplicates | ✅ verified |
 | 25 | International | No rates exist outside Domestic — international customers cannot check out. Either accept US-only and say so, or add a zone | ⬜ |
@@ -71,11 +71,11 @@ Legend: ⬜ not done · 🟡 partial · ✅ verified · 🔒 blocked
 
 | # | Check | What "pass" means | Status |
 |---|---|---|---|
-| 42 | PackFresh manual alert | Flow 1 internal email arrives with order number + full shipping address | ⬜ |
-| 43 | Order tags | `PACKFRESH-MANUAL` and `VALIDATION-DROPSHIP` applied | ⬜ |
-| 44 | Customer tag | `starter-kit-buyer` applied | ⬜ |
-| 45 | Supplier-order SOP | `docs/MANUAL-FULFILLMENT.md` is accurate and followable by someone else | ⬜ |
-| 46 | Supplier agreement | PackFreshUSA permits reselling/dropshipping to our customer at this volume | 🔒 owner action |
+| 42 | Assemble-and-ship alert | Flow 1 internal email arrives with order number + full shipping address + the bill of materials | ⬜ |
+| 43 | Order tag | `ASSEMBLE-AND-SHIP` applied | ⬜ |
+| 44 | Customer tag | `packaging-buyer` applied | ⬜ |
+| 45 | Fulfillment SOP | `docs/MANUAL-FULFILLMENT.md` is accurate and followable by someone else | ⬜ |
+| 46 | Wholesale supply | Enough bag, absorber and sealer stock on hand to fill the listed inventory counts | 🔒 owner action |
 | 47 | Tracking update | Supplier tracking entered into the Shopify order | ⬜ |
 | 48 | Fulfillment notification | Customer receives Shopify shipping confirmation with working tracking | ⬜ |
 | 49 | Exception alert | Flow 5 fires when an order sits unfulfilled 48h | ⬜ |
@@ -117,14 +117,17 @@ Set `window.spDebug = true` in the console and walk the funnel. Each event must 
 
 0. ~~Storefront password protection~~ — **RESOLVED 2026-09-03.** Storefront API
    returns data; `/shop` renders live price and an enabled Add to cart.
-0a. **`WELCOME10` has a store-wide total usage limit of 1.** The first customer
-   to use it burns it for everyone. Uncheck "Limit number of times this discount
-   can be used in total". See `docs/SHOPIFY-ADMIN-SETUP.md` §2a. **This is now
-   the top blocker.**
+0a. ~~`WELCOME10` has a store-wide total usage limit of 1.~~ **RESOLVED
+   2026-09-09.** `usageLimit` reads `null`. The code was separately rebuilt
+   unscoped, because the old one applied only to a since-archived product.
 1. ~~`WELCOME10` and the automatic free-shipping discount **do not exist** in Shopify. The offer UI is built but disabled.
 2. Duplicate `$6.25` / `$0.00` "Standard" shipping rates in the Domestic zone.
 3. No shipping rates outside the Domestic zone.
 4. `SHOPIFY_ADMIN_API_TOKEN` not set — the lead → customer bridge is a documented no-op until it is.
 5. Judge.me not configured — no reviews, and therefore no social proof at launch. Acceptable; the first orders create it.
 6. No test order has been placed, so fulfillment and margin are unvalidated.
-7. Starter-kit inventory is 5 units.
+7. **No parcel cost has ever been observed.** Every variant weight in Shopify is
+   `0 lbs`, rates are flat manual rates rather than carrier-calculated, and no
+   label has been bought — order #1001 shipped at $0.00 and was never fulfilled.
+   Until a real Season Set is weighed and rated, the free-shipping threshold has
+   no cost basis under it. See `docs/MANUAL-FULFILLMENT.md` § Shipping cost.
