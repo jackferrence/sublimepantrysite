@@ -99,7 +99,7 @@ test('the full shape carries every declared field and no others', () => {
  * CI builds before it tests (.github/workflows/ci.yml), so dist/ is present.
  * Locally, run `npm run build` first.
  * ------------------------------------------------------------------------- */
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync, readdirSync } from 'node:fs';
 
 const DIST = new URL('../dist/', import.meta.url);
 
@@ -166,13 +166,35 @@ test('an article that declares steps and questions emits HowTo and FAQPage', () 
   assert.ok(!types.includes('Recipe'), 'only the recipes pillar is a Recipe');
 });
 
-test('an article with no steps and no questions claims neither type', () => {
+test('an article claims HowTo and FAQPage only where it has steps and questions', () => {
   // The negative half of the same contract: absent content must produce absent
   // markup, not an empty HowTo or a FAQPage with no questions.
-  const types = topLevelTypes(page('guides/complete-batch-workflow.html'));
-  assert.ok(types.includes('Article'));
-  assert.ok(!types.includes('HowTo'), 'no steps declared, so no HowTo');
-  assert.ok(!types.includes('FAQPage'), 'no questions declared, so no FAQPage');
+  //
+  // This used to read one hard-coded page that happened to declare neither.
+  // When that article gained an FAQ the test failed while the contract it
+  // guards still held, because the exemplar had moved rather than the rule. So
+  // it now asserts the rule over every article: markup present exactly where
+  // the content is, which also covers the positive direction for the whole set
+  // instead of one page.
+  const dir = new URL('../src/content/articles/', import.meta.url);
+  for (const file of readdirSync(dir).filter((f) => f.endsWith('.json'))) {
+    const a = JSON.parse(readFileSync(new URL(file, dir), 'utf8'));
+    const slug = file.replace(/\.json$/, '');
+    const html = new URL(`../dist/${a.pillar}/${slug}.html`, import.meta.url);
+    if (!existsSync(html)) continue;
+    const types = topLevelTypes(readFileSync(html, 'utf8'));
+    assert.ok(types.includes('Article'), `${slug}: every article is an Article`);
+    assert.equal(
+      types.includes('HowTo'),
+      (a.howTo ?? []).length > 0,
+      `${slug}: HowTo markup and declared steps disagree`,
+    );
+    assert.equal(
+      types.includes('FAQPage'),
+      (a.faq ?? []).length > 0,
+      `${slug}: FAQPage markup and declared questions disagree`,
+    );
+  }
 });
 
 test('a comparison adds CollectionPage', () => {

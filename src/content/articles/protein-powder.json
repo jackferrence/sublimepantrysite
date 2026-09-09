@@ -1,0 +1,161 @@
+{
+  "title": "Protein powder from freeze-dried food: what's documented.",
+  "description": "Two manufacturer posts describe blending a shake and drying it. No extension source addresses protein powder at all. What that leaves documented.",
+  "kicker": "protein",
+  "pillar": "guides",
+  "section": "Foods",
+  "riskClass": "standard",
+  "publishedDate": "2026-09-07",
+  "disclosure": "Sublime Pantry has no affiliate relationships, sponsorships, or paid placements as of publication. We sell packaging; where a product we sell appears, it is labeled.",
+  "sources": [
+    {
+      "title": "Freeze Drying Protein Shakes",
+      "url": "https://harvestright.com/blogs/blog/freeze-drying-protein-shakes",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Freeze Drying Protein (2015)",
+      "url": "https://harvestright.com/blog/2015/freeze-drying-protein/",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Harvest Right Freeze Drying Time Chart",
+      "url": "https://trimleaf.com/pages/harvest-right-freeze-drying-time-chart",
+      "publisher": "Trimleaf",
+      "tier": "secondary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Freezing",
+      "url": "https://nchfp.uga.edu/how/freeze",
+      "publisher": "National Center for Home Food Preservation, University of Georgia",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Drying",
+      "url": "https://nchfp.uga.edu/how/dry/",
+      "publisher": "National Center for Home Food Preservation, University of Georgia",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "What Foods Can You Freeze Dry? A Complete Guide",
+      "url": "https://harvestright.com/blogs/freeze-drying-learning-center/what-foods-can-you-freeze-dry",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Preserving food at home: Freeze-drying",
+      "url": "https://extension.umn.edu/preserving-and-preparing/freeze-drying-food",
+      "publisher": "University of Minnesota Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "How to Freeze Dry Milk",
+      "url": "https://practicalselfreliance.com/freeze-dried-milk/",
+      "publisher": "Practical Self Reliance",
+      "tier": "secondary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Rehydrating Freeze Dried Dairy (2016)",
+      "url": "https://harvestright.com/blog/2016/rehydrating-freeze-dried-dairy/",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Can I Freeze-Dry That? A Practical Guide to Safe and Effective Freeze-Drying (Jan 2026)",
+      "url": "https://extension.usu.edu/foodsafety/research/can-i-freeze-dry-that-a-practical-guide-to-safe-and-effective-freeze-drying",
+      "publisher": "Utah State University Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Some Properties of Freeze-Dried Milk (1952)",
+      "url": "https://www.journalofdairyscience.org/article/S0022-0302(52)93677-1/fulltext",
+      "publisher": "Journal of Dairy Science",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "How Do I Know When My Freeze-Dried Food Is Completely Dry?",
+      "url": "https://harvestright.com/blogs/blog/how-do-i-know-when-my-freeze-dried-food-is-completely-dry",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Master Freeze Drying: Check Doneness by Weight Change",
+      "url": "https://stayfreshfreezedry.com/blogs/freeze-dryer-101/checking-dryness-in-freeze-dried-food-through-weight-change",
+      "publisher": "Stay Fresh",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Storing Freeze Dried Food",
+      "url": "https://harvestright.com/blogs/blog/storing-freeze-dried-food",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Buying a Home Freeze-Dryer: What to Know Before You Go (April 2019)",
+      "url": "https://digitalcommons.usu.edu/cgi/viewcontent.cgi?article=2999&context=extension_curall",
+      "publisher": "Utah State University Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Freeze Drying For Home Use (fact sheet, PDF)",
+      "url": "https://ucanr.edu/sites/default/files/2024-07/399943.pdf",
+      "publisher": "UC ANR",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Does freeze-drying concentrate the protein in food?",
+      "answer": "No source documents a concentration effect. Sublimation removes water, so the dried result is more protein by weight than the liquid it came from, but the measured protein-percent-by-weight change through a home cycle is unpublished. Both Harvest Right protein pages describe blending a shake and drying it, not concentrating anything [1][2]."
+    },
+    {
+      "question": "Can you freeze-dry store-bought protein powder on its own?",
+      "answer": "No manufacturer or extension source addresses drying a commercial powder. The published route runs the other way: make a liquid shake from the powder, dry the shake, then grind it [1]. Protein powder also has no entry on Harvest Right's time chart [3]."
+    },
+    {
+      "question": "How long does a home-made shake powder keep?",
+      "answer": "No protein-powder-specific figure exists. Harvest Right's 25-year claim attaches to mylar with an oxygen absorber, kept cool, dark and below 85°F, and is conditioned on fat content [14]; Utah State University Extension says no real data exists on home freeze-dried shelf life [15], and UC ANR does not recommend consuming home freeze-dried products beyond 5 to 10 years [16]."
+    },
+    {
+      "question": "Is a dried shake safe if the milk was raw?",
+      "answer": "Utah State University Extension classifies raw milk and raw dairy as high-risk and answers no without pasteurization, because unpasteurized dairy can harbor Listeria, Salmonella or E. coli and the process does not pasteurize [10]. Freeze-drying is a preservation process, not a kill step."
+    }
+  ],
+  "howTo": [
+    {
+      "name": "Blend the shake first",
+      "text": "Harvest Right's published method starts with a made shake — milk plus protein powder plus whatever else the recipe calls for — not with dry ingredients [1]."
+    },
+    {
+      "name": "Pour onto the tray",
+      "text": "The blended liquid goes onto the tray. Liquids are among the loads manufacturers pair with liners and with pre-freezing, though no protein-specific tray depth or pre-freeze time is published [1]."
+    },
+    {
+      "name": "Run the cycle",
+      "text": "No cycle time is published for a protein shake by any source, and protein powder has no entry on the manufacturer time chart [3]. Confirm dryness by the break test or by weighing the tray until the weight stops changing [12][13]."
+    },
+    {
+      "name": "Grind and package",
+      "text": "Grind the dried sheet back into a powder [1], then package into mylar with an oxygen absorber, which is the condition the long storage claims are attached to [14]."
+    }
+  ],
+  "bodyHtml": "<p><strong>The short version:</strong> Freeze-drying does not concentrate protein — it removes water, and the protein that is left is the protein that went in. The only published home method is a manufacturer's do-it-yourself route: blend a protein shake, dry it, grind it back to a powder [1][2]. No extension service addresses protein powder at all, and no source publishes a cycle time, a yield, or a storage life for it.</p>\n\n<h2>What is actually published</h2>\n\n<p>Two Harvest Right blog posts are the entire first-party record: a current page on freeze-drying protein shakes [1] and a 2015 post on freeze-drying protein [2]. Neither describes a concentration effect. Both describe recombination — you make the shake first, then dry what you made.</p>\n\n<p>Everything else is an absence, and the absences are the substance of this page.</p>\n\n<table>\n<thead>\n<tr><th>Question</th><th>What is published</th><th>Source</th></tr>\n</thead>\n<tbody>\n<tr><td>Is there a method?</td><td>Yes, as a make-your-own process: blend a shake, pour it on the tray, dry, grind the result</td><td>Harvest Right [1]</td></tr>\n<tr><td>Does it concentrate protein?</td><td>No manufacturer claims this. Both protein pages describe shake recombination, not concentration</td><td>[1][2]</td></tr>\n<tr><td>Cycle time</td><td>Not published. Protein powder has no entry on Harvest Right's freeze-drying time chart</td><td>[3]</td></tr>\n<tr><td>Fresh-to-dried yield</td><td>Not published for protein powder in any form</td><td>&mdash;</td></tr>\n<tr><td>Rehydration ratio</td><td>&quot;Add water&quot; to the finished shake powder. No measured ratio</td><td>[1]</td></tr>\n<tr><td>Storage life</td><td>No protein-powder-specific figure from any source</td><td>&mdash;</td></tr>\n<tr><td>Extension guidance</td><td>None. No extension service addresses protein powder as a subject</td><td>&mdash;</td></tr>\n<tr><td>Top-tier home-preservation guidance</td><td>The National Center for Home Food Preservation publishes no freeze-drying guidance at all; its freezing and drying pages cover conventional freezing and dehydrators</td><td>[4][5]</td></tr>\n</tbody>\n</table>\n\n<h2>Why &quot;concentration&quot; is the wrong word</h2>\n\n<p>Raw foods run 80 to 95 percent water, and sublimation is what a freeze dryer removes — around 90 percent of the moisture in the primary phase plus another 1 to 2 percent in desorption, by the University of Minnesota Extension's account [7]. What sublimation does not touch is fat: &quot;Freeze drying removes water, but oil remains,&quot; in Harvest Right's own words [6].</p>\n\n<p>So the powder that comes off the tray is more protein <em>by weight</em> than the liquid that went on, in the same way that any dried food is more of everything by weight. The protein-percent-by-weight change through a home cycle has not been measured or published by anyone. Treating a dried shake as a concentrate is an inference, not a documented result.</p>\n\n<p>The nearest published yield figure in the whole dairy category is for milk, and it comes from a secondary source rather than a manufacturer or an extension service: about 20 percent for whole milk (a gallon yielding roughly five cups of powder) and about 16 percent for skim, with a gallon taking roughly 30 hours on a large unit [8]. That is a milk figure. It is not a protein-shake figure, and nobody publishes one.</p>\n\n<h2>The base ingredients carry the documented risks</h2>\n\n<p>A protein shake is mostly a dairy or dairy-substitute liquid, so the dairy record applies to it.</p>\n\n<ul>\n<li><strong>Freeze-drying is not a kill step.</strong> Utah State University Extension classifies raw milk, raw cheese and raw dairy as high-risk and answers &quot;No&quot; without pasteurization, because unpasteurized dairy can harbor <em>Listeria</em>, <em>Salmonella</em> or <em>E. coli</em> and the process does not pasteurize anything [10].</li>\n<li><strong>Fat rides along.</strong> The University of Minnesota Extension puts it plainly: home freeze-drying &quot;works well for&hellip;proteins, but not for foods that are high in fat&quot; [7]. Harvest Right agrees on the storage consequence: &quot;Foods that contain higher amounts of fat generally have shorter storage lives&quot; [14]. A shake built on whole milk, nut butter or added oils sits on the wrong side of that line; no source publishes a numeric fat ceiling for any food.</li>\n<li><strong>Dried dairy is not inert.</strong> The 1952 <em>Journal of Dairy Science</em> work on freeze-dried milk found that &quot;the fat emulsion of freeze-dried powder is partially destabilized,&quot; and that the powder &quot;frequently acquires a fruity flavor&quot; [11]. That is research-scale equipment from a 1952 process, not a consumer unit — but it is the only peer-reviewed description of the product in this family.</li>\n</ul>\n\n<h2>Calling it dry, and calling it stored</h2>\n\n<p>The dryness endpoint for a powder is the same one published for everything else, and it is worth quoting because a poured liquid dries from the surface inward. Harvest Right: &quot;The outside of a piece of food can feel completely dry even when moisture remains in the center&quot; [12]. The published check is to break pieces open, inspect the center for moisture, cold spots, softness or a darker color, and test the thickest pieces from several trays [12]. Stay Fresh publishes the alternative that suits a tray of liquid better: weigh the tray at cycle end and again after extended drying, and &quot;if the weight remains consistent, this indicates that the food is adequately dry&quot; [13].</p>\n\n<p>On storage life, the manufacturer and extension records disagree, and neither is about protein powder specifically. Harvest Right attaches its 25-year figure to mylar with an oxygen absorber, kept cool, dark, dry and below 85&deg;F, and conditions it explicitly on fat content [14]. Utah State University Extension's position is that &quot;no real data exists on the shelf-life of home freeze-dried products&quot; [15], and UC ANR states the 25-year claim &quot;has not been corroborated by university studies for home freeze dryers&quot; and that consuming home freeze-dried products &quot;is not recommended beyond 5&ndash;10 years after processing&quot; [16]. USU's own food-by-food guide lands in the same 5-to-10-year place for home product [10]. No figure here is a shelf-life promise, and none of them were written about a dried shake.</p>\n\n<p>Packaging is where the fat caution and the storage guidance meet: mylar plus an oxygen absorber is the condition attached to the long claims [14]. Our Freeze-Drying Packaging Starter Kit (100 mylar bags in three sizes, 100 absorbers, labels) covers that step. Sold by Sublime Pantry.</p>\n\n<h2>Reconstituting it</h2>\n\n<p>Harvest Right's instruction for the finished shake powder is to add water [1]. For dried dairy generally the same publisher says to &quot;add water gradually and stir until it returns to its original state&quot; [9]. No measured powder-to-water ratio is published for a protein shake by any source, which means the ratio you settle on is your own, arrived at by adjustment rather than by a documented figure.</p>\n\n<h2>What we could not source</h2>\n\n<ul>\n<li><strong>Any manufacturer claim of protein concentration.</strong> Searched both Harvest Right protein pages [1][2] directly; both describe do-it-yourself shake recombination, and neither claims concentration.</li>\n<li><strong>The measured protein-percent-by-weight change</strong> through a home cycle. Unpublished by anyone, at any tier.</li>\n<li><strong>A cycle time for protein powder.</strong> Harvest Right's time chart carries no entry for it, alongside no entry for eggs or ice cream [3].</li>\n<li><strong>Fresh-to-dried yield.</strong> No extension service publishes a yield percentage for any food. Across the whole dairy strand exactly one figure exists, for milk, from a secondary source [8].</li>\n<li><strong>Any extension guidance on protein powder.</strong> None found at any extension service.</li>\n<li><strong>The National Center for Home Food Preservation's position.</strong> It has no freeze-drying publication; the freezing and drying pages cover conventional freezing and dehydrators only [4][5], and its freeze-drying educator page is subscriber-gated.</li>\n<li><strong>A numeric fat threshold.</strong> No source at any tier gives a fat ceiling for any food. The preference for lean is qualitative everywhere it appears.</li>\n<li><strong>A residual-moisture target.</strong> Every published moisture figure is framed as percent removed, never percent remaining.</li>\n</ul>\n\n<h2>Next</h2>\n<ul>\n<li><a href=\"/guides/freeze-drying-milk\">Freeze-drying milk</a> &mdash; the dairy record these shakes are built on.</li><li><a href=\"/guides/freeze-drying-eggs\">Freeze-drying eggs</a> &mdash; another protein load, with its own risk class.</li><li><a href=\"/guides/complete-batch-workflow\">The complete batch workflow</a> &mdash; the run a liquid tray goes into.</li>\n</ul>"
+}

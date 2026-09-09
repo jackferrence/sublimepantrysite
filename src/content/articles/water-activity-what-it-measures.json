@@ -1,0 +1,249 @@
+{
+  "title": "What water activity measures, and what it doesn't.",
+  "description": "Water activity is available water, not total water. Where 0.85 comes from, what it governs, and what a single number cannot establish.",
+  "kicker": "reference",
+  "pillar": "guides",
+  "section": "Science",
+  "riskClass": "elevated",
+  "publishedDate": "2026-09-07",
+  "disclosure": "Sublime Pantry has no affiliate relationships, sponsorships, or paid placements as of publication. We sell packaging; where a product we sell appears, it is labeled.",
+  "sources": [
+    {
+      "title": "21 CFR 113.3 — Definitions (Thermally Processed Low-Acid Foods Packaged in Hermetically Sealed Containers)",
+      "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-113/subpart-A/section-113.3",
+      "publisher": "U.S. Government Publishing Office / eCFR",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "21 CFR 114.3 — Definitions (Acidified Foods)",
+      "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-114/subpart-A/section-114.3",
+      "publisher": "U.S. Government Publishing Office / eCFR",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Evaluation and Definition of Potentially Hazardous Foods (IFT/FDA contract report, Dec 31 2001)",
+      "url": "https://www.fda.gov/files/food/published/Evaluation-and-Definition-of-Potentially-Hazardous-Foods.pdf",
+      "publisher": "U.S. FDA / Institute of Food Technologists",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Job Aid: Time and Temperature Control for Safety Foods (Food Code Table A and Table B)",
+      "url": "https://www.fda.gov/files/food/published/Job-Aid--Time-and-Temperature-Control-for-Safety-Foods.pdf",
+      "publisher": "U.S. FDA",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Appendix 4: Bacterial Pathogen Growth and Inactivation (Fish and Fishery Products Hazards and Controls Guidance)",
+      "url": "https://www.fda.gov/media/80390/download",
+      "publisher": "U.S. FDA",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Food — Chapter 3. Factors that Influence Microbial Growth (Dec 31 2001; Table 3-2)",
+      "url": "https://downloads.regulations.gov/FDA-2010-D-0434-0004/content.pdf",
+      "publisher": "U.S. FDA",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Compliance Guideline for Meat and Poultry Jerky Produced by Small and Very Small Plants (updated April 2007)",
+      "url": "https://www.haccpalliance.org/wp-content/uploads/2022/01/Compliance_Guideline_Jerky.pdf",
+      "publisher": "USDA FSIS (hosted by HACCP Alliance)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Pathogen Modeling Program (PMP) Online: Water Activity in Food",
+      "url": "https://pmp.errc.ars.usda.gov/WaterActivity.aspx",
+      "publisher": "USDA Agricultural Research Service, Eastern Regional Research Center",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Humidity Fixed Points of Binary Saturated Aqueous Solutions (J. Res. NBS 81A(1):89-96, 1977)",
+      "url": "https://nvlpubs.nist.gov/nistpubs/jres/81a/jresv81an1p89_a1b.pdf",
+      "publisher": "National Bureau of Standards (now NIST)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Cottage Food Law Guidance",
+      "url": "https://www.mda.state.mn.us/food-feed/cottage-food-law-guidance",
+      "publisher": "Minnesota Department of Agriculture",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Water Activity and its Role in Food Preservation",
+      "url": "https://ucanr.edu/program/uc-master-food-preserver-program/article/water-activity-and-its-role-food-preservation",
+      "publisher": "University of California Agriculture & Natural Resources, UC Master Food Preserver Program",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "MF3674 — Water Activity of Foods, Food Safety Fact Sheet (September 2024)",
+      "url": "https://bookstore.ksre.ksu.edu/download/water-activity-of-foods_MF3674",
+      "publisher": "Kansas State University Research and Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "FST-485NP — Interpreting Water Activity Lab Results for Food Producers (2024)",
+      "url": "https://www.pubs.ext.vt.edu/content/dam/pubs_ext_vt_edu/FST/fst-485/FST-485.pdf",
+      "publisher": "Virginia Cooperative Extension / Virginia Tech",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "FST-506NP — Factors that Impact Small-Scale Freeze Dryer Effectiveness (2025-05-19)",
+      "url": "https://www.pubs.ext.vt.edu/content/pubs_ext_vt_edu/en/FST/FST-506/FST-506.html",
+      "publisher": "Virginia Cooperative Extension / Virginia Tech",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Testing water activity in cottage foods (reviewed 2024)",
+      "url": "https://extension.umn.edu/food/selling-and-distributing/cottage-food/testing-water-activity",
+      "publisher": "University of Minnesota Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Can I Freeze-Dry That? A Practical Guide to Safe and Effective Freeze-Drying (January 2026)",
+      "url": "https://extension.usu.edu/foodsafety/research/can-i-freeze-dry-that-a-practical-guide-to-safe-and-effective-freeze-drying",
+      "publisher": "Utah State University Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "FS-160-W — Freeze-drying Food Preservation (May 2025)",
+      "url": "https://edustore.purdue.edu/media/wysiwyg/downloads/pubs/FS/FS-160-W.pdf",
+      "publisher": "Purdue University Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Packaging and Storing Dried Foods",
+      "url": "https://nchfp.uga.edu/how/dry/drying-general/packaging-and-storing-dried-foods/",
+      "publisher": "National Center for Home Food Preservation, University of Georgia",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Put It Up! Food Preservation for Youth — Method 5: Drying (rev. April 2015)",
+      "url": "https://newt.fcs.uga.edu/nchfp/putitup/Method%205%20-%20Drying%202015rev.pdf",
+      "publisher": "University of Georgia / NCHFP",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "AQUALAB Series 4 Operator's Manual (doc. 20115)",
+      "url": "https://library.metergroup.com/Manuals/20115_AQUALAB4_Manual_Web.pdf",
+      "publisher": "METER Group, Inc.",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "AQUALAB 4TE Benchtop Water Activity Meter — datasheet",
+      "url": "https://www.impex.no/wp-content/uploads/2022/10/AquaLab-4TE-vannaktivitetsm%C3%A5ler-datablad.pdf",
+      "publisher": "METER Group, Inc. (distributor-hosted)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "LabTouch-aw product specifications",
+      "url": "https://novasina.ch/water-activity/labtouch-aw/",
+      "publisher": "Novasina AG",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "HC2A-AW & HC2A-AW-USB water activity measurement head, datasheet 59111E / 2023-06",
+      "url": "https://www.processsensing.com/docs/datasheet/59111E_HC2A-AW_&_HC2A-AW-USB.pdf",
+      "publisher": "Rotronic / Process Sensing Technologies",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "AQUALAB water activity meter product family overview",
+      "url": "https://aqualab.com/en/products/topics/water-activity-meter",
+      "publisher": "AQUALAB by Addium (METER food line)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "ASTA Analytical Method 6.0: Analysis of Water Activity in Spices (landing page; method member-restricted)",
+      "url": "https://astaspice.org/resources/asta-method-6-0-analysis-of-water-activity-in-spices",
+      "publisher": "American Spice Trade Association",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Water Activity in Powders and Spices (application note 00716100)",
+      "url": "https://www.meintrup-dws.de/storage/app/media/German/00716100appnotepowderspices.pdf",
+      "publisher": "Novasina AG (distributor-hosted)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Effect of Temperature on the Moisture Sorption Isotherms and Water Activity Shift of Two Dehydrated Foods (J. Food Sci. 50:385-391, 1985)",
+      "url": "https://www.academia.edu/6510074/Effect_of_Temperature_on_the_Moisture_Sorption_Isotherms_and_Water_Activity_Shift_of_Two_Dehydrated_Foods",
+      "publisher": "Journal of Food Science (Labuza, Kaanane & Chen)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Quality and Sensory Characteristics of Selected Freeze-Dried Foods After 50 Years Storage (MS thesis, 2024)",
+      "url": "https://scholarsarchive.byu.edu/etd/11075",
+      "publisher": "Brigham Young University, ScholarsArchive",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Water Activity in Foods: Fundamentals and Applications, 2nd ed. (Chapter 1 sample)",
+      "url": "https://content.e-bookshelf.de/media/reading/L-7026263-33c850cd05.pdf",
+      "publisher": "John Wiley & Sons",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Use of Low-Cost Devices for Water Activity Determination by Cottage Food Producers (DOI 10.1111/1750-3841.70385) — citation only; full text not retrieved",
+      "url": "https://ift.onlinelibrary.wiley.com/doi/10.1111/1750-3841.70385",
+      "publisher": "Journal of Food Science",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Is water activity the same as moisture content?",
+      "answer": "No. Moisture content measures the total water present; water activity measures the fraction available for microbial and chemical reactions [12]. USDA FSIS makes the practical consequence explicit for jerky: a moisture-to-protein ratio of 0.75:1 is part of the standard of identity but is “not sufficient to ensure a safe product,” because water activity “can vary significantly at any given MPR depending on solutes like salt and sugar” [7]."
+    },
+    {
+      "question": "Does a water activity of 0.85 mean a food is shelf stable?",
+      "answer": "No source we retrieved says that. In 21 CFR 113.3 and 114.3, 0.85 is a scope trigger that decides whether a food falls under those parts at all [1][2]. FSIS uses 0.85 as a jerky critical limit scoped by its own wording to “all bacterial pathogens of concern” [7]. FDA’s own contractor report calls 0.85 “inappropriately low as a general aw minimum” [3], and moulds and osmophilic yeasts are documented below it [8][12]."
+    },
+    {
+      "question": "What water activity do freeze-dried foods reach?",
+      "answer": "Three sources publish figures and none names the instrument used. Utah State Extension gives a target of “about 0.3 or below, with many products falling in the range of 0.08–0.33” [16]. A BYU thesis measured 0.02 to 0.3 across eight commercially freeze-dried foods stored more than 50 years [28]. A Virginia Tech small-scale study reported water activity that “did not ever rise above 0.6,” with larger dice reading higher than smaller [14]."
+    },
+    {
+      "question": "Can a hygrometer in a sealed jar measure water activity?",
+      "answer": "The identity holds — water activity equals jar relative humidity divided by 100 — but only “after that food has had time to equilibrate with the air” [11]. One extension service publishes a protocol built on a named vaccine-transport logger, a roughly 30-hour four-standard calibration, a two-hour hold, replicate readings and a model-specific correction tool, and still classes the output as “indicative only” with commercial testing “strongly recommended to verify results” [15]."
+    },
+    {
+      "question": "Does temperature change a water activity reading?",
+      "answer": "Yes, and in two directions at once. Labuza, Kaanane and Chen report that the water activity of foods increases as temperature rises while the water activity of saturated salt solutions decreases [27]. METER also specifies that a sample must be within ±4 °C of chamber temperature, and that extremely dry or glassy samples need extended testing [20]."
+    },
+    {
+      "question": "Which water activity numbers does the FDA Food Code use?",
+      "answer": "Not 0.85. The Food Code’s TCS determination runs on Tables A and B, whose breakpoints are 0.88, 0.90, 0.92 and 0.95, each paired with a pH band and with whether the food was heat-treated and packaged [4]. A water activity figure read off either table without its paired pH is not usable."
+    }
+  ],
+  "bodyHtml": "<p><strong>The short version:</strong> Water activity (a<sub>w</sub>) is the ratio of a food's water vapor pressure to that of pure water at the same temperature — a measure of how much of the water is free to leave, not how much water is there [1][29]. The figure 0.85 is a scope trigger inside two specific federal regulations and a critical limit in one USDA jerky guideline, and federal documents disagree about whether it works as a general safety line at all [1][2][3][7]. A number on its own establishes nothing: every published a<sub>w</sub> figure carries conditions — a paired pH, a temperature, a humectant, an instrument — and stripped of them it is not usable.</p>\n\n<h2>What water activity is</h2>\n\n<p>The thermodynamic definition is a ratio: \"a<sub>w</sub> = p/p<sub>o</sub>, where a<sub>w</sub> is the water activity derived from the laws of equilibrium thermodynamics, p is the vapor pressure of the sample, and p<sub>o</sub> is the vapor pressure of pure water\" — at the same temperature and external pressure [29]. The regulatory wording in 21 CFR 113.3 is the same idea in plainer language: \"the quotient of the water vapor pressure of the substance divided by the vapor pressure of pure water at the same temperature\" [1]. The identical definition appears in 21 CFR 114.3 [2].</p>\n\n<p>There is a second identity that matters for anyone thinking about measurement. Water activity equals the relative humidity of the air in a sealed jar around the food, divided by 100 — but only \"after that food has had time to equilibrate with the air\" [11]. The equilibration clause is part of the definition, not a refinement of it.</p>\n\n<p>Water activity also moves with temperature, and it moves in two directions at once depending on what is in the chamber. Labuza, Kaanane and Chen measured the shift on fish flour and cornmeal between 25 and 65 °C and reported that the a<sub>w</sub> of foods <strong>increases</strong> as temperature rises, while the a<sub>w</sub> of saturated salt solutions <strong>decreases</strong>: \"This is opposite to the increase in a<sub>w</sub> with increase in temperature for foods\" [27]. A salt-calibrated instrument reading a warm sample is therefore exposed to error in two directions simultaneously.</p>\n\n<h2>Why moisture content is a different number</h2>\n\n<p>Moisture content is total water. Water activity is available water. Kansas State University Extension states the distinction directly: \"Moisture content is different than a<sub>w</sub> as it measures the total water present in a food product,\" while a<sub>w</sub> \"measures the amount of free water that is available in food for microorganisms to survive or grow\" [12].</p>\n\n<p>The strongest regulatory statement on this point is USDA FSIS on jerky. An MPR — moisture-to-protein ratio — \"of 0.75:1 or less remains part of the standard of identity for jerky,\" but the guideline says an MPR alone is \"not sufficient to ensure a safe product,\" because a<sub>w</sub> \"can vary significantly at any given MPR depending on solutes like salt and sugar\" [7]. Two products can share a moisture figure and differ in available water, because dissolved salt and sugar bind water that a moisture measurement still counts.</p>\n\n<p>Two things follow. First, the moisture targets published for home drying — \"about 20 percent\" for fruit and \"about 10 percent\" for vegetables [18], repeated as \"only about 20% water\" and \"only about 10% water\" in UGA's youth curriculum [19] — are moisture targets, and neither document measures or reports water activity. Second, Purdue's freeze-drying publication records weights before and after drying and offers no method for verifying available water at home [17].</p>\n\n<h2>Documented ranges, with the conditions attached to each</h2>\n\n<p>Every row below is a published figure with the conditions its publisher attached. Where a source published a bare number with no stated conditions, the row says so — that absence is part of the record, not something to fill in.</p>\n\n<table>\n<thead><tr><th>Food</th><th>Published a<sub>w</sub></th><th>Conditions as published</th><th>Source</th></tr></thead>\n<tbody>\n<tr><td>Fresh meat and fish</td><td>0.99</td><td>None stated in source</td><td>[8]</td></tr>\n<tr><td>Fresh meat / fish; raw vegetables</td><td>0.99</td><td>None stated in source</td><td>[12]</td></tr>\n<tr><td>Bread</td><td>0.95</td><td>None stated</td><td>[8]</td></tr>\n<tr><td>Aged cheddar</td><td>0.85</td><td>None stated</td><td>[8]</td></tr>\n<tr><td>Jams and jellies</td><td>0.80</td><td>None stated</td><td>[8]</td></tr>\n<tr><td>Jams / marmalades</td><td>0.75–0.80</td><td>None stated</td><td>[12]</td></tr>\n<tr><td>Peanut butter</td><td>0.70</td><td>None stated</td><td>[12]</td></tr>\n<tr><td>Dried fruit</td><td>0.60</td><td>Bare figure — no conditions published</td><td>[8]</td></tr>\n<tr><td>Dried fruit</td><td>0.65–0.60 band</td><td>At 15–20% moisture content; listed with honey</td><td>[12]</td></tr>\n<tr><td>Dried fruit (same source, second entry)</td><td>0.75–0.65 band</td><td>Listed with nuts, rolled oats, fudge, jelly; no moisture % given for this entry</td><td>[12]</td></tr>\n<tr><td>Dried fruits, jerky, powdered milk (grouped)</td><td>\"less than 0.75\"</td><td>Grouped statement; no per-food value, no instrument, consumer-facing article</td><td>[11]</td></tr>\n<tr><td>Jerky</td><td>≤ 0.85</td><td>A critical limit after the lethality step in meat and poultry plants — not a measured typical value</td><td>[7]</td></tr>\n<tr><td>Spices</td><td>0.50 band</td><td>At ~10% moisture; grouped with pasta at ~12%</td><td>[12]</td></tr>\n<tr><td>Spray-dried milk powder</td><td>Isotherm inflection at 0.43</td><td>Figure caption only; no temperature or equilibration conditions given</td><td>[26]</td></tr>\n<tr><td>Whole egg powder</td><td>0.40 band</td><td>At ~5% moisture</td><td>[12]</td></tr>\n<tr><td>Cookies, crackers, bread crusts</td><td>0.30 band</td><td>At 3–5% moisture</td><td>[12]</td></tr>\n<tr><td>Biscuits</td><td>0.30</td><td>None stated</td><td>[8]</td></tr>\n<tr><td>Milk powder; instant coffee</td><td>0.20 each</td><td>None stated</td><td>[8]</td></tr>\n<tr><td>Whole milk powder</td><td>0.20 band</td><td>At 2–3% moisture</td><td>[12]</td></tr>\n<tr><td>Dried vegetables</td><td>0.20 band</td><td>Listed with whole milk powder and corn flakes; no moisture % given for this entry</td><td>[12]</td></tr>\n<tr><td>Freeze-dried foods (target)</td><td>\"about 0.3 or below, with many products falling in the range of 0.08–0.33\"</td><td>Extension guidance for home freeze-drying; no instrument named, no measurement method given</td><td>[16]</td></tr>\n<tr><td>Freeze-dried foods (measured)</td><td>0.02–0.3</td><td>Beef, beef stew, eggs, green beans, carrots, sweet corn, apples, ice cream; commercially freeze-dried, stored &gt;50 years vs 1–2-year controls; instrument not identified</td><td>[28]</td></tr>\n<tr><td>Freeze-dried produce (small-scale)</td><td>\"did not ever rise above 0.6\"</td><td>Small-scale freeze dryer study; 14 mm dice read higher than 7 mm; a<sub>w</sub> rose after 24 h storage for every commodity except apples; freeze dryer and meter models not named</td><td>[14]</td></tr>\n</tbody>\n</table>\n\n<p>Two entries in that table disagree inside a single document: KSU's band table places dried fruit in the 0.75–0.65 band and also places dried fruit at 15–20% moisture in the 0.65–0.60 band [12]. The moisture qualifier attaches only to the second. There is no single \"dried fruit water activity\" to take from it.</p>\n\n<p>Freeze-dried figures are scarce, and thin where they exist. Three sources published numbers [14][16][28]; none of the three names the water activity instrument used, and one gives no measurement method at all [16]. We located no home freeze-dryer manufacturer document stating a water activity specification for finished product.</p>\n\n<p>For comparison, here are the pathogen minima the FDA publishes. Every value in the first column carries one condition that travels with it: these minima are <strong>using salt</strong> as the humectant [5]. Sugar, glycerol or a polyol is a different condition, and the numbers do not transfer.</p>\n\n<table>\n<thead><tr><th>Organism</th><th>Min a<sub>w</sub>, salt [5]</th><th>Min a<sub>w</sub>, \"approximate … in food\" [6]</th><th>pH range [5]</th></tr></thead>\n<tbody>\n<tr><td><em>C. botulinum</em> type A, proteolytic B &amp; F</td><td>0.935</td><td>0.93</td><td>4.6–9.0</td></tr>\n<tr><td><em>C. botulinum</em> type E, non-proteolytic B &amp; F</td><td>0.97</td><td>0.97</td><td>5.0–9.0</td></tr>\n<tr><td><em>Staphylococcus aureus</em> — growth</td><td>0.83</td><td>0.83</td><td>4.0–10.0</td></tr>\n<tr><td><em>S. aureus</em> — toxin</td><td>Not given</td><td>0.88 (no oxygen condition stated)</td><td>—</td></tr>\n<tr><td><em>Salmonella</em> spp.</td><td>0.94</td><td>0.94</td><td>3.7–9.5</td></tr>\n<tr><td><em>Listeria monocytogenes</em></td><td>0.92</td><td>0.92</td><td>4.4–9.4</td></tr>\n<tr><td>Pathogenic / enterohaemorrhagic <em>E. coli</em></td><td>0.95</td><td>0.95</td><td>4.0–10.0</td></tr>\n<tr><td><em>Bacillus cereus</em></td><td>0.92</td><td>0.93</td><td>4.3–9.3</td></tr>\n</tbody>\n</table>\n\n<p>Where those two federal tables disagree — <em>B. cereus</em> at 0.92 against 0.93, <em>C. botulinum</em> at 0.935 against 0.93 — we record both rather than picking one. A third federal source states <em>C. botulinum</em> is \"unable to grow at an a<sub>w</sub> of .93 and below\" [8], which is a third formulation again. On <em>S. aureus</em> toxin the split is wider: one FDA document gives a flat 0.88 with no oxygen condition [6]; the FDA/IFT report, dated the same day, describes toxin production as \"limited to approximately a<sub>w</sub> 0.92 under anaerobic conditions and generally inhibited below a<sub>w</sub> 0.90 under aerobic conditions\" [3].</p>\n\n<p>Moulds are where a single number is least safe. USDA ARS states most moulds \"cease to grow at a water activity level below about 0.8\" [8]; UC ANR gives moulds \"about a<sub>w</sub> ~ 0.65\" [11]; KSU's band table places most moulds in the 0.87–0.80 band, xerophilic moulds in 0.75–0.65, and \"few moulds\" persisting to 0.65–0.60, with osmophilic yeasts in that lowest band [12]. USDA ARS adds that osmophilic yeasts will not grow \"below 0.6\" [8]. The apparent conflict is largely a \"most moulds\" versus \"xerophilic moulds\" distinction, but two of the three sources publish their number without that qualifier.</p>\n\n<h2>Where 0.85 comes from, and what it actually governs</h2>\n\n<p>There is no single \"FDA 0.85 rule.\" There are at least three distinct federal uses of the figure, and they are different kinds of instrument.</p>\n\n<table>\n<thead><tr><th>Where it appears</th><th>Text containing 0.85</th><th>What it governs</th><th>What it does not govern</th></tr></thead>\n<tbody>\n<tr><td>21 CFR 113.3(n) [1]</td><td>\"Low-acid foods\" means \"any foods, other than alcoholic beverages, with a finished equilibrium pH greater than 4.6 <strong>and</strong> a water activity (a<sub>w</sub>) greater than 0.85.\"</td><td>The <strong>scope</strong> of Part 113 — thermally processed low-acid foods in hermetically sealed containers. At a<sub>w</sub> ≤ 0.85 a food is not a \"low-acid food\" and falls outside the part.</td><td>Shelf stability; mould; quality; anything not hermetically packaged</td></tr>\n<tr><td>21 CFR 114.3 [2]</td><td>\"Acidified foods\" are low-acid foods with acid added, having \"a water activity (a<sub>w</sub>) greater than 0.85 and … a finished equilibrium pH of 4.6 or below.\"</td><td>The <strong>scope</strong> of Part 114 — acidified foods</td><td>Same exclusions</td></tr>\n<tr><td>USDA FSIS jerky guideline, April 2007 [7]</td><td>\"A water activity critical limit for stabilization of 0.85 or lower should control growth of all bacterial pathogens of concern.\"</td><td>A <strong>critical limit</strong> for shelf stability of jerky after the lethality step, in meat and poultry establishments</td><td>Scoped by its own words to bacterial pathogens — not moulds, yeasts or quality</td></tr>\n<tr><td>Virginia Cooperative Extension [13]</td><td>FDA \"recognizes foods with a water activity level below 0.85 as 'water activity-controlled'\"</td><td>An <strong>exemption</strong> from acidified-food regulation</td><td>Framed as regulatory classification, not shelf life</td></tr>\n<tr><td>Minnesota cottage food guidance [10]</td><td>\"Non-potentially hazardous foods have a pH of 4.6 or below … <strong>or</strong> have a water activity of 0.85 or less\"</td><td>Eligibility for the <strong>Minnesota</strong> cottage food exemption</td><td>A state provision. Other states set their own terms; this is not 21 CFR</td></tr>\n<tr><td>FDA Food Code framework [4]</td><td><strong>0.85 does not appear.</strong> The operative breakpoints are 0.88, 0.90, 0.92 and 0.95</td><td>The TCS / non-TCS determination in retail settings</td><td>The Food Code's own tables are stricter than 0.85 at every pH above 4.6</td></tr>\n</tbody>\n</table>\n\n<p>The Food Code decision tables are pH-and-a<sub>w</sub> grids, not a<sub>w</sub> thresholds. Table A applies where the food was heat-treated to destroy vegetative cells and then packaged; Table B applies where it was not heat-treated, or was heat-treated but not packaged. Table B, reproduced from the FDA job aid, reads as follows, with \"PA\" meaning a product assessment is required [4]:</p>\n\n<table>\n<thead><tr><th>a<sub>w</sub></th><th>pH &lt; 4.2</th><th>pH 4.2–4.6</th><th>pH &gt; 4.6–5.0</th><th>pH &gt; 5.0</th></tr></thead>\n<tbody>\n<tr><td>&lt; 0.88</td><td>non-TCS</td><td>non-TCS</td><td>non-TCS</td><td>non-TCS</td></tr>\n<tr><td>0.88–0.90</td><td>non-TCS</td><td>non-TCS</td><td>non-TCS</td><td>PA</td></tr>\n<tr><td>&gt; 0.90–0.92</td><td>non-TCS</td><td>non-TCS</td><td>PA</td><td>PA</td></tr>\n<tr><td>&gt; 0.92</td><td>non-TCS</td><td>PA</td><td>PA</td><td>PA</td></tr>\n</tbody>\n</table>\n\n<p>Table A, for heat-treated and packaged food, uses a coarser grid: at a<sub>w</sub> ≤ 0.92 every pH column reads non-TCS; above 0.95 a product assessment is required at any pH above 4.6 [4]. In both tables, an a<sub>w</sub> figure read without its paired pH is not usable.</p>\n\n<p>Federal guidance also contradicts federal guidance on whether 0.85 is a safety line at all. FSIS says a limit of 0.85 \"should control growth of all bacterial pathogens of concern\" [7]. FDA's own contractor report says the opposite: \"Technically, an a<sub>w</sub> of 0.85 is inappropriately low as a general a<sub>w</sub> minimum because most pathogens are inhibited at values well above 0.86\" [3]. Purdue publishes two different numbers within one document — that most harmful organisms' growth is limited to a water activity of at least 0.85, and that \"the minimum water activity for most unwanted organisms is 0.60\" [17]. We record all of these; we do not reconcile them.</p>\n\n<p>What 0.85 is not, on this record: not a shelf-stability guarantee — no retrieved source says a<sub>w</sub> ≤ 0.85 alone makes a food shelf stable, and both Purdue and Utah State reach for lower numbers when discussing storage [16][17]. Not a mould threshold — xerophilic moulds and osmophilic yeasts are documented below it [8][12]. Not, by itself, a cottage food permission anywhere except where a state has written it into its own rules [10].</p>\n\n<h2>How it is measured, and what the instruments claim</h2>\n\n<p>Every accuracy figure below is the manufacturer's own specification for its own product. They were not measured under a common protocol, and three of the documents do not state their test conditions — so these figures sit side by side as claims, not as a ranking.</p>\n\n<table>\n<thead><tr><th>Instrument</th><th>Sensing principle</th><th>Stated accuracy</th><th>Stated range / conditions</th><th>Source</th></tr></thead>\n<tbody>\n<tr><td>AQUALAB 4TE</td><td>Chilled-mirror dew point</td><td>± 0.003 a<sub>w</sub></td><td>0.030–1.000 a<sub>w</sub>; resolution 0.0001; ~5 min; sample 15–50 °C</td><td>[20][21]</td></tr>\n<tr><td>AQUALAB 4TEV</td><td>Capacitance</td><td>± 0.015 a<sub>w</sub></td><td>0.030–1.000 a<sub>w</sub>; resolution 0.0001; ~5 min</td><td>[20][21]</td></tr>\n<tr><td>AQUALAB TDL 2</td><td>Tunable diode laser</td><td>± 0.005 a<sub>w</sub></td><td>Range and read time not stated on the retrieved page</td><td>[24]</td></tr>\n<tr><td>Novasina LabTouch-aw</td><td>Electrolytic resistive</td><td>± 0.005 a<sub>w</sub> \"within calibration range\"</td><td>0.030–1.000 a<sub>w</sub>; resolution 0.001; 5–45 °C</td><td>[22]</td></tr>\n<tr><td>Rotronic HC2A-AW head</td><td>HYGROMER WA-1 polymer</td><td>± 0.008 a<sub>w</sub> / 0.8 %rh</td><td>\"All measurements at 23 ±5 °C\"; long-term stability &lt; 1 %rh per year</td><td>[23]</td></tr>\n</tbody>\n</table>\n\n<p>The spread across sensing principles inside one vendor's own line — ±0.003 for the dew-point unit against ±0.015 for the capacitance unit [20][21] — is larger than the gap between several of the thresholds in the tables above. That matters when a figure is being compared to a line like 0.88 or 0.92.</p>\n\n<p>The AQUALAB manual attaches three conditions that bear directly on dried product [20]. Volatiles can produce inaccurate readings, with a published diagnostic: if dew-point readings exceed capacitance readings by more than 0.018 a<sub>w</sub>, volatiles are interfering and a different unit should be used. Sample temperature must be within ±4 °C of chamber temperature. And \"extremely dry, dehydrated, highly viscous, water-in-oil emulsions (e.g., butter), high fat, or glassy\" samples require extended testing or a low-emitting mode — which is a description of freeze-dried product.</p>\n\n<p>Verification standards come in two kinds, and they are not interchangeable. Saturated salt solutions have published equilibrium relative humidity fixed points from the National Bureau of Standards: LiCl 11.30 ± 0.27 %ERH at 25 °C, MgCl<sub>2</sub> 32.78 ± 0.16, K<sub>2</sub>CO<sub>3</sub> 43.16 ± 0.39, Mg(NO<sub>3</sub>)<sub>2</sub> 52.89 ± 0.22, NaCl 75.29 ± 0.12, K<sub>2</sub>SO<sub>4</sub> 97.56 ± 0.13 [9]. NaCl shifts slightly with temperature across the same table — 75.47 at 20 °C, 75.29 at 25 °C, 75.09 at 30 °C [9]. METER supplies a different kind: unsaturated molal solutions in single-use vials at 0.150, 0.250, 0.500, 0.760, 0.920 and 0.984 a<sub>w</sub>, valid at 25 °C, with a stated dew-point tolerance of ±0.003 for all but the 0.150 standard [20].</p>\n\n<h2>What a consumer instrument can and cannot establish</h2>\n\n<p>The identity a<sub>w</sub> = RH<sub>jar</sub>/100 is real, and it is why the jar idea exists at all [11]. But the source that publishes that identity presents it conceptually and gives no hygrometer instructions, and the equilibration clause is doing load-bearing work: the reading is headspace relative humidity, which equals water activity only once the food and the air have finished equilibrating.</p>\n\n<p>One extension service publishes a jar-plus-device protocol, and it is the clearest statement of the ceiling. University of Minnesota Extension names the exact device — an Elitech GSP-6, a vaccine-transport temperature and humidity logger — and surrounds it with a roughly 30-hour four-standard calibration, a two-hour equilibration hold, three to five replicate readings, an average, and a spreadsheet correction tool specific to that model [15]. It then says three things about its own protocol: \"The Elitech GSP-6 was not developed for testing the water activity of food\"; \"Professional commercial testing is strongly recommended to verify results\"; and the output is \"indicative only and aimed to provide directional information when developing recipes\" [15].</p>\n\n<p>Virginia Cooperative Extension takes the other position: \"Accurate determination of water activity requires the use of a specialized meter,\" no model named, with lab testing offered instead because buying such equipment \"is not cost-effective for many small and mid-size producers\" [13]. That document does not address consumer hygrometers at all — a silence, not a rejection. Minnesota's Department of Agriculture, separately, references \"water activity self-testing kits\" alongside commercial laboratories as routes a producer may take [10]. Both positions are on the record and we leave them unreconciled.</p>\n\n<p>So, on what a consumer-grade reading can support:</p>\n\n<ul>\n<li><strong>It is directional, by its publisher's own classification.</strong> The one extension-published protocol calls its own results indicative and recommends commercial testing to verify [15].</li>\n<li><strong>It is temperature-coupled and usually uncontrolled.</strong> Food a<sub>w</sub> rises with temperature while salt standards fall [27], and the published protocol describes no temperature control of the jar [15].</li>\n<li><strong>It is device-specific.</strong> The protocol is not \"read the hygrometer\" — the correction tool exists because the raw reading is not the answer [15].</li>\n<li><strong>Its accuracy is not established here.</strong> We could not retrieve the GSP-6's manufacturer specification, and we could not retrieve the full text of the one peer-reviewed evaluation of low-cost a<sub>w</sub> devices we located [30]. We publish no accuracy figure for any consumer device.</li>\n</ul>\n\n<p>We are not publishing a home pass/fail protocol or a universal target number, and this is why: the thresholds in this article are paired with pH, humectant and treatment conditions, the instrument spread is wider than the gaps between several of them, and the one documented home method is classed as directional by the service that wrote it.</p>\n\n<h2>Documented methods, and the exact equipment each names</h2>\n\n<p>Each row is bound to the equipment its publisher named. None of them generalises past that equipment.</p>\n\n<table>\n<thead><tr><th>Method</th><th>Equipment the publisher names</th><th>Calibration / verification as published</th><th>The publisher's own stated limit</th></tr></thead>\n<tbody>\n<tr><td>UMN Extension cottage food protocol [15]</td><td>Elitech GSP-6 with temperature and humidity probes; jar with a drilled lid; a timer; a named Excel correction tool</td><td>Four standards at 0.25, 0.50, 0.76 and 0.92 a<sub>w</sub>; five 1.5-hour readings per standard, ~30 hours across multiple days</td><td>Device \"was not developed for testing the water activity of food\"; results \"indicative only\"; commercial testing \"strongly recommended to verify\"</td></tr>\n<tr><td>METER AQUALAB Series 4 verification [20]</td><td>AQUALAB 4TE or 4TEV; 14 mL sample cups; single-use standard vials</td><td>Standard equilibrated to within 1–2 °C of chamber; two readings; \"readings should be within ±0.003 a<sub>w</sub> of the given value for the dew point\"; linear offset against a fresh 0.76 NaCl standard if deviation persists</td><td>Volatiles interference above a 0.018 a<sub>w</sub> dew-point-vs-capacitance gap; extremely dry and glassy samples need extended testing; sample within ±4 °C of chamber</td></tr>\n<tr><td>NCHFP conditioning of dried fruit [18]</td><td>Plastic or glass jars with seals. <strong>No instrument</strong></td><td>None — this is not a water activity method</td><td>Produces no number. It is a 7-to-10-day moisture-equalisation step with a daily shake and a visual check: \"If condensation develops in the jar, return the fruit to the dehydrator for more drying.\" Water activity is not mentioned anywhere in the document</td></tr>\n<tr><td>UGA <em>Put It Up!</em> dryness tests [19]</td><td>None — hands, a clean fingertip</td><td>None</td><td>Sensory pass/fail only. \"Fruit is done drying when there is no visible wetness and you cannot squeeze any moisture out.\" The document says \"properly dehydrated foods have very low water activity\" but publishes no value and specifies no measurement</td></tr>\n<tr><td>Virginia Cooperative Extension [13]</td><td>\"A specialized meter\" — no model named</td><td>Not published</td><td>No sample preparation, no equilibration times, no calibration protocol; consumer devices not addressed</td></tr>\n<tr><td>USDA FSIS jerky guideline [7]</td><td><strong>None named.</strong> Establishments \"should verify the water activity\" with no instrument or method specified</td><td>Not published</td><td>The critical limit is stated; the verification method is left to the establishment</td></tr>\n<tr><td>ASTA Analytical Method 6.0, spices [25]</td><td>Not retrievable — the method is behind a member login</td><td>Not retrievable</td><td>The landing page states the method covers apparatus, reagents, sample preparation, procedure, calculation and statistics; none of that content was obtained</td></tr>\n</tbody>\n</table>\n\n<h2>What we could not source</h2>\n\n<p>These are retrieval failures, not judgements that the material does not exist. Each is listed so nothing here reads as more settled than it is.</p>\n\n<ul>\n<li><strong>The accuracy of low-cost devices.</strong> The full text of the one peer-reviewed evaluation we located — Cheng et al., <em>Journal of Food Science</em>, 2025 — was not obtained across three routes [30]. The devices tested, the reference instrument, the measured bias and the stated limitations are all unknown to us. This is the largest gap in this article.</li>\n<li><strong>The consumer logger's own specification.</strong> The Elitech GSP-6's stated humidity accuracy, resolution and range were not retrieved. The published correction procedure exists because of that raw specification, and we do not have it [15].</li>\n<li><strong>Any freeze-dryer manufacturer water activity specification.</strong> No home freeze-dryer manufacturer document stating an a<sub>w</sub> target or verification method was located. Claims that a home machine \"achieves a<sub>w</sub> X\" have no manufacturer documentation behind them that we could find.</li>\n<li><strong>Water activity values for dried culinary herbs.</strong> Nothing species-specific — basil, oregano, thyme — was obtained from a primary source. The nearest sourceable structure is spices at ~10% moisture in the 0.50 band [12], which does not separate herbs from spices. The trade method that would govern the measurement is member-restricted [25].</li>\n<li><strong>An independent cross-brand instrument comparison.</strong> No non-vendor head-to-head test under a common protocol was found. Placing ±0.003, ±0.005, ±0.008 and ±0.015 side by side and calling it a ranking would be inventing one, so we have not.</li>\n<li><strong>A worked equal-moisture, different-a<sub>w</sub> example.</strong> The teaching illustration is well known; no extension, government or manufacturer source publishing the paired numeric comparison was retrieved. The distinction here is sourced qualitatively [7][12][13][17] and the underlying isotherm physics quantitatively for two commodities [27].</li>\n<li><strong>The lowest a<sub>w</sub> permitting growth of any organism.</strong> The extreme-xerophile figure often quoted could not be retrieved from a primary source, so we publish no number for it. What is sourced: xerophilic moulds in the 0.75–0.65 band, osmophilic yeasts in 0.65–0.60 [12], and osmophilic yeasts not growing below 0.6 [8].</li>\n<li><strong>Two standards figures we are withholding.</strong> Novasina's SAL-T standard values were obtained without the temperature table they depend on, so we do not publish them. And the KCl values we retrieved from the NBS table are non-monotonic across 20, 25 and 30 °C, unlike NaCl over the same range [9] — flagged rather than smoothed, and not republished as a standard.</li>\n</ul>\n\n<h2>Next</h2>\n<ul>\n<li><a href=\"/troubleshooting/storage-failure\">When stored food fails</a> &mdash; what the measurement is usually reached for after.</li><li><a href=\"/guides/cottage-economics\">The economics of selling what you dry</a> &mdash; where the test becomes a cost.</li><li><a href=\"/compare/fruit-vs-vegetables-vs-meat\">How fruit, vegetables, and meat differ</a> &mdash; composition, which is what the reading reflects.</li>\n</ul>"
+}

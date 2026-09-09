@@ -1,0 +1,535 @@
+{
+  "title": "Where to find your state's cottage food authority.",
+  "description": "A 51-jurisdiction directory: the agency that runs cottage food law, its published page, and whether that page names freeze-drying. Checked 2026-09-06.",
+  "kicker": "reference",
+  "pillar": "guides",
+  "section": "Selling",
+  "riskClass": "elevated",
+  "publishedDate": "2026-09-07",
+  "disclosure": "Sublime Pantry has no affiliate relationships, sponsorships, or paid placements as of publication. We sell packaging; where a product we sell appears, it is labeled.",
+  "sources": [
+    {
+      "title": "21 CFR Part 114 — Acidified Foods (§114.3 definitions)",
+      "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-114",
+      "publisher": "U.S. Government Publishing Office / eCFR (FDA regulation)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Food for Profit: Home-Style Kitchen Food Processing — Limited Food Establishments",
+      "url": "https://extension.psu.edu/food-for-profit-home-style-kitchen-food-processing-limited-food-establishments",
+      "publisher": "Penn State Extension",
+      "tier": "secondary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Federal and State Regulations on Frozen and Dehydrated Foods",
+      "url": "https://www.ncrfsma.org/files/page/files/ncr_frozen_and_dehydrated_foods.pdf",
+      "publisher": "North Central Region FSMA group (multistate university extension)",
+      "tier": "secondary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Cottage Food",
+      "url": "https://www.alabamapublichealth.gov/foodsafety/cottage-food.html",
+      "publisher": "Alabama Department of Public Health",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Homemade Food — Types of Food",
+      "url": "https://dec.alaska.gov/eh/fss/homemade-food/food-types/",
+      "publisher": "Alaska Department of Environmental Conservation",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Cottage Food Program (program presentation, PDF)",
+      "url": "https://www.azdhs.gov/documents/preparedness/epidemiology-disease-control/food-safety-environmental-services/cottage-food-program/program-presentation.pdf",
+      "publisher": "Arizona Department of Health Services",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "HB2864 — 56th Legislature, 2nd Regular Session — House Bill Summary",
+      "url": "https://www.azleg.gov/legtext/56leg/2R/summary/H.HB2864_020924_RA.DOCX.htm",
+      "publisher": "Arizona State Legislature",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Arkansas Homemade Food Production Guidelines (5.21.2026 update)",
+      "url": "https://healthy.arkansas.gov/wp-content/uploads/Homemade-Food-Guide-5.21.2026-Update.pdf",
+      "publisher": "Arkansas Department of Health",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Cottage Food Operations",
+      "url": "https://www.cdph.ca.gov/Programs/CEH/DFDCS/Pages/FDBPrograms/FoodSafetyProgram/CottageFoodOperations.aspx",
+      "publisher": "California Department of Public Health, Food and Drug Branch",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Approved Cottage Foods",
+      "url": "https://ucanr.edu/site/cottage-foods/approved-cottage-foods",
+      "publisher": "University of California Agriculture and Natural Resources",
+      "tier": "secondary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Colorado Cottage Foods Act",
+      "url": "https://cdphe.colorado.gov/Cottage-Foods-Act",
+      "publisher": "Colorado Department of Public Health and Environment",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Cottage Foods in Connecticut",
+      "url": "https://portal.ct.gov/dcp/cottage-foods",
+      "publisher": "Connecticut Department of Consumer Protection",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Cottage Food in Connecticut: a guide for cottage food operators",
+      "url": "https://portal.ct.gov/-/media/DCP/News-Releases-from-the-Department-of-Consumer-Protection/COTTAGE_FOOD_MANUAL.pdf",
+      "publisher": "Connecticut Department of Consumer Protection",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Cottage Food Establishment Program (CFE)",
+      "url": "https://dhss.delaware.gov/dph/homepage/about/sections/hsp/cfe/",
+      "publisher": "Delaware Health and Social Services, Division of Public Health",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Cottage Food Businesses",
+      "url": "https://dchealth.dc.gov/publication/cottage-food-businesses",
+      "publisher": "DC Health (District of Columbia Department of Health)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Cottage Food Regulations / Cottage Food FAQ",
+      "url": "https://dchealth.dc.gov/sites/default/files/dc/sites/doh/publication/attachments/Cottage%20Food%20FAQ_0.pdf",
+      "publisher": "DC Health",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Cottage Food Operations (FDACS-P-02072 guidance, rev. 07/21)",
+      "url": "https://sfyl.ifas.ufl.edu/media/sfylifasufledu/st-johns/fcs/pdf/CottageFoodOperations.pdf",
+      "publisher": "Florida Department of Agriculture and Consumer Services, Division of Food Safety (hosted by UF/IFAS Extension)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Cottage Food",
+      "url": "https://agr.ga.gov/cottage-food",
+      "publisher": "Georgia Department of Agriculture",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Cottage Food FAQ",
+      "url": "https://www.agr.georgia.gov/cottage-food-faq",
+      "publisher": "Georgia Department of Agriculture",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Homemade Food Products (hmf-foods-01.29.2026.pdf)",
+      "url": "https://health.hawaii.gov/san/files/2019/09/hmf-foods-01.29.2026.pdf",
+      "publisher": "Hawaii State Department of Health, Food Safety Branch",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Cottage Food Fact Sheet",
+      "url": "https://cdh.idaho.gov/wp-content/uploads/2023/10/Cottage-Foods-Fact-Sheet.pdf",
+      "publisher": "Central District Health (Idaho public health district)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Cottage Food Fact Sheet",
+      "url": "https://swdh.id.gov/wp-content/uploads/2025/08/Cottage-Foods-Fact-Sheet-7.pdf",
+      "publisher": "Southwest District Health (Idaho public health district)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Cottage Food",
+      "url": "https://dph.illinois.gov/topics-services/food-safety/cottage-food.html",
+      "publisher": "Illinois Department of Public Health",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Cottage Food Guide (IDPH, 2022)",
+      "url": "https://extension.illinois.edu/sites/default/files/idph_cottage_food_guide-_2022.pdf",
+      "publisher": "Illinois Department of Public Health (hosted by University of Illinois Extension)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Indiana Home Based Vendor Handbook",
+      "url": "https://www.in.gov/health/food-protection/files/Indiana-Home-Based-Vendor-Handbook-2.pdf",
+      "publisher": "Indiana Department of Health",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Home Based Vendors — FAQs",
+      "url": "https://www.in.gov/health/food-protection/files/Home-Based-Vendors-FAQ-FINAL.pdf",
+      "publisher": "Indiana Department of Health, Division of Food Protection",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Home Food Processing Establishments",
+      "url": "https://dial.iowa.gov/licenses/food-establishments-hotels/home-food-processing-establishments",
+      "publisher": "Iowa Department of Inspections, Appeals, & Licensing",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Iowa Administrative Code chapter 481—34, Home Food Processing Establishments",
+      "url": "https://www.legis.iowa.gov/docs/iac/chapter/481.34.pdf",
+      "publisher": "Iowa Legislature / Iowa Administrative Code",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Food Sales at Farmers' Markets & Similar Locations",
+      "url": "https://www.agriculture.ks.gov/divisions-programs/food-safety-and-lodging/farmers-markets-similar-locations",
+      "publisher": "Kansas Department of Agriculture, Food Safety and Lodging Program",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Home-Based Processing",
+      "url": "https://www.chfs.ky.gov/agencies/dph/dphps/fsb/Pages/homebasedprocessing.aspx",
+      "publisher": "Kentucky Cabinet for Health and Family Services, Department for Public Health, Food Safety Branch",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "902 KAR 45:090 — Home-based processors and farmers market home-based microprocessors",
+      "url": "https://apps.legislature.ky.gov/law/kar/titles/902/045/090/",
+      "publisher": "Kentucky Legislative Research Commission",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "La. R.S. 40:4.9 — Low-risk foods; preparation in home for public consumption",
+      "url": "https://law.justia.com/codes/louisiana/revised-statutes/title-40/rs-40-4-9/",
+      "publisher": "Justia (reproducing Louisiana Revised Statutes)",
+      "tier": "secondary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Permits and Licenses — Quality Assurance & Regulations",
+      "url": "https://www.maine.gov/dacf/qar/permits_and_licenses/index.shtml",
+      "publisher": "Maine Department of Agriculture, Conservation and Forestry",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Guidelines for Cottage Food Businesses (Updated 2025)",
+      "url": "https://health.maryland.gov/phpa/OEHFP/OFPCHS/Documents/Updated_CF_Guidelines_2025.pdf",
+      "publisher": "Maryland Department of Health, Office of Food Protection",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Residential Kitchen Questions and Answers",
+      "url": "https://www.mass.gov/info-details/residential-kitchen-questions-and-answers",
+      "publisher": "Massachusetts Department of Public Health, Division of Food Protection",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Cottage Food — What Can I Make?",
+      "url": "https://www.michigan.gov/mdard/food-dairy/cottage-food/what-can-i-make",
+      "publisher": "Michigan Department of Agriculture and Rural Development",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Cottage Food Law Guidance",
+      "url": "https://www.mda.state.mn.us/food-feed/cottage-food-law-guidance",
+      "publisher": "Minnesota Department of Agriculture",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Cottage Food Operation: Frequently Asked Questions",
+      "url": "https://msdh.ms.gov/page/resources/5375.pdf",
+      "publisher": "Mississippi State Department of Health, Food Protection Division",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Missouri Home-Based Kitchen Food Production Guidance",
+      "url": "https://health.mo.gov/sites/health/files/media/pdf/2026/03/home-based-kitchen-food-prod-guidance.pdf",
+      "publisher": "Missouri Department of Health and Senior Services",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Cottage Food and Farmers Markets",
+      "url": "https://dphhs.mt.gov/publichealth/EHFS/cottagefoodfarmersmarkets",
+      "publisher": "Montana Department of Public Health and Human Services",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Montana Local Food Choice Act Guidance Document / FAQ (10.1.23)",
+      "url": "https://dphhs.mt.gov/assets/publichealth/FCS/CottageFood/MLFCAGuidanceDoc-FAQ10.1.23.pdf",
+      "publisher": "Montana DPHHS",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Nebraska Cottage Food Registration",
+      "url": "https://nda.nebraska.gov/fscp/foods/cottagefood",
+      "publisher": "Nebraska Department of Agriculture",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Environmental Health Cottage Food Registration",
+      "url": "https://www.dpbh.nv.gov/regulatory/environmental-health/cottage-foods-registration/",
+      "publisher": "Nevada Division of Public and Behavioral Health",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Cottage Food FAQ",
+      "url": "https://www.southernnevadahealthdistrict.org/permits-and-regulations/cottage-food-operations/cottage-food-faq/",
+      "publisher": "Southern Nevada Health District",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Homestead Food Operations",
+      "url": "https://www.dhhs.nh.gov/programs-services/environmental-health-and-you/food-protection/homestead-food-operations",
+      "publisher": "New Hampshire Department of Health and Human Services",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Cottage Food — Prohibited Food Products",
+      "url": "https://nj.gov/health/cottagefood/food-products/prohibited",
+      "publisher": "New Jersey Department of Health",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "HomeMade Food Act",
+      "url": "https://www.env.nm.gov/foodprogram/homemade-food-act/",
+      "publisher": "New Mexico Environment Department",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "EHD Homemade Food Act factsheet (2021-08-16)",
+      "url": "https://www.env.nm.gov/wp-content/uploads/sites/8/2021/08/2021-08-16-EHD-Homemade-Food-Act-factsheet.pdf",
+      "publisher": "New Mexico Environment Department",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Home Processing (Home Processor exemption)",
+      "url": "https://agriculture.ny.gov/food-safety/home-processing",
+      "publisher": "New York State Department of Agriculture and Markets",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Food & Drug — Food Program — Home Processor",
+      "url": "https://www.ncagr.gov/divisions/food-drug-protection/food-program/food-drug-food-program-home-processor",
+      "publisher": "North Carolina Department of Agriculture & Consumer Services",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "N.D.C.C. ch. 23-09.5 — Cottage Food Production and Sales",
+      "url": "https://ndlegis.gov/cencode/t23c09-5.pdf",
+      "publisher": "North Dakota Legislative Branch",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Ohio Admin. Code 901:3-20-04, Cottage food products allowed",
+      "url": "https://codes.ohio.gov/ohio-administrative-code/rule-901:3-20-04",
+      "publisher": "Ohio Legislative Service Commission",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Ohio Department of Agriculture Fact Sheet: Cottage Foods (Feb. 2023)",
+      "url": "https://lucascountyhealth.com/wp-content/uploads/2023/08/CottageFoodFactSheet-2-2023.pdf",
+      "publisher": "Ohio Department of Agriculture (hosted by Lucas County Health Department)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Homemade Food Freedom Act (ODAFF bulletin)",
+      "url": "https://content.govdelivery.com/accounts/OKDAFF/bulletins/2fa9bdb",
+      "publisher": "Oklahoma Department of Agriculture, Food, and Forestry",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Homemade Food Freedom Act, FAPC-242",
+      "url": "https://extension.okstate.edu/fact-sheets/homemade-food-freedom-act-fapc-242.html",
+      "publisher": "Oklahoma State University Extension",
+      "tier": "secondary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Cottage Food Exemption FAQ (English), March 2026",
+      "url": "https://www.oregon.gov/oda/Documents/Publications/FoodSafety/CottageFoodExemptionFAQENG.pdf",
+      "publisher": "Oregon Department of Agriculture, Food Safety Program",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Limited Food Establishment",
+      "url": "https://www.pa.gov/agencies/pda/food/food-safety/limited-food-establishment-.html",
+      "publisher": "Pennsylvania Department of Agriculture",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "FAQs — Cottage Food Manufacturing in RI",
+      "url": "https://health.ri.gov/sites/g/files/xkgbur1006/files/publications/frequentlyaskedquestions/FAQs-Cottage-Food-Manufacturing-in-RI.pdf",
+      "publisher": "Rhode Island Department of Health",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "South Carolina Home-based Food Production Law Guidance",
+      "url": "https://www.clemson.edu/extension/food/resources/cottage-law.html",
+      "publisher": "Clemson Cooperative Extension",
+      "tier": "secondary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Food Products — Farmers Market Guidance",
+      "url": "https://doh.sd.gov/media/jskjetg5/farmersmarketguideance.pdf",
+      "publisher": "South Dakota Department of Health",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Tennessee Food Freedom Act",
+      "url": "https://www.tn.gov/agriculture/consumers/food-safety/tennessee-food-freedom-act.html",
+      "publisher": "Tennessee Department of Agriculture",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Texas Cottage Food Production",
+      "url": "https://www.dshs.texas.gov/retail-food-establishments/texas-cottage-food-production",
+      "publisher": "Texas Department of State Health Services",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Cottage Food Production",
+      "url": "https://ag.utah.gov/regulatory-services/cottage-food-production/",
+      "publisher": "Utah Department of Agriculture and Food",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Home-Based Food Licenses and Exemptions",
+      "url": "https://www.healthvermont.gov/environment/food-lodging-program/home-based-food-licenses-and-exemptions",
+      "publisher": "Vermont Department of Health",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Virginia's Home Kitchen Food Processing Exemptions (FAQ)",
+      "url": "https://www.vdacs.virginia.gov/pdf/kitchenbillfaq.pdf",
+      "publisher": "Virginia Department of Agriculture and Consumer Services",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Chapter 69.22 RCW — Cottage food operations",
+      "url": "https://app.leg.wa.gov/rcw/default.aspx?cite=69.22&full=true",
+      "publisher": "Washington State Legislature",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "WAC 16-149-120 — Approved nonpotentially hazardous foods",
+      "url": "https://app.leg.wa.gov/WAC/default.aspx?cite=16-149-120",
+      "publisher": "Washington State Legislature / WSDA rules",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Potentially Hazardous Cottage Foods",
+      "url": "https://agriculture.wv.gov/divisions/regulatory-and-environmental-affairs/potentially-hazardous-cottage-foods/",
+      "publisher": "West Virginia Department of Agriculture",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Licenses and Homemade Baked Goods",
+      "url": "https://datcp.wi.gov/Pages/Licenses_Permits/HomeBakers.aspx",
+      "publisher": "Wisconsin Department of Agriculture, Trade and Consumer Protection",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Food Safety — Consumer Health Services",
+      "url": "https://agriculture.wy.gov/index.php?section=food-safety",
+      "publisher": "Wyoming Department of Agriculture",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Wyoming Food Freedom Act, W.S. ch. 49 Marketing Homemade Foods (2025 text)",
+      "url": "https://www.tetoncountywy.gov/DocumentCenter/View/37981/Wyoming-Food-Freedom-Act-2025",
+      "publisher": "Teton County, Wyoming (government posting of state statute)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Does a blank in the freeze-drying column mean I can sell freeze-dried food in that state?",
+      "answer": "No. It records that the agency's published material does not use the term. What that silence means depends on the architecture of the state's law: in a state whose rule enumerates a closed list of allowed products, an unnamed product sits outside the list [52][53]; in a state that defines the boundary by food characteristic, such as Tennessee's non-TCS category [61] or Minnesota's pH-and-water-activity test [37], an unnamed process is not thereby excluded."
+    },
+    {
+      "question": "Which jurisdictions name freeze-drying explicitly?",
+      "answer": "Twenty-three of the 51 rows in the table: Alabama, Alaska, Arizona, Arkansas, California, Colorado, Indiana, Iowa, Kentucky, Maryland, Michigan, Missouri, Nebraska, Nevada, New Hampshire, New Jersey, New York, North Carolina, Oklahoma, Oregon, South Dakota, Utah and West Virginia. They do not agree: California lists a freeze-dried category [10], New York prohibits freeze-dried foods [49], New Jersey prohibits the machines themselves [46], and Oregon allows the process for confectionery only [56]."
+    },
+    {
+      "question": "Is there a federal cottage food law?",
+      "answer": "No. Each state carves the exemption out of its own food establishment licensing law, and in several states a county or local health department registers or inspects on top of the state rule. Federal regulation sits behind rather than above it: the acidified-foods rule defines its scope using water activity above 0.85 with a finished equilibrium pH of 4.6 or below [1], and multistate extension guidance places frozen and dehydrated food operations under federal current good manufacturing practice [3]."
+    },
+    {
+      "question": "Which states publish an actual number for water activity?",
+      "answer": "Arizona publishes both thresholds for lab verification, water activity below 0.85 and pH at or below 4.6 [6]. Minnesota states the same pair as the non-potentially-hazardous test [37]. Illinois states the water activity figure advisorily &mdash; \\u201caim for a water activity of 0.85 or less\\u201d &mdash; while requiring a lab pH test for acidified and fermented products [24]. North Carolina [50] and the District of Columbia [16] publish a testing route rather than a threshold."
+    },
+    {
+      "question": "How current is this directory?",
+      "answer": "Every row was checked on 2026-09-06 against the linked document, and the next scheduled check is 2026-12-06. Several linked pages were revised during 2025 and 2026, and a few state programs in the table have pending or recently amended statutes &mdash; West Virginia's new cottage foods article among them [68]. Check the linked page before relying on any row."
+    }
+  ],
+  "related": [
+    "freeze-dried-candy"
+  ],
+  "bodyHtml": "<p><strong>The short version:</strong> this page is a directory of the agency that administers cottage food law in each of the 51 US jurisdictions, with a link and a note on whether that agency's published text names freeze-drying at all. Of the 51 rows below, <strong>23 name freeze-drying explicitly and 28 do not</strong> &mdash; and the ones that do name it disagree in both directions, with California listing a category titled &ldquo;Dried, Dehydrated, and Freeze-Dried Foods&rdquo; [10] while New York puts &ldquo;Freeze-dried foods&rdquo; on its prohibited list [49]. Everything here describes what an agency publishes; it does not tell you what you may sell.</p>\n\n<h2>What this is, and what it is not</h2>\n<p>This is a directory, not advice. Each row names the agency, links its published page, and records one narrow fact: whether the words &ldquo;freeze-dried,&rdquo; &ldquo;freeze dried&rdquo; or &ldquo;freeze drying&rdquo; appear in the material that agency publishes. Nothing in the table says a product is legal or illegal where you live. Cottage food rules change by statute, by administrative rule and by agency page revision, and several of the pages linked below were revised during the year they were checked.</p>\n<p>Two structural facts make the table readable. First, there is no federal cottage food statute; each state carves an exemption out of its own food establishment licensing law, and in several states a county or local health department administers or inspects on top of it. The federal layer that does exist sits behind the state rules &mdash; the acidified-foods regulation, for instance, defines its own scope using a water activity &ldquo;greater than 0.85&rdquo; together with a finished equilibrium pH of 4.6 or below [1] &mdash; and multistate extension guidance places frozen and dehydrated food operations under federal current good manufacturing practice [3]. Second, the load-bearing idea in every state list is the non-TCS concept. Penn State Extension states the pairing plainly: TCS foods have &ldquo;high moisture (aw &gt; 0.85) and/or low acid content (pH &gt; 4.6)&rdquo; [2]. Dried and freeze-dried products reach non-TCS status by moisture removal, and most cottage food statutes never defined a test for it.</p>\n\n<h2>Cottage food authority by jurisdiction</h2>\n<p>Alphabetical. A &ldquo;No&rdquo; in the last column is a recorded silence in the material that was checked &mdash; it is not permission and it is not prohibition.</p>\n<table>\n<thead><tr><th>Jurisdiction</th><th>Governing authority</th><th>Published page</th><th>Freeze-drying addressed?</th><th>Date checked</th></tr></thead>\n<tbody>\n<tr><td><strong>Alabama</strong></td><td>Alabama Department of Public Health, Division of Food, Milk and Lodging</td><td><a href=\"https://www.alabamapublichealth.gov/foodsafety/cottage-food.html\">alabamapublichealth.gov</a> [4]</td><td>Yes &mdash; a dedicated freeze-drying Q&amp;A that turns on water-activity verification [4]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Alaska</strong></td><td>Alaska Dept. of Environmental Conservation, Food Safety &amp; Sanitation Program</td><td><a href=\"https://dec.alaska.gov/eh/fss/homemade-food/food-types/\">dec.alaska.gov</a> [5]</td><td>Yes &mdash; &ldquo;freeze drying&rdquo; named in the food-type taxonomy; classification turns on water activity [5]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Arizona</strong></td><td>Arizona Dept. of Health Services, Office of Food Safety and Environmental Services</td><td><a href=\"https://www.azdhs.gov/documents/preparedness/epidemiology-disease-control/food-safety-environmental-services/cottage-food-program/program-presentation.pdf\">azdhs.gov</a> [6]</td><td>Yes &mdash; named as a permitted special process [6]; HB 2864 (2024) added processed freeze-dried fruits and vegetables by statute [7]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Arkansas</strong></td><td>Arkansas Department of Health</td><td><a href=\"https://healthy.arkansas.gov/wp-content/uploads/Homemade-Food-Guide-5.21.2026-Update.pdf\">healthy.arkansas.gov</a> [8]</td><td>Yes &mdash; only as a prohibition: &ldquo;Freeze-dried cheesecake, dairy, eggs, ice cream, meat, fish, seafood and poultry&rdquo; not allowed [8]</td><td>2026-09-06</td></tr>\n<tr><td><strong>California</strong></td><td>California Dept. of Public Health, Food and Drug Branch (county registration/permit)</td><td><a href=\"https://www.cdph.ca.gov/Programs/CEH/DFDCS/Pages/FDBPrograms/FoodSafetyProgram/CottageFoodOperations.aspx\">cdph.ca.gov</a> [9]</td><td>Yes &mdash; permissive. The list carries a category titled &ldquo;Dried, Dehydrated, and Freeze-Dried Foods&rdquo; [10][9]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Colorado</strong></td><td>Colorado Dept. of Public Health and Environment</td><td><a href=\"https://cdphe.colorado.gov/Cottage-Foods-Act\">cdphe.colorado.gov</a> [11]</td><td>Yes &mdash; both directions on one page: &ldquo;Freeze-dried produce&rdquo; eligible, &ldquo;Freeze dried meals&rdquo; ineligible [11]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Connecticut</strong></td><td>Connecticut Dept. of Consumer Protection, Food and Standards Division</td><td><a href=\"https://portal.ct.gov/dcp/cottage-foods\">portal.ct.gov</a> [12]</td><td>No &mdash; the word &ldquo;freeze&rdquo; does not appear in the located manual or program page [12][13]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Delaware</strong></td><td>Delaware Health and Social Services, Division of Public Health, Office of Food Protection</td><td><a href=\"https://dhss.delaware.gov/dph/homepage/about/sections/hsp/cfe/\">dhss.delaware.gov</a> [14]</td><td>No &mdash; absent from the Cottage Food Establishment program material located [14]</td><td>2026-09-06</td></tr>\n<tr><td><strong>District of Columbia</strong></td><td>DC Health, Division of Food Safety</td><td><a href=\"https://dchealth.dc.gov/publication/cottage-food-businesses\">dchealth.dc.gov</a> [15]</td><td>No &mdash; only &ldquo;dehydrated meat or dehydrated poultry products,&rdquo; as a prohibition [15][16]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Florida</strong></td><td>Florida Dept. of Agriculture and Consumer Services, Division of Food Safety</td><td><a href=\"https://sfyl.ifas.ufl.edu/media/sfylifasufledu/st-johns/fcs/pdf/CottageFoodOperations.pdf\">sfyl.ifas.ufl.edu (FDACS guidance)</a> [17]</td><td>No &mdash; absent from the FDACS guidance retrieved [17]. The live FDACS program page could not be retrieved</td><td>2026-09-06</td></tr>\n<tr><td><strong>Georgia</strong></td><td>Georgia Department of Agriculture</td><td><a href=\"https://agr.ga.gov/cottage-food\">agr.ga.gov</a> [18]</td><td>No &mdash; absent from the program page, FAQ, brochure and Subject 40-7-19 [18][19]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Hawaii</strong></td><td>Hawaii State Dept. of Health, Food Safety Branch</td><td><a href=\"https://health.hawaii.gov/san/files/2019/09/hmf-foods-01.29.2026.pdf\">health.hawaii.gov</a> [20]</td><td>No &mdash; not named; dried meats, seafood and melon-family fruits are excluded [20]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Idaho</strong></td><td>Idaho Dept. of Health and Welfare, administered through the public health districts</td><td><a href=\"https://cdh.idaho.gov/wp-content/uploads/2023/10/Cottage-Foods-Fact-Sheet.pdf\">cdh.idaho.gov</a> [21]</td><td>No &mdash; the district fact sheets do not contain the term [21][22]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Illinois</strong></td><td>Illinois Dept. of Public Health (registration by the local health department)</td><td><a href=\"https://dph.illinois.gov/topics-services/food-safety/cottage-food.html\">dph.illinois.gov</a> [23]</td><td>No &mdash; Illinois answers the dehydration question by name and stops there [23][24]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Indiana</strong></td><td>Indiana Department of Health, Division of Food Protection</td><td><a href=\"https://www.in.gov/health/food-protection/files/Indiana-Home-Based-Vendor-Handbook-2.pdf\">in.gov/health</a> [25]</td><td>Yes &mdash; narrowly. Freeze-dried fruits and pre-manufactured confectionery appear on the allowed list [25]; the FAQ answers conditionally [26]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Iowa</strong></td><td>Iowa Dept. of Inspections, Appeals, &amp; Licensing</td><td><a href=\"https://dial.iowa.gov/licenses/food-establishments-hotels/home-food-processing-establishments\">dial.iowa.gov</a> [27]</td><td>Yes &mdash; the rule reaches freeze-dried items and conditions them on water activity [27][28]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Kansas</strong></td><td>Kansas Dept. of Agriculture, Food Safety and Lodging Program</td><td><a href=\"https://www.agriculture.ks.gov/divisions-programs/food-safety-and-lodging/farmers-markets-similar-locations\">agriculture.ks.gov</a> [29]</td><td>No &mdash; neither dried nor freeze-dried foods are addressed on the located pages [29]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Kentucky</strong></td><td>Kentucky CHFS, Dept. for Public Health, Food Safety Branch</td><td><a href=\"https://www.chfs.ky.gov/agencies/dph/dphps/fsb/Pages/homebasedprocessing.aspx\">chfs.ky.gov</a> [30]</td><td>Yes &mdash; affirmatively allowed by rule: &ldquo;Dried or freeze dried whole fruits or vegetables&rdquo; [31][30]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Louisiana</strong></td><td>Louisiana Department of Health (statute assigns oversight to the state health officer)</td><td><a href=\"https://law.justia.com/codes/louisiana/revised-statutes/title-40/rs-40-4-9/\">law.justia.com (La. R.S. 40:4.9)</a> [32]</td><td>No &mdash; not named in the statute; &ldquo;dried mixes&rdquo; is the only dried entry [32]. No LDH program page located</td><td>2026-09-06</td></tr>\n<tr><td><strong>Maine</strong></td><td>Maine Dept. of Agriculture, Conservation and Forestry; municipalities under the Food Sovereignty Act</td><td><a href=\"https://www.maine.gov/dacf/qar/permits_and_licenses/index.shtml\">maine.gov/dacf</a> [33]</td><td>No &mdash; the located page speaks only of &ldquo;shelf-stable food products&rdquo; [33]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Maryland</strong></td><td>Maryland Dept. of Health, Office of Food Protection</td><td><a href=\"https://health.maryland.gov/phpa/OEHFP/OFPCHS/Documents/Updated_CF_Guidelines_2025.pdf\">health.maryland.gov</a> [34]</td><td>Yes &mdash; prohibited: &ldquo;Freeze Dried Products - none of any kind except for non-potentially hazardous commercially prepared candy&rdquo; [34]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Massachusetts</strong></td><td>Massachusetts Dept. of Public Health, Division of Food Protection (local board of health permits)</td><td><a href=\"https://www.mass.gov/info-details/residential-kitchen-questions-and-answers\">mass.gov</a> [35]</td><td>No &mdash; absent from the residential kitchen material [35]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Michigan</strong></td><td>Michigan Dept. of Agriculture and Rural Development</td><td><a href=\"https://www.michigan.gov/mdard/food-dairy/cottage-food/what-can-i-make\">michigan.gov/mdard</a> [36]</td><td>Yes &mdash; freeze-dried candies and shelf-stable novelties allowed; freeze-dried melon, tomato, leafy greens and dairy excluded [36]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Minnesota</strong></td><td>Minnesota Department of Agriculture</td><td><a href=\"https://www.mda.state.mn.us/food-feed/cottage-food-law-guidance\">mda.state.mn.us</a> [37]</td><td>No &mdash; the stated test is characteristic-based: pH 4.6 or below, or water activity 0.85 or less [37]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Mississippi</strong></td><td>Mississippi State Dept. of Health, Food Protection Division</td><td><a href=\"https://msdh.ms.gov/page/resources/5375.pdf\">msdh.ms.gov</a> [38]</td><td>No &mdash; not mentioned in the located FAQ [38]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Missouri</strong></td><td>Missouri Dept. of Health and Senior Services</td><td><a href=\"https://health.mo.gov/sites/health/files/media/pdf/2026/03/home-based-kitchen-food-prod-guidance.pdf\">health.mo.gov</a> [39]</td><td>Yes &mdash; prohibited: &ldquo;Freeze dried foods&rdquo; and &ldquo;Freeze dried fruits and vegetables&rdquo; [39]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Montana</strong></td><td>Montana Dept. of Public Health and Human Services (two paths: Cottage Food and Local Food Choice Act)</td><td><a href=\"https://dphhs.mt.gov/publichealth/EHFS/cottagefoodfarmersmarkets\">dphhs.mt.gov</a> [40]</td><td>No &mdash; not addressed under either path [40][41]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Nebraska</strong></td><td>Nebraska Dept. of Agriculture, Food Safety &amp; Consumer Protection</td><td><a href=\"https://nda.nebraska.gov/fscp/foods/cottagefood\">nda.nebraska.gov</a> [42]</td><td>Yes &mdash; the FAQ conditions freeze-dried sale on the underlying food not being an excluded category [42]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Nevada</strong></td><td>Nevada Division of Public and Behavioral Health; registration by the local health authority</td><td><a href=\"https://www.dpbh.nv.gov/regulatory/environmental-health/cottage-foods-registration/\">dpbh.nv.gov</a> [43]</td><td>Yes &mdash; at the county administering authority: dried fruits &ldquo;may be freeze-dried,&rdquo; approved for low-acid fruits [44][43]</td><td>2026-09-06</td></tr>\n<tr><td><strong>New Hampshire</strong></td><td>New Hampshire DHHS, Food Protection Section (Homestead Food Operations)</td><td><a href=\"https://www.dhhs.nh.gov/programs-services/environmental-health-and-you/food-protection/homestead-food-operations\">dhhs.nh.gov</a> [45]</td><td>Yes &mdash; restrictive, with a candy carve-out [45]</td><td>2026-09-06</td></tr>\n<tr><td><strong>New Jersey</strong></td><td>New Jersey Dept. of Health, Public Health and Food Protection Program</td><td><a href=\"https://nj.gov/health/cottagefood/food-products/prohibited\">nj.gov/health</a> [46]</td><td>Yes &mdash; prohibited, including the equipment: &ldquo;Freeze-drying or dehydrating machines are not allowed&rdquo; [46]</td><td>2026-09-06</td></tr>\n<tr><td><strong>New Mexico</strong></td><td>New Mexico Environment Department, Food Program</td><td><a href=\"https://www.env.nm.gov/foodprogram/homemade-food-act/\">env.nm.gov</a> [47]</td><td>No &mdash; &ldquo;Dehydrated fruits&rdquo; is enumerated; freeze-drying is not addressed either way [47][48]</td><td>2026-09-06</td></tr>\n<tr><td><strong>New York</strong></td><td>New York State Dept. of Agriculture and Markets (Home Processor registration)</td><td><a href=\"https://agriculture.ny.gov/food-safety/home-processing\">agriculture.ny.gov</a> [49]</td><td>Yes &mdash; prohibited. &ldquo;Freeze-dried foods&rdquo; appears on the prohibited list [49]</td><td>2026-09-06</td></tr>\n<tr><td><strong>North Carolina</strong></td><td>NC Dept. of Agriculture &amp; Consumer Services, Food and Drug Protection Division</td><td><a href=\"https://www.ncagr.gov/divisions/food-drug-protection/food-program/food-drug-food-program-home-processor\">ncagr.gov</a> [50]</td><td>Yes &mdash; &ldquo;Freeze dried candies&rdquo; listed among permitted home-processed items [50]</td><td>2026-09-06</td></tr>\n<tr><td><strong>North Dakota</strong></td><td>North Dakota Health and Human Services, Food and Lodging</td><td><a href=\"https://ndlegis.gov/cencode/t23c09-5.pdf\">ndlegis.gov (N.D.C.C. ch. 23-09.5)</a> [51]</td><td>No &mdash; absent from the chapter; the definition is &ldquo;baked goods, jams, jellies, and other food and drink products&rdquo; [51]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Ohio</strong></td><td>Ohio Dept. of Agriculture, Division of Food Safety</td><td><a href=\"https://codes.ohio.gov/ohio-administrative-code/rule-901:3-20-04\">codes.ohio.gov (OAC 901:3-20-04)</a> [52]</td><td>No &mdash; absent from the rule and the agency fact sheet; the list is built on commercially dried ingredients [52][53]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Oklahoma</strong></td><td>Oklahoma Dept. of Agriculture, Food, and Forestry</td><td><a href=\"https://content.govdelivery.com/accounts/OKDAFF/bulletins/2fa9bdb\">content.govdelivery.com (ODAFF bulletin)</a> [54]</td><td>Yes &mdash; in extension material only: OSU Extension names freeze-drying alongside dehydrating [55]; the ODAFF bulletin does not address it [54]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Oregon</strong></td><td>Oregon Dept. of Agriculture, Food Safety Program</td><td><a href=\"https://www.oregon.gov/oda/Documents/Publications/FoodSafety/CottageFoodExemptionFAQENG.pdf\">oregon.gov/oda</a> [56]</td><td>Yes &mdash; restrictive: &ldquo;The freeze-drying process is only allowed for confectionary items, not for any other products&rdquo; [56]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Pennsylvania</strong></td><td>Pennsylvania Dept. of Agriculture (Limited Food Establishment registration)</td><td><a href=\"https://www.pa.gov/agencies/pda/food/food-safety/limited-food-establishment-.html\">pa.gov/agencies/pda</a> [57]</td><td>No &mdash; absent from the program page; &ldquo;Dehydrated food&rdquo; exists as an application checkbox with no attached rule [57]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Rhode Island</strong></td><td>Rhode Island Dept. of Health, Center for Food Protection</td><td><a href=\"https://health.ri.gov/sites/g/files/xkgbur1006/files/publications/frequentlyaskedquestions/FAQs-Cottage-Food-Manufacturing-in-RI.pdf\">health.ri.gov</a> [58]</td><td>No &mdash; no dried or dehydrated product named in either direction [58]</td><td>2026-09-06</td></tr>\n<tr><td><strong>South Carolina</strong></td><td>South Carolina state health agency, per Clemson Extension guidance on &sect; 44-1-143</td><td><a href=\"https://www.clemson.edu/extension/food/resources/cottage-law.html\">clemson.edu/extension</a> [59]</td><td>No &mdash; &ldquo;dried&rdquo; is addressed with a home-kitchen condition; &ldquo;freeze-dried&rdquo; is not [59]</td><td>2026-09-06</td></tr>\n<tr><td><strong>South Dakota</strong></td><td>South Dakota Dept. of Health, Office of Food and Lodging Safety</td><td><a href=\"https://doh.sd.gov/media/jskjetg5/farmersmarketguideance.pdf\">doh.sd.gov</a> [60]</td><td>Yes &mdash; &ldquo;Freeze dried-sliced fruit/produce&rdquo; listed as a license-exempt product [60]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Tennessee</strong></td><td>Tennessee Department of Agriculture</td><td><a href=\"https://www.tn.gov/agriculture/consumers/food-safety/tennessee-food-freedom-act.html\">tn.gov/agriculture</a> [61]</td><td>No &mdash; the operative category is non-TCS homemade food, defined by characteristic rather than process [61]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Texas</strong></td><td>Texas Dept. of State Health Services</td><td><a href=\"https://www.dshs.texas.gov/retail-food-establishments/texas-cottage-food-production\">dshs.texas.gov</a> [62]</td><td>No &mdash; dehydrated fruit and vegetables are named by statute; freeze-dried is not [62]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Utah</strong></td><td>Utah Dept. of Agriculture and Food, Regulatory Services Division</td><td><a href=\"https://ag.utah.gov/regulatory-services/cottage-food-production/\">ag.utah.gov</a> [63]</td><td>Yes &mdash; the most specific in the set: &ldquo;Low acid fruits may be freeze-dried,&rdquo; plus a &ldquo;Freeze Dried Candy or Fruit&rdquo; product category [63]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Vermont</strong></td><td>Vermont Dept. of Health, Food and Lodging Program</td><td><a href=\"https://www.healthvermont.gov/environment/food-lodging-program/home-based-food-licenses-and-exemptions\">healthvermont.gov</a> [64]</td><td>No &mdash; dry herbs, trail mix, granola and dry tea are enumerated; dehydrated meats prohibited [64]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Virginia</strong></td><td>Virginia Dept. of Agriculture and Consumer Services, Office of Dairy and Foods</td><td><a href=\"https://www.vdacs.virginia.gov/pdf/kitchenbillfaq.pdf\">vdacs.virginia.gov</a> [65]</td><td>No &mdash; absent from statute, agency FAQ and extension alike [65]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Washington</strong></td><td>Washington State Dept. of Agriculture, Food Safety Program</td><td><a href=\"https://app.leg.wa.gov/rcw/default.aspx?cite=69.22&full=true\">app.leg.wa.gov (RCW 69.22)</a> [66]</td><td>No &mdash; absent from both the statute and the rule [66][67]</td><td>2026-09-06</td></tr>\n<tr><td><strong>West Virginia</strong></td><td>West Virginia Dept. of Agriculture, Regulatory and Environmental Affairs</td><td><a href=\"https://agriculture.wv.gov/divisions/regulatory-and-environmental-affairs/potentially-hazardous-cottage-foods/\">agriculture.wv.gov</a> [68]</td><td>Yes &mdash; process-neutral: &ldquo;The same requirements apply as before the freeze-drying/dehydrating process&rdquo; [68]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Wisconsin</strong></td><td>Wisconsin Dept. of Agriculture, Trade and Consumer Protection</td><td><a href=\"https://datcp.wi.gov/Pages/Licenses_Permits/HomeBakers.aspx\">datcp.wi.gov</a> [69]</td><td>No &mdash; the dehydrator language addresses dehydrators specifically, not freeze-dryers [69]</td><td>2026-09-06</td></tr>\n<tr><td><strong>Wyoming</strong></td><td>Wyoming Dept. of Agriculture, Consumer Health Services</td><td><a href=\"https://agriculture.wy.gov/index.php?section=food-safety\">agriculture.wy.gov</a> [70]</td><td>No &mdash; absent from the statute, the agency page and the extension summary [70][71]</td><td>2026-09-06</td></tr>\n</tbody>\n</table>\n<p>Every row was checked on the same date against the linked document.</p>\n\n<h2>Why silence means opposite things in opposite states</h2>\n<p>The 28 silent rows are not one finding. They sit inside two different statutory architectures, and the same blank means the reverse thing in each.</p>\n<ul>\n<li><strong>Enumerated-permitted-list states</strong> publish a closed list of allowed products. Ohio is the clearest case: the allowed set is fixed by administrative rule, and every dried entry either presupposes a commercially dried ingredient or is a blend of dry ingredients [52][53]. In that architecture, a product absent from the list is outside the list.</li>\n<li><strong>Exclusionary and food-freedom states</strong> permit what is not excluded, and define the boundary by food characteristic rather than by process. Tennessee's operative category is non-TCS homemade food [61]; Minnesota states the test as pH 4.6 or below, or water activity 0.85 or less [37]. In that architecture, an unnamed process is not thereby excluded.</li>\n</ul>\n<p>This is why no single yes/no column is safe to act on by itself, and why the column above records the presence of language rather than a legal conclusion.</p>\n\n<h2>Where a state publishes a number, not a category</h2>\n<p>A small number of jurisdictions resolve the moisture question with a measurement instead of a product list. These are the ones that publish a threshold or a testing route in their cottage food material.</p>\n<table>\n<thead><tr><th>Jurisdiction</th><th>What is published</th></tr></thead>\n<tbody>\n<tr><td>Arizona</td><td>Numeric thresholds for establishing shelf stability by lab testing: &ldquo;Water Activity Testing: results must fall below 0.85 aw&rdquo; and &ldquo;pH Testing: results must test acidic at 4.6 pH or below&rdquo; [6]</td></tr>\n<tr><td>North Carolina</td><td>&ldquo;Inspectors may require that your product be tested for pH and/or water activity prior to the inspection&rdquo;; laboratories supply a Process Authority Letter, required for acidified foods [50]</td></tr>\n<tr><td>District of Columbia</td><td>For foods not on the approved list, applicants submit confirmation of pH value and water activity from a state-accredited laboratory [16]</td></tr>\n<tr><td>Illinois</td><td>Advisory rather than documentary on moisture: &ldquo;For safety, aim for a water activity of 0.85 or less&rdquo; &mdash; while a lab pH test is required for acidified and fermented products [24]</td></tr>\n<tr><td>New Jersey</td><td>Resolves it categorically instead of numerically, with the stated reason that &ldquo;The process of freeze-drying or dehydrating fruits using a machine cannot reliably lower the moisture content to a safe level&rdquo; [46]</td></tr>\n<tr><td>Minnesota</td><td>States the non-potentially-hazardous test itself: pH 4.6 or below, or water activity 0.85 or less [37]</td></tr>\n</tbody>\n</table>\n<p>One further pattern is worth naming because it changes which page a reader should trust. In Oklahoma, freeze-drying is named by the extension service [55] and not by the agency bulletin [54]. In Colorado, it appears on the agency page [11] in both directions at once. Where agency text and extension text differ, the agency text is the one that governs the program, and it is the one linked in the table above. If your answer matters, the durable move is to put the question to your own state agency in writing and keep the reply alongside your records.</p>\n\n<h2>What we could not source</h2>\n<ul>\n<li><strong>Florida's live program page.</strong> The FDACS cottage food page returned 403 at the network egress layer and is disallowed by robots. The Florida row rests on FDACS guidance document FDACS-P-02072 as hosted by extension [17]. Whether the live page carries dried or freeze-dried language absent from the guidance is open, not closed.</li>\n<li><strong>Washington's WSDA cottage food page body.</strong> Not retrievable this pass; the Washington row rests on the statute and rule text instead [66][67].</li>\n<li><strong>Ohio's ODA program page URL.</strong> Not resolved; the row uses the administrative rule [52] and the agency fact sheet [53].</li>\n<li><strong>Virginia's VDACS HTML landing page.</strong> Not retrieved; the row uses the VDACS FAQ PDF [65].</li>\n<li><strong>Utah Administrative Code R70-560 rule text.</strong> The published URL now returns only a redirect notice, so the rule's own text &mdash; as distinct from the UDAF page and application form [63] &mdash; was not read.</li>\n<li><strong>Wyoming's Food Freedom Act Q&amp;A.</strong> The agency page exposes it as a download link only [70]; it is the single most likely Wyoming location for a freeze-drying statement and it was not retrieved.</li>\n<li><strong>North Dakota's post-2021 administrative rules.</strong> The chapter that would carry an allowed-foods list is largely repealed and no replacement was located; the row rests on the statute [51].</li>\n<li><strong>Vermont's Act 42 (2025) codified text.</strong> The general licensing section contains no cottage food definition or cap; the Vermont row rests on the Department of Health page alone [64].</li>\n<li><strong>South Carolina's current agency name.</strong> The Clemson guidance retains the pre-reorganization agency name [59]; no successor state agency page was fetched to confirm who administers the law today.</li>\n<li><strong>The District's approved-foods list.</strong> Neither DC Health document publishes an affirmative allowed list &mdash; only prohibitions plus the laboratory submission pathway [15][16].</li>\n<li><strong>West Virginia's Article 40 status.</strong> The 2026 committee amendment creating a new cottage foods article was located, but whether it was enacted, and its effective date, were not confirmed; the row rests on the agency page [68].</li>\n<li><strong>Kansas's statutory citation.</strong> No statute number appears on the located Kansas Department of Agriculture pages; the state publishes an exemption list rather than a cottage food registration [29].</li>\n<li><strong>Louisiana's agency program page.</strong> None located. The Louisiana row rests on the statute [32].</li>\n<li><strong>Any ranking.</strong> No agency in the set publishes a comparative ordering of jurisdictions by permissiveness, and the columns are not commensurable &mdash; North Carolina has no revenue cap but requires inspection [50]; Michigan has a cap but no inspection [36]; Arizona has neither cap nor fee but requires continuously maintained food handler training [6]. No ordering is offered here.</li>\n<li><strong>Sublime Pantry has bench-tested nothing in this article.</strong> Every entry above is a reading of somebody else's published page on a stated date.</li>\n</ul>\n\n<h2>Next</h2>\n<ul>\n<li><a href=\"/guides/cottage-economics\">The economics of selling what you dry</a> &mdash; what the rules cost once you price a unit.</li><li><a href=\"/guides/water-activity-what-it-measures\">What water activity measures</a> &mdash; the threshold several of these statutes are written around.</li><li><a href=\"/guides/freeze-dried-candy\">What freeze-drying does to candy</a> &mdash; a category that comes up repeatedly in the rows above.</li>\n</ul>"
+}

@@ -1,0 +1,191 @@
+{
+  "title": "Freeze-drying eggs.",
+  "description": "Raw whisked is the documented method and the one extension advises against. Preparation, loading, endpoint, rehydration, storage, and what is unsourced.",
+  "kicker": "eggs",
+  "pillar": "guides",
+  "section": "Foods",
+  "riskClass": "elevated",
+  "publishedDate": "2026-09-07",
+  "disclosure": "Sublime Pantry has no affiliate relationships, sponsorships, or paid placements as of publication. We sell packaging; where a product we sell appears, it is labeled.",
+  "sources": [
+    {
+      "title": "Can I Freeze-Dry That? A Practical Guide to Safe and Effective Freeze-Drying",
+      "url": "https://extension.usu.edu/foodsafety/research/can-i-freeze-dry-that-a-practical-guide-to-safe-and-effective-freeze-drying",
+      "publisher": "Utah State University Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Ask an Expert — Freeze-Drying Food at Home: Tips for Safe, Successful Results",
+      "url": "https://www.usu.edu/today/story/ask-an-expert--freeze-drying-food-at-home-tips-for-safe-successful-results",
+      "publisher": "Utah State University",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Preserving food at home: Freeze-drying",
+      "url": "https://extension.umn.edu/preserving-and-preparing/freeze-drying-food",
+      "publisher": "University of Minnesota Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Freeze Drying For Home Use (UC ANR / UC Master Food Preservers fact sheet)",
+      "url": "https://ucanr.edu/sites/default/files/2024-07/399943.pdf",
+      "publisher": "UC ANR",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Freeze Drying For Home Use (UCCE Master Food Preservers, El Dorado County)",
+      "url": "https://ucanr.edu/sites/default/files/2024-10/403504.pdf",
+      "publisher": "UC Cooperative Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "At-home freeze drying: A growing trend with food safety concerns",
+      "url": "https://www.foodsafetynews.com/2025/02/at-home-freeze-drying-a-growing-trend-with-food-safety-concerns/",
+      "publisher": "Food Safety News",
+      "tier": "secondary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "What's the best way to prepare food for freeze drying?",
+      "url": "https://harvestright.com/question/preparing-food-for-freeze-drying/",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Rehydrating Freeze Dried Dairy",
+      "url": "https://harvestright.com/blog/2016/rehydrating-freeze-dried-dairy/",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "How to Freeze Dry Like a Pro: 25 Tips for Better Results",
+      "url": "https://harvestright.com/blogs/blog/how-to-freeze-dry-like-a-pro-25-tips-for-better-results",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "How Do I Know When My Freeze-Dried Food Is Completely Dry?",
+      "url": "https://harvestright.com/blogs/blog/how-do-i-know-when-my-freeze-dried-food-is-completely-dry",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Storing Freeze Dried Food",
+      "url": "https://harvestright.com/blogs/blog/storing-freeze-dried-food",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "How to Package Freeze-dried Food So It Keeps For 25 Years",
+      "url": "https://harvestright.com/blogs/blog/how-to-package-freeze-dried-food-so-it-keeps-for-25-years",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Freeze-Dry Eggs: A Long-Term Storage Solution",
+      "url": "https://stayfreshfreezedry.com/blogs/learn-about-freeze-drying/freeze-dry-eggs",
+      "publisher": "Stay Fresh",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Master Freeze Drying: Check Doneness by Weight Change",
+      "url": "https://stayfreshfreezedry.com/blogs/freeze-dryer-101/checking-dryness-in-freeze-dried-food-through-weight-change",
+      "publisher": "Stay Fresh",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "How to Freeze Dry Eggs (& Ways to Use Them)",
+      "url": "https://practicalselfreliance.com/freeze-dried-eggs/",
+      "publisher": "Practical Self Reliance",
+      "tier": "secondary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Buying a Home Freeze-Dryer: What to Know Before You Go",
+      "url": "https://digitalcommons.usu.edu/cgi/viewcontent.cgi?article=2999&context=extension_curall",
+      "publisher": "Utah State University Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Preparing and Storing Your Freeze Dried Products for Best Use (AZ2097B)",
+      "url": "https://extension.arizona.edu/sites/default/files/2025-03/az2097b-2025.pdf",
+      "publisher": "University of Arizona Cooperative Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Tips for Freeze Drying at Home",
+      "url": "https://extension.umaine.edu/food-health/2024/04/25/tips-for-freeze-drying-at-home/",
+      "publisher": "University of Maine Cooperative Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Can you freeze dry raw eggs?",
+      "answer": "Both Harvest Right and Stay Fresh publish the raw route as routine, and Harvest Right adds that raw eggs should be handled with the same care as raw meat. Utah State University Extension takes the opposite position: raw eggs are high-risk because Salmonella survives freeze-drying, and it recommends pasteurized liquid egg or fully cooked scrambled egg instead. Both positions are on the record and neither has been withdrawn."
+    },
+    {
+      "question": "How many eggs fit on a tray?",
+      "answer": "No manufacturer publishes a figure. Harvest Right's preparation page and FAQ were both checked directly and neither states a quantity, and no extension service publishes one either. A secondary blog estimates 18–20 eggs per tray on a large unit; treat that as one writer's account rather than a specification."
+    },
+    {
+      "question": "How much water rehydrates freeze-dried egg powder?",
+      "answer": "The only published ratio is secondary: roughly 2 tablespoons of powder plus 2 tablespoons of water for one fresh egg, with about 8–9 eggs to a cup of powder. No source at any tier distinguishes a scramble ratio from a baking ratio."
+    },
+    {
+      "question": "Does freeze drying kill Salmonella in eggs?",
+      "answer": "No. Freeze drying preserves microorganisms in a dormant state rather than killing them, and dormant organisms reactivate when water is added back. Utah State University Extension states directly that Salmonella in raw eggs survives freeze-drying. Cooking — before drying or after rehydration — is the only kill step in the chain."
+    },
+    {
+      "question": "How long does freeze-dried egg powder keep?",
+      "answer": "No manufacturer or extension service publishes an egg-specific figure. The general manufacturer claim is up to 25 years in mylar with an oxygen absorber, stored below 85°F; Utah State University Extension counters that no real data exists on home freeze-dried shelf life and anchors to 8–10 years, and UC ANR does not recommend use beyond 5–10 years. A secondary source gives up to 20 years for egg specifically, and about a year unprotected."
+    },
+    {
+      "question": "How do you tell when a tray of egg is fully dry?",
+      "answer": "Break the dried sheet and check the center for moisture, cold spots, softness, or a dark area, testing the deepest part of the pour on more than one tray — the surface can feel dry while the middle is not. Weighing the tray, extending the cycle, and weighing again is the numeric confirmation: consistent weight indicates the layer is dry."
+    }
+  ],
+  "howTo": [
+    {
+      "name": "Choose the raw or cooked route first",
+      "text": "Decide before you crack anything. Utah State University Extension advises against raw shell egg and names pasteurized liquid egg or fully cooked scrambled egg as the substitution; both manufacturers publish the raw route as routine. The decision changes nothing else in the process."
+    },
+    {
+      "name": "Whisk to a uniform liquid",
+      "text": "Beat whole eggs until yolk and white are uniform. If cooking first, scramble fully to 165°F and break the curd up before it goes on the tray. Handle bowl, whisk, and tray as you would after raw meat."
+    },
+    {
+      "name": "Pour a shallow, even layer on a lined tray",
+      "text": "Use a silicone mat or parchment — manufacturer guidance calls liners out specifically for liquids and hard-to-release foods. Keep the pour to about three quarters of the tray height and never above the tray lip."
+    },
+    {
+      "name": "Pre-freeze at least 24 hours",
+      "text": "Harvest Right groups eggs with milk and soups for a pre-freeze of at least 24 hours, and extends it to 48 hours for high-moisture foods to shorten the freeze phase. Freeze the trays flat."
+    },
+    {
+      "name": "Run the cycle, then check the center before unloading",
+      "text": "Break the sheet and inspect the middle for moisture, cold spots, softness, or a dark area. Check the deepest part of the pour on more than one tray. Weigh a tray, extend drying, and weigh again — an unchanged weight indicates the layer is dry."
+    },
+    {
+      "name": "Package in mylar with an oxygen absorber and label it",
+      "text": "The published shelf-life claim attaches to mylar plus an oxygen absorber, stored cool, dry, dark, and below 85°F. Label each bag with contents and date at the moment of sealing, while you still know what is in it."
+    }
+  ],
+  "bodyHtml": "<p><strong>The short version:</strong> Whisked raw egg is the preparation both machine manufacturers publish, and it is the one Utah State University Extension advises against — <em>Salmonella</em> survives freeze-drying, so extension guidance points to pasteurized liquid egg or fully cooked scrambled egg instead [1][2]. Whisk, pour a shallow layer, pre-freeze at least 24 hours, dry until the center of the layer shows no cold or dark spot, then package in mylar with an oxygen absorber [7][10][12]. Per-tray egg quantity is not published by any manufacturer, and no source at any tier separates a scramble rehydration ratio from a baking one [15].</p>\n\n<h2>Raw vs cooked: what extension says</h2>\n<p>\"Raw eggs can contain <em>Salmonella</em> that survives freeze-drying.\" That sentence, from Utah State University Extension, is the whole disagreement in this category [1]. The manufacturers do not dispute the mechanism — Harvest Right's own preparation guidance tells you to handle raw eggs \"with the same care as raw meat\" [7] — they simply treat the raw route as normal practice [7][13], while the extension services treat it as a risk to design around [1][2].</p>\n<p>Neither side is hiding anything. They are answering different questions: one is about whether the machine can dry the material, the other about what is alive in the powder afterwards. Freeze drying is \"a food preservation process rather than a food safety process\" [5], and there is \"no heat treatment step in the freeze-drying process\" [3]. Nothing in the cycle is a kill step.</p>\n\n<table>\n  <thead>\n    <tr><th>Position</th><th>Raw whisked egg</th><th>Cooked scrambled egg</th><th>Stated reason</th></tr>\n  </thead>\n  <tbody>\n    <tr><td>Utah State University Extension [1][2]</td><td>High-risk; advised against</td><td>Recommended path — must be \"fully cooked either before freeze-drying or after rehydration\"</td><td><em>Salmonella</em> survives the process; cooking is the kill step</td></tr>\n    <tr><td>University of Minnesota Extension [3]</td><td>Not addressed as a distinct product</td><td>Within general guidance</td><td>No heat treatment step exists in freeze drying</td></tr>\n    <tr><td>Harvest Right [7][8]</td><td>Published as routine — raw or cooked</td><td>Published as routine</td><td>Handle raw egg with the same care as raw meat</td></tr>\n    <tr><td>Stay Fresh [13]</td><td>Published as routine</td><td>Published as routine</td><td>Long-term storage framing; no pathogen caveat published</td></tr>\n  </tbody>\n</table>\n\n<p>The practical consequence: if you dry raw egg, the powder carries whatever the shell eggs carried, and dormant organisms reactivate when water goes back in [1][2]. Cooking somewhere in the chain — before drying, or after rehydration — is what closes that gap [2].</p>\n\n<h2>Preparation</h2>\n<p>Whisking is the one preparation step every source agrees on [7][8][15]. Whole eggs go in a bowl, get beaten until yolk and white are uniform, and go onto the tray as a liquid. The reason given is structural rather than culinary: a uniform liquid layer gives an even surface for sublimation, and the extension objection to raw egg is about pathogens, not about whether the material dries.</p>\n<ul>\n  <li><strong>Raw route.</strong> Whisk whole eggs until uniform. Handle the bowl, whisk, and tray as you would after handling raw meat [7].</li>\n  <li><strong>Cooked route.</strong> Scramble fully to 165&deg;F, then whisk or break up before spreading on the tray [1][2].</li>\n  <li><strong>Pasteurized liquid egg.</strong> Utah State University Extension names this alongside fully cooked egg as the substitution for raw shell egg [1].</li>\n  <li><strong>Pre-freeze.</strong> Harvest Right's preparation page puts eggs in the same class as milk and soups: pre-freeze at least 24 hours [7]. The FAQ extends that to 48 hours for high-moisture foods, to shorten the freeze phase [9].</li>\n</ul>\n\n<h2>Loading</h2>\n<p>Egg goes on the tray as a liquid, which makes tray depth the whole loading question. Harvest Right's published guide is \"about &frac34; of the tray height,\" in a single layer [9]; University of Arizona Cooperative Extension puts it more simply — food \"should not be higher than the lip of the tray\" [17]. For a liquid, both come down to the same instruction: a shallow, even pour that will not slosh when the tray is carried to the freezer.</p>\n<p>Liners are the other published loading detail. Silicone mats or parchment are called out specifically for liquids, sticky foods, and anything hard to release [9]. Egg is all three by the time it is dry.</p>\n<p>What is not published: how many eggs fit on a tray. We searched manufacturer preparation pages and FAQs directly and found no figure from Harvest Right, Stay Fresh, or any extension service. A secondary blog estimates 18&ndash;20 eggs per tray on a large unit and 16&ndash;24 hours for the cycle [15]. Treat both as one writer's account, not a specification.</p>\n\n<h2>Endpoint check</h2>\n<p>\"The outside of a piece of food can feel completely dry even when moisture remains in the center\" [10]. With a poured egg layer that warning is the entire test, because the surface skins over early.</p>\n<ul>\n  <li><strong>Break test.</strong> Break the sheet and check the center: no moisture, no cold spots, no areas that feel soft [10]. University of Minnesota Extension frames the same check visually — cut through and look for a dark spot in the middle, which indicates moisture [3].</li>\n  <li><strong>Test more than one place.</strong> Harvest Right's instruction is to test several of the thickest pieces from different trays [10]. On a poured layer, that means the deepest part of the pour, usually the tray center.</li>\n  <li><strong>Weight.</strong> Stay Fresh publishes the clearest numeric method found: weigh each tray at cycle completion and again after extended drying, and \"if the weight remains consistent, this indicates that the food is adequately dry,\" with most scale error inside 1 gram [14].</li>\n  <li><strong>Moisture meter.</strong> Named by Harvest Right as a secondary check before packaging [10].</li>\n</ul>\n<p>Published moisture-removal figures do not agree — UC ANR gives roughly 97%, University of Maine \"up to 98%,\" Stay Fresh 98&ndash;99% for food intended to keep for decades [4][18][14]. None of them is a residual-moisture target you can measure at home, which is why the break test and the weight check are the operative tools.</p>\n\n<h2>Rehydration by use</h2>\n<p>Here the record is thinner than the question deserves. The only ratio published anywhere is a secondary one: about 2 tablespoons of egg powder plus 2 tablespoons of water to stand in for one fresh egg, with roughly 8&ndash;9 eggs to a cup of powder and 32&ndash;36 to a quart [15]. <strong>No source at any tier distinguishes a scramble ratio from a baking ratio.</strong></p>\n<p>What is documented is method rather than proportion. Harvest Right's dairy rehydration guidance is to add water gradually, stir back to the original state, and finish in a microwave or skillet [8]. For baking, the powder is the egg and the recipe's own liquid is already accounted for, so a folded-in dry powder and a separately reconstituted egg are not interchangeable steps — but no manufacturer or extension source publishes the adjustment, and none is supplied here.</p>\n<p>The safety line does not move with the use. Utah State University Extension's requirement is that egg be fully cooked either before freeze-drying or after rehydration [2]. A batter that gets baked satisfies that; a shake or a dressing made from raw-dried powder does not.</p>\n\n<h2>Storage, with the conditions attached</h2>\n<p>The 25-year figure that runs through this category is a manufacturer claim with conditions bolted to it, and the conditions matter more than the number. Harvest Right attaches it to mylar with an oxygen absorber, stored cool, dry, dark, stable, and below 85&deg;F [11][12], and states plainly that \"foods that contain higher amounts of fat generally have shorter storage lives\" [11] — egg yolk is a fat-carrying material, and freeze drying removes water, not fat.</p>\n<p>The extension counterweight is direct. Utah State University Extension: \"No real data exists on the shelf-life of home freeze-dried products,\" anchoring instead to a conservative commercial estimate of 8 to 10 years for metal-mylar pouches [16]. UC ANR: consuming home freeze-dried products \"is not recommended beyond 5&ndash;10 years after processing\" [4]. No egg-specific shelf-life figure exists from any manufacturer or extension service; the only egg-specific numbers found are secondary — up to 20 years in mylar with an oxygen absorber, about a year unprotected [15].</p>\n<p>For packaging, the published combination is mylar plus an oxygen absorber, in a labelled container, kept below 85&deg;F [11][12]. Our Freeze-Drying Packaging Starter Kit covers that combination — 100 mylar bags in three sizes, 100 oxygen absorbers, and labels. Sold by Sublime Pantry.</p>\n\n<h2>Safety</h2>\n<p>Stated as the extension services state it, without softening:</p>\n<ul>\n  <li>\"Freeze-drying does not kill bacteria. Instead, it preserves microorganisms in a dormant state.\" &mdash; Jose Brandao, Utah State University Extension [2]</li>\n  <li>\"Raw eggs can contain <em>Salmonella</em> that survives freeze-drying.\" &mdash; Utah State University Extension [1]</li>\n  <li>\"If pathogens are present in the food before freeze drying, they may still be present in the dried product.\" &mdash; Dr. Mary-Grace Danao, University of Nebraska&ndash;Lincoln [6]</li>\n  <li>\"There is no heat treatment step in the freeze-drying process.\" &mdash; University of Minnesota Extension [3]</li>\n  <li>\"Freeze drying is a food preservation process rather than a food safety process.\" &mdash; UC Cooperative Extension [5]</li>\n</ul>\n<p>The water-activity threshold cited for microbial growth is 0.6 [6]; dry powder sits below it, which is why the powder is stable and the rehydrated egg is not. Cooking is the step that changes what is in the food. Everything else changes only how long it keeps.</p>\n<p>This is a description of what the published guidance says, not advice about your kitchen. Where your household needs a firmer answer than the sources give, an extension food-safety office is the place to take it.</p>\n\n<h2>What we could not source</h2>\n<ul>\n  <li><strong>Per-tray egg quantity from any manufacturer.</strong> Harvest Right's preparation page and FAQ were fetched directly; neither states a quantity. The 18&ndash;20 per tray figure is secondary [15].</li>\n  <li><strong>A scramble-versus-baking rehydration distinction.</strong> No source at any tier publishes one.</li>\n  <li><strong>An egg-specific cycle time from a manufacturer.</strong> Harvest Right's published time chart has no egg entry; the 16&ndash;24 hour range is secondary [15].</li>\n  <li><strong>An FDA or USDA statement on home freeze-dried raw eggs and <em>Salmonella</em>.</strong> None found. The record here is university extension only.</li>\n  <li><strong>Fresh-to-dried yield for eggs.</strong> No extension service publishes a yield percentage for any food; eggs are among the many with no figure anywhere.</li>\n  <li><strong>Whether pathogen survival differs between whole-egg, white, and yolk powders,</strong> which carry very different fat loads. No source addresses it.</li>\n  <li><strong>A manufacturer response to the extension \"raw egg is high-risk\" position.</strong> None published, on any page checked.</li>\n  <li><strong>The National Center for Home Food Preservation.</strong> It publishes no home freeze-drying guidance at all; its freeze-drying educator page is subscriber-gated. LSU AgCenter's freeze-drying FAQ sheet exists but was unreachable across four attempts, and nothing here is attributed to it.</li>\n</ul>\n\n<h2>Next</h2>\n<ul>\n<li><a href=\"/guides/freeze-drying-milk\">Freeze-drying milk</a> &mdash; the other elevated-risk dairy record.</li><li><a href=\"/compare/fruit-vs-vegetables-vs-meat\">How fruit, vegetables, and meat differ</a> &mdash; where eggs sit against the three main groups.</li><li><a href=\"/guides/complete-batch-workflow\">The complete batch workflow</a> &mdash; the run these trays go into.</li>\n</ul>"
+}
