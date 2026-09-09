@@ -1,14 +1,14 @@
 ---
+import { AFFILIATE_REVIEWED } from '../lib/commerce';
 import PageLayout from '../layouts/PageLayout.astro';
 ---
 <PageLayout title="Affiliate Disclosure" description="Sublime Pantry's affiliate and material-connection disclosure: what exists today (nothing) and how future relationships will be disclosed." path="/affiliate-disclosure" breadcrumbs={[{ label: "Affiliate Disclosure", href: "/affiliate-disclosure" }]}>
   <span class="kicker">Policy</span>
   <h1>Affiliate disclosure</h1>
-  <p><strong>As of September 8, 2026, Sublime Pantry has no affiliate relationships, sponsorships, or paid placements.</strong> No outbound link on this site earns a commission.</p>
+  <p><strong>As of {AFFILIATE_REVIEWED}, Sublime Pantry has no affiliate relationships, sponsorships, or paid placements.</strong> No outbound link on this site earns a commission.</p>
   <h2>Products we sell</h2>
   <p><strong>Sublime Pantry does earn revenue from the products in its own shop.</strong> That is a different relationship from an affiliate commission, and the two are easy to confuse: an affiliate link pays us when you buy someone else's product, while our shop sells our own. We have the second and not the first.</p>
   <p>The packaging starter kit is supplied and shipped by PackFreshUSA. Where it appears inside a guide or comparison — including the <a href="/compare/storage-containers">storage container comparison</a>, which covers the category it sits in — the mention is labelled as ours, next to the recommendation rather than only on this page. Comparison criteria are published before products are scored, and selling a product in a category does not move them.</p>
-  <p>We do sell a small packaging catalog of our own through Shopify. Wherever one of those products appears in a guide or comparison it is labelled <strong>&ldquo;Sold by Sublime Pantry&rdquo;</strong> next to the mention, and the article&rsquo;s disclosure line names it. That is an ownership interest, not an affiliate one, and it is disclosed the same way: on the page, beside the recommendation.</p>
   <h2>What will change, and how you'll know</h2>
   <p>We expect to add affiliate relationships in the future — most likely for freeze dryers and packaging supplies. When we do:</p>
   <ul>
@@ -16,5 +16,5 @@ import PageLayout from '../layouts/PageLayout.astro';
     <li>A commercial relationship will never change a comparison's criteria or conclusions; the criteria are published before the products are scored.</li>
     <li>Where we sell our own product in a category we cover, that ownership is disclosed prominently on every page that mentions it.</li>
   </ul>
-  <p>This approach follows the FTC's Endorsement Guides, which require material connections to be disclosed clearly and conspicuously near the recommendation. We also do not publish fake or AI-generated reviews or testimonials — the FTC prohibits them, and so do our <a href="/editorial-standards">editorial standards</a>.</p>
+  <p>We do not publish reviews or testimonials that did not come from real, identified people, and we do not generate them. That is in our <a href="/editorial-standards">editorial standards</a> because it is how we work, not because a rule requires it of us.</p>
 </PageLayout>

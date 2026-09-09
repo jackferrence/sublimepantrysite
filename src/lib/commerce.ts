@@ -120,6 +120,17 @@ export const CATALOG: CatalogProduct[] = [
  * all. Three surfaces, one missing string, and no page-level review would have
  * caught it — which is why it is a constant and an asserted invariant now.
  */
+/**
+ * The date the no-affiliate statement was last checked true.
+ *
+ * It was written in two places and they had drifted: /affiliate-disclosure said
+ * September 8, /about said September 3. A dated claim about our own commercial
+ * relationships is exactly the kind that has to be right, and the page that owns
+ * the claim is the affiliate disclosure — so its date is the one, and /about
+ * renders it rather than keeping a copy.
+ */
+export const AFFILIATE_REVIEWED = 'September 8, 2026';
+
 export const OWNERSHIP_LABEL = 'Sold by Sublime Pantry';
 
 /** Eyebrow for a card showing one of our own products. */

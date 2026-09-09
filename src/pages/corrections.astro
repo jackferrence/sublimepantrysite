@@ -4,7 +4,8 @@ import PageLayout from '../layouts/PageLayout.astro';
 <PageLayout title="Corrections" description="Sublime Pantry's public corrections log. When we get something wrong, the fix is recorded here." path="/corrections" breadcrumbs={[{ label: "Corrections", href: "/corrections" }]}>
   <span class="kicker">Policy</span>
   <h1>Corrections</h1>
-  <p>When we publish an error of fact, we correct the article, add a correction note to it, and record the correction here with the date. Style fixes and minor copy edits are not logged; factual corrections always are.</p>
+  <p>When we publish an error of fact, we correct the article, add a correction note to it, and record the correction here with the date. Each entry names the affected page, what the earlier version stated and what replaced it. Style fixes and minor copy edits are not logged; factual corrections always are.</p>
+  <p class="meta">The entries dated September 8, 2026 were found in a single internal review of the whole site, not reported by readers. They are logged on the date the corrections were published, not the date the errors were made.</p>
   <h2>Log</h2>
   <ol class="corrections-log">
     <li>
@@ -20,6 +21,72 @@ import PageLayout from '../layouts/PageLayout.astro';
       right. Criterion 4 has been rewritten and the article carries a correction
       note. Found during an internal messaging audit, not reported by a reader.</p>
     </li>
+    <li>
+      <p class="meta"><time datetime="2026-09-08">September 8, 2026</time> — <a href="/compare/fruit-vs-vegetables-vs-meat">Freeze-drying fruit, vegetables and meat</a></p>
+      <p><strong>A household water-activity method presented as a pass/fail check.</strong> An
+      earlier version gave a step-by-step procedure for reading water activity with a
+      $10–25 digital hygrometer calibrated against saturated salt slurries, and
+      described the result as a pass against 0.60. No extension service publishes that
+      protocol as a validated home method, and a numbered procedure ending in a
+      threshold reads as a test you can pass — which is what a consumer hygrometer
+      cannot give you, least of all at the low end of the scale.</p>
+      <p>The procedure has been removed and the page now points to the documented
+      lower-cost method University of Minnesota Extension actually publishes. The same
+      article's universal ≤0.25 aw target, which appeared in a diagram's description,
+      its visible caption and an SVG label, has been removed from all three.</p>
+    </li>
+    <li>
+      <p class="meta"><time datetime="2026-09-08">September 8, 2026</time> — <a href="/troubleshooting/rehydration-problems">Rehydration problems</a> and <a href="/troubleshooting/storage-failure">storage failures</a></p>
+      <p><strong>Recovery advice given before the handling history.</strong> Both pages
+      recommended re-drying stored soft food before establishing how that food had been
+      handled and for how long. A quality symptom cannot establish that food is safe to
+      recover, and the food-group article compounded it by presenting fat oxidation as
+      something that reliably precedes microbial risk.</p>
+      <p>The handling-history decision now comes before any recovery advice, and the
+      categorical rescue instruction and the relative safety timeline are gone.</p>
+    </li>
+    <li>
+      <p class="meta"><time datetime="2026-09-08">September 8, 2026</time> — <a href="/compare/home-freeze-dryers">Home freeze dryers compared</a></p>
+      <p><strong>A warranty advantage that does not exist, and a wattage nobody
+      publishes.</strong> The comparison listed Harvest Right's warranty as "3-year
+      limited" and called it the clearest separation in the table. The sourced terms are
+      one year of full coverage with the sealed system only in years two and three — the
+      same shape of coverage the other two publish, not a separation. The same table
+      gave Stay Fresh a "~900 W" average draw; Stay Fresh publishes no wattage for any
+      home unit.</p>
+      <p>Both figures have been withdrawn, the warranty row now reads by year and by
+      component, and the machine specifications for all three brands are kept in one
+      record that both machine pages are checked against.</p>
+    </li>
+    <li>
+      <p class="meta"><time datetime="2026-09-08">September 8, 2026</time> — <a href="/guides/which-freeze-dryer">Which home freeze dryer should you buy?</a> and <a href="/guides/cottage-economics">cottage economics</a></p>
+      <p><strong>Two arithmetic errors visible without leaving the page.</strong> The
+      buying guide called a $2,699 machine the cheapest medium option beside a $2,395
+      one. The cottage-economics example stated that 360 bags at $8–12 gives $1,400–2,100
+      a week; the same multiplication gives $2,880–4,320.</p>
+      <p>The "cheapest" claim and the weekly revenue projection have both been removed.
+      The transparent per-bag cost model they sat beside is unchanged, with its
+      assumptions and its demand assumption now labelled separately.</p>
+    </li>
+    <li>
+      <p class="meta"><time datetime="2026-09-08">September 8, 2026</time> — <a href="/guides/which-freeze-dryer">Which home freeze dryer should you buy?</a> and <a href="/compare/fruit-vs-vegetables-vs-meat">the food comparison</a></p>
+      <p><strong>Product lines described as available, and described wrongly.</strong>
+      Both pages recommended "Pantry" kraft bags, and the food comparison described a
+      Trail line as 7 mil silver mylar. Neither line is available to order, and the
+      planned specification differs from what was published.</p>
+      <p>Those selling paragraphs have been removed. The only product we sell is named
+      where it is genuinely relevant, and it carries its ownership disclosure beside the
+      mention.</p>
+    </li>
+    <li>
+      <p class="meta"><time datetime="2026-09-08">September 8, 2026</time> — <a href="/compare/fruit-vs-vegetables-vs-meat">Freeze-drying fruit, vegetables and meat</a></p>
+      <p><strong>A USDA moisture figure we could not verify.</strong> An earlier version
+      gave 2.0% as a USDA purchasing-specification moisture limit for freeze-dried food.
+      The exact specification document is linked, but it is a scanned image with no
+      readable text, so the figure could not be confirmed against its own source.</p>
+      <p>The figure has been withdrawn rather than restated, and the question is recorded
+      in the article's own account of what nobody has published.</p>
+    </li>
   </ol>
-  <p>Spotted an error? <a href="/contact">Report it</a> — we take these seriously and respond to every report.</p>
+  <p>Spotted an error? <a href="/contact">Report it</a>. Send the page, the statement and a source if you have one; a report with a source is the fastest thing to act on.</p>
 </PageLayout>

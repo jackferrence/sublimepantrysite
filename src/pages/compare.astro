@@ -32,7 +32,7 @@ const jsonLd = [
 ];
 ---
 <PageLayout
-  title="Comparisons"
+  title="Compare the things that change your decision"
   description="Evidence-based freeze-drying comparisons with stated criteria: machines, packaging, and storage options, with every figure sourced."
   path="/compare"
   breadcrumbs={[{ label: 'Comparisons', href: '/compare' }]}
@@ -40,8 +40,8 @@ const jsonLd = [
   jsonLd={jsonLd}
 >
   <span class="kicker">Comparisons</span>
-  <h1>Comparisons with stated criteria</h1>
-  <p class="lede">Every comparison declares its criteria and its evidence, and is explicit about what we have and haven't tested ourselves.</p>
+  <h1>Compare the things that change your decision.</h1>
+  <p class="lede">Criteria first, sources beside the facts, and clear limits on what documentation can establish.</p>
 
   <div class="card-grid hub-grid">
     {entries.map((entry) => (
@@ -58,8 +58,17 @@ const jsonLd = [
       />
     ))}
   </div>
+
+  <section class="hub-next card" aria-labelledby="how-made">
+    <h2 id="how-made">How these comparisons are made</h2>
+    <p>We have not bench-tested the machines or the containers. Each comparison identifies its sources and keeps published information separate from our own judgment, and each one says on the page when its figures were last checked.</p>
+    <a class="btn btn-secondary" href="/review-methodology">Read the review methodology</a>
+  </section>
 </PageLayout>
 
 <style>
   .hub-grid { margin-top: var(--s4); }
+  .hub-next { margin-top: var(--s5); padding: var(--s4); }
+  .hub-next h2 { margin: 0 0 var(--s2); font-size: var(--h3); }
+  .hub-next p { color: var(--ink-soft); max-width: 62ch; }
 </style>

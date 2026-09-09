@@ -27,7 +27,7 @@ const jsonLd = [
 ];
 ---
 <PageLayout
-  title="Freeze-Drying Guides"
+  title="Find the next step for your freeze-drying project"
   description="Flagship guides for home freeze-drying: choosing a machine, running clean batches, and turning your freeze dryer into a cottage business."
   path="/guides"
   breadcrumbs={[{ label: 'Guides', href: '/guides' }]}
@@ -35,8 +35,8 @@ const jsonLd = [
   jsonLd={jsonLd}
 >
   <span class="kicker">Guides</span>
-  <h1>Freeze-drying guides</h1>
-  <p class="lede">Long-form, source-cited guides that define how we think about machines, batches, and the cottage business behind them.</p>
+  <h1>Find the next step for your freeze-drying project.</h1>
+  <p class="lede">Practical, source-cited guidance for choosing a machine, running a batch and evaluating a small food business.</p>
 
   <div class="card-grid hub-grid">
     {entries.map((entry) => (
@@ -52,8 +52,17 @@ const jsonLd = [
       />
     ))}
   </div>
+
+  <section class="hub-next card" aria-labelledby="specific-problem">
+    <h2 id="specific-problem">Have a specific problem?</h2>
+    <p>Start with the symptom if a batch, package or machine is not behaving as expected. The troubleshooting pages take one symptom at a time.</p>
+    <a class="btn btn-secondary" href="/troubleshooting">Find a troubleshooting guide</a>
+  </section>
 </PageLayout>
 
 <style>
   .hub-grid { margin-top: var(--s4); }
+  .hub-next { margin-top: var(--s5); padding: var(--s4); }
+  .hub-next h2 { margin: 0 0 var(--s2); font-size: var(--h3); }
+  .hub-next p { color: var(--ink-soft); max-width: 62ch; }
 </style>
