@@ -1,0 +1,345 @@
+{
+  "title": "How much water your trail meals need",
+  "description": "Manufacturers publish per-meal water volumes; extension publishes a method, not a ratio. What the sources say, where they disagree, and what is missing.",
+  "kicker": "trail",
+  "pillar": "guides",
+  "section": "Camping",
+  "riskClass": "standard",
+  "publishedDate": "2026-09-08",
+  "disclosure": "Sublime Pantry has no affiliate relationships, sponsorships, or paid placements as of publication. We sell packaging; where a product we sell appears, it is labeled.",
+  "sources": [
+    {
+      "title": "How to Rehydrate Freeze Dried Food — Tips and Techniques",
+      "url": "https://harvestright.com/blogs/freeze-drying-learning-center/how-to-rehydrate-freeze-dried-food",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Preserving Food at Home: Freeze-Drying",
+      "url": "https://extension.umn.edu/preserving-and-preparing/freeze-drying-food",
+      "publisher": "University of Minnesota Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Rehydrating Freeze Dried Meats",
+      "url": "https://harvestright.com/blogs/blog/rehydrating-freeze-dried-meats",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Can I Freeze-Dry That? A Practical Guide to Safe and Effective Freeze-Drying",
+      "url": "https://extension.usu.edu/foodsafety/research/can-i-freeze-dry-that-a-practical-guide-to-safe-and-effective-freeze-drying",
+      "publisher": "Utah State University Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Rehydrating Freeze Dried Fruits and Vegetables",
+      "url": "https://harvestright.com/blogs/blog/rehydrating-freeze-dried-fruits-and-vegetables",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Rehydrating Full Meals",
+      "url": "https://harvestright.com/blogs/blog/rehydrating-full-meals-3",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Freeze Drying For Home Use",
+      "url": "https://ucanr.edu/sites/default/files/2024-10/403504.pdf",
+      "publisher": "UC Cooperative Extension / UCCE Master Food Preservers of El Dorado County",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "How to Rehydrate and Prepare Freeze-Dried Food",
+      "url": "https://mountainhouse.com/blogs/general/prepare-freeze-dried-food",
+      "publisher": "Mountain House",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Frequently Asked Questions",
+      "url": "https://mountainhouse.com/pages/frequently-asked-questions",
+      "publisher": "Mountain House",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Cooking Freeze-Dried Mountain House Meals at High Elevations",
+      "url": "https://mountainhouse.com/blogs/backpacking-hiking/cooking-mountain-house-at-high-elevations",
+      "publisher": "Mountain House",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Sweet Pork & Rice",
+      "url": "https://peakrefuel.com/products/sweet-pork-rice-meal",
+      "publisher": "Peak Refuel",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Chicken Coconut Curry",
+      "url": "https://peakrefuel.com/products/chicken-coconut-curry",
+      "publisher": "Peak Refuel",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Chicken Pesto Pasta",
+      "url": "https://peakrefuel.com/products/chicken-pesto-pasta",
+      "publisher": "Peak Refuel",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Beef Stroganoff (product data endpoint)",
+      "url": "https://peakrefuel.com/products/beef-stroganoff.json",
+      "publisher": "Peak Refuel",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Freeze Dried Meal FAQs",
+      "url": "https://peakrefuel.com/pages/faq",
+      "publisher": "Peak Refuel",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Hydration",
+      "url": "https://peakrefuel.com/pages/hydration",
+      "publisher": "Peak Refuel",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Pad Thai with Chicken",
+      "url": "https://backpackerspantry.com/collections/entrees/products/pad-thai-with-chicken",
+      "publisher": "Backpacker's Pantry",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Lasagna",
+      "url": "https://backpackerspantry.com/collections/entrees/products/lasagna",
+      "publisher": "Backpacker's Pantry",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Three Cheese Mac & Cheese",
+      "url": "https://backpackerspantry.com/collections/entrees/products/three-cheese-mac-cheese",
+      "publisher": "Backpacker's Pantry",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Mushroom Stroganoff",
+      "url": "https://backpackerspantry.com/collections/entrees/products/mushroom-stroganoff",
+      "publisher": "Backpacker's Pantry",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "FAQ",
+      "url": "https://backpackerspantry.com/pages/faq",
+      "publisher": "Backpacker's Pantry",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Customer Service",
+      "url": "https://backpackerspantry.com/pages/customer-service",
+      "publisher": "Backpacker's Pantry",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "How to Prepare Freeze-Dried Meals",
+      "url": "https://backpackerspantry.com/blogs/news/how-to-prepare-freeze-dried-meals",
+      "publisher": "Backpacker's Pantry",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Chili Mac with Beef, Casual Camper",
+      "url": "https://readywise.com/products/chili-mac-with-beef-casual-camper",
+      "publisher": "ReadyWise",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Frequently Asked Questions",
+      "url": "https://readywise.com/pages/frequently-asked-questions",
+      "publisher": "ReadyWise",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Community FAQ",
+      "url": "https://readywise.com/community/faq",
+      "publisher": "ReadyWise",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "A Case for Cold Soaking",
+      "url": "https://readywiseoutdoor.com/blogs/journal/a-case-for-cold-soaking",
+      "publisher": "ReadyWise Outdoor",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "FAQ",
+      "url": "https://goodto-go.com/pages/faq",
+      "publisher": "Good To-Go",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Good To-Go Stove-Free™ Meals",
+      "url": "https://goodto-go.com/pages/stove-free-meals-from-good-to-go",
+      "publisher": "Good To-Go",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Thai Curry",
+      "url": "https://goodto-go.com/products/thai-curry",
+      "publisher": "Good To-Go",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Pad Thai",
+      "url": "https://goodto-go.com/products/pad-thai",
+      "publisher": "Good To-Go",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Chicken Pho",
+      "url": "https://goodto-go.com/products/chicken-pho",
+      "publisher": "Good To-Go",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Peanut Chicken Salad (Stove-Free™)",
+      "url": "https://goodto-go.com/products/peanut-chicken-salad",
+      "publisher": "Good To-Go",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Carrot-Ginger Power Bowl (Stove-Free™)",
+      "url": "https://goodto-go.com/products/carrot-ginger-power-bowl",
+      "publisher": "Good To-Go",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Backpacking Preparation and Safety (Guadalupe Mountains National Park)",
+      "url": "https://www.nps.gov/gumo/planyourvisit/bcpreparation.htm",
+      "publisher": "National Park Service",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Drinking Water (Shenandoah National Park)",
+      "url": "https://www.nps.gov/shen/planyourvisit/drinking-water.htm",
+      "publisher": "National Park Service",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Safe Drinking Water (Grand Canyon National Park)",
+      "url": "https://www.nps.gov/grca/planyourvisit/safe-water.htm",
+      "publisher": "National Park Service",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "About Water Treatment Options When Hiking, Camping, or Traveling",
+      "url": "https://www.cdc.gov/drinking-water/prevention/water-treatment-hiking-camping-traveling.html",
+      "publisher": "Centers for Disease Control and Prevention",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Emergency Disinfection of Drinking Water",
+      "url": "https://www.epa.gov/ground-water-and-drinking-water/emergency-disinfection-drinking-water",
+      "publisher": "U.S. Environmental Protection Agency",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Elevation and Food Preservation",
+      "url": "https://food.unl.edu/elevation-and-food-preservation/",
+      "publisher": "University of Nebraska–Lincoln Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "USDA urges consumers to keep clear of the “danger zone” this summer",
+      "url": "https://www.fsis.usda.gov/news-events/news-press-releases/usda-urges-consumers-keep-clear-danger-zone-summer",
+      "publisher": "USDA Food Safety and Inspection Service",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    }
+  ],
+  "faq": [
+    {
+      "question": "How much water does a home freeze-dried meal need?",
+      "answer": "There is no published ratio to look it up in. Harvest Right's stated principle is that &ldquo;the amount of water needed is roughly equal to the amount of moisture removed&rdquo; [1], and both Harvest Right and University of Minnesota Extension publish the same quantification method: weigh the trays before and after the run and use the differential [1][2]. Practically, that means the number is produced at home during the batch, not looked up afterward. UC Cooperative Extension is the one source publishing cup measurements, and they are per finished recipe &mdash; 2&frac12; cups for a quiche casserole, 8 cups for a taco soup &mdash; not per ounce of dried food [7]."
+    },
+    {
+      "question": "How much water do commercial pouches call for?",
+      "answer": "Across the five brands checked on 2026-09-06, from 125 mL to 480 mL per pouch. Good To-Go's cool-water Stove-Free line is the low end at &ldquo;a little more than 1/2 of a cup (125ML)&rdquo; [33][34]; Backpacker's Pantry's Mushroom Stroganoff is the high end at 1.75 cups (480mL) [20]. Peak Refuel runs 2/3 cup to 1&nbsp;1/3 cups [11][12][13][14], ReadyWise states about 1 cup per serving [24], and Mountain House directs you to the back of the package while giving &ldquo;one, 1&frac12;, 1&frac34;, or two cups&rdquo; as the general range [8]."
+    },
+    {
+      "question": "Should I plan cooking water separately from drinking water?",
+      "answer": "You can, but not on an agency's authority. NPS publishes one gallon per person per day as a single combined figure covering both, and notes water weighs approximately 8 pounds per gallon [35]; NPS Shenandoah separately publishes about one quart per hour of drinking on a hot day [36]. No NPS, CDC, or EPA page located splits the daily figure into drinking and cooking components. Subtracting your meals' published volumes from the combined number is arithmetic you can do; it is not a published recommendation."
+    },
+    {
+      "question": "Is cold soaking safe, and how long does it take?",
+      "answer": "On time, the brands disagree sixfold: 10 minutes or less for Good To-Go's Stove-Free line [29], 5&ndash;15 minutes with no stated penalty from ReadyWise [26], roughly twice the hot time from Mountain House [9], and &ldquo;upwards of an hour&rdquo; from Backpacker's Pantry, which says outright it has not tested it [21][22]. Peak Refuel publishes nothing [15][16]. On safety, no source publishes a time limit for ambient rehydration. Extension establishes the mechanism &mdash; freeze-drying preserves microbes rather than killing them, and they can reactivate when moisture returns [2][4] &mdash; and USDA's one-hour and two-hour danger-zone rule [41] is written for perishable and prepared foods, not applied to dried meals by anyone."
+    },
+    {
+      "question": "Does the water I rehydrate with need to be treated?",
+      "answer": "The agencies say food-preparation water must be treated, in strong terms. EPA states, in capitals, &ldquo;ONLY USE WATER THAT HAS BEEN PROPERLY DISINFECTED FOR DRINKING, COOKING, MAKING ANY PREPARED DRINK, WASHING DISHES AND FOR BRUSHING TEETH&rdquo; [39], and NPS states all water should be purified before use for drinking, cooking, or food preparation [36]. What no source states is whether a rehydration boil itself counts as the treatment &mdash; CDC and EPA both describe a rolling boil as a disinfection method [38][39], but neither connects it to pouring boiling water into a pouch. Note also that CDC and EPA disagree on the altitude threshold for extending that boil to three minutes: 6,500 feet [38] versus 5,000 feet [39]."
+    }
+  ],
+  "howTo": [
+    {
+      "name": "Weigh the trays before and after the run",
+      "text": "Harvest Right and University of Minnesota Extension both publish the weight differential as the way to determine rehydration water: the water to add back is roughly equal to the moisture removed [1][2]. Record the number with the batch; there is no published table to recover it from later."
+    },
+    {
+      "name": "Write the figure on the bag, not in a notebook",
+      "text": "The commercial equivalent is a printed per-pouch volume &mdash; Mountain House directs users to the directions on the back of the package [8], and every other brand prints a figure on the pouch [11][17][24][30]. A home pouch has whatever you put on it."
+    },
+    {
+      "name": "Add water incrementally rather than all at once",
+      "text": "Harvest Right's instruction is to add water and let the food absorb before adding more [1], and for cream sauces specifically to expect a thin sauce that thickens with time before adding more liquid [6]. Freeze-dried meat &ldquo;will only reabsorb the liquid it needs, it will never become soggy&rdquo; [3]."
+    },
+    {
+      "name": "Rehydrate raw meat cold and refrigerated, never on the trail counter",
+      "text": "Harvest Right instructs cold water in the refrigerator for raw freeze-dried meat and states never to use room temperature or warm water [1]. Utah State Extension's kill-step temperatures apply afterward: raw meat to 160&nbsp;&deg;F, poultry to 165&nbsp;&deg;F, seafood to 145&nbsp;&deg;F [4]."
+    }
+  ],
+  "related": [
+    "fruit-vs-vegetables-vs-meat",
+    "chewy-candy",
+    "storage-containers"
+  ],
+  "bodyHtml": "<p><strong>The short version:</strong> no extension service or freeze-dryer manufacturer publishes a water-to-food ratio by food type &mdash; the published method is weight, not volume, because <strong>&ldquo;the amount of water needed is roughly equal to the amount of moisture removed&rdquo;</strong> during drying [1]. Commercial pouches do publish volumes, and across the five brands checked on 2026-09-06 they run from 125 mL to 480 mL per pouch [17][20][33][34]. For your own meals, weigh the trays before and after the run and carry that number [1][2].</p>\n\n<h2>Ratios by food type</h2>\n<p>Start with what is being replaced. University of Minnesota Extension states that <strong>&ldquo;raw foods contain a large amount of water&mdash;80 to 95 percent&rdquo;</strong> and that sublimation removes up to 90 percent of it, with secondary drying taking an additional one to two percent [2]. That is the water you are carrying separately and adding back at camp.</p>\n<p>What does not exist is a table converting that into cups per ounce of dried food. Harvest Right and University of Minnesota both publish a <em>method</em> instead: weigh the trays before and after the cycle, and the weight differential is the water to add back [1][2]. Every category-level statement below is qualitative or safety-driven, not volumetric.</p>\n<table>\n<thead>\n<tr><th>Food type</th><th>Published guidance</th><th>Water temperature</th><th>Source</th></tr>\n</thead>\n<tbody>\n<tr><td>Any freeze-dried food (governing principle)</td><td>Water needed &ldquo;roughly equal to the amount of moisture removed&rdquo;; add incrementally and let the food absorb before adding more</td><td>Not specified</td><td>[1]</td></tr>\n<tr><td>Any freeze-dried food (quantification)</td><td>Weigh trays before and after the run; the differential is the water to add back</td><td>&mdash;</td><td>[1][2]</td></tr>\n<tr><td>Cooked meals &mdash; soups, pasta, casseroles, rice</td><td>Pour hot water over, cover, wait &ldquo;a few minutes&rdquo;</td><td>Hot</td><td>[1]</td></tr>\n<tr><td>Rice</td><td>Enough hot water to cover, stir to distribute, allow resting time; no ratio or minute count published</td><td>Hot</td><td>[6]</td></tr>\n<tr><td>Pasta</td><td>Add hot water gradually until soft, or boil in a pot as normal pasta</td><td>Hot or boiling</td><td>[6]</td></tr>\n<tr><td>Cream sauces</td><td>Add gradually; sauce &ldquo;may initially appear thin&rdquo; &mdash; give it time to thicken before adding more</td><td>Not specified</td><td>[6]</td></tr>\n<tr><td>Soups and stews</td><td>&ldquo;Enough water or broth to reach your preferred consistency&rdquo;; heat and simmer gently</td><td>Hot</td><td>[6]</td></tr>\n<tr><td>Meat mixes (sloppy joe, BBQ chicken)</td><td>&ldquo;About 1/3 hot water&rdquo; relative to the freeze-dried meat &mdash; the only semi-quantitative meat figure located</td><td>Hot</td><td>[3]</td></tr>\n<tr><td>Meat, general</td><td>Bowl of warm or hot water; &ldquo;will only reabsorb the liquid it needs, it will never become soggy&rdquo;</td><td>Warm or hot</td><td>[3]</td></tr>\n<tr><td>Raw meat</td><td><strong>Cold water, in the refrigerator only.</strong> &ldquo;Never use room temperature or warm water.&rdquo; Treat as fresh raw meat afterward</td><td>Cold, refrigerated</td><td>[1]</td></tr>\n<tr><td>Fruits and vegetables</td><td>Room-temperature or warm water; soak, spritz, or add water a little at a time. Fruit for baking can go in dry</td><td>Room temp or warm</td><td>[1][5]</td></tr>\n<tr><td>Leafy greens</td><td>Spritz with water, or seal in a bag with a moist paper towel &mdash; a distinct method from bulk vegetables</td><td>Not specified</td><td>[5]</td></tr>\n<tr><td>Beans and legumes</td><td><strong>Not published.</strong> No legume-specific figure distinct from &ldquo;vegetables&rdquo;</td><td>&mdash;</td><td>&mdash;</td></tr>\n<tr><td>Root vegetables</td><td><strong>Not published.</strong> Only general vegetable guidance exists</td><td>&mdash;</td><td>&mdash;</td></tr>\n<tr><td>Dairy and eggs</td><td><strong>No rehydration ratio or time published.</strong> Extension addresses these as a safety question instead: raw eggs and unpasteurized dairy are flagged as unsafe to freeze-dry without a kill step</td><td>&mdash;</td><td>[4]</td></tr>\n</tbody>\n</table>\n<p>The one place numeric volumes appear in the home literature is recipe-specific. UC Cooperative Extension's meal-in-a-jar recipes give cup measurements per finished dish rather than per ingredient: 2&frac12; cups of cool water and 10 minutes for a ground beef and zucchini quiche casserole, 3&frac12; cups for a chicken noodle skillet serving four with 3&ndash;5 minutes for the sauce to thicken, 4 cups and 5&ndash;10 minutes for a creamy chicken veggie casserole, 6 cups for a beef and bean stew serving six, and 8 cups for a taco soup [7]. Those are dish figures. They do not generalize to a ratio.</p>\n<p>Two safety conditions sit underneath all of it, and they apply whatever volume you use. Utah State Extension states that <strong>&ldquo;freeze-drying does not kill bacteria and/or other microbes. It preserves them&rdquo;</strong> [4], and University of Minnesota puts the same mechanism on the rehydration step: when rehydrated, illness-causing microorganisms present before drying may begin growing again [2]. Extension's stated consequence is a cooking kill step &mdash; raw meat to 160&nbsp;&deg;F, poultry to 165&nbsp;&deg;F, seafood to 145&nbsp;&deg;F [4].</p>\n\n<h2>Commercial vs your own</h2>\n<p>Commercial pouches publish exactly what the home literature does not: a number per meal. Here is the full published range across the five brands, checked 2026-09-06. Note that Good To-Go is dehydrated rather than freeze-dried by the brand's own statement [28], and Backpacker's Pantry and ReadyWise describe their meals as a mix of freeze-dried and dehydrated components [21][25].</p>\n<table>\n<thead>\n<tr><th>Brand</th><th>Published water per pouch</th><th>Temperature</th><th>Stated time</th><th>Source</th></tr>\n</thead>\n<tbody>\n<tr><td>Mountain House</td><td>&ldquo;One, 1&frac12;, 1&frac34;, or two cups&rdquo; as general guidance; the per-meal figure is on the back of the package</td><td>&ldquo;Boiling water is preferred&rdquo;</td><td>8&ndash;9 min, stirring midway; about 15 min for some meals</td><td>[8]</td></tr>\n<tr><td>Peak Refuel</td><td>2/3 cup to 1&nbsp;1/3 cups (10.5 oz)</td><td>Boiling, every SKU</td><td>10 min</td><td>[11][12][13][14]</td></tr>\n<tr><td>Backpacker's Pantry</td><td>1 cup (240 mL) to 1.75 cups (480 mL)</td><td>Boiling, every SKU</td><td>15 min, as 8 minutes then 7 more</td><td>[17][18][19][20]</td></tr>\n<tr><td>ReadyWise</td><td>&ldquo;On average, each individual serving requires 1 cup of water&rdquo;</td><td>Hot implied on product pages; the FAQ permits any temperature</td><td>&ldquo;A few minutes&rdquo; on the pouch; 5&ndash;15 min in the FAQ</td><td>[24][25][26]</td></tr>\n<tr><td>Good To-Go (standard line)</td><td>250&ndash;400 mL</td><td>&ldquo;BOILING (yes, boiling)&rdquo;</td><td>10&ndash;20 min by SKU</td><td>[30][31][32]</td></tr>\n<tr><td>Good To-Go (Stove-Free™ line)</td><td>125 mL</td><td>&ldquo;COOL (yup, not boiling)&rdquo;</td><td>10&ndash;12 min</td><td>[33][34]</td></tr>\n</tbody>\n</table>\n<p>Two things in that table are worth knowing before you use it as a planning input.</p>\n<p><strong>The volumes do not scale with pouch size, and one brand contradicts itself.</strong> Peak Refuel's Chicken Pesto Pasta is 5.71 oz net and 920 calories, and the page says to &ldquo;just add 2/3 cups of water&rdquo; [13]. Its Chicken Coconut Curry is smaller and lower-calorie at 5.36 oz and 850 calories, and the page says <strong>&ldquo;carefully add 1 1/3 cups (10.5 oz) of boiling water to pouch&rdquo;</strong> [12] &mdash; roughly double the water for the smaller meal. Both are verbatim from the brand's own product pages, and nothing on either page reconciles them. Backpacker's Pantry has a smaller version of the same problem: its Lasagna page gives &ldquo;1 3/4 cups (420mL)&rdquo; [18] while its Mushroom Stroganoff page gives &ldquo;1.75 cups (480mL)&rdquo; [20] &mdash; the same fraction converted two different ways, a 60 mL spread.</p>\n<p><strong>Your own meals have no equivalent number, and the substitute is a scale.</strong> A commercial pouch is a fixed formulation with a fixed water figure printed on it. A tray of your own food is not, which is why both Harvest Right and University of Minnesota land on the weight differential rather than a cup measurement [1][2]. The practical consequence for trip planning is that the number has to be produced at home, during the run, and written down &mdash; there is no published table to look it up in afterward.</p>\n\n<h2>Adding cooking water to the day's plan</h2>\n<p>One agency figure for backcountry water planning is the National Park Service's: <strong>&ldquo;one gallon per person per day (water weighs approximately 8 lbs. per gallon)&rdquo;</strong> [35]. Read the wording carefully, because it covers both drinking and cooking as a single combined number. NPS Shenandoah publishes the other quantitative figure, and it is drinking only: <strong>&ldquo;the average person drinks one quart of water per hour while hiking on a hot day&rdquo;</strong> [36].</p>\n<p><strong>No agency splits the daily figure.</strong> No NPS, CDC, or EPA page located publishes a daily water number separated into drinking and cooking components. Anyone presenting such a split is not citing an agency. What you can do instead is subtract your own meals' published volumes out of the combined figure, which is arithmetic on published numbers rather than a sourced recommendation:</p>\n<table>\n<thead>\n<tr><th>Per-meal water (published)</th><th>Fluid ounces</th><th>Weight, derived at 8 lb/gal [35]</th><th>Share of the 1 gal/day figure [35]</th></tr>\n</thead>\n<tbody>\n<tr><td>125 mL &mdash; Good To-Go Stove-Free [33][34]</td><td>4.2 oz</td><td>0.26 lb</td><td>3.3%</td></tr>\n<tr><td>240 mL &mdash; Backpacker's Pantry Three Cheese Mac &amp; Cheese [19]</td><td>8.1 oz</td><td>0.51 lb</td><td>6.3%</td></tr>\n<tr><td>10.5 oz &mdash; Peak Refuel Chicken Coconut Curry [12]</td><td>10.5 oz</td><td>0.66 lb</td><td>8.2%</td></tr>\n<tr><td>360 mL &mdash; Backpacker's Pantry Pad Thai with Chicken [17]</td><td>12.2 oz</td><td>0.76 lb</td><td>9.5%</td></tr>\n<tr><td>400 mL &mdash; Good To-Go Chicken Pho [32]</td><td>13.5 oz</td><td>0.85 lb</td><td>10.6%</td></tr>\n<tr><td>480 mL &mdash; Backpacker's Pantry Mushroom Stroganoff [20]</td><td>16.2 oz</td><td>1.01 lb</td><td>12.7%</td></tr>\n</tbody>\n</table>\n<p>Two hot meals a day at the middle of that range &mdash; roughly 1&frac12; cups each &mdash; is about 24 fluid ounces, or close to a fifth of the gallon [35]. That is the part of the day's water that has to be at the campsite at cooking time rather than distributed across the walking hours, which is a different logistical problem from the drinking share even though the agency figure does not separate them.</p>\n<p>One more input belongs in the day's plan and is easy to miss: several pouches contain an oxygen absorber that has to come out before water goes in. Peak Refuel's instruction is &ldquo;open pouch at tear mark, remove oxygen absorber&rdquo; [12], and Good To-Go's is &ldquo;tear pouch open and REMOVE oxygen absorber&rdquo; [30]. Good To-Go's Chicken Pho also ships with lime packets to remove [32].</p>\n\n<h2>Cold soaking, only what manufacturers say</h2>\n<p>Cold soaking is where the published record is loudest and least consistent. Four of the five brands take a position; the positions do not agree with each other, and the confidence behind them varies more than the wording suggests.</p>\n<table>\n<thead>\n<tr><th>Brand</th><th>Position</th><th>What the brand actually says</th><th>Stated cold time</th><th>Source</th></tr>\n</thead>\n<tbody>\n<tr><td>Mountain House</td><td>Permitted, framed as a fallback</td><td>&ldquo;If you can't heat water, cold water will also work to rehydrate your Mountain House meal.&rdquo; &ldquo;In a pinch you can use cold water, just give it about twice as long to re-hydrate.&rdquo;</td><td>Roughly twice the hot time; no fixed minutes published</td><td>[8][9]</td></tr>\n<tr><td>Peak Refuel</td><td><strong>Silent</strong></td><td>No statement located on any page checked, including a page titled &ldquo;Hydration&rdquo; that covers only the brand's drink mix. Every prep instruction specifies boiling water</td><td>None published</td><td>[11][12][13][14][15][16]</td></tr>\n<tr><td>Backpacker's Pantry</td><td>Permitted, explicitly untested</td><td>&ldquo;We have not tested rehydrating our meals with cold water. While it should work, it could take upwards of an hour to fully rehydrate the meal.&rdquo; Separately instructs cold water for one use: adding freeze-dried meats to another entree</td><td>&ldquo;Upwards of an hour&rdquo;</td><td>[21][22][23]</td></tr>\n<tr><td>ReadyWise</td><td>Permitted and advocated</td><td>&ldquo;Many of the foods can be re-hydrated and ready to eat with any temperature of water.&rdquo; Its outdoor brand published a piece arguing for the practice: &ldquo;you can still cold soak them and have a delicious meal ready when you get to camp&rdquo;</td><td>5&ndash;15 min &mdash; the same range it gives for hot water</td><td>[25][26][27]</td></tr>\n<tr><td>Good To-Go</td><td>Split by product line</td><td>A dedicated cool-water line: &ldquo;Prepared with only cool water, in 10 minutes or less!&rdquo; The standard entrees are emphatic in the other direction: &ldquo;BOILING (yes, boiling) water&rdquo;</td><td>10&ndash;12 min on the Stove-Free line; not applicable on the rest</td><td>[29][30][31][33][34]</td></tr>\n</tbody>\n</table>\n<p>The spread is 10 minutes to &ldquo;upwards of an hour&rdquo; &mdash; roughly sixfold, all brand-stated, none of it reconciled by anyone. Formulation differences are a plausible explanation, but no source states one, so treating any single figure as the cold-soak time would be reading past what is published.</p>\n<p>The evidentiary standing varies just as much as the numbers. Good To-Go sells and prices a cool-water line, so its 10-minute figure is attached to a product built for it [29]. ReadyWise markets the capability across its catalog [25][27]. Backpacker's Pantry says outright that it has not tested it [21][22]. Mountain House says cold water works without indicating whether that was tested [8]. Good To-Go also credits the practice's origin rather than claiming it: <strong>&ldquo;Inspired by the ingenuity of thru hikers &lsquo;cold-soaking&rsquo; their backpacking meals to save on pack weight&rdquo;</strong> [29].</p>\n<p><strong>On the safety question, nobody publishes a time limit.</strong> USDA FSIS defines the danger zone as temperatures between 40 and 140&nbsp;&deg;F and states that <strong>&ldquo;foods that should be served hot or cold should not spend more than one hour in the Danger Zone when temperatures are above 90&nbsp;&deg;F, and two hours when temperatures are below 90&deg;F&rdquo;</strong> [41]. That rule is written for perishable and prepared food generally; no source located applies it to cold-soaking a dried meal. Extension supplies the mechanism &mdash; dormant organisms reactivate when moisture returns [2][4] &mdash; and stops short of a duration. That is the whole published record. A specific safe cold-soak duration is not in it.</p>\n\n<h2>Altitude and treatment</h2>\n<p>Two separate altitude effects get conflated, and they have different amounts of evidence behind them.</p>\n<p>The first is physics and is not disputed: water boils at a lower temperature as elevation rises [40]. Mountain House quantifies it as <strong>&ldquo;the boiling point of water drops by roughly one degree for every 500 feet gained in elevation&rdquo;</strong> [10].</p>\n<p>The second is what that does to your meal, and here three brands say three different things. Backpacker's Pantry states that <strong>&ldquo;rehydration time doubles every 5,000 feet of elevation gain&rdquo;</strong> [17]. Good To-Go &mdash; for a dehydrated product &mdash; says to &ldquo;add a good minute or two of cook time for every 1,000 feet of elevation above 5,000 ft&rdquo; [28], a far smaller adjustment. Mountain House dissents from both: <strong>&ldquo;it's less important to extend your cooking time when heating Mountain House meals at altitude, compared with raw foods such as rice or couscous&rdquo;</strong> [10], on the grounds that the meals are already cooked. No extension service or freeze-dryer manufacturer publishes a position on this at all, so there is no neutral party to break the tie.</p>\n<p>Water treatment has a cleaner answer with one live federal disagreement inside it.</p>\n<table>\n<thead>\n<tr><th>Question</th><th>Published answer</th><th>Source</th></tr>\n</thead>\n<tbody>\n<tr><td>How long to boil</td><td>&ldquo;To kill germs, bring clear water to a rolling boil for 1 minute. At elevations above 6,500 feet, boil for 3 minutes.&rdquo;</td><td>[38], corroborated by NPS [37]</td></tr>\n<tr><td>How long to boil (competing federal figure)</td><td>&ldquo;Bring water to a rolling boil for at least one minute. At altitudes above 5,000 feet (1,000 meters), boil water for three minutes.&rdquo;</td><td>[39]</td></tr>\n<tr><td>Does treated water apply to cooking, not just drinking?</td><td>&ldquo;ONLY USE WATER THAT HAS BEEN PROPERLY DISINFECTED FOR DRINKING, COOKING, MAKING ANY PREPARED DRINK, WASHING DISHES AND FOR BRUSHING TEETH.&rdquo; (capitals in the original)</td><td>[39]</td></tr>\n<tr><td>Same question, park-level</td><td>&ldquo;All water should be purified before it is used for drinking, cooking, food preparation, handwashing, brushing teeth, or washing dishes.&rdquo;</td><td>[36]</td></tr>\n<tr><td>Does a rehydration boil also count as treatment?</td><td><strong>Not stated by any source.</strong> The agencies establish that food-preparation water must be treated and that a rolling boil is a treatment; none connects the two for the act of pouring boiling water into a pouch</td><td>[36][38][39]</td></tr>\n</tbody>\n</table>\n<p>The threshold conflict is real and current: CDC says 6,500 feet [38], with NPS Grand Canyon publishing the same figure [37], while EPA says 5,000 feet [39]. Both are live federal guidance. The conservative reading is the lower threshold, but that is a choice between two agencies, not a finding.</p>\n<p>The cross-cutting silence is worth stating plainly, because it shapes what you can rely on: <strong>no pouch brand and no home freeze-drying source addresses treating the water used to rehydrate.</strong> The requirement comes only from CDC, EPA, and NPS, and they frame it as &ldquo;cooking&rdquo; and &ldquo;food preparation&rdquo; &mdash; the word &ldquo;rehydrate&rdquo; does not appear [36][38][39]. The five brand FAQs are silent [9][15][21][25][28], and so are Harvest Right's rehydration guidance [1] and Utah State's freeze-drying guide [4].</p>\n\n<h2>What we could not source</h2>\n<ul>\n<li><strong>A numeric water-to-food ratio by category.</strong> Nothing in the extension or manufacturer literature converts dried weight or volume into water volume by food type. The published quantification is the weight differential [1][2]. A &ldquo;rehydration ratio chart&rdquo; attributed to Harvest Right circulates on third-party sites; it does not appear on any Harvest Right page checked, and nothing here relies on it.</li>\n<li><strong>Rehydration figures for beans and legumes, root vegetables specifically, or dairy and eggs.</strong> None published by Harvest Right or any extension service. Vegetables are addressed only as one category [5].</li>\n<li><strong>A daily backcountry water figure split into drinking and cooking.</strong> NPS publishes a combined gallon [35] and an hourly drinking rate [36]. No agency page located separates them.</li>\n<li><strong>A quantified increase in fluid needs at altitude.</strong> Not located in federal guidance in a form usable for planning.</li>\n<li><strong>Any statement from extension or a freeze-dryer manufacturer that rehydration takes longer at altitude.</strong> The lower boiling point is documented [40][10]; the consequence for rehydration time is published only by pouch brands, and they disagree [17][28][10].</li>\n<li><strong>A cold-soak or ambient-rehydration time limit for dried food.</strong> Extension establishes that organisms reactivate on rehydration [2][4] but publishes no duration. The USDA one-hour and two-hour rule [41] is written for perishable and prepared foods and is not applied to dried meals by any source.</li>\n<li><strong>Confirmation that a rehydration boil satisfies the treatment requirement.</strong> The inference is reasonable; it is not published [36][38][39].</li>\n<li><strong>A resolution to the CDC/EPA altitude threshold conflict.</strong> Both figures are current and neither agency acknowledges the other [38][39].</li>\n<li><strong>Per-serving water figures for most Mountain House meals.</strong> The brand directs you to the back of the package rather than publishing per-SKU volumes on its product pages [8].</li>\n</ul>\n\n<h2>Next</h2>\n<ul>\n<li><a href=\"/guides/cold-soaking-manufacturers\">What manufacturers say about cold soaking</a> &mdash; the no-stove case, in their own words.</li><li><a href=\"/troubleshooting/rehydration-problems\">When food will not rehydrate right</a> &mdash; what goes wrong when the water is right but the result is not.</li><li><a href=\"/guides/three-day-trail-menu\">Building a three-day trail menu</a> &mdash; how these figures add up across a trip.</li>\n</ul>"
+}
