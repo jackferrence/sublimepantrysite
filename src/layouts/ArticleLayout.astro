@@ -164,9 +164,9 @@ if (d.pillar === 'compare' && d.comparisonCriteria) {
             activity without a single price. The promise is that the article's
             figures were re-checked against their sources on that date — which is
             true of a price, a cycle time, and a cost per unit alike. */}
-        {d.pillar === 'compare' && (
+        {d.pillar === 'compare' && verifiedDate(entry) && (
           <p class="verified-badge">
-            Figures verified {formatDate(verifiedDate(entry))} · Next check {formatDate(nextCheckDate(entry))}
+            Figures verified {formatDate(verifiedDate(entry)!)} · Next check {formatDate(nextCheckDate(entry)!)}
           </p>
         )}
 
@@ -185,7 +185,7 @@ if (d.pillar === 'compare' && d.comparisonCriteria) {
 
         <div class="article-body" set:html={bodyRest} />
 
-        <ToolsMentioned bodyHtml={bodyHtml} declared={d.products} />
+        <ToolsMentioned bodyHtml={bodyHtml} />
 
         <p class="disclosure-line">{ownership}{d.disclosure}</p>
 

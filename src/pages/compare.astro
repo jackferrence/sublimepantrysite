@@ -53,7 +53,11 @@ const jsonLd = [
         kicker={entry.data.section ?? entry.data.kicker}
         image={heroImage(entry)?.src}
         imageAlt={heroImage(entry)?.alt}
-        meta={`${entry.data.comparisonCriteria?.length ?? 0} criteria · verified ${formatDate(verifiedDate(entry))}`}
+        meta={[
+          `${entry.data.comparisonCriteria?.length ?? 0} criteria`,
+          // No date rather than a date we did not earn. See verifiedDate().
+          verifiedDate(entry) ? `verified ${formatDate(verifiedDate(entry)!)}` : null,
+        ].filter(Boolean).join(' · ')}
         transitionName={`sp-title-${entry.id}`}
       />
     ))}

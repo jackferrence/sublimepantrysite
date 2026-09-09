@@ -51,6 +51,21 @@ const articles = defineCollection({
     riskClass: z.enum(['standard', 'elevated']),
     publishedDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
     updatedDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+    /**
+     * The date this article's figures were rechecked against their sources.
+     *
+     * Its own field, and deliberately not derived from anything. It used to be
+     * `updatedDate ?? publishedDate`, which conflated two different claims —
+     * "we edited this page" and "we rechecked these facts" — and published the
+     * second when only the first had happened. /compare/home-freeze-dryers
+     * printed "verified Aug 31, 2026" beside a correction dated September 6 and
+     * figures dated September 5, and every editorial touch silently re-dated a
+     * verification that had not occurred.
+     *
+     * Unset means unverified, and renders nothing. Set it only where a recheck
+     * actually happened.
+     */
+    verifiedDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
     author: z.string().default('Jack Ferrence'),
     disclosure: z.string(),
     sources: z.array(sourceSchema).min(1, 'every article must cite at least one dated source'),
