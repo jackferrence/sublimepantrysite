@@ -1,0 +1,311 @@
+{
+  "title": "Building a three-day trail menu from your own freeze dryer",
+  "description": "Sourced calorie and weight bands, published rehydration figures where they exist, and a three-day menu that marks every calculated number as calculated.",
+  "kicker": "trail",
+  "pillar": "guides",
+  "section": "Camping",
+  "riskClass": "standard",
+  "publishedDate": "2026-09-08",
+  "disclosure": "Sublime Pantry has no affiliate relationships, sponsorships, or paid placements as of publication. We sell packaging; where a product we sell appears, it is labeled.",
+  "sources": [
+    {
+      "title": "5 Steps to Plan a Camping Menu",
+      "url": "https://www.nols.edu/blog/5-steps-to-plan-a-camping-menu/",
+      "publisher": "National Outdoor Leadership School",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Nutritional Needs in Cold and High-Altitude Environments — Cold-Weather Field Feeding: Military Rations",
+      "url": "https://www.nationalacademies.org/read/5197/chapter/8",
+      "publisher": "National Academies of Sciences (Committee on Military Nutrition Research)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Protein for Performance: In-Depth",
+      "url": "https://www.hprc-online.org/nutrition/performance-nutrition/protein-performance-depth",
+      "publisher": "Human Performance Resources by CHAMP, U.S. Department of Defense",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Warfighter Nutrition Guide, Chapter 13: Combat Rations",
+      "url": "https://www.hprc-online.org/nutrition/warfighter-nutrition-guide/13-combat-rations",
+      "publisher": "Human Performance Resources by CHAMP, U.S. Department of Defense",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Meal Planning for Ultralight Backpacking",
+      "url": "https://www.rei.com/learn/expert-advice/meal-planning-for-ultralight-backpacking.html",
+      "publisher": "REI Co-op",
+      "tier": "secondary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "How to Rehydrate Freeze Dried Food — Tips and Techniques",
+      "url": "https://harvestright.com/blogs/freeze-drying-learning-center/how-to-rehydrate-freeze-dried-food",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Can I Freeze-Dry That? A Practical Guide to Safe and Effective Freeze-Drying (January 2026)",
+      "url": "https://extension.usu.edu/foodsafety/research/can-i-freeze-dry-that-a-practical-guide-to-safe-and-effective-freeze-drying",
+      "publisher": "Utah State University Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Preserving Food at Home: Freeze-Drying",
+      "url": "https://extension.umn.edu/preserving-and-preparing/freeze-drying-food",
+      "publisher": "University of Minnesota Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Freeze Drying For Home Use (fact sheet, PDF)",
+      "url": "https://ucanr.edu/sites/default/files/2024-10/403504.pdf",
+      "publisher": "UC Cooperative Extension / UCCE Master Food Preservers of El Dorado County",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Rehydrating Full Meals",
+      "url": "https://harvestright.com/blogs/blog/rehydrating-full-meals-3",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Rehydrating Freeze Dried Meats",
+      "url": "https://harvestright.com/blogs/blog/rehydrating-freeze-dried-meats",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Rehydrating Freeze Dried Fruits and Vegetables",
+      "url": "https://harvestright.com/blogs/blog/rehydrating-freeze-dried-fruits-and-vegetables",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "What Foods Can You Freeze Dry? A Complete Guide",
+      "url": "https://harvestright.com/blogs/freeze-drying-learning-center/what-foods-can-you-freeze-dry",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Foods That Require Additional Consideration Before Freeze Drying",
+      "url": "https://harvestright.com/blogs/blog/foods-that-require-additional-consideration-before-freeze-drying",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "What's the best way to prepare food for freeze drying?",
+      "url": "https://harvestright.com/question/preparing-food-for-freeze-drying/",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Jerky",
+      "url": "https://nchfp.uga.edu/how/dry/recipes/jerky/",
+      "publisher": "National Center for Home Food Preservation, University of Georgia",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Backpacking Preparation and Safety (Guadalupe Mountains National Park)",
+      "url": "https://www.nps.gov/gumo/planyourvisit/bcpreparation.htm",
+      "publisher": "National Park Service",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Drinking Water (Shenandoah National Park)",
+      "url": "https://www.nps.gov/shen/planyourvisit/drinking-water.htm",
+      "publisher": "National Park Service",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "About Water Treatment Options When Hiking, Camping, or Traveling",
+      "url": "https://www.cdc.gov/drinking-water/prevention/water-treatment-hiking-camping-traveling.html",
+      "publisher": "Centers for Disease Control and Prevention",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Emergency Disinfection of Drinking Water",
+      "url": "https://www.epa.gov/ground-water-and-drinking-water/emergency-disinfection-drinking-water",
+      "publisher": "U.S. Environmental Protection Agency",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Storing Freeze Dried Food",
+      "url": "https://harvestright.com/blogs/blog/storing-freeze-dried-food",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Frequently Asked Questions",
+      "url": "https://backpackerspantry.com/pages/faq",
+      "publisher": "Backpacker's Pantry",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Pad Thai with Chicken",
+      "url": "https://backpackerspantry.com/collections/entrees/products/pad-thai-with-chicken",
+      "publisher": "Backpacker's Pantry",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Cooking Freeze-Dried Mountain House Meals at High Elevations",
+      "url": "https://mountainhouse.com/blogs/backpacking-hiking/cooking-mountain-house-at-high-elevations",
+      "publisher": "Mountain House",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Frequently Asked Questions",
+      "url": "https://goodto-go.com/pages/faq",
+      "publisher": "Good To-Go",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Freeze-Drying and Rehydrating a Pasta Dinner",
+      "url": "https://harvestright.com/blogs/blog/freeze-drying-and-rehydrating-a-pasta-dinner",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Preparing and Storing Your Freeze Dried Products for Best Use (az2097b-2025)",
+      "url": "https://www.extension.arizona.edu/sites/default/files/2025-03/az2097b-2025.pdf",
+      "publisher": "University of Arizona Cooperative Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Preserving by Home Freeze Drying (AnswerLine, June 13, 2023)",
+      "url": "https://blogs.extension.iastate.edu/answerline/2023/06/13/preserving-by-home-freeze-drying/",
+      "publisher": "Iowa State University Extension and Outreach",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "How to Freeze Dry Your Garden Harvest",
+      "url": "https://harvestright.com/blogs/blog/freeze-drying-the-harvest",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Home Freeze Dryers — FAQs",
+      "url": "https://harvestright.com/pages/faqs",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "USDA urges consumers to keep clear of the \"danger zone\" this summer",
+      "url": "https://www.fsis.usda.gov/news-events/news-press-releases/usda-urges-consumers-keep-clear-danger-zone-summer",
+      "publisher": "USDA Food Safety and Inspection Service",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "How to Freeze Dry Rice",
+      "url": "https://freezedriedguide.com/how-to-freeze-dry-rice/",
+      "publisher": "Freeze Dried Guide",
+      "tier": "secondary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "How To Freeze-Dry Refried Beans",
+      "url": "https://freezedriedguide.com/how-to-freeze-dry-refried-beans/",
+      "publisher": "Freeze Dried Guide",
+      "tier": "secondary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "How to Freeze Dry Milk",
+      "url": "https://practicalselfreliance.com/freeze-dried-milk/",
+      "publisher": "Practical Self Reliance",
+      "tier": "secondary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Why Milk is One of the Best Foods to Freeze Dry",
+      "url": "https://harvestright.com/blogs/blog/why-milk-is-one-of-the-best-foods-to-freeze-dry",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    }
+  ],
+  "faq": [
+    {
+      "question": "How much food should I carry per person per day?",
+      "answer": "NOLS publishes bands by trip type: 2,000–3,000 kcal and 1–1.5 lb per person per day for a leisurely trip, 3,000–3,500 kcal and 1.75–2.0 lb for longer backpacking, and 3,500–4,500 kcal and 2.0–2.5 lb for strenuous cold-weather travel [1]. Dividing the paired figures gives roughly 4–5 oz of food per 500 kcal, which is our arithmetic on NOLS's own bands, not a NOLS statement. REI's rule of thumb — \"at least 100 calories per ounce — 125 calories or more per ounce is even better\" — lands in the same place from a secondary source [5]."
+    },
+    {
+      "question": "How much water will home-dried meals need?",
+      "answer": "There is no published water-to-food ratio by category. Harvest Right's method is the only published way to know: \"The amount of water needed is roughly equal to the amount of moisture removed\" [6], which means weighing trays before and after and recording the difference [6][8]. For scale, commercial two-serving pouches specify 1 to 1.75 cups of boiling water [22][23], and UC Cooperative Extension's jar-meal recipes run 2.5 cups for a casserole to 8 cups for a soup serving six [9]."
+    },
+    {
+      "question": "Can I cold-soak meals I dried myself?",
+      "answer": "No source publishes a safe ambient-rehydration time for dried food, which is the honest answer rather than a cautious one. Extension establishes the mechanism — freeze-drying \"does not kill bacteria and/or other microbes. It preserves them\" [7], and rehydration can reactivate them [7][8] — and USDA's general perishable-food rule is that food \"should not spend more than one hour in the Danger Zone when temperatures are above 90 °F, and two hours when temperatures are below 90°F\" [31]. Nobody has applied that rule to soaking a dried meal, so any specific cold-soak time limit you see is unsourced."
+    },
+    {
+      "question": "Do meals take longer to rehydrate at altitude?",
+      "answer": "Three commercial brands publish three different positions and none addresses the others. Backpacker's Pantry states \"Rehydration time doubles every 5,000 feet of elevation gain\" [23]. Good To-Go advises adding \"a good minute or two of cook time for every 1,000 feet of elevation above 5,000 ft\" [25]. Mountain House says it is \"less important to extend your cooking time when heating Mountain House meals at altitude, compared with raw foods such as rice or couscous,\" because the meals are precooked [24]. The underlying physics is not in dispute — the boiling point of water \"drops by roughly one degree for every 500 feet gained in elevation\" [24] — but no extension service or freeze-dryer manufacturer publishes a rehydration-time adjustment at all."
+    },
+    {
+      "question": "Should I dry the whole dinner or the parts?",
+      "answer": "Nobody has published the comparison. Harvest Right lists finished dishes — \"Pasta dishes, casseroles, soups, chili, rice dishes\" — as working well [13][30], and UC Cooperative Extension publishes whole meal-in-a-jar recipes alongside single-component ones without arguing for either [9]. The one instruction that sounds like a components argument is not one: Harvest Right's advice to freeze a casserole \"in small portions first\" rather than whole is framed as drying efficiency and uniformity, not rehydration quality or shelf life [14]."
+    }
+  ],
+  "howTo": [
+    {
+      "name": "Set the day's calorie target from a published band, not a guess",
+      "text": "Pick the NOLS band that matches the trip: 2,000–3,000 kcal/day leisurely, 3,000–3,500 for longer backpacking, 3,500–4,500 for strenuous cold-weather travel [1]. If the trip is genuinely cold and working, the military figure is higher again — 4,500 kcal/day or more, with measured means of 4,253–4,919 kcal/day for personnel working below 57.2°F [2]."
+    },
+    {
+      "name": "Convert calories into carried weight before you dry anything",
+      "text": "Use roughly 4–5 oz (115–140 g) per 500 kcal, which is arithmetic on NOLS's paired weight and calorie bands [1] and agrees with REI's secondary 100–125 kcal/oz rule [5]. A 3,200 kcal day at 4.5 oz per 500 kcal is about 28.8 oz, or 1.8 lb — inside the 1.75–2.0 lb NOLS publishes for that calorie band [1]. That number is the budget every meal below has to fit inside."
+    },
+    {
+      "name": "Dry components at the published thickness, and cook what needs cooking first",
+      "text": "Keep pieces between ¼ and ½ inch, and meat no thicker than about ¾ inch [14]; food should not sit higher than the tray lip [27]. Cook or soak beans first, because \"Cooking or soaking improves texture after rehydration and helps prevent hard seed coats\" [7]. Meat needs a kill step — beef to 160°F, poultry to 165°F, seafood to 145°F — because freeze-drying supplies none [7]."
+    },
+    {
+      "name": "Weigh every tray in and out, and write the difference on the bag",
+      "text": "This is the only published way to know how much water a meal will need in the field: the water to add back is \"roughly equal to the amount of moisture removed\" [6], recovered by weighing trays before and after [6][8]. Without that number you are guessing at the field end of the process, because no source publishes a water-to-food ratio by food type."
+    },
+    {
+      "name": "Package per meal, and treat fat as the clock",
+      "text": "Fat, not time, is what shortens these bags: \"Foods that contain higher amounts of fat generally have shorter storage lives because fats can oxidize over time\" [21], and the same effect shows up in commercial shelf-life tiers — \"Products with a shelf life of three years typically have higher fat or dairy content\" [22].Drain and rinse cooked ground beef \"to remove as much grease as possible before freeze-drying\" [8], and trim visible fat from meat before it goes on a tray [27]."
+    },
+    {
+      "name": "Plan the water separately, and treat all of it",
+      "text": "The National Park Service publishes one gallon per person per day for backcountry travel, noting that \"water weighs approximately 8 lbs. per gallon\" [17], and one quart per hour of drinking while hiking on a hot day [18]. That water has to be treated before it touches food: EPA states that only properly disinfected water should be used \"FOR DRINKING, COOKING, MAKING ANY PREPARED DRINK, WASHING DISHES\" [20], and NPS says the same for \"drinking, cooking, food preparation\" [18]. Boiling is one accepted treatment, though the agencies disagree on the altitude threshold — CDC says 3 minutes above 6,500 feet [19], EPA says above 5,000 feet [20]."
+    }
+  ],
+  "related": [
+    "fruit-vs-vegetables-vs-meat",
+    "storage-containers",
+    "chewy-candy"
+  ],
+  "bodyHtml": "<p><strong>The short version:</strong> a three-day menu from your own machine is a weight budget first and a recipe list second, and the budget is the only part of it anyone has published. NOLS puts a longer backpacking trip at <strong>3,000&ndash;3,500 kcal and 1.75&ndash;2.0 lb of food per person per day</strong> [1], which works out to roughly 4&ndash;5 oz per 500 kcal. Everything downstream of that &mdash; how much your specific dried chicken weighs, how much water it takes back &mdash; is unpublished, so the menu below marks every number as sourced or calculated and tells you which figures you have to produce yourself with a scale.</p>\n\n<h2>What a day needs</h2>\n<p>NOLS publishes calorie and food-weight bands together, by trip type, which makes it the most useful planning table in the category &mdash; and the only primary source that lets you derive a calorie density without a rule of thumb.</p>\n<table>\n<thead><tr><th>Trip type</th><th>Calories per person per day</th><th>Food weight per person per day</th><th>Derived: weight per 500 kcal</th><th>Source</th></tr></thead>\n<tbody>\n<tr><td>Leisurely / light day hiking</td><td><strong>2,000&ndash;3,000 kcal</strong></td><td>1&ndash;1.5 lb</td><td>4.3&ndash;5.4 oz <em>(calculated)</em></td><td>[1]</td></tr>\n<tr><td>Longer backpacking</td><td><strong>3,000&ndash;3,500 kcal</strong></td><td>1.75&ndash;2.0 lb</td><td>4.0&ndash;4.7 oz <em>(calculated)</em></td><td>[1]</td></tr>\n<tr><td>Strenuous cold weather</td><td><strong>3,500&ndash;4,500 kcal</strong></td><td>2.0&ndash;2.5 lb</td><td>3.6&ndash;4.6 oz <em>(calculated)</em></td><td>[1]</td></tr>\n<tr><td>Cold-weather field work, military</td><td>&ge;4,500 kcal; measured means <strong>4,253&ndash;4,919 kcal</strong></td><td>Not published in these terms</td><td>&mdash;</td><td>[2]</td></tr>\n<tr><td>Calorie density, rule of thumb</td><td>100&ndash;125 kcal per oz</td><td>&mdash;</td><td>4.0&ndash;5.0 oz <em>(calculated)</em></td><td>[5] <em>secondary</em></td></tr>\n</tbody>\n</table>\n<p>The last two rows deserve their labels. The military figure is for personnel <em>working</em> in temperatures below 57.2&deg;F, not for anyone who happens to be cold: &ldquo;Energy requirement increases in proportion to the amount of time spent working in the cold&rdquo; [2]. And the 100&ndash;125 kcal/oz rule everyone quotes is REI's, a secondary source [5] &mdash; no primary source in the outdoor, land-management, or military tiers publishes a calorie-density benchmark at all. The convergence is the useful part: two independent routes land on <strong>~4&ndash;5 oz per 500 kcal</strong>, and that is the conversion factor used throughout this page.</p>\n<p>Two more planning numbers, both conditional. On protein, the Defense Department's range is 0.8&ndash;1.6 g/kg of body weight per day, rising to “up to 2 grams of protein/kg body weight” under severe negative energy balance from “extended operations, extreme environments, heavy equipment loads” [3] &mdash; for a 70 kg hiker, 56&ndash;112 g/day normally and 140 g at the upper condition. On macronutrient splits, there is nothing for civilians: the only published splits are ration formulations (MRE at 15% protein / 49% carbohydrate / 36% fat; the cold-weather ration deliberately at 8% protein &ldquo;to conserve metabolic water requirements&rdquo;) [2]. For a sense of scale at the meal level, an MRE runs about 1,285 kcal [4].</p>\n\n<h2>Components versus finished dishes</h2>\n<p>Here is the finding before the guidance, because it decides how much weight anything below can carry: <strong>no manufacturer or extension source compares drying an assembled meal against drying components for later assembly.</strong> Not on rehydration quality, not on shelf life. What exists is four positions that never address each other.</p>\n<table>\n<thead><tr><th>Publisher</th><th>What is actually published</th><th>What it is not</th><th>Source</th></tr></thead>\n<tbody>\n<tr><td>Harvest Right</td><td>Finished dishes are listed as working well &mdash; “Pasta dishes, casseroles, soups, chili, rice dishes, and other homemade meals” &mdash; with no caveat recommending component separation</td><td>Not a comparison; assembled meals are simply endorsed</td><td>[13][30]</td></tr>\n<tr><td>Harvest Right</td><td>“Instead of trying to freeze-dry an entire casserole at once, they can freeze it in small portions first,” with pieces ¼&ndash;½ inch and meat no thicker than ¾ inch</td><td><strong>Not a components argument.</strong> It is framed as drying efficiency and uniformity</td><td>[14]</td></tr>\n<tr><td>UC Cooperative Extension</td><td>Publishes whole assembled meal-in-a-jar recipes alongside a single-component recipe, with no text arguing either yields better results</td><td>Demonstrates both, recommends neither</td><td>[9]</td></tr>\n<tr><td>Utah State Extension</td><td>Frames meal assembly purely as a single-layer, thickness-for-even-drying instruction</td><td>A process instruction, not a menu-design position</td><td>[7]</td></tr>\n<tr><td>University of Arizona Extension</td><td>“Casseroles or mixed foods will freeze dry well if they are not overly greasy” &mdash; a fat condition on finished dishes</td><td>The only published limit on the assembled-meal route, and it is about grease, not structure</td><td>[27]</td></tr>\n</tbody>\n</table>\n<p>What that leaves is a practical split rather than a sourced one. Finished dishes are documented as working and carry a published grease limit [27]; components are documented as working and carry published preparation rules of their own &mdash; cook or soak beans first [7], blanch vegetables [8][9], cook meat to its kill-step temperature [7]. Components also do one thing the sources do support directly: herbs, onions and bell peppers need no rehydration at all and “can be added directly to foods” [28], which makes them the cheapest flavor you can carry.</p>\n<p>The menu below mixes both, and says which is which.</p>\n\n<h2>The menu</h2>\n<p>Read the <strong>basis</strong> column first. Calories are our allocation against the NOLS band [1]; dry weights are that allocation converted at 4.5 oz per 500 kcal, the midpoint of the derived range [1][5]. <strong>Neither has been weighed by us on any food.</strong> Water figures cite the nearest published component or pouch volume; where none exists, the cell says so, and the answer is the weigh-back number from your own trays [6][8].</p>\n<table>\n<thead><tr><th>Day</th><th>Meal</th><th>Components</th><th>Dry weight</th><th>Water</th><th>Calories</th><th>Basis</th></tr></thead>\n<tbody>\n<tr><td>1</td><td>Breakfast</td><td>Scrambled egg (cooked to 165°F before drying), potato, cheese</td><td>6.3 oz</td><td>~1&ndash;1½ cups hot</td><td>700</td><td>Weight and calories <strong>calculated</strong>; water bracketed from published pouch volumes of 1&ndash;1¾ cups per two-serving meal [22][23] and UC ANR jar recipes [9]</td></tr>\n<tr><td>1</td><td>Lunch, no cook</td><td>Dried fruit, sweet corn, cheese, nuts</td><td>6.3 oz</td><td>None</td><td>700</td><td>Weight and calories <strong>calculated</strong>; eaten dry &mdash; many fruits are eaten without rehydration [12], and nuts, grains, seeds and beans dry well [7]</td></tr>\n<tr><td>1</td><td>Dinner</td><td>Chicken, white rice, peas and carrots</td><td>8.1 oz</td><td>~1¼&ndash;1½ cups boiling</td><td>900</td><td>Weight and calories <strong>calculated</strong>; rice figure <strong>sourced, secondary</strong> at ¾&ndash;⅘ cup water per cup of dried rice [32]; meat portion about ⅓ hot water relative to the meat [11]</td></tr>\n<tr><td>1</td><td>Snacks</td><td>Dried fruit, cheese, nuts</td><td>8.1 oz</td><td>None</td><td>900</td><td><strong>Calculated</strong>; no rehydration step</td></tr>\n<tr><td>2</td><td>Breakfast</td><td>Cooked oatmeal, milk powder, strawberries</td><td>6.3 oz</td><td>~1½ cups, plus 1:1 for the milk</td><td>700</td><td>Weight and calories <strong>calculated</strong>; milk at 1:1 powder to water is <strong>sourced</strong> [35], with ~1&ndash;1⅓ cup powder per quart from a secondary source [34]</td></tr>\n<tr><td>2</td><td>Lunch, no cook</td><td>Dried fruit, cheese, nuts, freeze-dried vegetables</td><td>6.3 oz</td><td>None</td><td>700</td><td><strong>Calculated</strong>; eaten dry [12]</td></tr>\n<tr><td>2</td><td>Dinner</td><td>Beef and bean chili over rice</td><td>8.1 oz</td><td>~1½&ndash;2 cups boiling</td><td>900</td><td>Weight and calories <strong>calculated</strong>; bean component at 2 parts dried to 1 part water is <strong>sourced, secondary</strong> [33]; rice as above [32]</td></tr>\n<tr><td>2</td><td>Snacks</td><td>Dried fruit, nuts, vegetable chips</td><td>8.1 oz</td><td>None</td><td>900</td><td><strong>Calculated</strong>; vegetable chips are a published extension recipe, seasoned after drying [9]</td></tr>\n<tr><td>3</td><td>Breakfast</td><td>Scrambled egg, cheese, dried peppers and onion</td><td>6.3 oz</td><td>~1 cup hot</td><td>700</td><td>Weight and calories <strong>calculated</strong>; peppers and onions need no rehydration and go in directly [28]</td></tr>\n<tr><td>3</td><td>Lunch, no cook</td><td>Dried fruit, cheese, nuts</td><td>6.3 oz</td><td>None</td><td>700</td><td><strong>Calculated</strong></td></tr>\n<tr><td>3</td><td>Dinner</td><td>Pasta with chicken in a cream sauce</td><td>8.1 oz</td><td>Added gradually to consistency</td><td>900</td><td>Weight and calories <strong>calculated</strong>; method <strong>sourced</strong> &mdash; add hot water gradually until the pasta softens, or boil it like normal pasta, and give a cream sauce time to thicken before adding more [10][26]</td></tr>\n<tr><td>3</td><td>Snacks</td><td>Dried fruit, cheese, nuts</td><td>8.1 oz</td><td>None</td><td>900</td><td><strong>Calculated</strong></td></tr>\n<tr><td colspan=\"3\"><strong>Per day</strong></td><td><strong>~28.8 oz (1.8 lb)</strong></td><td><strong>~2½&ndash;4 cups cooking water</strong></td><td><strong>3,200</strong></td><td>Inside the NOLS band of 3,000&ndash;3,500 kcal and 1.75&ndash;2.0 lb [1]</td></tr>\n<tr><td colspan=\"3\"><strong>Three days</strong></td><td><strong>~5.4 lb</strong></td><td>Cooking water is <em>part of</em> the daily gallon, not additional to it [17]</td><td><strong>9,600</strong></td><td>Weight <strong>calculated</strong>; band <strong>sourced</strong> [1]</td></tr>\n</tbody>\n</table>\n<p>Two things about that table are worth saying plainly. First, the dry weights are a budget you fill, not a prediction of what your machine will produce &mdash; <strong>no source publishes a fresh-to-dried yield percentage for meat, cooked grains, or dairy</strong>, so nobody can tell you in advance what four ounces of raw chicken becomes. Second, the water column is thinner than it looks: the only published quantification method in the entire home freeze-drying literature is weighing trays before and after, because “The amount of water needed is roughly equal to the amount of moisture removed” [6][8]. Everything else in that column is a bracket borrowed from a commercial pouch or a published recipe.</p>\n<p>On water overall: the National Park Service publishes “one gallon per person per day (water weighs approximately 8 lbs. per gallon)” for backcountry travel [17] and one quart per hour of drinking on a hot day [18] &mdash; but <strong>no agency splits that gallon into drinking and cooking components</strong>. A three-day trip is roughly 24 lb of water per person if you carry it all, which nobody does; what matters is that the cooking water comes out of the same gallon and has to be treated to the same standard [18][20].</p>\n\n<h2>Seasoning, fat, dairy</h2>\n<p><strong>Fat is the shelf-life clock on this menu, and it is the only variable with four independent tiers agreeing on direction.</strong> Harvest Right: “Foods that contain higher amounts of fat generally have shorter storage lives because fats can oxidize over time” [21]. Utah State: “Fat does not freeze like water. This slows the process and increases the risk of spoilage” [7]. Minnesota: “Foods that are high in fat or oil may not freeze-dry well” [8]. And a commercial brand's own product tiers say the same thing from the market side &mdash; “Products with a shelf life of three years typically have higher fat or dairy content,” against ten years for the rest of the line [22].</p>\n<p>What none of them publishes is a number. There is no fat-percentage ceiling anywhere in any tier, and no quantified shelf-life reduction per unit of fat. The one concrete fat-driven figure in the whole literature is about jerky: “Trim and discard all fat from meat because it becomes rancid quickly,” and “Properly dried jerky will keep at room temperature two weeks in a sealed container” [16]. That is a different process, and it is cited here as the only place the category ever attaches a number to fat.</p>\n<table>\n<thead><tr><th>Ingredient class</th><th>What is published</th><th>Practical consequence for a trail menu</th><th>Source</th></tr></thead>\n<tbody>\n<tr><td>Ground beef and fatty cuts</td><td>“Drain and thoroughly rinse with water to remove as much grease as possible before freeze-drying”; trim visible fat before drying</td><td>The single most actionable step on this page. Do it before the meat goes on a tray</td><td>[8][27]</td></tr>\n<tr><td>High-fat cheese</td><td>“Melt or blend and spread thinly before freeze-drying to reduce rancidity and ensure even drying”</td><td>Cheese belongs in the menu; block cheese dried thick does not</td><td>[7]</td></tr>\n<tr><td>Pure fats &mdash; butter, straight nut butter, solid chocolate</td><td>“don’t freeze dry well on their own” but freeze dry “just fine when they’re part of a larger dish”</td><td>Fat as an ingredient in a dish, never as its own bag. Note that UC Extension gives the flat version of this without the composite exception &mdash; “Generally avoid oily foods like butter, peanut butter and chocolate” [9] &mdash; and neither source addresses the other</td><td>[13][9]</td></tr>\n<tr><td>Oils, mayonnaise, dressings</td><td>Emulsions “do not freeze evenly, and this can ruin their texture”; “High-fat foods such as mayonnaise do not freeze-dry well and can become unsafe”</td><td>Carry oil separately as a liquid if you want the calories</td><td>[7][9]</td></tr>\n<tr><td>Dairy generally</td><td>Only pasteurized dairy and cheese are listed as safe to dry; milk is documented as reconstituting 1:1 powder to water</td><td>Milk powder is the easiest calorie-dense addition on the menu; unpasteurized dairy is out</td><td>[7][35]</td></tr>\n<tr><td>Eggs</td><td>“Raw eggs can contain <em>Salmonella</em> that survives freeze-drying”</td><td>Cook eggs fully before they go on a tray. Both breakfasts above assume that</td><td>[7]</td></tr>\n<tr><td>Sugar and syrups</td><td>High-sugar foods “become a sticky, difficult-to-handle mess during the process and cannot be reconstituted properly”; sugar “holds onto water and resists moisture loss, prolonging drying”</td><td>Sweeten at the pouch, not on the tray</td><td>[13][7]</td></tr>\n<tr><td>Baked goods</td><td>Iowa State: “High-fat foods, high-sugar foods, and baked goods (breads, cakes, muffins) do not freeze dry successfully”</td><td>Bread is not a component of this menu, and the extension position is why</td><td>[28]</td></tr>\n</tbody>\n</table>\n<p>Seasoning is thinner than any of that, and points in two directions. Minnesota Extension gives the only general statement anywhere: “Seasonings can be added to both raw and cooked foods before freeze-drying” [8]. UC Cooperative Extension's own vegetable-chip recipe does the opposite, spritzing with oil and seasoning “after vegetables are done freeze-drying” [9]. Neither frames itself as answering the other. Beyond that: <strong>no source addresses salt or acids at all</strong> &mdash; not their effect on drying time, not their effect on texture &mdash; even though sugar and fat both have documented process effects [7]. Seasoning at the point of rehydration, the obvious trail strategy, is unaddressed by every tier.</p>\n<p>Two housekeeping notes that affect flavor more than they look like they should. Carry herbs whole: “Store herbs whole when possible and crush them shortly before use for stronger aroma and flavor” [29], and they need no rehydration [28]. And leafy greens “are light after drying, so handle and package them carefully to prevent crushing” [15] &mdash; the only crush-risk food any primary source names, and worth knowing before one gets packed under a bear canister. Rehydrate them by spritzing rather than soaking [12].</p>\n\n<h2>What we could not source</h2>\n<ul>\n<li><strong>Fresh-to-dried yield for meat, cooked grains, or dairy.</strong> No extension service or manufacturer publishes one, so no cell in the menu table can tell you what quantity of raw ingredient produces a given dry weight. Only all-food water-removal percentages exist, and they disagree with each other &mdash; roughly 91&ndash;92% by one extension account [8].</li>\n<li><strong>A water-to-food rehydration ratio by category.</strong> None exists. The weigh-back method [6][8] is the whole published answer, and a “rehydration ratio chart” attributed to Harvest Right circulates on third-party sites without appearing on any Harvest Right page.</li>\n<li><strong>Rehydration figures for beans, root vegetables, or dairy and eggs specifically.</strong> The bean and rice ratios used in the menu above are secondary-source figures [32][33], flagged as such in the table, and there is no primary equivalent.</li>\n<li><strong>A daily water figure split into drinking and cooking.</strong> No NPS, USFS, BLM, or CDC page found publishes one. The only quantitative agency figures are the combined gallon [17] and the hourly drinking rate [18].</li>\n<li><strong>A comparison of components versus finished dishes.</strong> Unpublished at every tier, as set out above [9][13][14].</li>\n<li><strong>Salt and acid effects on drying.</strong> Nothing published by anyone, despite sugar and fat both being documented [7].</li>\n<li><strong>A numeric fat ceiling.</strong> No source states a fat percentage above which a food should not be dried, nor how much shelf life a given fat content costs [7][8][21].</li>\n<li><strong>Whether rehydration water must be treated, stated as such.</strong> CDC, EPA and NPS require treatment for “cooking” and “food preparation” [18][19][20]; the word “rehydrate” appears in none of them, and neither the freeze-dryer manufacturers nor the extension services address rehydration water at all. Treating it follows from the agency rules, but that is an inference and is labeled as one here.</li>\n<li><strong>An altitude adjustment from any non-commercial source.</strong> Only pouch brands publish one, and they contradict each other [23][24][25].</li>\n<li><strong>Any ranking.</strong> No source ranks foods by rehydration quality, by fragility, or by drying yield, so none is offered. The good and poor lists in the sources are binary, not ordered [13][7].</li>\n<li><strong>Sublime Pantry has bench-tested no freeze dryer and no food.</strong> Every weight and calorie figure in the menu is arithmetic on published bands, and every water figure is either a published component number or an explicit blank.</li>\n</ul>\n\n<h2>Next</h2>\n<ul>\n<li><a href=\"/guides/week-of-trail-meals-cost\">What a week of homemade trail meals costs</a> &mdash; the same menu, priced out line by line.</li><li><a href=\"/guides/trail-meal-water\">How much water your trail meals need</a> &mdash; the water each day of this menu assumes.</li><li><a href=\"/guides/backpack-food-survival\">Which foods survive a backpack</a> &mdash; what holds up once the menu is packed.</li>\n</ul>"
+}

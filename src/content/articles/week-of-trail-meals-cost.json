@@ -1,0 +1,259 @@
+{
+  "title": "What a week of homemade trail meals actually costs.",
+  "description": "Commercial pouch prices from all five brand sites, one DIY dinner itemized to the cent, and the seven-day gap — with what the DIY figure leaves out.",
+  "kicker": "trail",
+  "pillar": "guides",
+  "section": "Camping",
+  "riskClass": "standard",
+  "publishedDate": "2026-09-08",
+  "disclosure": "Sublime Pantry has no affiliate relationships, sponsorships, or paid placements as of publication. We sell packaging; where a product we sell appears, it is labeled.",
+  "sources": [
+    {
+      "title": "Chicken Teriyaki with Rice",
+      "url": "https://mountainhouse.com/products/chicken-teriyaki-with-rice-pouch",
+      "publisher": "Mountain House (OFD Foods)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Beef Stroganoff with Noodles",
+      "url": "https://mountainhouse.com/products/beef-stroganoff-pouch",
+      "publisher": "Mountain House (OFD Foods)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Shelf Life",
+      "url": "https://mountainhouse.com/pages/shelf-life",
+      "publisher": "Mountain House (OFD Foods)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Sweet Pork & Rice",
+      "url": "https://peakrefuel.com/products/sweet-pork-rice-meal",
+      "publisher": "Peak Refuel",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Chicken Pesto Pasta",
+      "url": "https://peakrefuel.com/products/chicken-pesto-pasta",
+      "publisher": "Peak Refuel",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Freeze Dried Meal FAQs",
+      "url": "https://peakrefuel.com/pages/faq",
+      "publisher": "Peak Refuel",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Pad Thai with Chicken",
+      "url": "https://backpackerspantry.com/collections/entrees/products/pad-thai-with-chicken",
+      "publisher": "Backpacker's Pantry",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Three Cheese Mac & Cheese",
+      "url": "https://backpackerspantry.com/collections/entrees/products/three-cheese-mac-cheese",
+      "publisher": "Backpacker's Pantry",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "FAQ",
+      "url": "https://backpackerspantry.com/pages/faq",
+      "publisher": "Backpacker's Pantry",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Chili Mac with Beef, Casual Camper",
+      "url": "https://readywise.com/products/chili-mac-with-beef-casual-camper",
+      "publisher": "ReadyWise",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Wild Rice Risotto, Casual Camper",
+      "url": "https://readywise.com/products/wild-rice-risotto-casual-camper",
+      "publisher": "ReadyWise",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Frequently Asked Questions",
+      "url": "https://readywise.com/pages/frequently-asked-questions",
+      "publisher": "ReadyWise",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "FAQ",
+      "url": "https://goodto-go.com/pages/faq",
+      "publisher": "Good To-Go",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Thai Curry",
+      "url": "https://goodto-go.com/products/thai-curry",
+      "publisher": "Good To-Go",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Cowboy Casserole",
+      "url": "https://goodto-go.com/products/cowboy-casserole",
+      "publisher": "Good To-Go",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Mountain House Chicken and Mashed Potatoes, 2 Servings",
+      "url": "https://www.rei.com/product/233628/mountain-house-chicken-and-mashed-potatoes-2-servings",
+      "publisher": "REI Co-op",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Peak Refuel Beef Stroganoff",
+      "url": "https://www.walmart.com/ip/Peak-Refuel-Beef-Stroganoff/379159052",
+      "publisher": "Walmart.com",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Great Value Boneless Skinless Diced Chicken Breast, 2 lb, Frozen",
+      "url": "https://www.walmart.com/ip/Great-Value-Boneless-Skinless-Diced-Chicken-Breast-2-lb-Frozen/621164712",
+      "publisher": "Walmart.com",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Great Value Long Grain Enriched Rice, 32 oz",
+      "url": "https://www.walmart.com/ip/Great-Value-Long-Grain-Enriched-Rice-32-oz/10315394",
+      "publisher": "Walmart.com",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Great Value Frozen Peas and Carrots, 12 oz",
+      "url": "https://www.walmart.com/ip/Great-Value-Frozen-Peas-and-Carrots-12-oz-Steamable/39080798",
+      "publisher": "Walmart.com",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Great Value Sweet Cream Salted Butter Twin Pack, 32 oz",
+      "url": "https://www.walmart.com/ip/Great-Value-Sweet-Cream-Salted-Butter-Twin-Pack-16-oz-Box-8-Sticks-Slow-Churned-Refrigerated/879148225",
+      "publisher": "Walmart.com",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Great Value Chicken Bouillon Powder, 3.75 oz",
+      "url": "https://www.walmart.com/ip/Great-Value-Chicken-Bouillon-Powder-3-75oz-Jar/8558263970",
+      "publisher": "Walmart.com",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "7.5 Mil MRE Mylar Half-Portion Bags and Oxygen Absorbers",
+      "url": "https://packfreshusa.com/7-5-mil-mre-mylar-half-portion-bags-and-oxygen-absorbers/",
+      "publisher": "PackFreshUSA",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Wholesale 7.5 Mil MRE Mylar Half-Portion Bag 8\"x6\"x4.5\" (500)",
+      "url": "https://packfreshusa.com/7-5-mil-mre-mylar-half-portion-bag-8-x-6-x-4-5-500-wholesale/",
+      "publisher": "PackFreshUSA",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "How Much Does It Cost to Run a Freeze Dryer? Power & Operating Costs",
+      "url": "https://harvestright.com/blogs/freeze-drying-learning-center/freeze-dryer-cost-and-electricity",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "How Much Energy Does Freeze-Drying Use?",
+      "url": "https://harvestright.com/blogs/blog/how-much-energy-does-freeze-drying-use",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Home Freeze Dryers — FAQs",
+      "url": "https://harvestright.com/pages/faqs",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Electricity Monthly Update (print version)",
+      "url": "https://www.eia.gov/electricity/monthly/update/print-version.php",
+      "publisher": "U.S. Energy Information Administration",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "5 Steps to Plan a Camping Menu",
+      "url": "https://www.nols.edu/blog/5-steps-to-plan-a-camping-menu/",
+      "publisher": "National Outdoor Leadership School",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Can I Freeze-Dry That? A Practical Guide to Safe and Effective Freeze-Drying",
+      "url": "https://extension.usu.edu/foodsafety/research/can-i-freeze-dry-that-a-practical-guide-to-safe-and-effective-freeze-drying",
+      "publisher": "Utah State University Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Jerky",
+      "url": "https://nchfp.uga.edu/how/dry/recipes/jerky/",
+      "publisher": "NCHFP, University of Georgia",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Storing Freeze Dried Food",
+      "url": "https://harvestright.com/blogs/blog/storing-freeze-dried-food",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Is the $4.97 per-meal gap the real saving?",
+      "answer": "It is the narrowest gap in the sourced record, which is why the article leads with it: the cheapest brand-site entree at $7.99 [11] against a DIY dinner at $3.02 in ingredients and a retail-priced pouch [18][23]. Against the dearest brand-site entree at $14.99 [5][15] and a wholesale pouch at $0.298 [24], the same dinner gap is $13.17. Both ends are arithmetic on prices checked 2026-09-06, and neither includes the dryer, its maintenance, or your labor."
+    },
+    {
+      "question": "Why does the comparison use whole pouches instead of servings?",
+      "answer": "Because per-serving figures are not retrievable. All five brands publish calories per serving and sodium as rasterized Nutrition Facts images rather than text [10][11][14][15]. Whole-pouch calories are published as text for Mountain House and Peak Refuel — 460 to 920 per pouch [1][2][4][5] — and the ~594 kcal DIY dinner sits inside that band, so pouch against dinner is the comparison the published data actually supports."
+    },
+    {
+      "question": "How much does electricity add per meal?",
+      "answer": "No source publishes a per-meal figure, because no source publishes how many meals fit a batch. What is publishable is per batch: Harvest Right's Small and Medium models average 990 to 1,210 W [25][27], and the U.S. residential average was 18.34 cents per kWh in June 2026 [28], giving 26.4 kWh and about $4.84 for a 24-hour run at the 1.1 kW midpoint. Harvest Right's own claim for the same models is $1.25 to $2.80 per batch [25][27], unreconciled."
+    },
+    {
+      "question": "Does the packaging math change if I dehydrate instead of freeze-dry?",
+      "answer": "No. The pouch prices in Table 2 are for a 7.5 mil MRE mylar bag [23][24] and are independent of which machine filled it — the 5.0x retail-to-wholesale spread applies either way. What does change is the food and its keeping: two of the five commercial brands compared here are dehydrated or mixed by their own statements [9][12][13], and shelf-life claims across the five span 2 to 30 years [3][14]."
+    },
+    {
+      "question": "Does making my own dinners pay for the freeze dryer?",
+      "answer": "This article cannot answer that, and does not try. Every figure here excludes the machine's purchase price, financing, depreciation and resale value, along with oil and pump service. Seven dinners saves $34.79 at the narrow end and $83.79 at the wide end on food and packaging alone; the payback question needs a purchase price, a realistic batch cadence and a labor rate, none of which are published anywhere in the sourced record."
+    }
+  ],
+  "bodyHtml": "<p><strong>The short version:</strong> On the narrowest honest comparison in the record — the cheapest commercial entree on any brand site against a home-dried dinner in a retail-priced pouch — buying costs <strong>$4.97 more per dinner</strong>, or <strong>$34.79 more across seven dinners</strong>, at prices checked 2026-09-06. Commercial entrees run $7.99 to $14.99 per pouch on the five brand sites [11][5][15]; the same-size DIY dinner lands at $3.02 in ingredients and packaging [18][23]. That DIY figure excludes the freeze dryer itself, its oil and pump maintenance, and your labor, and it is a food-and-bag number, not a cost of ownership.</p>\n\n<h2>The commercial baseline</h2>\n\n<p>Across all five brand sites on 2026-09-06, a single entree pouch ran from $7.99 to $14.99 [11][5][15] — an 88% spread inside one category. Two of the five brands are not what a freeze-dryer owner would assume. Good To-Go states its meals are dehydrated, not freeze-dried, and argues the case against the process directly: freeze-drying &quot;can break down the cell walls of ingredients, resulting in poor texture&quot; [13]. Backpacker's Pantry and ReadyWise are mixed — Backpacker's Pantry describes meals &quot;made up of a combination of freeze-dried and dehydrated ingredients&quot; [9], and ReadyWise describes freeze-dried and dehydrated components [12]. Only Mountain House and Peak Refuel are consistently freeze-dried [3][6].</p>\n\n<table><thead><tr><th>Brand</th><th>Process, brand-stated</th><th>Brand-site entree price</th><th>Calories per pouch</th><th>Stated shelf life</th></tr></thead><tbody>\n<tr><td>ReadyWise (Casual Camper)</td><td>Freeze-dried + dehydrated mix [12]</td><td>$7.99&ndash;$8.99 [10][11]</td><td>Published only as a label image</td><td>Up to 25 years, &quot;cool, dry places&quot; [10][11]</td></tr>\n<tr><td>Backpacker's Pantry</td><td>Freeze-dried + dehydrated mix [9]</td><td>$9.99&ndash;$12.99 [7][8]</td><td>510&ndash;850 [7][8]</td><td>3&ndash;10 years by SKU [7][8]</td></tr>\n<tr><td>Good To-Go</td><td><strong>Dehydrated</strong>, not freeze-dried [13]</td><td>$10.99&ndash;$14.99 [14][15]</td><td>Published only as a label image</td><td>Minimum 2&ndash;3 years to expiration [14][15]</td></tr>\n<tr><td>Mountain House</td><td>Freeze-dried [3]</td><td>$12.49 [1][2]</td><td>460&ndash;560 [1][2]</td><td>30 years, stated site-wide [3]</td></tr>\n<tr><td>Peak Refuel</td><td>Freeze-dried [6]</td><td>$13.99&ndash;$14.99 [4][5]</td><td>800&ndash;920 [4][5]</td><td>10 years unopened [6]</td></tr>\n</tbody></table>\n\n<p>Two things this table cannot give you. Calories per serving and sodium are published across all five brands as rasterized Nutrition Facts images rather than text, so per-serving comparison is not retrievable without reading the label photography. And shelf life spans an order of magnitude — 30 years [3] against 2 years [14] — with no brand citing a shared testing standard on any page checked.</p>\n\n<p>Retail prices move the baseline in both directions on the same day. REI listed Mountain House Chicken and Mashed Potatoes at $9.29, down from $12.50 on a promotion ending 7 September 2026 [16] — roughly 26% under the brand's own $12.49 [1]. Walmart listed Peak Refuel Beef Stroganoff at $20.99 [17], above the brand's own MSRP for comparable entrees [4][5]. A commercial dinner is $7.99 or $20.99 depending on where you stand.</p>\n\n<h2>One DIY dinner, itemized</h2>\n\n<p>Harvest Right states its Large model draws &quot;on average, about 13 amps (1500 watts) of power per hour&quot; [27] — a figure that belongs to the batch, not to this table. What follows is a single dinner: diced chicken breast, white rice, peas and carrots, butter and bouillon, costed at Walmart on 2026-09-06, sized to roughly the calorie load of a commercial pouch.</p>\n\n<table><thead><tr><th>Ingredient</th><th>Size sold</th><th>Listed price</th><th>Amount used</th><th>Arithmetic</th><th>Cost</th></tr></thead><tbody>\n<tr><td>Diced chicken breast, frozen raw</td><td>2 lb (32 oz)</td><td>$7.94 [18]</td><td>4 oz</td><td>$7.94 &divide; 2 lb = $3.97/lb &times; 0.25 lb</td><td>$0.99</td></tr>\n<tr><td>Long grain white rice, dry</td><td>32 oz</td><td>$1.77 [19]</td><td>3.26 oz (&frac12; cup dry)</td><td>$1.77 &divide; 32 = $0.0553/oz &times; 3.26</td><td>$0.18</td></tr>\n<tr><td>Frozen peas &amp; carrots</td><td>12 oz</td><td>$0.98 [20]</td><td>2 oz</td><td>$0.98 &divide; 12 = $0.0817/oz &times; 2</td><td>$0.16</td></tr>\n<tr><td>Salted butter</td><td>32 oz</td><td>$5.96 [21]</td><td>0.5 oz (1 tbsp)</td><td>$5.96 &divide; 32 = $0.186/oz &times; 0.5</td><td>$0.09</td></tr>\n<tr><td>Chicken bouillon powder</td><td>3.75 oz</td><td>$1.93 [22]</td><td>0.18 oz (1 tsp)</td><td>$1.93 &divide; 3.75 = $0.515/oz &times; 0.18</td><td>$0.09</td></tr>\n<tr><td colspan=\"5\"><strong>Ingredient total</strong></td><td><strong>$1.52</strong></td></tr>\n<tr><td>Mylar pouch, 7.5 mil MRE half-portion</td><td>Retail 10-qty bundle</td><td>$14.99 [23]</td><td>1 pouch</td><td>$14.99 &divide; 10 [23]</td><td>$1.50</td></tr>\n<tr><td>Same pouch, wholesale</td><td>Case of 500</td><td>$149.00 [24]</td><td>1 pouch</td><td>$149.00 &divide; 500 [24]</td><td>$0.298</td></tr>\n<tr><td colspan=\"5\"><strong>Landed, retail pouch</strong></td><td><strong>$3.02</strong></td></tr>\n<tr><td colspan=\"5\"><strong>Landed, wholesale pouch</strong></td><td><strong>$1.82</strong></td></tr>\n</tbody></table>\n\n<p>Calorie check, from the labels on [18] through [22] rather than a lab: chicken ~120 + rice ~330 + peas and carrots ~34 + butter ~100 + bouillon ~10 = <strong>~594 kcal</strong>. That sits inside the 460&ndash;920 kcal-per-pouch band the two freeze-dried brands publish [1][2][4][5], which is why the comparison holds at all.</p>\n\n<p>The bag is the volatile line, not the food.The identical 7.5 mil half-portion pouch costs $1.50 each in a retail 10-pack [23] and $0.298 each in a 500-count case from the same vendor on the same day [24] — a <strong>5.0&times; spread</strong> that swings the finished dinner by 40%.This packaging arithmetic is identical whether the food inside was freeze-dried or dehydrated: the pouch does not know which machine filled it.</p>\n\n<h2>Seven days side by side</h2>\n\n<p>Seven dinners, at the prices above. The commercial column takes the cheapest and dearest brand-site entrees as its two ends; the DIY column takes the retail and wholesale pouch.</p>\n\n<table><thead><tr><th>Line</th><th>Commercial, cheapest brand-site entree</th><th>Commercial, dearest brand-site entree</th><th>DIY, retail pouch</th><th>DIY, wholesale pouch</th></tr></thead><tbody>\n<tr><td>One dinner</td><td>$7.99 [11]</td><td>$14.99 [5][15]</td><td>$3.02 [18]&ndash;[23]</td><td>$1.82 [18]&ndash;[22][24]</td></tr>\n<tr><td>Seven dinners</td><td>$55.93</td><td>$104.93</td><td>$21.14</td><td>$12.74</td></tr>\n<tr><td>Plus one 24 h batch of electricity (derived)</td><td>&mdash;</td><td>&mdash;</td><td>$25.98</td><td>$17.58</td></tr>\n<tr><td><strong>Gap against DIY, retail pouch, food and bag only</strong></td><td><strong>$34.79 per week</strong></td><td><strong>$83.79 per week</strong></td><td>&mdash;</td><td>&mdash;</td></tr>\n</tbody></table>\n\n<p>The electricity row is arithmetic, not a metered figure, and it is approximate. Harvest Right publishes an average draw of 990&ndash;1,210 W for its Small and Medium models [25][27]; the U.S. residential average electricity price was <strong>18.34&cent;/kWh in June 2026</strong>, the latest month published, up 5.0% year over year [28]. At the 1.1 kW midpoint over a 24-hour run: 1.1 kW &times; 24 h = 26.4 kWh, and 26.4 &times; $0.1834 = <strong>$4.84 per batch</strong>. Harvest Right's own stated cost for the same models is $1.25&ndash;$2.80 per batch [25][27], and the manufacturer does not publish the electricity rate behind that figure, so the two do not reconcile from public sources. Harvest Right also publishes two different batch durations on its own site — &quot;between 13 and 35 hours&quot; [25] and &quot;between 24 and 36 hours&quot; [26]. Both the derived figure and the manufacturer's are recorded here; neither is corrected.</p>\n\n<p>Note what the electricity row assumes: that seven dinners fit one batch. No source publishes a meals-per-batch figure for any machine, so that assumption is the reader's to test, not a finding.</p>\n\n<p>Note also what &quot;seven days&quot; covers here — seven dinners, not seven days of food. NOLS puts moderate multi-day backpacking at 3,000&ndash;3,500 kcal and 1.75&ndash;2.0 lb of food per person per day [29]. A ~594 kcal dinner is roughly a fifth of that. Breakfasts, lunches and snacks are a separate calculation this article does not make.</p>\n\n<h2>What this excludes</h2>\n\n<p>The $3.02 is a food-and-bag number. Everything below sits outside it, and some of it is not a dollar figure at all.</p>\n\n<ul>\n<li><strong>The dryer.</strong> No purchase price, financing, depreciation or resale value appears anywhere in this comparison. A per-meal figure that excludes the machine cannot answer whether the machine pays for itself.</li>\n<li><strong>Oil, pump service and consumables.</strong> Not costed here; no source in the record prices them per batch.</li>\n<li><strong>Your labor.</strong> Prep, tray loading, unloading, portioning, sealing and labeling are unpaid in the table above. In a one-person operation this is usually the largest omitted input.</li>\n<li><strong>Failed batches and food you throw out.</strong> Costed at zero above, which no operator's real record supports.</li>\n<li><strong>Oxygen absorbers, when bought separately.</strong> The retail 10-qty pouch bundle includes 100cc absorbers [23]; the wholesale 500-count case does not [24], so the $0.298 line is a bag alone.</li>\n<li><strong>The cook step.</strong> Utah State University Extension is direct about the mechanism: &quot;Freeze-drying does not kill bacteria and/or other microbes. It preserves them&quot; [30], and foods rehydrated before eating &quot;should have a &lsquo;kill step&rsquo; that destroys bacteria, such as cooking&quot; [30]. A meal built around raw meat is a different food-safety proposition on the trail than a commercially processed pouch, and this article describes what extension publishes rather than telling you how to handle yours.</li>\n<li><strong>Fat, which limits what a cheap recipe can contain.</strong> NCHFP's instruction for dried meat is flat: &quot;Trim and discard all fat from meat because it becomes rancid quickly&quot; [31]. Harvest Right states the same direction for storage generally: &quot;Foods that contain higher amounts of fat generally have shorter storage lives because fats can oxidize over time&quot; [32]. Backpacker's Pantry's own catalog corroborates it commercially — &quot;Products with a shelf life of three years typically have higher fat or dairy content&quot; [9]. The butter line in Table 2 is 9 cents and a constraint at the same time.</li>\n<li><strong>Storage duration.</strong> Harvest Right recommends home-produced freeze-dried food not be kept &quot;beyond 5&ndash;10 years&quot; [32], against the 25- and 30-year claims on commercial pouches [3][10]. For a trip next month this is irrelevant; for a cache it is the whole question.</li>\n<li><strong>Price stability.</strong> Every figure here is a single day's listing, 2026-09-06. Grocery and pouch prices move, and one of the commercial prices used above was an active promotion with a stated end date [16].</li>\n</ul>\n\n<h2>When buying is right</h2>\n\n<p>The gap above assumes you already own a working freeze dryer and are choosing what to put in it. Several conditions flip the arithmetic without changing a single number in it.</p>\n\n<ul>\n<li><strong>You do not own a dryer, or the trip is soon.</strong> The DIY figure excludes the machine. One week of dinners saves $34.79 at the narrow end [11] versus [18]&ndash;[23]; nothing at that scale buys equipment.</li>\n<li><strong>The promotion is live.</strong> At REI's $9.29 sale price [16] rather than the $12.49 brand price [1], the gap against a retail-pouch DIY dinner narrows to $6.27. Buying on promotion is the strongest case commercial pouches make for themselves.</li>\n<li><strong>You want the packaging labor gone.</strong> Mountain House sells the outcome plainly: &quot;Eat straight from the bowl-like pouch. No extra cleanup!&quot; [1] Sealing, portioning and labeling your own is the work the $3.02 does not price.</li>\n<li><strong>You need a long-dated cache rather than a trip meal.</strong> Commercial claims run to 25 and 30 years [3][10]; the freeze-dryer manufacturer itself suggests a shorter horizon for home output [32].</li>\n<li><strong>The menu is high in fat or dairy.</strong> Both extension and manufacturer sources point the same direction on rancidity [31][32], and commercial formulators have already made those trade-offs inside their own catalogs [9].</li>\n</ul>\n\n<h2>What we could not source</h2>\n\n<ul>\n<li><strong>Meals per batch, for any machine.</strong> No manufacturer or extension source publishes one, so the per-meal electricity figure in this article is a per-batch figure divided by an assumption you supply.</li>\n<li><strong>Freeze-drying yield for meats, cooked grains or dairy.</strong> No extension or manufacturer source publishes a weight-yield percentage by food type. The recipe above is costed on raw purchase weights, not on dried yield.</li>\n<li><strong>Calories per serving and sodium for most SKUs.</strong> Every one of the five brands publishes its Nutrition Facts panel as a label image, which is why the calorie column in Table 1 has gaps and why no per-serving comparison appears here [10][11][14][15].</li>\n<li><strong>Amazon pricing, for any of the five brands.</strong> Product pages could not be retrieved. The retailer comparison rests on Walmart and REI listings only [16][17].</li>\n<li><strong>Any reconciliation of Harvest Right's cost-per-batch with its own wattage.</strong> The manufacturer's $1.25&ndash;$2.80 claim [25][27] and the arithmetic on its published draw at the EIA rate [28] differ by roughly a factor of two, and Harvest Right does not publish the rate behind its figure.</li>\n<li><strong>The cost of oil, pump service, or a failed batch.</strong> Nothing in the sourced record prices them.</li>\n<li><strong>Any operator results of our own.</strong> Sublime Pantry has bench-tested no freeze dryer and no food, has run no batches, and has no operator practice. Every figure above is a published price, a published specification, or arithmetic on one.</li>\n</ul>\n\n<h2>Next</h2>\n<ul>\n<li><a href=\"/guides/three-day-trail-menu\">Building a three-day trail menu</a> &mdash; the menu these costs are drawn from.</li><li><a href=\"/guides/what-it-costs-to-run-a-freeze-dryer\">What it costs to run a freeze dryer</a> &mdash; the machine-side cost these per-meal figures sit on top of.</li><li><a href=\"/guides/backpack-food-survival\">Which foods survive a backpack</a> &mdash; what is worth drying for the trail in the first place.</li>\n</ul>"
+}
