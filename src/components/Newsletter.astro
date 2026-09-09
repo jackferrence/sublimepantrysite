@@ -14,12 +14,19 @@
  * card's real conversion rate unreadable.
  */
 import { normalizePath } from '../lib/paths';
+import { SHIPPING } from '../lib/commerce';
 
 interface Props {
   compact?: boolean;
+  /** Overrides the card heading. Section 7 of the audit gives the homepage's
+   *  final form its own heading — "Keep the checklist beside your machine" —
+   *  because it closes the page rather than introducing the offer. Every other
+   *  surface keeps the default. */
+  heading?: string;
 }
 
-const { compact = false } = Astro.props;
+const { compact = false, heading } = Astro.props;
+const title = heading ?? 'Run cleaner batches from day one.';
 
 const sourcePath = normalizePath(Astro.url.pathname);
 const viewProps = JSON.stringify({
@@ -41,8 +48,8 @@ const Wrapper = compact ? 'div' : 'section';
   {!compact && (
     <>
       <span class="kicker">Free starter checklist</span>
-      <h2 id="newsletter-heading">Run cleaner batches from day one.</h2>
-      <p class="newsletter-lede">Get the printable Starter Checklist, then <strong>The Dry Batch</strong> weekly. You will also get our WELCOME10 first-order code — it is a public code, so it is a convenience rather than a subscriber perk.</p>
+      <h2 id="newsletter-heading">{title}</h2>
+      <p class="newsletter-lede">Get the printable Starter Checklist, then <strong>The Dry Batch</strong> weekly. You will also get our WELCOME10 first-order code — it is a public code, so it is a convenience rather than a subscriber perk. {SHIPPING.kitNote}</p>
     </>
   )}
 

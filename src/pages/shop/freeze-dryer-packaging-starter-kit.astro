@@ -39,10 +39,16 @@ const stillNeeded = [
   { label: 'Somewhere cool, dark and dry to keep the sealed bags', href: '/troubleshooting/storage-failure' },
 ];
 
+// Two of these used to state things the site cannot support. "with shipping
+// included" asserted a shipping term by hand, beside a page that renders the
+// real one from SHIPPING two paragraphs above it; and "a heavier barrier than
+// the 3.5-5 mil bags sold in most starter packs" described what other sellers
+// ship, which nobody here has counted. The manufacturer's 7 mil figure stays,
+// because that one has a source.
 const highlights = [
   'Absorber sizes are matched to the bag sizes, so there is nothing to work out at packaging time.',
-  'One order instead of four, with shipping included.',
-  '7 mil Mylar — a heavier barrier than the 3.5–5 mil bags sold in most starter packs.',
+  'One order instead of four.',
+  '7 mil Mylar, per the manufacturer\'s documentation for this kit.',
   'One hundred packages: enough to run several foods and learn which sizes you actually use before buying bulk.',
 ];
 
@@ -78,6 +84,14 @@ const faq = [
   {
     q: 'Are the bags reusable?',
     a: 'A bag can be cut open and re-sealed lower down a few times, losing capacity each time. Plan on one absorber per seal — an absorber exposed to air is spent.',
+  },
+  {
+    q: 'Does the kit guarantee a storage life?',
+    a: 'No. Packaging cannot establish that a food was prepared, dried or stored correctly, and no bag or absorber can give a shelf life to a batch that went in wet. What the kit does is stop oxygen, light and moisture reaching food that was already dry.',
+  },
+  {
+    q: 'Are these Sublime Pantry-manufactured bags?',
+    a: 'No. They are supplied and shipped by PackFreshUSA and sold here by Sublime Pantry. Nothing in the kit is made by us, and nothing in it has been tested by us.',
   },
   {
     q: 'Is this a freeze dryer?',
@@ -122,13 +136,13 @@ const faqSchema = {
 const trackProps = JSON.stringify({ product_handle: STARTER_KIT.handle, sku: STARTER_KIT.sku });
 ---
 <PageLayout
-  title="Freeze-Dryer Packaging Starter Kit — 100 Bags"
-  description="A simple first-batch packaging kit with 100 assorted 7 mil Mylar bags, 100 matched oxygen absorbers, 100 labels, and a storage guide."
+  title="Reserve Starter Kit — 100 Mylar bags, absorbers and labels"
+  description="100 Mylar bags in pint, quart and gallon sizes, 100 matched oxygen absorbers and 100 labels. Sold by Sublime Pantry, supplied and shipped by PackFreshUSA."
   path="/shop/freeze-dryer-packaging-starter-kit"
   breadcrumbs={[
     { label: 'Shop', href: '/shop' },
     { label: 'Packaging', href: '/shop#group-packaging' },
-    { label: 'Freeze-Drying Packaging Starter Kit', href: '/shop/freeze-dryer-packaging-starter-kit' },
+    { label: STARTER_KIT.shortTitle, href: '/shop/freeze-dryer-packaging-starter-kit' },
   ]}
   width="wrap"
   jsonLd={[productSchema, faqSchema]}
@@ -166,8 +180,8 @@ const trackProps = JSON.stringify({ product_handle: STARTER_KIT.handle, sku: STA
       <!-- Buy box -->
       <div class="buybox">
         <span class="kicker">{ownedEyebrow(STARTER_KIT)}</span>
-        <h1>Freeze-Drying Packaging Starter Kit</h1>
-        <p class="buybox-dek">One matched set of bags, absorbers and labels — a hundred bags of freeze-dried food, packaged.</p>
+        <h1>{STARTER_KIT.shortTitle}</h1>
+        <p class="buybox-dek">100 Mylar bags in three sizes, 100 oxygen absorbers and 100 labels.</p>
 
         <shopify-context type="product" handle={STARTER_KIT.handle}>
           <template>

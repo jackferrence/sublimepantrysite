@@ -36,9 +36,21 @@ export interface CatalogProduct {
   handle: string;
   /** Shopify SKU. Used by Flow conditions and fulfillment SOPs, not by the UI. */
   sku: string;
-  /** Server-rendered title. Shopify stays authoritative; this keeps the card
-   *  meaningful before Shopify's JS resolves, and readable without JS at all. */
+  /** Server-rendered title, and it must be Shopify's title verbatim.
+   *
+   *  U04: it was not. The page said "Freeze-Drying Packaging Starter Kit" while
+   *  the cart and the checkout said "Reserve Starter Kit — 100 Mylar Bags +
+   *  Absorbers + Labels", because that is what the product is called in
+   *  Shopify. A buyer read one name on the page and a different one at the
+   *  moment they paid. Shopify owns the name; this field copies it.
+   *
+   *  This keeps the card meaningful before Shopify's JS resolves, and readable
+   *  without JS at all. */
   title: string;
+  /** The name to use as a heading or on a button, where the full merchandising
+   *  title is too long to read. The same product, shortened — never a second
+   *  name for it. */
+  shortTitle: string;
   eyebrow: string;
   /** Server-rendered merchandising copy — never fetched at runtime. */
   note: string;
@@ -69,13 +81,19 @@ export const CATALOG: CatalogProduct[] = [
   {
     handle: 'freeze-dryer-packaging-starter-kit-100',
     sku: 'MSMBS7MIL001',
-    title: 'Freeze-Drying Packaging Starter Kit — 100 Bags + Absorbers + Labels',
-    eyebrow: 'Validation launch',
+    title: 'Reserve Starter Kit — 100 Mylar Bags + Absorbers + Labels',
+    shortTitle: 'Reserve Starter Kit',
+    // The eyebrow said "Validation launch", which described our business stage
+    // rather than the product, on every card that showed the kit. Section 8.4
+    // of the audit: no roadmap, no staged-product descriptions. Where the kit
+    // ships from is a fact a buyer needs and it is still stated, on the product
+    // page and in the shipping policy, next to the terms it affects.
+    eyebrow: 'Freeze-drying packaging',
     note: '100 assorted 7 mil Mylar bags, 100 matched oxygen absorbers, 100 labels, and PackFreshUSA’s storage guide. One matched set.',
     image:
       'https://cdn.shopify.com/s/files/1/0883/4875/4197/files/packfreshusa-7mil-mylar-box-set-100-pack.jpg?v=1788393303',
     imageAlt:
-      'PackFreshUSA 7 mil Mylar bag, oxygen absorber, and label box set used for the Sublime Pantry freeze-drying packaging starter kit',
+      'PackFreshUSA 7 mil Mylar bag, oxygen absorber, and label box set used for the Sublime Pantry Reserve Starter Kit',
     detailsHref: '/shop/freeze-dryer-packaging-starter-kit',
     displayPrice: '$74.99 USD',
     category: 'Packaging',
@@ -83,7 +101,7 @@ export const CATALOG: CatalogProduct[] = [
       {
         src: 'https://cdn.shopify.com/s/files/1/0883/4875/4197/files/packfreshusa-7mil-mylar-box-set-100-pack.jpg?v=1788393303',
         alt:
-          'PackFreshUSA 7 mil Mylar bag, oxygen absorber, and label box set used for the Sublime Pantry freeze-drying packaging starter kit',
+          'PackFreshUSA 7 mil Mylar bag, oxygen absorber, and label box set used for the Sublime Pantry Reserve Starter Kit',
         kind: 'studio',
         source: 'manufacturer',
       },

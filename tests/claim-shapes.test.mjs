@@ -29,7 +29,13 @@ function sentenceAround(text, index) {
 }
 
 test('SHIPPING: no page states free shipping without its condition', () => {
-  const shape = /\bfree\s+(?:US\s+)?shipping\b|\bShips?\s+free\b/gi;
+  // Three tenses and a noun phrase, because the claim has been written in all
+  // of them: "Ships free · US only" in the cart drawer, "shipped free while we
+  // validate fulfillment" on the homepage, and "with shipping included" in the
+  // product highlights. The first was caught by the original shape; the other
+  // two were not, and both were live.
+  const shape =
+    /\bfree\s+(?:US\s+)?shipping\b|\bShips?\s+free\b|\bshipp(?:ed|ing)\s+free\b|\bshipping\s+included\b|\bincludes?\s+shipping\b/gi;
   const qualified = /\$45|45 or more|over \$?45|threshold|shipping-returns/i;
   for (const { file, text } of pages()) {
     for (const m of text.matchAll(shape)) {
