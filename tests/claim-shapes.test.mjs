@@ -104,7 +104,30 @@ function surfaces(html) {
     }
   }
 
-  const body = html.replace(/<script[\s\S]*?<\/script>/g, ' ').replace(/<style[\s\S]*?<\/style>/g, ' ');
+  let body = html.replace(/<script[\s\S]*?<\/script>/g, ' ').replace(/<style[\s\S]*?<\/style>/g, ' ');
+
+  // 1b. The source register, as its own surface.
+  //
+  //     Every statement in it is somebody else's published title, publisher and
+  //     access date. "How to Package Freeze-dried Food So It Keeps For 25 Years"
+  //     is Harvest Right's title for their own page; quoting it accurately is
+  //     the entire point of a citation, and SHELF LIFE reading it as our promise
+  //     inverts what the register is for.
+  //
+  //     It is tagged rather than dropped. Deleting a region would leave a piece
+  //     of every page that no shape could ever see — which is the failure this
+  //     extractor exists to prevent — so the text is still extracted, still
+  //     addressable, and merely skipped by `sweep` unless a shape asks for it.
+  for (const block of body.matchAll(/<section class="sources"[\s\S]*?<\/section>/g)) {
+    const region = block[0];
+    for (const item of region.matchAll(/<li\b[^>]*>([\s\S]*?)<\/li>/g)) {
+      push('sources', item[1].replace(/<[^>]+>/g, ' '));
+    }
+    for (const sentence of tidy(region.replace(/<[^>]+>/g, ' ')).split(/(?<=[.!?])\s+/)) {
+      push('sources', sentence);
+    }
+  }
+  body = body.replace(/<section class="sources"[\s\S]*?<\/section>/g, ' ');
 
   // 2. Readable attribute values — alt, aria-label, title, placeholder, and
   //    <meta content>, which is where the site-wide description lives.
@@ -160,10 +183,14 @@ const pages = () =>
  * or an alt attribute has nowhere to put the qualification and therefore must
  * not carry the claim at all.
  */
-function sweep({ shape, allow, label }) {
+function sweep({ shape, allow, label, includeSources = false }) {
   const offenders = [];
   for (const { file, surfaces: found } of pages()) {
     for (const { where, statement } of found) {
+      // Attribution by construction: a source register entry is a quotation of
+      // someone else's title. A shape that genuinely wants to read it — one
+      // checking that we cite what we say we cite, say — opts in.
+      if (where === 'sources' && !includeSources) continue;
       if (!shape.test(statement)) continue;
       shape.lastIndex = 0;
       if (allow(statement, where)) continue;
@@ -439,4 +466,32 @@ test('the extractor reaches every surface a claim has hidden in', () => {
   assert.ok(has('title', 'Storage comparison'), 'SVG title not reached');
   assert.ok(has('prose', 'longest — decades-class, sealed'), 'SVG text label not reached');
   assert.ok(has('prose', 'An ordinary sentence.'), 'prose not split into sentences');
+});
+
+test('the source register is extracted, and is not swept as our voice', () => {
+  // A real citation whose own title carries a shelf-life duration.
+  const sample = `
+    <html><body>
+      <p>Our own sentence about storage.</p>
+      <section class="sources" aria-labelledby="sources-heading"><h2>Sources</h2><ol>
+        <li><a href="https://example.com/x">How to Package Freeze-dried Food So It Keeps For 25 Years</a>
+            — Harvest Right, accessed 2026-08-31</li>
+      </ol></section>
+    </body></html>`;
+  const found = surfaces(sample);
+
+  // Still reached. Dropping the region outright would leave part of every
+  // article that no shape could ever look at.
+  assert.ok(
+    found.some((x) => x.where === 'sources' && x.statement.includes('Keeps For 25 Years')),
+    'the source register is no longer extracted at all',
+  );
+  // And attributed to nothing else: the title must not also arrive as prose,
+  // or the shapes would read it as ours by another route.
+  assert.ok(
+    !found.some((x) => x.where !== 'sources' && x.statement.includes('Keeps For 25 Years')),
+    'a source title is leaking into a swept surface',
+  );
+  // The page's own sentence is untouched by the carve-out.
+  assert.ok(found.some((x) => x.where === 'prose' && x.statement.includes('Our own sentence')));
 });
