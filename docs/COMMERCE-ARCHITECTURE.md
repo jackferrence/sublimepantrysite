@@ -159,11 +159,23 @@ The one exception is `displayPrice`, which is shown *only* inside the Storefront
 
 ### Structured data and staleness
 
-`Product` JSON-LD on the starter-kit page deliberately **omits `offers`**. This is a statically built site: a price or availability baked into the HTML goes stale the moment it changes in Shopify, and stale price markup is both an SEO liability and a customer-trust problem.
+`Product` JSON-LD on the generic product page (`src/pages/shop/[handle].astro`) **emits `offers`** with `price`, `priceCurrency`, `availability` and `url`. The starter kit's hand-built page still omits it.
 
-**Prerequisite before adding `offers`:** a Netlify build hook wired to a Shopify `products/update` webhook, so that any price or availability change triggers a rebuild. Once that exists, `offers` can be added with `price`, `priceCurrency`, `availability` and `url`. Until then, leave it out. See `docs/SHOPIFY-ADMIN-SETUP.md` §9.
+`availability` is the build-time answer from `src/lib/stock.ts` — the same value the visible buy box renders — so a page and its structured data cannot disagree with each other. Both can still lag Shopify between deploys, which is what the build hook below is for.
+
+**The build hook.** A Netlify build hook on `main` exists and is verified: posting to it produced a production deploy (`deploy_source: api`, 2026-09-09). Its URL is a credential — it triggers production builds for anyone holding it — so it is not recorded in this repo.
+
+**Outstanding:** the Shopify webhooks that call it. `products/update` and `inventory_levels/update` must both point at the build hook, or a price or stock change in Shopify will sit unpublished until the next commit. Create them in **Shopify admin → Settings → Notifications → Webhooks**, format JSON, or via `webhookSubscriptionCreate` with a `read_products` + `read_inventory` token.
+
+Until those two webhooks exist, treat `offers` as accurate only as of the last deploy.
 
 `aggregateRating` follows the same rule and is emitted only when real Judge.me reviews exist.
+
+### Does Shopify still call it what we call it?
+
+`scripts/check-shopify-title.mjs` reads the live Admin API and compares every catalog title to Shopify's. It runs daily from `.github/workflows/shopify-title-monitor.yml` and opens an issue on drift.
+
+It is a monitor, not a test, and deliberately not a PR check: a pull request should not fail because somebody renamed a product in Shopify. Two other checks cover the halves it does not — `tests/claim-shapes.test.mjs` asserts every surface agrees with the catalog, and `tests/homepage-and-shop.test.mjs` pins Shopify's title in a hard-coded constant. Both compare strings that live in this repo, so neither can see Shopify being renamed underneath them. That happened twice in two days with the whole suite green.
 
 ### Adding a product to the site
 

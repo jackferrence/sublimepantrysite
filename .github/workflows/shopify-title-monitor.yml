@@ -1,0 +1,92 @@
+name: Shopify title monitor
+
+# Does Shopify still call the products what the site calls them?
+#
+# This is a monitor, not a test. It is deliberately not a PR check: a pull
+# request should not fail because somebody renamed a product in Shopify — that
+# is not the PR's fault and it blocks unrelated work. It runs daily and opens an
+# issue instead.
+#
+# What it closes: tests/homepage-and-shop.test.mjs pins Shopify's title in a
+# hard-coded constant, and tests/claim-shapes.test.mjs asserts every surface
+# agrees with the catalog. Both compare strings that live in this repo, so
+# neither can see Shopify being renamed underneath them. That happened twice in
+# two days, and both times the whole suite stayed green while the page and the
+# checkout disagreed about what the customer was buying.
+
+on:
+  schedule:
+    # 07:15 UTC daily. Not on the hour: GitHub's scheduler is busiest there and
+    # delays cron runs, and "within a day" is the requirement.
+    - cron: '15 7 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: shopify-title-monitor
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # No `npm ci`: the script uses only Node built-ins, and installing the
+      # toolchain to read one string would make an outage in the registry look
+      # like a product rename.
+      - name: Check live Shopify titles against the catalog
+        id: check
+        env:
+          SHOPIFY_STORE_DOMAIN: ${{ secrets.SHOPIFY_STORE_DOMAIN }}
+          SHOPIFY_ADMIN_TOKEN: ${{ secrets.SHOPIFY_ADMIN_TOKEN }}
+        run: |
+          set +e
+          node scripts/check-shopify-title.mjs 2>&1 | tee /tmp/title-check.txt
+          echo "status=${PIPESTATUS[0]}" >> "$GITHUB_OUTPUT"
+
+      # One open issue, not one per day. A second failing run comments on the
+      # existing thread; a passing run closes it, so the issue list is the
+      # current state rather than a log of every day it was broken.
+      - name: Open or update the drift issue
+        if: steps.check.outputs.status != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          TITLE="Shopify product title drift"
+          BODY=$(printf '%s\n\n```\n%s\n```\n\n[Run log](%s)\n' \
+            "The daily monitor could not confirm that Shopify agrees with the catalog." \
+            "$(cat /tmp/title-check.txt)" "$RUN_URL")
+          EXISTING=$(gh issue list --state open --label shopify-drift --json number --jq '.[0].number // empty')
+          if [ -n "$EXISTING" ]; then
+            gh issue comment "$EXISTING" --body "$BODY"
+          else
+            gh label create shopify-drift --color B60205 \
+              --description "Shopify and the site disagree about a product" 2>/dev/null || true
+            gh issue create --title "$TITLE" --label shopify-drift --body "$BODY"
+          fi
+
+      - name: Close the drift issue once titles agree
+        if: steps.check.outputs.status == '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for n in $(gh issue list --state open --label shopify-drift --json number --jq '.[].number'); do
+            gh issue close "$n" --comment "Shopify and the catalog agree again as of this run."
+          done
+
+      # The run goes red too. An issue is how a person finds out; a red run is
+      # how the Actions list stops claiming everything is fine. Missing
+      # credentials land here as well, on purpose — a monitor that cannot run
+      # and says nothing is the failure it exists to prevent.
+      - name: Fail the run if the check did not pass
+        if: steps.check.outputs.status != '0'
+        run: exit 1
