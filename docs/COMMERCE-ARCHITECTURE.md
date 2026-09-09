@@ -165,7 +165,16 @@ The one exception is `displayPrice`, which is shown *only* inside the Storefront
 
 **The build hook.** A Netlify build hook on `main` exists and is verified: posting to it produced a production deploy (`deploy_source: api`, 2026-09-09). Its URL is a credential — it triggers production builds for anyone holding it — so it is not recorded in this repo.
 
-**Outstanding:** the Shopify webhooks that call it. `products/update` and `inventory_levels/update` must both point at the build hook, or a price or stock change in Shopify will sit unpublished until the next commit. Create them in **Shopify admin → Settings → Notifications → Webhooks**, format JSON, or via `webhookSubscriptionCreate` with a `read_products` + `read_inventory` token.
+**The webhooks that call it.** `products/update` and `inventory_levels/update` must both point at the build hook, or a price or stock change in Shopify sits unpublished until the next commit. `scripts/create-webhooks.mjs` creates both, and is idempotent — it reads the existing subscriptions first, so re-running after a partial failure cannot produce duplicates:
+
+```
+SHOPIFY_STORE_DOMAIN=<shop>.myshopify.com \
+SHOPIFY_ADMIN_TOKEN=<token> \
+NETLIFY_BUILD_HOOK_URL=<url> \
+npm run setup:webhooks
+```
+
+The app needs **write_products** to manage webhooks, plus **read_products** and **read_inventory**. The token used by `lead-capture.mjs` has `read_customers`/`write_customers` and none of these; with it the token exchange succeeds and the mutation returns 403, which the script reports as a scope problem rather than a generic failure.
 
 Until those two webhooks exist, treat `offers` as accurate only as of the last deploy.
 

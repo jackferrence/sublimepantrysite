@@ -13,7 +13,8 @@
     "editorial:dry-run": "node scripts/editorial-controller.mjs dry-run",
     "editorial:research": "node scripts/editorial-controller.mjs research",
     "editorial:draft": "node scripts/editorial-controller.mjs draft",
-    "monitor:shopify-title": "node scripts/check-shopify-title.mjs"
+    "monitor:shopify-title": "node scripts/check-shopify-title.mjs",
+    "setup:webhooks": "node scripts/create-webhooks.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.122.0",
