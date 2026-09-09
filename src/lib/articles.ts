@@ -1,6 +1,7 @@
 /**
  * Shared helpers for turning content entries into links and card props.
  */
+import { machineComparisonTable } from './machines';
 import type { CollectionEntry } from 'astro:content';
 import { publicImage } from './media';
 import { caption, getAsset, largest, srcSet, type AssetRatio } from './assets';
@@ -82,6 +83,22 @@ export function withToc(bodyHtml: string): { html: string; toc: TocEntry[] } {
   });
 
   return { html, toc };
+}
+
+/**
+ * Expand the generated blocks an article body declares.
+ *
+ * `<div data-machine-comparison></div>` becomes the spec table built from
+ * `src/lib/machines.ts`. The comparison used to be authored HTML checked
+ * against that record by a test, which is one step better than nothing and one
+ * step worse than this: a test tells you the page and the record disagree,
+ * whereas rendering means they cannot.
+ *
+ * Runs before `polishTables`, so generated tables get the same row headers,
+ * focusable scroll region, cue and stacked cards as authored ones.
+ */
+export function expandGeneratedBlocks(html: string): string {
+  return html.replace(/<div\s+data-machine-comparison\s*>\s*<\/div>/g, () => machineComparisonTable());
 }
 
 /**
