@@ -9,7 +9,7 @@ import AuthorBio from '../components/AuthorBio.astro';
 import RelatedArticles from '../components/RelatedArticles.astro';
 import Newsletter from '../components/Newsletter.astro';
 import { CATALOG } from '../lib/commerce';
-import { PILLAR_LABEL, withToc, polishTables, verifiedDate, nextCheckDate, formatDate, heroImage, type Article } from '../lib/articles';
+import { PILLAR_LABEL, withToc, polishTables, expandGeneratedBlocks, verifiedDate, nextCheckDate, formatDate, heroImage, type Article } from '../lib/articles';
 import { recipeJsonLd } from '../lib/schema';
 
 interface Props {
@@ -35,7 +35,7 @@ const hero = heroImage(entry);
 
 
 const { html: tocHtml, toc } = withToc(d.bodyHtml);
-const bodyHtml = polishTables(tocHtml);
+const bodyHtml = polishTables(expandGeneratedBlocks(tocHtml));
 
 /**
  * Split the body at the first <h2> so the signup can sit after the first

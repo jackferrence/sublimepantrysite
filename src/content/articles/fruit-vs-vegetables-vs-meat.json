@@ -63,6 +63,10 @@
     {
       "question": "What water activity should freeze-dried food reach?",
       "answer": "Below 0.60 is the practical target for dry storage, because that is where xerophilic molds and osmophilic yeasts stop growing [9]. FDA's 0.85 figure describes exemption from low-acid canned food regulation, not a safety guarantee [14]. Properly freeze-dried food comes in well under both: roughly 0.18–0.27 for fruit and vegetables [20][21] and 0.05–0.07 for lean beef [19]."
+    },
+    {
+      "question": "Can a table tell me when my food is finished?",
+      "answer": "No. A published cycle duration belongs to the food, load and machine it was measured on; it is not a completion test for your batch. Check the thickest pieces from the middle of a tray and add dry time if any centre is cool, soft or damp."
     }
   ],
   "sources": [
