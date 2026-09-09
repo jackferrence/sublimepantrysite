@@ -2,84 +2,117 @@
 /**
  * The shop.
  *
- * Every card's title, image, price and copy is server-rendered. Shopify's web
- * components hydrate the live price and the add-to-cart button on top of that,
- * so the page is complete, indexable and purchasable-by-link before (and
- * without) the Storefront JS — and no customer ever sees a loading string.
+ * Every card's title, image, price and availability is server-rendered.
+ * Shopify's web components hydrate the live price and the add-to-cart button on
+ * top of that, so the page is complete, indexable and purchasable-by-link
+ * before (and without) the Storefront JS — and no customer ever sees a loading
+ * string.
+ *
+ * Availability is the part that cannot be left to hydration. `stockedCatalog()`
+ * resolves it at build from Shopify and fails closed, so a card that offers to
+ * sell you something is a card Shopify confirmed we can sell. See lib/stock.ts.
  */
 import PageLayout from '../layouts/PageLayout.astro';
 import Icon from '../components/Icon.astro';
 import Img from '../components/Img.astro';
-import { CATALOG, CATEGORY_ORDER, SHOPIFY_PUBLIC_DOMAIN, SHIPPING, ownedEyebrow } from '../lib/commerce';
+import Newsletter from '../components/Newsletter.astro';
+import {
+  LINE_ORDER,
+  LINE_LABEL,
+  SHIPPING,
+  SHOPIFY_PUBLIC_DOMAIN,
+  ownedEyebrow,
+} from '../lib/commerce';
+import { stockedCatalog, NOT_STOCKED_LABEL, stockNoteFor } from '../lib/stock';
 
-const groups = CATEGORY_ORDER.map((category) => ({
-  category,
-  products: CATALOG.filter((p) => p.category === category),
+const catalog = await stockedCatalog();
+
+const groups = LINE_ORDER.map((line) => ({
+  line,
+  label: LINE_LABEL[line],
+  products: catalog.filter((p) => p.line === line),
 })).filter((group) => group.products.length > 0);
 ---
 <PageLayout
-  title="Packaging for the food you freeze-dry"
-  description="A mixed-size set of Mylar bags, oxygen absorbers and labels for packaging freeze-dried food. Sold by Sublime Pantry, supplied and shipped by PackFreshUSA."
+  title="Freeze-drying supplies"
+  description="Shop Sublime Pantry freeze-drying packaging supplies: mylar snack bags, oxygen absorbers, a bag sealer, and complete sets. Pricing and availability come from Shopify; checkout is handled by Shopify."
   path="/shop"
   breadcrumbs={[{ label: 'Shop', href: '/shop' }]}
   width="wrap"
   commerce
 >
   <span class="kicker">Sublime Pantry Shop</span>
-  <h1>Packaging for the food you freeze-dry.</h1>
-  <p class="lede">Start with a mixed-size set of Mylar bags, oxygen absorbers and labels.</p>
+  <h1>Freeze-drying supplies, without the junk drawer.</h1>
+  <p class="lede">A deliberately small catalog for packaging and storing freeze-dried food. We stock the things that actually get used after a batch comes out of the dryer, and nothing else.</p>
+
+  <div class="notice">
+    <p><strong>How these ship.</strong> The bags, absorbers, sealer and sets are held here and packed by us. The starter kit is different: PackFreshUSA supplies it and ships it directly to you, in their own packaging. <a href="/shipping-returns">Shipping and returns</a> covers both.</p>
+    <p>For the bag packs and the starter kit a heat sealer is required and is not included — the two sets on this page are the ones that come with it.</p>
+  </div>
 
   {groups.map((group) => (
-    <section class="shop-group" aria-labelledby={`group-${group.category.toLowerCase()}`}>
-      <h2 id={`group-${group.category.toLowerCase()}`}>{group.category}</h2>
+    <section class="shop-group" aria-labelledby={`group-${group.line}`}>
+      <h2 id={`group-${group.line}`}>{group.label}</h2>
       <div class="card-grid">
         {group.products.map((product) => (
           <article class="card product-card">
-            <div class="product-card-media">
-              <Img
-                src={product.image}
-                alt={product.imageAlt}
-                width={640}
-                height={800}
-                sizes="(min-width: 900px) 22rem, 100vw"
-                class="product-card-img"
-              />
-            </div>
+            {product.image && (
+              <div class="product-card-media">
+                <Img
+                  src={product.image}
+                  alt={product.imageAlt}
+                  width={640}
+                  height={800}
+                  sizes="(min-width: 900px) 22rem, 100vw"
+                  class="product-card-img"
+                />
+              </div>
+            )}
 
             <div class="product-card-body">
               <span class="kicker">{ownedEyebrow(product)}</span>
               <h3><a href={product.detailsHref ?? `https://${SHOPIFY_PUBLIC_DOMAIN}/products/${product.handle}`}>{product.title}</a></h3>
               <p class="product-card-note">{product.note}</p>
 
-              <shopify-context type="product" handle={product.handle}>
-                <template>
-                  <div class="product-card-buy" data-commerce-ready>
-                    <p class="product-price">
-                      <shopify-money query="product.selectedOrFirstAvailableVariant.price" format="money_with_currency"></shopify-money>
-                    </p>
-                    <button
-                      class="btn btn-primary"
-                      type="button"
-                      onclick="document.getElementById('sublime-cart').addLine(event).showModal();"
-                      shopify-attr--disabled="!product.selectedOrFirstAvailableVariant.availableForSale"
-                      data-sp-cart-add
-                      data-sp-event="shop_add_to_cart"
-                      data-sp-props={JSON.stringify({ product_handle: product.handle, sku: product.sku })}
-                    >Add to cart</button>
+              {product.inStock ? (
+                <div class="product-card-purchase">
+                  <shopify-context type="product" handle={product.handle}>
+                    <template>
+                      <div class="product-card-buy" data-commerce-ready>
+                        <p class="product-price">
+                          <shopify-money query="product.selectedOrFirstAvailableVariant.price" format="money_with_currency"></shopify-money>
+                        </p>
+                        <button
+                          class="btn btn-primary"
+                          type="button"
+                          onclick="document.getElementById('sublime-cart').addLine(event).showModal();"
+                          shopify-attr--disabled="!product.selectedOrFirstAvailableVariant.availableForSale"
+                          data-sp-cart-add
+                          data-sp-event="shop_add_to_cart"
+                          data-sp-props={JSON.stringify({ product_handle: product.handle, sku: product.sku })}
+                        >Add to cart</button>
+                      </div>
+                    </template>
+
+                    <div class="product-card-buy" shopify-loading-placeholder>
+                      <p class="product-price">{product.displayPrice}</p>
+                    </div>
+                  </shopify-context>
+
+                  <p class="product-ships"><Icon name="package" size={15} /> {SHIPPING.shortNote}</p>
+
+                  <div class="commerce-fallback" data-commerce-fallback hidden>
+                    <p>Live pricing is temporarily unavailable.</p>
+                    <a class="btn btn-secondary" href={`https://${SHOPIFY_PUBLIC_DOMAIN}/products/${product.handle}`} rel="noopener">View this product on our Shopify store</a>
                   </div>
-                </template>
-
-                <div class="product-card-buy" shopify-loading-placeholder>
-                  <p class="product-price">{product.displayPrice}</p>
                 </div>
-              </shopify-context>
-
-              <p class="product-ships"><Icon name="package" size={15} /> {SHIPPING.shortNote}</p>
-
-              <div class="commerce-fallback" data-commerce-fallback hidden>
-                <p>Live pricing is temporarily unavailable.</p>
-                <a class="btn btn-secondary" href={`https://${SHOPIFY_PUBLIC_DOMAIN}/products/${product.handle}`} rel="noopener">View this product on our Shopify store</a>
-              </div>
+              ) : (
+                <div class="product-card-buy">
+                  <p class="product-price">{product.displayPrice}</p>
+                  <p class="product-unstocked"><Icon name="package" size={15} /> {NOT_STOCKED_LABEL}</p>
+                  <p class="product-stock-note">{stockNoteFor(product)} <a href="#newsletter-heading">Join the newsletter</a>.</p>
+                </div>
+              )}
 
               {product.detailsHref && (
                 <p class="product-details">
@@ -98,21 +131,7 @@ const groups = CATEGORY_ORDER.map((category) => ({
     </section>
   ))}
 
-  <section class="card shop-note" aria-labelledby="know-what">
-    <h2 id="know-what">Know what you are buying</h2>
-    <p>Sublime Pantry sells the kit. PackFreshUSA supplies it and ships it directly to you in its own packaging. A compatible heat sealer is required and is not included.</p>
-    <p>{SHIPPING.rule}</p>
-    <p class="shop-note-links">
-      <a href="/shipping-returns">Shipping &amp; returns</a> ·
-      <a href="/contact">Ask an order question</a>
-    </p>
-  </section>
-
-  <section class="card shop-note" aria-labelledby="still-deciding">
-    <h2 id="still-deciding">Still deciding what to store it in?</h2>
-    <p>Compare bags, jars and other suitable containers by how you will store and use the food.</p>
-    <a class="btn btn-secondary" href="/compare/storage-containers">Read the storage-container comparison</a>
-  </section>
+  <Newsletter heading="Hear when the quart line lands" />
 </PageLayout>
 
 <style>
@@ -138,10 +157,10 @@ const groups = CATEGORY_ORDER.map((category) => ({
     margin: 0; display: flex; align-items: center; gap: .4rem;
     font-size: .9rem; color: var(--ink-soft);
   }
+  .product-unstocked {
+    margin: 0; display: flex; align-items: center; gap: .4rem;
+    font-size: .9rem; font-weight: 600; color: var(--ink-soft);
+  }
+  .product-stock-note { margin: 0; font-size: .9rem; color: var(--ink-soft); }
   .product-details { margin: auto 0 0; padding-top: var(--s2); }
-
-  .shop-note { margin-top: var(--s5); padding: var(--s4); }
-  .shop-note h2 { margin: 0 0 var(--s2); font-size: var(--h3); }
-  .shop-note p { color: var(--ink-soft); max-width: 70ch; }
-  .shop-note-links { margin-bottom: 0; }
 </style>

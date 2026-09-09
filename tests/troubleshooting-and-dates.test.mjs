@@ -24,6 +24,7 @@ import assert from 'node:assert/strict';
 import { readFileSync, readdirSync, existsSync, globSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { CATALOG } from '../src/lib/commerce.ts';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const dist = join(root, 'dist');
@@ -113,7 +114,14 @@ test('"Tools mentioned in this guide" only appears where a tool is mentioned', (
     const file = `${data.pillar}/${slug}.html`;
     if (!existsSync(join(dist, file))) continue;
     const shows = /Tools mentioned in this guide/.test(page(file));
-    const mentions = /freeze-dryer-packaging-starter-kit/.test(data.bodyHtml);
+    // Every product, not just the one that existed when this was written. It
+    // read /freeze-dryer-packaging-starter-kit/, so an article mentioning any
+    // other product rendered the block and failed here for the right behaviour.
+    const mentions = CATALOG.some(
+      (product) =>
+        data.bodyHtml.includes(product.handle) ||
+        Boolean(product.detailsHref && data.bodyHtml.includes(product.detailsHref)),
+    );
     assert.equal(shows, mentions, `${slug}: the heading and the article disagree about whether a tool is mentioned`);
   }
 });

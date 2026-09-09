@@ -16,7 +16,7 @@ const reviews = await getProductReviews(STARTER_KIT);
 const workflow = await getEntry('articles', 'complete-batch-workflow');
 const howTo = workflow?.data.howTo ?? [];
 
-const relatedIds = ['complete-batch-workflow', 'storage-containers', 'storage-failure'];
+const relatedIds = STARTER_KIT.relatedArticles;
 const relatedGuides = (await getCollection('articles'))
   .filter((entry) => relatedIds.includes(entry.id))
   .sort((a, b) => relatedIds.indexOf(a.id) - relatedIds.indexOf(b.id));
@@ -25,32 +25,17 @@ const gallery = STARTER_KIT.images.length
   ? STARTER_KIT.images
   : [{ src: STARTER_KIT.image, alt: STARTER_KIT.imageAlt, kind: 'studio' as const, source: 'manufacturer' as const }];
 
-const included = [
-  '100 heavy-duty 7 mil Mylar bags: 30 pint, 40 quart, 30 gallon',
-  '100 matched oxygen absorbers: 30 × 100cc, 40 × 300cc, 30 × 500cc',
-  '100 adhesive labels for batch and date identification',
-  "PackFreshUSA's food-storage guide",
-];
-
-const stillNeeded = [
-  { label: 'A way to verify the batch is fully dry before you seal it', href: '/troubleshooting/batch-not-dry' },
-  { label: 'A heat sealer — Mylar bags are not resealable without one', href: '/guides/complete-batch-workflow' },
-  { label: 'A decision about jars or PETE for anything you open often', href: '/compare/storage-containers' },
-  { label: 'Somewhere cool, dark and dry to keep the sealed bags', href: '/troubleshooting/storage-failure' },
-];
-
-// Two of these used to state things the site cannot support. "with shipping
-// included" asserted a shipping term by hand, beside a page that renders the
-// real one from SHIPPING two paragraphs above it; and "a heavier barrier than
-// the 3.5-5 mil bags sold in most starter packs" described what other sellers
-// ship, which nobody here has counted. The manufacturer's 7 mil figure stays,
-// because that one has a source.
-const highlights = [
-  'Absorber sizes are matched to the bag sizes, so there is nothing to work out at packaging time.',
-  'One order instead of four.',
-  '7 mil Mylar, per the manufacturer\'s documentation for this kit.',
-  'One hundred packages: enough to run several foods and learn which sizes you actually use before buying bulk.',
-];
+/*
+ * Contents, prerequisites, highlights and questions now live in the catalog
+ * entry, not here. They were written in both places, and the two copies had
+ * already drifted once: the corrections that removed "with shipping included"
+ * and the uncounted "heavier barrier than 3.5-5 mil" claim landed on this page
+ * only, leaving a second copy of the withdrawn wording alive elsewhere. One
+ * product, one place its copy is written.
+ */
+const included = STARTER_KIT.whatsIncluded;
+const stillNeeded = STARTER_KIT.whatYoullNeed;
+const highlights = STARTER_KIT.highlights;
 
 const specs: [string, string][] = [
   ['Mylar bag thickness', '7 mil'],
@@ -64,40 +49,7 @@ const specs: [string, string][] = [
   ['Shipping', SHIPPING.shortNote],
 ];
 
-const faq = [
-  {
-    q: 'Do I need a heat sealer?',
-    a: 'Yes, and the sealer matters. Mylar has to be heat sealed to hold a barrier — folding or taping does not work — and PackFreshUSA, who supply these bags, specify that sealing 7 mil Mylar properly takes a 600 watt sealer. A light-duty impulse sealer or a household iron may close the bag without giving you the seal the barrier depends on. Check your sealer against that figure before you rely on it.',
-  },
-  {
-    q: 'Which absorber size goes with which bag?',
-    a: 'The kit is matched: 100cc absorbers with the pint bags, 300cc with the quart bags, 500cc with the gallon bags. That pairing is why the kit exists — it removes the size guesswork.',
-  },
-  {
-    q: 'Can I package a batch that is still slightly damp?',
-    a: 'No. Packaging cannot rescue an under-dried batch, and sealing residual moisture into a bag is how stored food goes soft or spoils. Verify dryness first.',
-  },
-  {
-    q: 'How long does it ship?',
-    a: 'Orders are placed with PackFreshUSA after purchase and ship directly to you. See shipping and returns for current handling times and the returns window.',
-  },
-  {
-    q: 'Are the bags reusable?',
-    a: 'A bag can be cut open and re-sealed lower down a few times, losing capacity each time. Plan on one absorber per seal — an absorber exposed to air is spent.',
-  },
-  {
-    q: 'Does the kit guarantee a storage life?',
-    a: 'No. Packaging cannot establish that a food was prepared, dried or stored correctly, and no bag or absorber can give a shelf life to a batch that went in wet. What the kit does is stop oxygen, light and moisture reaching food that was already dry.',
-  },
-  {
-    q: 'Are these Sublime Pantry-manufactured bags?',
-    a: 'No. They are supplied and shipped by PackFreshUSA and sold here by Sublime Pantry. Nothing in the kit is made by us, and nothing in it has been tested by us.',
-  },
-  {
-    q: 'Is this a freeze dryer?',
-    a: 'No. It is the packaging and labeling step that comes after drying. If you are still choosing a machine, start with the buyer guide.',
-  },
-];
+const faq = STARTER_KIT.faq;
 
 // Product structured data deliberately omits `offers`. This is a static build:
 // a price or availability baked in here would go stale the moment it changes in
@@ -136,7 +88,7 @@ const faqSchema = {
 const trackProps = JSON.stringify({ product_handle: STARTER_KIT.handle, sku: STARTER_KIT.sku });
 ---
 <PageLayout
-  title="Reserve Starter Kit — 100 Mylar bags, absorbers and labels"
+  title="Freeze-Drying Packaging Starter Kit — 100 Mylar bags, absorbers and labels"
   description="100 Mylar bags in pint, quart and gallon sizes, 100 matched oxygen absorbers and 100 labels. Sold by Sublime Pantry, supplied and shipped by PackFreshUSA."
   path="/shop/freeze-dryer-packaging-starter-kit"
   breadcrumbs={[
@@ -259,7 +211,7 @@ const trackProps = JSON.stringify({ product_handle: STARTER_KIT.handle, sku: STA
         </div>
         <div>
           <h2>What you'll still need</h2>
-          <ul>{stillNeeded.map((item) => <li><a href={item.href}>{item.label}</a></li>)}</ul>
+          <ul>{stillNeeded.map((item) => <li>{item.href ? <a href={item.href}>{item.label}</a> : item.label}</li>)}</ul>
         </div>
       </section>
 
@@ -333,7 +285,7 @@ const trackProps = JSON.stringify({ product_handle: STARTER_KIT.handle, sku: STA
       </section>
 
       <div class="notice">
-        <p><strong>Next after validation.</strong> Absorber refills, quart and gallon packaging, and candy pouches are planned. They stay unlisted until each source configuration and fulfillment detail is verified.</p>
+        <p><strong>The kit is not the only way to buy this.</strong> The same bags, absorbers and a sealer are sold separately and as smaller sets in the <a href="/shop">shop</a>. If you already own a sealer, or only need one bag size, those cost less than the kit.</p>
       </div>
     </div>
   </div>

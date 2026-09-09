@@ -1,0 +1,271 @@
+---
+/**
+ * The generic product page.
+ *
+ * One template for every catalog product except the Freeze-Drying Packaging
+ * Starter Kit, which keeps its own page: it is a different kind of listing (a
+ * supplier's boxed set, drop-shipped, with its own spec table and how-to) and
+ * folding it in here would make this template a switch statement.
+ *
+ * Everything a buyer needs to decide is server-rendered: title, price,
+ * availability, contents, what they still have to supply, and the questions.
+ * Shopify's web components hydrate live price and add-to-cart on top.
+ *
+ * Availability comes from `stockedCatalog()`, which fails closed. A product
+ * Shopify did not confirm as purchasable renders the unstocked state and emits
+ * no add-to-cart control and no `<shopify-context>` that could hydrate one.
+ */
+import { getCollection } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import Card from '../../components/Card.astro';
+import Icon from '../../components/Icon.astro';
+import Newsletter from '../../components/Newsletter.astro';
+import StickyBuyBar from '../../components/StickyBuyBar.astro';
+import {
+  LINE_LABEL,
+  SHIPPING,
+  SHOPIFY_PUBLIC_DOMAIN,
+  OWNERSHIP_LABEL,
+  ownedEyebrow,
+} from '../../lib/commerce';
+import { stockedCatalog, NOT_STOCKED_LABEL, stockNoteFor } from '../../lib/stock';
+import { SUPPORT_EMAIL } from '../../lib/paths';
+import { heroImage, articleHref } from '../../lib/articles';
+
+export async function getStaticPaths() {
+  // Declared inside, not above: Astro extracts getStaticPaths into its own
+  // module at build, so anything it closes over from the frontmatter is
+  // undefined by the time it runs.
+  /** The starter kit is excluded — it has a hand-built page of its own. */
+  const BESPOKE = new Set(['freeze-dryer-packaging-starter-kit-100']);
+  const catalog = await stockedCatalog();
+  return catalog
+    .filter((product) => !BESPOKE.has(product.handle))
+    .map((product) => ({ params: { handle: product.handle }, props: { product } }));
+}
+
+const { product } = Astro.props;
+
+const articles = await getCollection('articles');
+const related = product.relatedArticles
+  .map((id) => articles.find((entry) => entry.id === id))
+  .filter((entry): entry is (typeof articles)[number] => Boolean(entry));
+
+const path = `/shop/${product.handle}`;
+const trackProps = JSON.stringify({ product_handle: product.handle, sku: product.sku });
+
+/**
+ * Product structured data, with offers.
+ *
+ * `availability` is the build-time answer from Shopify, the same one the visible
+ * buy box renders — so the page and its structured data cannot disagree with
+ * each other. They can both go stale between deploys if inventory moves in
+ * Shopify without a rebuild; that is a deploy-cadence problem, and the honest
+ * mitigation is the deploy hook noted in docs/COMMERCE-ARCHITECTURE.md, not a
+ * more optimistic value here.
+ */
+const price = product.displayPrice.replace(/[^0-9.]/g, '');
+const productSchema: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: product.title,
+  description: product.note,
+  sku: product.sku,
+  brand: { '@type': 'Brand', name: 'PackFreshUSA' },
+  offers: {
+    '@type': 'Offer',
+    url: new URL(path, Astro.site).href,
+    priceCurrency: 'USD',
+    price,
+    availability: product.inStock
+      ? 'https://schema.org/InStock'
+      : 'https://schema.org/OutOfStock',
+    seller: { '@type': 'Organization', name: 'Sublime Pantry' },
+  },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: product.faq.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+<PageLayout
+  title={product.shortTitle}
+  description={product.note}
+  path={path}
+  breadcrumbs={[
+    { label: 'Shop', href: '/shop' },
+    { label: LINE_LABEL[product.line], href: `/shop#group-${product.line}` },
+    { label: product.shortTitle, href: path },
+  ]}
+  width="wrap"
+  jsonLd={[productSchema, faqSchema]}
+  commerce
+>
+  <div data-sp-view="product_view" data-sp-props={trackProps}>
+    <div class="pdp-top">
+      <div class="buybox">
+        <span class="kicker">{ownedEyebrow(product)}</span>
+        <h1>{product.title}</h1>
+        <p class="buybox-dek">{product.note}</p>
+
+        {product.inStock ? (
+          <div class="buybox-purchase">
+            <shopify-context type="product" handle={product.handle}>
+              <template>
+                <div class="buybox-commerce" data-commerce-ready>
+                  <p class="buybox-price">
+                    <shopify-money query="product.selectedOrFirstAvailableVariant.price" format="money_with_currency"></shopify-money>
+                  </p>
+                  <p class="buybox-stock" shopify-attr--hidden="!product.selectedOrFirstAvailableVariant.availableForSale">
+                    <Icon name="check-circle" size={15} /> In stock
+                  </p>
+                  <p class="buybox-stock buybox-stock-out" shopify-attr--hidden="product.selectedOrFirstAvailableVariant.availableForSale">
+                    {NOT_STOCKED_LABEL}. Shopify reopens purchasing as soon as inventory is available.
+                  </p>
+                  <button
+                    class="btn btn-primary buybox-button"
+                    type="button"
+                    onclick="document.getElementById('sublime-cart').addLine(event).showModal();"
+                    shopify-attr--disabled="!product.selectedOrFirstAvailableVariant.availableForSale"
+                    data-sp-cart-add
+                    data-sp-event="product_add_to_cart"
+                    data-sp-props={trackProps}
+                  >Add to cart</button>
+                </div>
+              </template>
+
+              <div class="buybox-commerce" shopify-loading-placeholder>
+                <p class="buybox-price">{product.displayPrice}</p>
+                <p class="buybox-stock">Checking availability…</p>
+                <a class="btn btn-secondary buybox-button" href={`https://${SHOPIFY_PUBLIC_DOMAIN}/products/${product.handle}`} rel="noopener" data-sp-event="storefront_placeholder_click" data-sp-props={trackProps}>View in our store</a>
+              </div>
+            </shopify-context>
+
+            <p class="buybox-ships"><Icon name="package" size={15} /> {SHIPPING.rule}</p>
+
+            <div class="commerce-fallback" data-commerce-fallback hidden>
+              <p>Live pricing and checkout are temporarily unavailable on this page.</p>
+              <a class="btn btn-secondary" href={`https://${SHOPIFY_PUBLIC_DOMAIN}/products/${product.handle}`} rel="noopener" data-sp-event="storefront_fallback_click" data-sp-props={trackProps}>View this product on our Shopify store</a>
+            </div>
+          </div>
+        ) : (
+          <div class="buybox-commerce">
+            <p class="buybox-price">{product.displayPrice}</p>
+            <p class="buybox-stock buybox-stock-out">{NOT_STOCKED_LABEL}</p>
+            <p class="buybox-note">{stockNoteFor(product)}</p>
+            <p class="buybox-note"><a class="btn-text" href="#newsletter-heading">Join the newsletter</a></p>
+          </div>
+        )}
+
+        <ul class="trust-rows">
+          <li><Icon name="shopping-bag" size={17} /> {OWNERSHIP_LABEL}, packed here</li>
+          <li><Icon name="undo-2" size={17} /> <a href="/shipping-returns">30-day returns</a></li>
+          <li><Icon name="shield-check" size={17} /> Secure Shopify checkout · <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pdp-body">
+      <section class="two-up">
+        <div>
+          <h2>What's included</h2>
+          <ul>{product.whatsIncluded.map((item) => <li>{item}</li>)}</ul>
+        </div>
+        <div>
+          <h2>What you'll still need</h2>
+          <ul>
+            {product.whatYoullNeed.map((item) => (
+              <li>{item.href ? <a href={item.href}>{item.label}</a> : item.label}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2>Highlights</h2>
+        <ul>{product.highlights.map((item) => <li>{item}</li>)}</ul>
+      </section>
+
+      <section>
+        <h2>Questions</h2>
+        {product.faq.map((item) => (
+          <details>
+            <summary>{item.q}</summary>
+            <p>{item.a}</p>
+          </details>
+        ))}
+      </section>
+    </div>
+
+    {related.length > 0 && (
+      <div class="pdp-wide">
+        <section>
+          <div class="section-head">
+            <h2>Related reading</h2>
+            <a class="btn-text" href="/guides">All guides</a>
+          </div>
+          <div class="card-grid">
+            {related.map((entry) => (
+              <Card
+                href={articleHref(entry)}
+                title={entry.data.title}
+                dek={entry.data.description}
+                kicker={entry.data.section ?? entry.data.kicker}
+                image={heroImage(entry)?.src}
+                imageAlt={heroImage(entry)?.alt}
+              />
+            ))}
+          </div>
+        </section>
+      </div>
+    )}
+
+    {!product.inStock && <Newsletter heading="Hear when this lands" />}
+  </div>
+
+  {product.inStock && <StickyBuyBar product={product} />}
+</PageLayout>
+
+<style>
+  .pdp-top { display: grid; gap: var(--s4); }
+  @media (min-width: 900px) {
+    .pdp-top { max-width: 46rem; }
+  }
+
+  .buybox h1 { margin: 0 0 var(--s2); font-size: clamp(1.9rem, 3.4vw, 2.6rem); }
+  .buybox-dek { color: var(--ink-soft); }
+
+  .buybox-commerce { margin: var(--s3) 0 var(--s2); }
+  .buybox-price {
+    margin: 0 0 var(--s1);
+    font-family: var(--font-display); font-size: var(--price);
+    font-variant-numeric: tabular-nums; color: var(--ink);
+  }
+  .buybox-stock {
+    margin: 0 0 var(--s2);
+    display: flex; align-items: center; gap: .4rem;
+    font-size: .92rem; color: var(--ok);
+  }
+  .buybox-stock-out { color: var(--ink-soft); font-weight: 600; }
+  .buybox-note { margin: 0 0 var(--s1); font-size: .92rem; color: var(--ink-soft); }
+  .buybox-button { width: 100%; max-width: 22rem; }
+  .buybox-ships {
+    margin: 0 0 var(--s3);
+    display: flex; align-items: center; gap: .4rem;
+    font-size: .9rem; color: var(--ink-soft);
+  }
+
+  .pdp-body { margin-top: var(--s5); }
+  .pdp-body section { margin-bottom: var(--s5); }
+  .two-up { display: grid; gap: var(--s4); }
+  @media (min-width: 720px) { .two-up { grid-template-columns: 1fr 1fr; gap: var(--s5); } }
+
+  .pdp-wide { margin-top: var(--s5); }
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s2); }
+</style>
