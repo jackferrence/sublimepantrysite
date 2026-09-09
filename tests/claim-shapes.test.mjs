@@ -246,6 +246,44 @@ test('FREQUENCY: no claim about how often something happens', () => {
   );
 });
 
+test('PRODUCT NAME: the site calls the product one thing, and it is the catalog name', () => {
+  // A product name is a claim about what the customer receives, and it has now
+  // drifted twice in two days — once when the site and Shopify disagreed, once
+  // when Shopify renamed the product hours after they were reconciled. It
+  // appears on the H1, the cards, the breadcrumb, the buy box, two JSON-LD
+  // blocks and the photograph's alt text, and the alt text is the surface that
+  // escaped the first time.
+  //
+  // This asserts internal consistency across every surface. That the catalog
+  // name is *Shopify's* name is asserted separately, against a hard-coded
+  // string, in tests/homepage-and-shop.test.mjs — a shape cannot check that,
+  // because both sides of the comparison would come from the same file.
+  const commerce = readFileSync(join(root, 'src/lib/commerce.ts'), 'utf8');
+  const title = commerce.match(/^\s*title: '(.+)',$/m)[1];
+  const shortTitle = commerce.match(/^\s*shortTitle: '(.+)',$/m)[1];
+  assert.ok(title.startsWith(shortTitle), 'the short name is not a shortening of the full one');
+
+  // Anchor on the phrase and read backwards: every occurrence of "Starter Kit"
+  // must be the tail of an approved name. Matching forwards from a capital
+  // letter swallows whatever precedes it — "Sublime Pantry Freeze-Drying
+  // Packaging Starter Kit" in alt text, a breadcrumb trail in prose — and
+  // reports a correct name as a wrong one.
+  const allowed = [shortTitle, title.split(' — ')[0]];
+  const offenders = [];
+  for (const { file, surfaces: found } of pages()) {
+    for (const { where, statement } of found) {
+      for (const m of statement.matchAll(/Starter Kit\b/g)) {
+        const upTo = statement.slice(0, m.index + m[0].length);
+        if (allowed.some((name) => upTo.endsWith(name))) continue;
+        offenders.push(
+          `${file} [${where}] a third name for the kit: "…${upTo.slice(-60)}"`,
+        );
+      }
+    }
+  }
+  assert.deepEqual([...new Set(offenders)], [], 'the site calls the product something the catalog does not');
+});
+
 test('OWNERSHIP: any page showing our product price discloses that we sell it', () => {
   const commerce = readFileSync(join(root, 'src/lib/commerce.ts'), 'utf8');
   const label = commerce.match(/OWNERSHIP_LABEL = '([^']+)'/)[1];

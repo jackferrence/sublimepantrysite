@@ -40,9 +40,15 @@ export interface CatalogProduct {
    *
    *  U04: it was not. The page said "Freeze-Drying Packaging Starter Kit" while
    *  the cart and the checkout said "Reserve Starter Kit — 100 Mylar Bags +
-   *  Absorbers + Labels", because that is what the product is called in
+   *  Absorbers + Labels", because that is what the product was called in
    *  Shopify. A buyer read one name on the page and a different one at the
    *  moment they paid. Shopify owns the name; this field copies it.
+   *
+   *  It drifted again within a day: the product was renamed in Shopify on
+   *  2026-09-08, hours after the first reconciliation. That is the argument for
+   *  the field rather than against it — one string to change, and a test that
+   *  fails when it is stale. The test hard-codes Shopify's title on purpose, so
+   *  that it cannot pass by reading the same constant the pages read.
    *
    *  This keeps the card meaningful before Shopify's JS resolves, and readable
    *  without JS at all. */
@@ -81,8 +87,8 @@ export const CATALOG: CatalogProduct[] = [
   {
     handle: 'freeze-dryer-packaging-starter-kit-100',
     sku: 'MSMBS7MIL001',
-    title: 'Reserve Starter Kit — 100 Mylar Bags + Absorbers + Labels',
-    shortTitle: 'Reserve Starter Kit',
+    title: 'Freeze-Drying Packaging Starter Kit — 100 Bags, Absorbers & Labels',
+    shortTitle: 'Freeze-Drying Packaging Starter Kit',
     // The eyebrow said "Validation launch", which described our business stage
     // rather than the product, on every card that showed the kit. Section 8.4
     // of the audit: no roadmap, no staged-product descriptions. Where the kit
@@ -93,7 +99,7 @@ export const CATALOG: CatalogProduct[] = [
     image:
       'https://cdn.shopify.com/s/files/1/0883/4875/4197/files/packfreshusa-7mil-mylar-box-set-100-pack.jpg?v=1788393303',
     imageAlt:
-      'PackFreshUSA 7 mil Mylar bag, oxygen absorber, and label box set used for the Sublime Pantry Reserve Starter Kit',
+      'PackFreshUSA 7 mil Mylar bag, oxygen absorber, and label box set used for the Sublime Pantry Freeze-Drying Packaging Starter Kit',
     detailsHref: '/shop/freeze-dryer-packaging-starter-kit',
     displayPrice: '$74.99 USD',
     category: 'Packaging',
@@ -101,7 +107,7 @@ export const CATALOG: CatalogProduct[] = [
       {
         src: 'https://cdn.shopify.com/s/files/1/0883/4875/4197/files/packfreshusa-7mil-mylar-box-set-100-pack.jpg?v=1788393303',
         alt:
-          'PackFreshUSA 7 mil Mylar bag, oxygen absorber, and label box set used for the Sublime Pantry Reserve Starter Kit',
+          'PackFreshUSA 7 mil Mylar bag, oxygen absorber, and label box set used for the Sublime Pantry Freeze-Drying Packaging Starter Kit',
         kind: 'studio',
         source: 'manufacturer',
       },

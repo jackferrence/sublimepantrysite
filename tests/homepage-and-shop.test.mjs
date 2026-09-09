@@ -5,10 +5,15 @@
  *
  * The product had two names. The page said "Freeze-Drying Packaging Starter
  * Kit"; the cart and the checkout said "Reserve Starter Kit — 100 Mylar Bags +
- * Absorbers + Labels", because that is the Shopify title. A buyer read one name
- * on the page and a different one at the moment they paid. Shopify owns the
- * name, so the assertion is that our copy of it is Shopify's, and that no
- * surface writes a third one.
+ * Absorbers + Labels", because that was the Shopify title. A buyer read one
+ * name on the page and a different one at the moment they paid.
+ *
+ * Then Shopify renamed it again, on 2026-09-08, hours after that was
+ * reconciled — back to a Freeze-Drying Packaging title. So the retired name and
+ * the live one have now swapped places once each, which is exactly why this
+ * file hard-codes Shopify's current title instead of importing it: a test that
+ * reads the name from the same constant the pages read cannot tell you the
+ * constant is stale.
  *
  * The homepage exists to convert a consented subscription and pointed at two
  * other things first. The hero's own button now goes to the form.
@@ -50,11 +55,14 @@ const text = (html) =>
 const kit = CATALOG[0];
 
 /**
- * Shopify's title for the kit, as read from the live cart on 2026-09-08.
- * Hard-coded on purpose: a test that reads the name from the same constant the
- * page reads it from would pass whatever that constant said.
+ * Shopify's title for the kit, read from the Admin API on 2026-09-09
+ * (product updatedAt 2026-09-08T22:18:51Z). Hard-coded on purpose: a test that
+ * reads the name from the same constant the page reads it from would pass
+ * whatever that constant said, including a name Shopify abandoned yesterday.
+ *
+ * When this fails, read the product in Shopify and update this line first.
  */
-const SHOPIFY_TITLE = 'Reserve Starter Kit — 100 Mylar Bags + Absorbers + Labels';
+const SHOPIFY_TITLE = 'Freeze-Drying Packaging Starter Kit — 100 Bags, Absorbers & Labels';
 
 test('U04: the site calls the product what Shopify calls it', () => {
   assert.equal(kit.title, SHOPIFY_TITLE, 'the catalog title has drifted from the Shopify product title');
@@ -62,9 +70,10 @@ test('U04: the site calls the product what Shopify calls it', () => {
 });
 
 test('U04: no surface writes a third name for the kit', () => {
-  // Spaces, not hyphens: the URL slug is `freeze-dryer-packaging-starter-kit`
-  // and it is preserved on purpose. This looks for the name written as prose.
-  const retired = /Freeze[- ]?Dry(?:ing|er) Packaging Starter Kit/i;
+  // The retired name is now the one we adopted a day ago. Both directions have
+  // happened, so what matters is not which string is retired but that exactly
+  // one name is live and it is Shopify's.
+  const retired = /Reserve Starter Kit/i;
   const offenders = globSync('**/*.html', { cwd: dist })
     .filter((f) => retired.test(readFileSync(join(dist, f), 'utf8')))
     .concat(
