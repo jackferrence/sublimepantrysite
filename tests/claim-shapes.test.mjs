@@ -297,6 +297,40 @@ test('OWNERSHIP: any page showing our product price discloses that we sell it', 
   assert.deepEqual(missing, [], `pages show ${price} without "${label}"`);
 });
 
+/**
+ * The seventh shape, and the first that requires a claim rather than forbidding
+ * one.
+ *
+ * The six above are all negative: they stop the site saying something it cannot
+ * support. Nothing required it to keep saying something it can, and that
+ * asymmetry is a real gap — "we have not bench-tested freeze dryers" is the
+ * site's position, and every shape in this file would have stayed green while
+ * it was quietly deleted in a homepage reshuffle. A section list drafted
+ * against a stale reading of the page nearly did exactly that.
+ *
+ * The statement is load-bearing in a specific way: the site publishes machine
+ * comparisons, which is the genre readers most expect to be hands-on. Saying
+ * plainly that it is not is what makes the comparisons honest rather than
+ * merely accurate.
+ */
+test('DISCLOSED LIMITS: the homepage says we have not bench-tested the machines', () => {
+  const surfacesOf = (file) => surfaces(readFileSync(join(dist, file), 'utf8'));
+  const found = surfacesOf('index.html');
+  const said = found.some(({ statement }) => /have not bench-?tested/i.test(statement));
+  assert.ok(
+    said,
+    'the homepage no longer states that we have not bench-tested freeze dryers — ' +
+      'the six shapes above cannot catch this, because removing a true statement breaks none of them',
+  );
+
+  // And it is visible prose, not buried in a meta tag or JSON-LD where only a
+  // machine would find it.
+  const visible = found.some(
+    ({ where, statement }) => where === 'prose' && /have not bench-?tested/i.test(statement),
+  );
+  assert.ok(visible, 'the statement survives only in a non-visible surface — a reader cannot see it');
+});
+
 test('PRICE and SHIPPING TERMS are written in exactly one source file', () => {
   const stripComments = (src) =>
     src.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/(^|[^:])\/\/.*$/gm, '$1');

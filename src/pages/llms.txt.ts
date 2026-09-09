@@ -15,6 +15,7 @@ import { getCollection } from 'astro:content';
 import type { APIContext } from 'astro';
 import { PILLAR_LABEL, newestFirst, type Article } from '../lib/articles';
 import { PRIMARY_NAV, FOOTER_COMPANY, FOOTER_LEARN, live } from '../lib/nav';
+import { liveTools } from '../lib/tools';
 
 const SITE = 'https://www.sublimepantry.com';
 
@@ -37,6 +38,20 @@ const PILLAR_ORDER: Article['data']['pillar'][] = ['compare', 'guides', 'trouble
  * whole guard: this file links only to routes the site actually serves.
  */
 const STATIC_PAGES: { href: string; title: string; summary: string }[] = [
+  {
+    href: '/tools',
+    title: 'Free freeze-drying tools',
+    summary:
+      'The free tools published here, each described by the question it answers. Records stay in ' +
+      'the reader\'s browser; nothing is sent to a server.',
+  },
+  {
+    href: '/newsletter',
+    title: 'The Dry Batch',
+    summary:
+      'A weekly email on batch decisions, troubleshooting and storage, with the sources to follow. ' +
+      'Subscribers receive the printable Starter Checklist.',
+  },
   {
     href: '/tools/batch-log',
     title: 'Batch Log',
@@ -85,6 +100,11 @@ const STATIC_PAGES: { href: string; title: string; summary: string }[] = [
 /** Every href the nav is willing to render — i.e. every route that exists. */
 function liveHrefs(): Set<string> {
   const out = new Set<string>();
+  // Tools come from the tool registry, not the nav. The nav links the hub so
+  // that the header does not change as the toolbox grows — which means a tool
+  // is no longer a nav href, and deriving this set from the nav alone silently
+  // dropped /tools/batch-log out of the index the moment that changed.
+  for (const tool of liveTools()) out.add(tool.href);
   const walk = (items: ReturnType<typeof live>) => {
     for (const item of items) {
       if (item.href) out.add(item.href);
@@ -117,7 +137,9 @@ export async function GET(_context: APIContext) {
     lines.push('');
   }
 
-  const tools = STATIC_PAGES.filter((p) => p.href.startsWith('/tools/') || p.href === '/camping');
+  const tools = STATIC_PAGES.filter(
+    (p) => p.href === '/tools' || p.href.startsWith('/tools/') || p.href === '/newsletter' || p.href === '/camping',
+  );
   const editorial = STATIC_PAGES.filter((p) => !tools.includes(p));
 
   const section = (heading: string, pages: typeof STATIC_PAGES) => {
