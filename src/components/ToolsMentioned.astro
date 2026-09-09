@@ -5,23 +5,28 @@
  * Nothing is inserted editorially: the body HTML is scanned for a catalog
  * handle or a link into /shop/, and only what is genuinely referenced appears.
  * If the article mentions none, this renders nothing at all.
+ *
+ * That was the intent and it was not the behaviour. A `declared` list in front
+ * matter bypassed the scan, and three troubleshooting articles used it to show
+ * the packaging kit while mentioning it nowhere in their text — under a heading
+ * reading "Tools mentioned in this guide", which was false on the page. The
+ * escape hatch is gone; the only way a product appears here is that the article
+ * refers to it.
  */
 import Card from './Card.astro';
 import { CATALOG, SHIPPING } from '../lib/commerce';
 
 interface Props {
   bodyHtml: string;
-  /** Handles declared in front matter, merged with what the body mentions. */
-  declared?: string[];
 }
 
-const { bodyHtml, declared = [] } = Astro.props;
+const { bodyHtml } = Astro.props;
 
-const mentioned = CATALOG.filter((product) => {
-  if (declared.includes(product.handle)) return true;
-  if (bodyHtml.includes(product.handle)) return true;
-  return Boolean(product.detailsHref && bodyHtml.includes(product.detailsHref));
-}).slice(0, 3);
+const mentioned = CATALOG.filter(
+  (product) =>
+    bodyHtml.includes(product.handle) ||
+    Boolean(product.detailsHref && bodyHtml.includes(product.detailsHref)),
+).slice(0, 3);
 ---
 {mentioned.length > 0 && (
   <section class="tools-mentioned" aria-labelledby="tools-mentioned-heading">

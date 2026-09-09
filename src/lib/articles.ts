@@ -29,14 +29,28 @@ export function formatDate(date: string): string {
   });
 }
 
-/** The date a comparison's figures were last confirmed against their sources. */
-export function verifiedDate(entry: Article): string {
-  return entry.data.updatedDate ?? entry.data.publishedDate;
+/**
+ * The date this article's figures were last confirmed against their sources,
+ * or undefined if that has never been recorded.
+ *
+ * No fallback. It used to return `updatedDate ?? publishedDate`, so any
+ * editorial edit re-dated a verification nobody had performed, and an article
+ * that had never been rechecked still published a verification date — its
+ * publication date, wearing the word "verified".
+ *
+ * Undefined is the honest answer to "when were these figures last checked?"
+ * when nobody wrote it down, and the badge renders nothing rather than
+ * guessing.
+ */
+export function verifiedDate(entry: Article): string | undefined {
+  return entry.data.verifiedDate;
 }
 
-/** Ninety days after the last verification — the next scheduled price check. */
-export function nextCheckDate(entry: Article): string {
-  const d = new Date(`${verifiedDate(entry)}T00:00:00.000Z`);
+/** Ninety days after the last verification, or undefined if there was none. */
+export function nextCheckDate(entry: Article): string | undefined {
+  const verified = verifiedDate(entry);
+  if (!verified) return undefined;
+  const d = new Date(`${verified}T00:00:00.000Z`);
   d.setUTCDate(d.getUTCDate() + 90);
   return d.toISOString().slice(0, 10);
 }
