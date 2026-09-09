@@ -121,12 +121,23 @@ function surfaces(html) {
     push('table-cell', cell[1].replace(/<[^>]+>/g, ' '));
   }
 
-  // 4. SVG <title> and <desc>, whole — a diagram's text equivalent.
+  // 4. List items, whole. Same reasoning as a table cell, and found the same
+  //    way: the THICKNESS shape below went green because `<li>` text fell into
+  //    the prose bucket, where the splitter joins on sentence ends and a list
+  //    of short items has none. "100 heavy-duty 7 mil Mylar bags" was scored
+  //    together with three later items, one of which said "seal" — so the
+  //    mechanism the shape requires was satisfied by a different sentence about
+  //    a different thing. A bullet is a statement with no sentence around it.
+  for (const item of body.matchAll(/<li\b[^>]*>([\s\S]*?)<\/li>/g)) {
+    push('list-item', item[1].replace(/<[^>]+>/g, ' '));
+  }
+
+  // 5. SVG <title> and <desc>, whole — a diagram's text equivalent.
   for (const el of body.matchAll(/<(title|desc)\b[^>]*>([\s\S]*?)<\/\1>/g)) {
     push(el[1] === 'title' ? 'title' : 'desc', el[2].replace(/<[^>]+>/g, ' '));
   }
 
-  // 5. Everything else that renders, sentence by sentence — including SVG
+  // 6. Everything else that renders, sentence by sentence — including SVG
   //    <text> labels, which are text nodes like any other.
   const prose = tidy(body.replace(/<[^>]+>/g, ' '));
   for (const sentence of prose.split(/(?<=[.!?])\s+/)) push('prose', sentence);
@@ -246,17 +257,73 @@ test('FREQUENCY: no claim about how often something happens', () => {
   );
 });
 
+test('THICKNESS: a mil figure is never a benefit on its own', () => {
+  // The launch catalog is 4.3 mil and the starter kit is 7 mil, so "thicker"
+  // is now a comparison the site can make about its own shelf — which is
+  // exactly when it starts being written as a virtue. Film thickness does not
+  // by itself say how a bag performs: the foil ply is what blocks light and
+  // slows oxygen transfer, and the seal decides whether either matters. A mil
+  // figure may be stated as a fact, and it may be called better *if the
+  // sentence says what the difference does*. It may not stand in for that.
+  const thickness = /\b\d+(?:\.\d+)?\s*-?\s*mil\b/i;
+  const asBenefit =
+    /\b(?:thicker|heavier|heavy-?duty|stronger|tougher|sturdier|more durable|better|superior|premium|robust|best)\b/i;
+  // The mechanism: what the extra film actually does.
+  const mechanism =
+    /\bbarrier|puncture|pinhole|tear|abrasion|handling|foil|ply|laminate|light|oxygen|transmission|seal|weld|opaque/i;
+  assert.deepEqual(
+    sweep({
+      shape: thickness,
+      label: 'thickness stated as a benefit with no mechanism',
+      allow: (s) => !asBenefit.test(s) || mechanism.test(s),
+    }),
+    [],
+  );
+});
+
+test('STOCK: nothing is "sold out" or coming "back in stock"', () => {
+  // The quart line is listed at zero inventory and has never been stocked, so
+  // "sold out" describes a run that did not happen and "back in stock" promises
+  // a return to a state that never existed. Both are ordinary shop words, which
+  // is why they need a shape rather than a memo — zero inventory does the work
+  // and the copy says only what is true.
+  //
+  // "Out of stock" is deliberately not here: for a product we do stock, it is a
+  // true statement of a present state, and banning it would push the copy
+  // towards something vaguer rather than something more honest.
+  const shape =
+    /\bsold\s*out\b|\bback\s+in\s+stock\b|\brestock(?:ing|ed|s)?\b|\bin\s+stock\s+soon\b|\bcoming\s+back\b|\bwhen\s+it\s+returns\b/i;
+  assert.deepEqual(
+    sweep({
+      shape,
+      label: 'asserts a stocking history the product does not have',
+      // A bracketed citation marker is attribution: "from $4,595 — sold out on
+      // 2026-09-05 [18]" is a sourced fact about a manufacturer's own listing,
+      // not a claim about what we have stocked. The shape has to allow the
+      // attributed form or it fails on exactly the sentences worth publishing.
+      allow: (s) =>
+        /\bnever\b|\bnot\b|An earlier version|has been removed/i.test(s) || /\[\d+\]/.test(s),
+    }),
+    [],
+  );
+});
+
 test('OWNERSHIP: any page showing our product price discloses that we sell it', () => {
   const commerce = readFileSync(join(root, 'src/lib/commerce.ts'), 'utf8');
   const label = commerce.match(/OWNERSHIP_LABEL = '([^']+)'/)[1];
-  const price = commerce.match(/displayPrice: '([^']+)'/)[1].split(' ')[0];
-  const missing = pages()
-    .filter(({ surfaces: f }) => {
-      const all = f.map((x) => x.statement).join(' ');
-      return all.includes(price) && !all.includes(label);
-    })
-    .map((p) => p.file);
-  assert.deepEqual(missing, [], `pages show ${price} without "${label}"`);
+  // Every price, not the first one. This read `match(...)` — one price — for as
+  // long as the catalog had one product in it, and would have gone on passing
+  // while eight new prices published with no disclosure beside any of them. A
+  // rule that only covers the first row of a list is not a rule about the list.
+  const prices = [...commerce.matchAll(/displayPrice: '([^']+)'/g)].map((m) => m[1].split(' ')[0]);
+  assert.ok(prices.length >= 2, 'the price sweep is reading fewer prices than the catalog has');
+  const missing = [];
+  for (const { file, surfaces: f } of pages()) {
+    const all = f.map((x) => x.statement).join(' ');
+    if (all.includes(label)) continue;
+    for (const price of prices) if (all.includes(price)) missing.push(`${file}: ${price}`);
+  }
+  assert.deepEqual([...new Set(missing)], [], `pages show a price without "${label}"`);
 });
 
 test('PRICE and SHIPPING TERMS are written in exactly one source file', () => {
@@ -291,6 +358,7 @@ test('the extractor reaches every surface a claim has hidden in', () => {
     </head><body>
       <img src="a.jpg" alt="the Sublime Pantry freeze-drying packaging starter kit">
       <table><tr><td>Shipping</td><td>Free, US only</td></tr></table>
+      <ul><li>100 heavy-duty 7 mil Mylar bags</li><li>A heat sealer</li></ul>
       <figure><svg><title>Storage comparison</title><desc>decades-class shelf life</desc>
         <text>longest — decades-class, sealed</text></svg></figure>
       <p>An ordinary sentence. A second one.</p>
@@ -303,6 +371,12 @@ test('the extractor reaches every surface a claim has hidden in', () => {
   assert.ok(has('json-ld', 'warranty should cover'), 'JSON-LD string not reached');
   assert.ok(has('alt', 'packaging starter kit'), 'alt text not reached');
   assert.ok(has('table-cell', 'Free, US only'), 'table cell not reached as a whole');
+  // Whole, and separately: scored together, the second item's "sealer" would
+  // answer for the first item's thickness claim.
+  assert.ok(
+    found.some((x) => x.where === 'list-item' && x.statement === '100 heavy-duty 7 mil Mylar bags'),
+    'list item not reached as a statement of its own',
+  );
   assert.ok(has('desc', 'decades-class shelf life'), 'SVG desc not reached');
   assert.ok(has('title', 'Storage comparison'), 'SVG title not reached');
   assert.ok(has('prose', 'longest — decades-class, sealed'), 'SVG text label not reached');

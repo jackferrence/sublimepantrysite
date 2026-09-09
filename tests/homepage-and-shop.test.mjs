@@ -50,11 +50,21 @@ const text = (html) =>
 const kit = CATALOG[0];
 
 /**
- * Shopify's title for the kit, as read from the live cart on 2026-09-08.
+ * Shopify's title for the kit, read from the live store.
+ *
  * Hard-coded on purpose: a test that reads the name from the same constant the
  * page reads it from would pass whatever that constant said.
+ *
+ * Re-read from the Admin API on 2026-09-09 and it had moved. The product was
+ * renamed in Shopify back to the name below, and nothing failed — the site kept
+ * publishing "Reserve Starter Kit — 100 Mylar Bags + Absorbers + Labels" while
+ * the cart and the checkout said this, which is U04 again in the other
+ * direction. That is the limit of this test: it catches the site drifting from
+ * a name someone wrote down, not the name being changed underneath it. The only
+ * real fix is reading the title from Shopify during the build; until then, this
+ * constant has to be re-read against the live store whenever the kit is touched.
  */
-const SHOPIFY_TITLE = 'Reserve Starter Kit — 100 Mylar Bags + Absorbers + Labels';
+const SHOPIFY_TITLE = 'Freeze-Drying Packaging Starter Kit — 100 Bags, Absorbers & Labels';
 
 test('U04: the site calls the product what Shopify calls it', () => {
   assert.equal(kit.title, SHOPIFY_TITLE, 'the catalog title has drifted from the Shopify product title');
@@ -62,9 +72,10 @@ test('U04: the site calls the product what Shopify calls it', () => {
 });
 
 test('U04: no surface writes a third name for the kit', () => {
-  // Spaces, not hyphens: the URL slug is `freeze-dryer-packaging-starter-kit`
-  // and it is preserved on purpose. This looks for the name written as prose.
-  const retired = /Freeze[- ]?Dry(?:ing|er) Packaging Starter Kit/i;
+  // The retired name is now the other one: Shopify moved back to the
+  // "Freeze-Drying Packaging Starter Kit" title, so "Reserve Starter Kit" is
+  // the name no surface may publish.
+  const retired = /Reserve Starter Kit/i;
   const offenders = globSync('**/*.html', { cwd: dist })
     .filter((f) => retired.test(readFileSync(join(dist, f), 'utf8')))
     .concat(
