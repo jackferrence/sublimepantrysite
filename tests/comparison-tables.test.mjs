@@ -49,7 +49,7 @@ const CARD_TABLES = {
   'guides/which-freeze-dryer': 10,
   'compare/home-freeze-dryers': 3,
   'compare/fruit-vs-vegetables-vs-meat': 3,
-  'compare/storage-containers': 3,
+  'compare/storage-containers': 5,
 };
 
 function built(page) {

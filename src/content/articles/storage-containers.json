@@ -1,51 +1,268 @@
 {
-  "title": "Mylar bags vs. mason jars vs. PETE: freeze-dried storage compared",
-  "description": "The three legitimate storage systems for freeze-dried food, compared on barrier quality, cost per unit, resealability, and fitness for selling vs. pantry use.",
-  "kicker": "Comparison",
+  "title": "Storage containers compared.",
+  "description": "Foil mylar, mason jars, vacuum bags, kraft pouches and buckets on barrier, light, reseal, durability and cost — with the units and conditions attached.",
+  "kicker": "storage",
   "pillar": "compare",
+  "section": "Packaging",
   "riskClass": "standard",
   "publishedDate": "2026-08-31",
-  "author": "Jack Ferrence",
-  "disclosure": "Sublime Pantry has no affiliate relationships, sponsorships, or paid placements as of publication: no outbound link here earns a commission. Sublime Pantry does sell its own packaging, and a link to our shop is a link to a product we make money on — those are labelled where they appear.",
+  "disclosure": "Sublime Pantry has no affiliate relationships, sponsorships, or paid placements as of publication. We sell packaging; where a product we sell appears, it is labeled.",
   "sources": [
     {
-      "url": "https://extension.umn.edu/preserve-your-own-food/freeze-drying",
-      "title": "Preserving food at home: Freeze-drying",
-      "publisher": "University of Minnesota Extension",
+      "title": "PAKVF4 Specification Sheet",
+      "url": "https://www.sorbentsystems.com/specs/pakvf4.html",
+      "publisher": "Sorbent Systems (IMPAK Corporation)",
       "tier": "primary",
-      "accessDate": "2026-08-31"
+      "accessDate": "2026-09-06"
     },
     {
-      "url": "https://wallabygoods.com/blogs/news/how-to-store-freeze-dried-food-in-mylar-bags",
-      "title": "How to Store Freeze-Dried Food in Mylar Bags",
+      "title": "PAKVF4K Specification Sheet",
+      "url": "https://www.sorbentsystems.com/specs/pakvf4k.pdf",
+      "publisher": "Sorbent Systems (IMPAK Corporation)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "PAKVAC4.0 Specification Sheet",
+      "url": "https://www.sorbentsystems.com/specs/pakvac4.pdf",
+      "publisher": "Sorbent Systems (IMPAK Corporation)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "PAKDRY7500 Specification Sheet",
+      "url": "https://www.sorbentsystems.com/specs/pakdry7500.html",
+      "publisher": "Sorbent Systems (IMPAK Corporation)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Kraft Bags — Kraft Stand Up Pouches & Flat Bags",
+      "url": "https://www.sorbentsystems.com/kraft-bags.html",
+      "publisher": "Sorbent Systems (IMPAK Corporation)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Paper Stand-Up Barrier Pouches with Window, Kraft, 6x9x3\" (S-22248)",
+      "url": "https://www.uline.com/Product/Detail/S-22248/Barrier-Pouches/Kraft-Stand-Up-Barrier-Pouches-with-Window-6-x-9-x-3",
+      "publisher": "ULINE",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Uline Vacuum Bags for FoodSaver 6x10\" (S-20395)",
+      "url": "https://www.uline.com/Product/Detail/S-20395/Food-Bags/Uline-Vacuum-Bags-for-Foodsaver-6-x-10",
+      "publisher": "ULINE",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Information About our Mylar Layer",
+      "url": "https://discountmylarbags.com/information-about-our-mylar-layer/",
+      "publisher": "Discount Mylar Bags",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "5 Gallon 5.5 Mil Heavy Duty Mylar Bags (200) — Wholesale",
+      "url": "https://packfreshusa.com/5-gallon-5-5-mil-heavy-duty-mylar-bags-200-wholesale/",
+      "publisher": "PackFreshUSA",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Mylar MRE Pouches with Oxygen Absorbers",
+      "url": "https://wallabygoods.com/products/mylar-mre-pouches",
       "publisher": "Wallaby Goods",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Packaging Foods (Preserve the Harvest)",
+      "url": "https://extension.usu.edu/preserve-the-harvest/food-storage-packaging",
+      "publisher": "Utah State University Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Myths & Misconceptions: Oxygen Absorbers & Mylar Bags",
+      "url": "https://packfreshusa.com/blog/myths-misconceptions-oxygen-absorbers-mylar-bags/",
+      "publisher": "PackFreshUSA",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Mylar Bags — Food Storage FAQ",
+      "url": "https://www.usaemergencysupply.com/information-center/self-reliance/food-storage-frequently-asked-questions/mylar-bags",
+      "publisher": "USA Emergency Supply",
       "tier": "secondary",
-      "accessDate": "2026-08-31"
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Wallaby Goods FAQs — Mylar Bags & Long-Term Food Storage",
+      "url": "https://wallabygoods.com/pages/faqs",
+      "publisher": "Wallaby Goods",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Q & A",
+      "url": "https://packfreshusa.com/q-a-1/",
+      "publisher": "PackFreshUSA",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Let's Preserve: Freeze-Drying",
+      "url": "https://extension.psu.edu/lets-preserve-freeze-drying",
+      "publisher": "Penn State Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Can I Freeze-Dry That? A Practical Guide to Safe and Effective Freeze-Drying",
+      "url": "https://extension.usu.edu/foodsafety/research/can-i-freeze-dry-that-a-practical-guide-to-safe-and-effective-freeze-drying",
+      "publisher": "Utah State University Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Oxygen Absorbers (FN/Food Preservation/2011-01pr)",
+      "url": "https://digitalcommons.usu.edu/cgi/viewcontent.cgi?article=1196&context=extension_curall",
+      "publisher": "Utah State University Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "StayFresh Oxygen Absorbers — Measuring Volume of Space",
+      "url": "https://www.sorbentsystems.com/o2absorbers_1.html",
+      "publisher": "Sorbent Systems (IMPAK Corporation)",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Heat Sealing 7-Mil Mylar Bags",
+      "url": "https://www.topmylar.com/heat-sealing-mylar-bags",
+      "publisher": "Top Mylar",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Tabletop Impulse Sealer – 12\" (H-190)",
+      "url": "https://www.uline.com/Product/Detail/H-190/Poly-Bag-Sealers/Tabletop-Impulse-Sealer-12",
+      "publisher": "ULINE",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Vacuum Packing",
+      "url": "https://brunswick.ces.ncsu.edu/2024/01/vacuum-packing/",
+      "publisher": "NC State Extension",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Ohio Administrative Code 901:3-20-04, Cottage food products allowed",
+      "url": "https://codes.ohio.gov/ohio-administrative-code/rule-901:3-20-04",
+      "publisher": "Ohio Legislative Service Commission",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Cottage Food Guide (2022)",
+      "url": "https://extension.illinois.edu/sites/default/files/idph_cottage_food_guide-_2022.pdf",
+      "publisher": "Illinois Department of Public Health",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Home Processing (Home Processor exemption)",
+      "url": "https://agriculture.ny.gov/food-safety/home-processing",
+      "publisher": "New York State Department of Agriculture and Markets",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "FST-506NP — Factors that Impact Small-Scale Freeze Dryer Effectiveness",
+      "url": "https://www.pubs.ext.vt.edu/content/pubs_ext_vt_edu/en/FST/FST-506/FST-506.html",
+      "publisher": "Virginia Cooperative Extension / Virginia Tech",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "50-Pack Oxygen Absorbers",
+      "url": "https://harvestright.com/product/oxygen-absorbers-50-pack/",
+      "publisher": "Harvest Right",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "Desiccants: Moisture Absorbers",
+      "url": "https://packfreshusa.com/blog/desiccants-moisture-absorbers/",
+      "publisher": "PackFreshUSA",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
+    },
+    {
+      "title": "How To Use Silica Gel Packets for Food Storage",
+      "url": "https://wallabygoods.com/blogs/news/how-to-use-silica-gel-packets",
+      "publisher": "Wallaby Goods",
+      "tier": "primary",
+      "accessDate": "2026-09-06"
     }
   ],
   "comparisonCriteria": [
     {
-      "label": "Moisture/O₂ barrier"
+      "label": "Barrier",
+      "note": "Oxygen and moisture transmission as each manufacturer publishes it, in that manufacturer's own units. Three unit systems appear across these datasheets and are roughly 1,550x apart; nothing here is normalized."
     },
     {
-      "label": "Light protection"
+      "label": "Light",
+      "note": "Opacity as described, not as measured. No manufacturer in this set publishes a percent light-transmission figure for a finished food bag, so this criterion cannot be ranked."
     },
     {
-      "label": "Cost per unit"
+      "label": "Reseal",
+      "note": "Whether the container can be reopened and reclosed, and what each cycle costs — bag height, a fresh absorber, or nothing at all."
     },
     {
-      "label": "Resealable in daily use"
+      "label": "Durability",
+      "note": "Published puncture figures where they exist, plus pest resistance. Puncture is reported in psi by some datasheets and pounds by others, so a cross-brand ranking is not available."
     },
     {
-      "label": "Durability"
+      "label": "Cost",
+      "note": "Per-bag or per-case price as listed on 2026-09-06, with the quantity tier attached. Case-only SKUs have no comparable retail price."
     },
     {
-      "label": "Retail fitness"
+      "label": "Where it fits",
+      "note": "Which storage job each container is documented as suited to — sealed once, opened often, or carried and sold. Stated in place of a ranking, because no source publishes one."
+    }
+  ],
+  "faq": [
+    {
+      "question": "Is a mylar bag really that much better than a vacuum-sealer bag?",
+      "answer": "On published oxygen transmission the gap is large, but you have to convert before you can see it. A 4.3 mil foil laminate is specified at 0.001 cc/m²/24 hrs [1]; a 4.0 mil nylon/PE vacuum film from the same manufacturer is specified at 4.25 cc/100 in²/24 hrs [3]. One square metre is about 1,550 square inches, so the raw numbers understate the difference by roughly three orders of magnitude. Neither datasheet states test conditions [1][3], and extension separately notes that \"vacuum packaging is NOT a food preservation method by itself\" [11]."
+    },
+    {
+      "question": "Do I need a bucket if the food is already in mylar?",
+      "answer": "The published position is that the bag is a liner, not a package: mylar has \"poor puncture resistance so it must be used as an interior liner for more puncture resistant containers,\" and it is \"not strongly resistant to insect penetration and not resistant at all to rodents\" [13]. The same source is candid that the pail is not the answer either — \"If mice chew through your buckets, they'll go right through the bags\" [13]. Extension adds the barrier argument for pairing them: plastics \"will allow significant oxygen levels into the container in 1 to 2 years\" [11], and \"Lining PETE buckets with mylar will decrease this oxygen exchange\" [18]."
+    },
+    {
+      "question": "Are kraft pouches with a window a barrier package?",
+      "answer": "The window versions are not, and the manufacturers say so in their own listings: \"This product does not have foil lining\" [4], with structures of KPET/LLDPE over kraft/LLDPE [4] or Paper/PET/NY/LLDPE [6] — no metal layer in either — and no OTR or WVTR published for either [4][6]. A foil-lined kraft laminate is a different material with a published OTR of 0.01 cc/m²/24 hrs [2]. The freeze-drying guidance is separately explicit that storage bags should have \"no clear plastic window\" [17]."
+    },
+    {
+      "question": "My sealed bag never sucked down. Did the seal fail?",
+      "answer": "Not necessarily, and suck-down is not a test. An absorber takes the oxygen fraction only, so \"1/5 of the air volume will be gone but 4/5 of the air will always remain\" [15], and one manufacturer names the belief directly: \"It's a misconception that a 'vacuum-packed' look confirms the oxygen has been removed\" [14]. The published checks are mechanical — once cool, try to pull the mouth of the bag open, and fold the bag into a pail until trapped air pillows up and watch whether it deflates [13]."
+    },
+    {
+      "question": "Which container should I use if I open the food every week?",
+      "answer": "A jar closes and reopens indefinitely, where a mylar bag loses height at every cut [14][15] and needs a fresh absorber each time. Penn State puts glass with an oxygen absorber or a vacuum seal at \"many years\" for freeze-dried food, against \"a few months\" for zip-top bags and 2–3 years for vacuum-in-plastic [16]. The sorbent changes too: for repeatedly opened containers the documented failure mode is moisture, with published sizing of about 1 gram of silica gel per 120 cubic inches, or 1–2 grams in a mason jar [29]. If you run both sorbents, one manufacturer requires physical separation and gives the reason: \"Oxygen absorbers have built in moisture to make them work\" [28]."
     }
   ],
   "products": [
-    "freeze-dryer-packaging-starter-kit-100"
+    "snack-bags-6x6-50-pack-absorbers"
   ],
-  "bodyHtml": "<div class=\"notice notice-info\" role=\"note\"><strong>How this comparison was made:</strong> criteria are stated up front and every figure is drawn from the manufacturer documentation or expert sources listed at the bottom of the page. We have not yet bench-tested these products ourselves — this is a specification and documentation comparison, and it says so wherever judgment is involved. Criteria: moisture and oxygen barrier, cost per stored unit, resealability and daily-use ergonomics, durability and light protection, fitness for cottage retail.</div>\n<p><strong>The short version:</strong> extension guidance names three homes for freeze-dried food — mylar bags, vacuum-sealed mason jars, and PETE containers, all with oxygen absorbers and all hermetically sealed — and they are not interchangeable. Mylar is for sealing and forgetting, jars are for anything you open weekly, and PETE is for staples you cycle through quickly. Whichever you choose, the container is only as good as the absorber sealed inside it.</p>\n<figure class=\"diagram-figure\"><div class=\"table-scroll\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 920 760\" role=\"img\" aria-labelledby=\"sc-title sc-desc\">\n  <title id=\"sc-title\">Storage comparison: mylar bags, mason jars, and PETE bottles for freeze-dried food</title>\n  <desc id=\"sc-desc\">Three-column comparison. Mylar with oxygen absorber: excellent oxygen, light, and moisture barriers, the longest shelf life of the three, best for long-term staples. Mason jar with oxygen absorber: great oxygen barrier while sealed, no light barrier, a shorter shelf life and only if kept dark, best for kitchen rotation. PETE bottle with oxygen absorber: good oxygen barrier, no light barrier, the shortest shelf life of the three, best for staples eaten monthly.</desc>\n  <style>\n    .bg{fill:var(--sp-paper);}\n    .panel{fill:var(--sp-panel);stroke:var(--sp-line);stroke-width:1;}\n    .title{font:700 23px var(--sp-font-display);fill:var(--sp-ink);}\n    .sub{font:13px var(--sp-font-body);fill:var(--sp-ink2);}\n    .name{font:700 16px var(--sp-font-body);fill:var(--sp-ink);}\n    .tag{font:600 11.5px var(--sp-font-body);fill:var(--sp-ink3);}\n    .rl{font:700 9.5px var(--sp-font-body);fill:var(--sp-ink3);letter-spacing:0.8px;}\n    .rv{font:12px var(--sp-font-body);fill:var(--sp-ink2);}\n    .cap{font:11.5px var(--sp-font-body);fill:var(--sp-ink3);}\n    .dot-on{fill:var(--sp-ink2);}\n    .dot-off{fill:none;stroke:var(--sp-line2);stroke-width:1.2;}\n    .o2{font:700 9px var(--sp-font-body);fill:var(--sp-ink2);}\n  </style>\n\n  <rect class=\"bg\" width=\"920\" height=\"760\"/>\n\n  <text class=\"title\" x=\"24\" y=\"42\">Mylar vs. mason jars vs. PETE — what each seal is for</text>\n  <text class=\"sub\" x=\"24\" y=\"66\">All three depend on the same thing: an oxygen absorber sized to the headspace, sealed the day the batch passes the dryness test.</text>\n\n  <!-- ============ COLUMN 1: MYLAR ============ -->\n  <g transform=\"translate(24,92)\">\n    <rect class=\"panel\" width=\"276\" height=\"580\" rx=\"10\"/>\n    <!-- pouch illustration -->\n    <g>\n      <rect x=\"92\" y=\"38\" width=\"96\" height=\"106\" rx=\"9\" fill=\"#DDD8CE\" stroke=\"var(--sp-line2)\" stroke-width=\"1.5\"/>\n      <rect x=\"92\" y=\"38\" width=\"96\" height=\"15\" rx=\"6\" fill=\"#C6BFB1\"/>\n      <path d=\"M96 57 l7 4 l7 -4 l7 4 l7 -4 l7 4 l7 -4 l7 4 l7 -4 l7 4 l7 -4 l7 4 l7 -4\" fill=\"none\" stroke=\"var(--sp-ink3)\" stroke-width=\"1\" opacity=\"0.6\"/>\n      <path d=\"M104 50 L168 132\" stroke=\"#FFFFFF\" stroke-width=\"10\" opacity=\"0.35\" stroke-linecap=\"round\"/>\n      <rect x=\"196\" y=\"112\" width=\"42\" height=\"26\" rx=\"4\" fill=\"var(--sp-panel)\" stroke=\"var(--sp-line2)\" stroke-dasharray=\"3 2\"/>\n      <text class=\"o2\" x=\"217\" y=\"128\" text-anchor=\"middle\">O₂ 300cc</text>\n    </g>\n    <text class=\"name\" x=\"138\" y=\"184\" text-anchor=\"middle\">Mylar + O₂ absorber</text>\n    <text class=\"tag\" x=\"138\" y=\"202\" text-anchor=\"middle\">the long-term vault</text>\n    <line x1=\"20\" y1=\"214\" x2=\"256\" y2=\"214\" stroke=\"var(--sp-line)\"/>\n\n    <g transform=\"translate(0,228)\">\n      <text class=\"rl\" x=\"20\" y=\"10\">OXYGEN BARRIER</text>\n      <g><circle class=\"dot-on\" cx=\"204\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-on\" cx=\"217\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-on\" cx=\"230\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-on\" cx=\"243\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-on\" cx=\"256\" cy=\"6\" r=\"4.5\"/></g>\n      <text class=\"rv\" x=\"20\" y=\"28\">excellent — foil is airtight</text>\n    </g>\n    <g transform=\"translate(0,278)\">\n      <text class=\"rl\" x=\"20\" y=\"10\">LIGHT BARRIER</text>\n      <g><circle class=\"dot-on\" cx=\"204\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-on\" cx=\"217\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-on\" cx=\"230\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-on\" cx=\"243\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-on\" cx=\"256\" cy=\"6\" r=\"4.5\"/></g>\n      <text class=\"rv\" x=\"20\" y=\"28\">total blackout</text>\n    </g>\n    <g transform=\"translate(0,328)\">\n      <text class=\"rl\" x=\"20\" y=\"10\">MOISTURE BARRIER</text>\n      <g><circle class=\"dot-on\" cx=\"204\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-on\" cx=\"217\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-on\" cx=\"230\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-on\" cx=\"243\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-on\" cx=\"256\" cy=\"6\" r=\"4.5\"/></g>\n      <text class=\"rv\" x=\"20\" y=\"28\">excellent — 5+ mil foil</text>\n    </g>\n    <g transform=\"translate(0,378)\">\n      <text class=\"rl\" x=\"20\" y=\"10\">SHELF-LIFE CLASS</text>\n      <g><circle class=\"dot-on\" cx=\"204\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-on\" cx=\"217\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-on\" cx=\"230\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-on\" cx=\"243\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-on\" cx=\"256\" cy=\"6\" r=\"4.5\"/></g>\n      <text class=\"rv\" x=\"20\" y=\"28\">longest of the three, sealed</text>\n    </g>\n    <g transform=\"translate(0,428)\">\n      <text class=\"rl\" x=\"20\" y=\"10\">COST</text>\n      <text class=\"rv\" x=\"20\" y=\"28\">low per bag; one-way seal</text>\n    </g>\n    <g transform=\"translate(0,478)\">\n      <text class=\"rl\" x=\"20\" y=\"10\">RESEALABLE</text>\n      <text class=\"rv\" x=\"20\" y=\"28\">cut open, re-seal shorter</text>\n    </g>\n    <g transform=\"translate(0,528)\">\n      <text class=\"rl\" x=\"20\" y=\"10\">BEST FOR</text>\n      <text class=\"rv\" x=\"20\" y=\"28\" style=\"font-weight:600;fill:var(--sp-ink);\">long-term staples, sale inventory,</text>\n      <text class=\"rv\" x=\"20\" y=\"44\" style=\"font-weight:600;fill:var(--sp-ink);\">anything light-sensitive</text>\n    </g>\n  </g>\n\n  <!-- ============ COLUMN 2: MASON JAR ============ -->\n  <g transform=\"translate(322,92)\">\n    <rect class=\"panel\" width=\"276\" height=\"580\" rx=\"10\"/>\n    <!-- jar illustration -->\n    <g>\n      <rect x=\"106\" y=\"30\" width=\"64\" height=\"9\" rx=\"3\" fill=\"#C6BFB1\" stroke=\"var(--sp-line2)\"/>\n      <rect x=\"100\" y=\"39\" width=\"76\" height=\"16\" rx=\"4\" fill=\"#DDD8CE\" stroke=\"var(--sp-line2)\"/>\n      <rect x=\"104\" y=\"58\" width=\"68\" height=\"88\" rx=\"12\" fill=\"var(--sp-frost)\" stroke=\"var(--sp-line2)\" stroke-width=\"1.5\"/>\n      <circle cx=\"122\" cy=\"118\" r=\"5\" fill=\"var(--sp-gold-t)\" stroke=\"var(--sp-line2)\" stroke-width=\"0.8\"/>\n      <circle cx=\"140\" cy=\"128\" r=\"5\" fill=\"var(--sp-gold-t)\" stroke=\"var(--sp-line2)\" stroke-width=\"0.8\"/>\n      <circle cx=\"156\" cy=\"116\" r=\"5\" fill=\"var(--sp-gold-t)\" stroke=\"var(--sp-line2)\" stroke-width=\"0.8\"/>\n      <circle cx=\"132\" cy=\"106\" r=\"5\" fill=\"var(--sp-gold-t)\" stroke=\"var(--sp-line2)\" stroke-width=\"0.8\"/>\n      <circle cx=\"150\" cy=\"138\" r=\"5\" fill=\"var(--sp-gold-t)\" stroke=\"var(--sp-line2)\" stroke-width=\"0.8\"/>\n      <circle cx=\"124\" cy=\"138\" r=\"5\" fill=\"var(--sp-gold-t)\" stroke=\"var(--sp-line2)\" stroke-width=\"0.8\"/>\n      <rect x=\"118\" y=\"70\" width=\"34\" height=\"18\" rx=\"3\" fill=\"var(--sp-panel)\" stroke=\"var(--sp-line2)\" stroke-dasharray=\"3 2\"/>\n      <text class=\"o2\" x=\"135\" y=\"82\" text-anchor=\"middle\">O₂</text>\n      <path d=\"M112 66 L112 132\" stroke=\"#FFFFFF\" stroke-width=\"5\" opacity=\"0.6\" stroke-linecap=\"round\"/>\n    </g>\n    <text class=\"name\" x=\"138\" y=\"184\" text-anchor=\"middle\">Mason jar + O₂ absorber</text>\n    <text class=\"tag\" x=\"138\" y=\"202\" text-anchor=\"middle\">the daily workhorse</text>\n    <line x1=\"20\" y1=\"214\" x2=\"256\" y2=\"214\" stroke=\"var(--sp-line)\"/>\n\n    <g transform=\"translate(0,228)\">\n      <text class=\"rl\" x=\"20\" y=\"10\">OXYGEN BARRIER</text>\n      <g><circle class=\"dot-on\" cx=\"204\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-on\" cx=\"217\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-on\" cx=\"230\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-on\" cx=\"243\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-off\" cx=\"256\" cy=\"6\" r=\"4.5\"/></g>\n      <text class=\"rv\" x=\"20\" y=\"28\">great — while the lid seal holds</text>\n    </g>\n    <g transform=\"translate(0,278)\">\n      <text class=\"rl\" x=\"20\" y=\"10\">LIGHT BARRIER</text>\n      <g><circle class=\"dot-on\" cx=\"204\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-off\" cx=\"217\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-off\" cx=\"230\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-off\" cx=\"243\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-off\" cx=\"256\" cy=\"6\" r=\"4.5\"/></g>\n      <text class=\"rv\" x=\"20\" y=\"28\">none — glass needs a dark shelf</text>\n    </g>\n    <g transform=\"translate(0,328)\">\n      <text class=\"rl\" x=\"20\" y=\"10\">MOISTURE BARRIER</text>\n      <g><circle class=\"dot-on\" cx=\"204\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-on\" cx=\"217\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-on\" cx=\"230\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-on\" cx=\"243\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-on\" cx=\"256\" cy=\"6\" r=\"4.5\"/></g>\n      <text class=\"rv\" x=\"20\" y=\"28\">excellent — glass is inert</text>\n    </g>\n    <g transform=\"translate(0,378)\">\n      <text class=\"rl\" x=\"20\" y=\"10\">SHELF-LIFE CLASS</text>\n      <g><circle class=\"dot-on\" cx=\"204\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-on\" cx=\"217\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-on\" cx=\"230\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-off\" cx=\"243\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-off\" cx=\"256\" cy=\"6\" r=\"4.5\"/></g>\n      <text class=\"rv\" x=\"20\" y=\"28\">shorter — dark, cool, seal checked</text>\n    </g>\n    <g transform=\"translate(0,428)\">\n      <text class=\"rl\" x=\"20\" y=\"10\">COST</text>\n      <text class=\"rv\" x=\"20\" y=\"28\">highest up front, reusable for life</text>\n    </g>\n    <g transform=\"translate(0,478)\">\n      <text class=\"rl\" x=\"20\" y=\"10\">RESEALABLE</text>\n      <text class=\"rv\" x=\"20\" y=\"28\">yes — open and re-seal freely</text>\n    </g>\n    <g transform=\"translate(0,528)\">\n      <text class=\"rl\" x=\"20\" y=\"10\">BEST FOR</text>\n      <text class=\"rv\" x=\"20\" y=\"28\" style=\"font-weight:600;fill:var(--sp-ink);\">kitchen rotation, market display,</text>\n      <text class=\"rv\" x=\"20\" y=\"44\" style=\"font-weight:600;fill:var(--sp-ink);\">anything you open weekly</text>\n    </g>\n  </g>\n\n  <!-- ============ COLUMN 3: PETE ============ -->\n  <g transform=\"translate(620,92)\">\n    <rect class=\"panel\" width=\"276\" height=\"580\" rx=\"10\"/>\n    <!-- bottle illustration -->\n    <g>\n      <rect x=\"126\" y=\"28\" width=\"24\" height=\"11\" rx=\"3\" fill=\"#C6BFB1\" stroke=\"var(--sp-line2)\"/>\n      <rect x=\"130\" y=\"39\" width=\"16\" height=\"12\" fill=\"var(--sp-frost)\" stroke=\"var(--sp-line2)\"/>\n      <path d=\"M130 51 q-20 10 -20 30 L110 132 q0 14 14 14 L152 146 q14 0 14 -14 L166 81 q0 -20 -20 -30 z\" fill=\"var(--sp-frost)\" stroke=\"var(--sp-line2)\" stroke-width=\"1.5\"/>\n      <circle cx=\"126\" cy=\"112\" r=\"5\" fill=\"var(--sp-gold-t)\" stroke=\"var(--sp-line2)\" stroke-width=\"0.8\"/>\n      <circle cx=\"144\" cy=\"120\" r=\"5\" fill=\"var(--sp-gold-t)\" stroke=\"var(--sp-line2)\" stroke-width=\"0.8\"/>\n      <circle cx=\"134\" cy=\"132\" r=\"5\" fill=\"var(--sp-gold-t)\" stroke=\"var(--sp-line2)\" stroke-width=\"0.8\"/>\n      <circle cx=\"152\" cy=\"134\" r=\"5\" fill=\"var(--sp-gold-t)\" stroke=\"var(--sp-line2)\" stroke-width=\"0.8\"/>\n      <rect x=\"124\" y=\"86\" width=\"30\" height=\"16\" rx=\"3\" fill=\"var(--sp-panel)\" stroke=\"var(--sp-line2)\" stroke-dasharray=\"3 2\"/>\n      <text class=\"o2\" x=\"139\" y=\"97\" text-anchor=\"middle\">O₂</text>\n      <path d=\"M116 70 L116 130\" stroke=\"#FFFFFF\" stroke-width=\"5\" opacity=\"0.6\" stroke-linecap=\"round\"/>\n    </g>\n    <text class=\"name\" x=\"138\" y=\"184\" text-anchor=\"middle\">PETE bottle + O₂ absorber</text>\n    <text class=\"tag\" x=\"138\" y=\"202\" text-anchor=\"middle\">the short-term rotator</text>\n    <line x1=\"20\" y1=\"214\" x2=\"256\" y2=\"214\" stroke=\"var(--sp-line)\"/>\n\n    <g transform=\"translate(0,228)\">\n      <text class=\"rl\" x=\"20\" y=\"10\">OXYGEN BARRIER</text>\n      <g><circle class=\"dot-on\" cx=\"204\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-on\" cx=\"217\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-on\" cx=\"230\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-off\" cx=\"243\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-off\" cx=\"256\" cy=\"6\" r=\"4.5\"/></g>\n      <text class=\"rv\" x=\"20\" y=\"28\">good — not foil-good</text>\n    </g>\n    <g transform=\"translate(0,278)\">\n      <text class=\"rl\" x=\"20\" y=\"10\">LIGHT BARRIER</text>\n      <g><circle class=\"dot-on\" cx=\"204\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-off\" cx=\"217\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-off\" cx=\"230\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-off\" cx=\"243\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-off\" cx=\"256\" cy=\"6\" r=\"4.5\"/></g>\n      <text class=\"rv\" x=\"20\" y=\"28\">clear plastic — none</text>\n    </g>\n    <g transform=\"translate(0,328)\">\n      <text class=\"rl\" x=\"20\" y=\"10\">MOISTURE BARRIER</text>\n      <g><circle class=\"dot-on\" cx=\"204\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-on\" cx=\"217\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-on\" cx=\"230\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-on\" cx=\"243\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-off\" cx=\"256\" cy=\"6\" r=\"4.5\"/></g>\n      <text class=\"rv\" x=\"20\" y=\"28\">very good with a tight cap</text>\n    </g>\n    <g transform=\"translate(0,378)\">\n      <text class=\"rl\" x=\"20\" y=\"10\">SHELF-LIFE CLASS</text>\n      <g><circle class=\"dot-on\" cx=\"204\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-on\" cx=\"217\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-off\" cx=\"230\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-off\" cx=\"243\" cy=\"6\" r=\"4.5\"/><circle class=\"dot-off\" cx=\"256\" cy=\"6\" r=\"4.5\"/></g>\n      <text class=\"rv\" x=\"20\" y=\"28\">shortest — plan to rotate through</text>\n    </g>\n    <g transform=\"translate(0,428)\">\n      <text class=\"rl\" x=\"20\" y=\"10\">COST</text>\n      <text class=\"rv\" x=\"20\" y=\"28\">cheap, reusable, easy to source</text>\n    </g>\n    <g transform=\"translate(0,478)\">\n      <text class=\"rl\" x=\"20\" y=\"10\">RESEALABLE</text>\n      <text class=\"rv\" x=\"20\" y=\"28\">yes — screw cap</text>\n    </g>\n    <g transform=\"translate(0,528)\">\n      <text class=\"rl\" x=\"20\" y=\"10\">BEST FOR</text>\n      <text class=\"rv\" x=\"20\" y=\"28\" style=\"font-weight:600;fill:var(--sp-ink);\">staples you eat monthly, bulk</text>\n      <text class=\"rv\" x=\"20\" y=\"44\" style=\"font-weight:600;fill:var(--sp-ink);\">snacks, grab-and-go containers</text>\n    </g>\n  </g>\n\n  <text class=\"cap\" x=\"24\" y=\"702\">Dot ratings compare these three options against each other — the guide text below carries the sourced numbers behind them.</text>\n  <text class=\"cap\" x=\"24\" y=\"722\">None of the three works without a fresh, correctly sized oxygen absorber: the container is only as good as what you seal inside it.</text>\n</svg>\n</div><figcaption class=\"article-meta\">Comparison of mylar bags, mason jars, and PETE bottles with oxygen absorbers: barrier ratings, shelf-life class, cost, resealability, and best use for each.</figcaption></figure>\n<h2 id=\"the-comparison\">The comparison</h2>\n<div class=\"table-scroll\">\n<table>\n<caption>Mylar, mason jars and PETE bottles compared criterion by criterion.</caption>\n<thead>\n<tr><th></th><th>Mylar (5–7.5 mil, metallized)</th><th>Mason jars (vacuum-sealed)</th><th>PETE + absorber</th></tr>\n</thead>\n<tbody>\n<tr><td>Moisture/O₂ barrier</td><td>Excellent when sealed correctly</td><td>Excellent (glass is a perfect barrier; lid seal is the variable)</td><td>Good, below the other two</td></tr>\n<tr><td>Light protection</td><td>Excellent (opaque)</td><td>Poor unless stored dark</td><td>Poor (usually clear)</td></tr>\n<tr><td>Cost per unit</td><td>Low, single-use</td><td>Higher up front, reusable for decades</td><td>Low–moderate, reusable</td></tr>\n<tr><td>Resealable in daily use</td><td>Not really (reseal shortens bag)</td><td>Yes — the everyday winner</td><td>Yes, with fresh absorbers</td></tr>\n<tr><td>Durability</td><td>Puncture is the risk; store in bins</td><td>Breakage is the risk</td><td>High</td></tr>\n<tr><td>Retail fitness</td><td>The cottage standard</td><td>Heavy, costly to sell</td><td>Rare at market</td></tr>\n</tbody>\n</table>\n</div>\n<h2 id=\"long-term-storage-mylar-with-discipline\">Long-term storage: mylar, with discipline</h2>\n<p>For sealed-and-forgotten storage, thick metallized mylar wins: an excellent\nmoisture, oxygen, <em>and</em> light barrier at a low per-bag cost. The qualifier is\ndiscipline, since its performance depends entirely on execution: bags in the 5–7.5 mil\nrange (not thin decorative pouches), absorbers sized around 100 cc per quart\n(300–500 cc per gallon bag), a clean wrinkle-free seal, and a next-day check that\nthe bag has drawn in slightly. Stored inside bins or buckets (mylar’s one weakness\nis puncture) below 70 °F and dark, this is the system behind every serious\nlong-term pantry.</p>\n<h2 id=\"open-and-close-pantry-use-jars\">Open-and-close pantry use: jars</h2>\n<p>Glass is a perfect barrier, and jars are the only option here that’s pleasant to\nopen weekly: vacuum-seal, use some, re-vacuum. The costs are light sensitivity\n(store dark or accept faded, degraded contents), breakage, and shelf-space\neconomics. Jars shine for the crunchy-snack rotation and powdered ingredients; they\nmake little sense for 40 pounds of long-horizon food storage.</p>\n<h2 id=\"pete-the-situational-third\">PETE: the situational third</h2>\n<p>Food-grade PETE bottles and jars with absorbers are extension-approved and durable,\nbut their barrier performance sits below mylar and glass, and they’re usually\nclear. They’re a fine home for bulk staples you’ll cycle through in a year or two,\nand a poor one for decade-scale storage of anything delicate.</p>\n<h2 id=\"for-sellers-the-answer-is-narrower\">For sellers, the answer is narrower</h2>\n<p>Cottage retail runs on printed mylar-style pouches: light, cheap to ship to you,\nattractive on a market table. Two honest caveats. First, many retail candy pouches\nare thinner than storage-grade mylar; that’s acceptable for product that sells\nwithin weeks, but label a realistic best-by window rather than borrowing “25-year”\nstorage claims from thick-mylar practice. Second, your absorber-and-seal discipline\nis now a customer-experience issue: a stale bag isn’t lost inventory, it’s a lost\nrepeat buyer. Our <a href=\"/troubleshooting/storage-failure\">storage-failure checklist</a>\ndoubles as a pre-market QA list.</p>\n<h2 id=\"bottom-line\">Bottom line</h2>\n<p>Mylar for the deep pantry, jars for the working shelf, PETE for cycled bulk, and\nretail pouches (honestly dated) for the market table. All four fail the same way:\na spent absorber or a wrinkled seal. The container matters less than the closing\nritual.</p>\n",
-  "section": "Storage"
+  "bodyHtml": "<p><strong>The short version:</strong> for food you seal once and leave alone, the published barrier numbers point at foil-laminate mylar inside a rigid outer container &mdash; a 4.3 mil foil laminate is specified at <strong>0.001 cc/m&sup2;/24 hrs</strong> oxygen transmission [1], while a 4.0 mil nylon/PE vacuum-sealer film from the same manufacturer is specified at <strong>4.25 cc/100 in&sup2;/24 hrs</strong> [3]. For food you open every week, a jar earns its place on reseal, not on barrier. And no manufacturer in this set publishes a light-transmission figure for any finished food bag, so light is the one criterion here that cannot be ranked at all.</p>\n\n<h2>The five containers, compared</h2>\n<p>Every cell below is what a manufacturer, extension service or regulator publishes, reproduced in the units they published it in. Blank cells are absences, not omissions &mdash; the searches behind them are listed further down.</p>\n<div class=\"table-scroll\">\n<table>\n<caption>Five storage containers against the criteria published for each</caption>\n<thead>\n<tr><th></th><th><strong>Foil-laminate mylar bag</strong></th><th><strong>Mason / canning jar</strong></th><th><strong>Vacuum-sealer bag</strong> (nylon/PE or embossed)</th><th><strong>Kraft pouch</strong></th><th><strong>Bucket / pail</strong></th></tr>\n</thead>\n<tbody>\n<tr><th scope=\"row\">Barrier, as published</th><td>4.3 mil PET/PE/foil/LLDPE: OTR <strong>0.001 cc/m&sup2;/24 hrs</strong>, WVTR &lt;0.0005 gr/100 in&sup2;/24 hrs [1]. 7.5 mil foil laminate: OTR &lt;0.0005 cc/100 in&sup2;/24 hrs at 77&deg;F, 90% RH [4]. The barrier is attributed to the metal, not the gauge &mdash; &quot;It is only the aluminum on the surface that keeps the oxygen out&quot; [12]</td><td>No OTR or WVTR figure published for glass in any source retrieved. Extension frames the jar as barrier-neutral and the closure as the variable: jars keep freeze-dried food &quot;many years&quot; <em>only</em> with an oxygen absorber or a vacuum seal [16]</td><td>4.0 mil nylon/adhesive/PE: OTR <strong>4.25 cc/100 in&sup2;/24 hrs</strong>, WVTR 0.26 gr/100 in&sup2;/24 hrs [3]. Extension is blunt about what vacuum does and does not do: &quot;vacuum packaging is NOT a food preservation method by itself&quot; [11]. Penn State puts vacuum-in-plastic at 2&ndash;3 years for freeze-dried food because &quot;plastic allows some permeability&quot; [16]</td><td>Two different products under one name. Foil-lined kraft (kraft/PE/foil/LDPE, 5.0 mil): OTR <strong>0.01 cc/m&sup2;/24 hrs</strong>, WVTR 0.0005 gr/100 in&sup2;/24 hrs [2]. Window kraft: <strong>no foil</strong> &mdash; &quot;This product does not have foil lining&quot; [4], structure &quot;Front: KPET/LLDPE, Back: Kraft/LLDPE&quot; [4] or &quot;Paper/PET/NY/LLDPE&quot; [6], and <strong>neither publishes an OTR or WVTR at all</strong> [4][6]</td><td>No OTR or WVTR published for HDPE pails in any source retrieved. Extension states the general case for plastics: they &quot;are not that resistant to oxygen transfer and will allow significant oxygen levels into the container in 1 to 2 years&quot; [11], and prescribes the fix: &quot;Lining PETE buckets with mylar will decrease this oxygen exchange&quot; [18]. Working volume: a 5-gallon pail is <strong>18,942 cc</strong>, a #10 can 3,980 cc [19]</td></tr>\n<tr><th scope=\"row\">Light</th><td>Opaque [1]. No % transmission published by any manufacturer searched. The only optical figure found anywhere is 3.0% haze for the bare PET layer [8]</td><td>Clear unless darkened. Extension recommends darkened jars for light-sensitive items such as dried milk [11]</td><td><strong>Transparent</strong> &mdash; no light barrier [3]</td><td>Opaque on the kraft face; the window versions are the only deliberately transparent panel in this table [4][6]</td><td>Opaque or translucent depending on the pail. No figure published</td></tr>\n<tr><th scope=\"row\">Reseal</th><td>Yes, by cutting and re-sealing: &quot;if opened carefully, polyester film bags can be resealed for multiple uses&quot; [14], conditional on bag height remaining [15]. Each cycle consumes bag</td><td>The strongest of the five &mdash; the lid is the closure, and reseal is unlimited by design. Named by a manufacturer as the storage vessel for leftover absorbers: &quot;an airtight glass jar or vacuum-sealed Mylar bag&quot; [14]</td><td>Yes, if you own the sealer; each reseal shortens the bag</td><td>Heat-sealable [6]; stand-up format holds shape between openings</td><td>Lid-dependent; no published reseal-cycle data</td></tr>\n<tr><th scope=\"row\">Durability</th><td>Puncture &gt;18 psi at 4.3 mil [1]. Rated as a liner, not a package: &quot;Mylar is not strongly resistant to insect penetration and not resistant at all to rodents&quot; [13]</td><td>Rigid and rodent-resistant, but breakable. No puncture or drop figure published</td><td>Puncture 20.5 lb [3]. Embossed consumer bags are 5-ply, 3 mil smooth / 8 mil mesh [7]</td><td>Not published by either manufacturer [4][6]</td><td>The rigid outer layer the mylar bag is explicitly said to need &mdash; mylar has &quot;poor puncture resistance so it must be used as an interior liner for more puncture resistant containers&quot; [13]. Not rodent-proof on its own: &quot;If mice chew through your buckets, they'll go right through the bags&quot; [13]</td></tr>\n<tr><th scope=\"row\">Cost, checked 2026-09-06</th><td>5-gallon 5.5 mil, 200-count case: <strong>$249.00 = $1.245/bag</strong>, falling to $199 per case at 6&ndash;10 cases [9]</td><td><strong>Not published</strong> in any source in this set</td><td>Chamber-type 8.4375&quot;&times;12.875&quot;, 500/case: <strong>$43.90 = $0.088/bag</strong> [3]. Embossed 6&quot;&times;10&quot;, 100/carton: <strong>$16 = ~$0.16/bag</strong>, to $0.14 at 5+ cartons [7]</td><td>Foil-lined kraft stand-ups: <strong>$94.55&ndash;$206.35 per 1,000-count case</strong> by size [5]. Kraft window pouch, 1,000/carton: <strong>$272 = ~$0.27/pouch</strong>, $247 at 5+ cartons [6]</td><td><strong>Not published</strong> in any source in this set</td></tr>\n<tr><th scope=\"row\">Where it fits</th><td>Sealed once, opened once, inside something rigid</td><td>Anything you open weekly</td><td>Freezer and short-cycle storage; a headspace-reduction step, not an oxygen step</td><td>Retail presentation and short shelf cycles</td><td>The outer shell around a lined bag</td></tr>\n</tbody>\n</table>\n</div>\n\n<p><strong>The unit trap, before you compare any two rows.</strong> Three oxygen-transmission unit systems appear across these datasheets: cc/m&sup2;/24 hrs [1][2], cc/100 in&sup2;/24 hrs [3], and cc per 100 sq in/24 hrs at 100% oxygen [4]. One square metre is roughly 1,550 square inches. A reader who sets &quot;0.001 cc/m&sup2;/24 hrs&quot; [1] beside &quot;4.25 cc/100 in&sup2;/24 hrs&quot; [3] without converting will understate the gap by about three orders of magnitude. Test conditions make it worse: only the 7.5 mil sheet states its temperature and humidity (77&deg;F at 90% RH) [4]; the 4.3 mil and vacuum-film sheets give the ASTM method and no conditions at all [1][3].</p>\n\n<p><strong>Thickness is measured two ways by two sellers.</strong> One manufacturer publishes &quot;7.5 mil per side (15 mil total)&quot; [10]; the datasheet grade of the same nominal thickness states 7.5 mil as the film gauge, i.e. per wall [4]. This matters at the seal more than at the barrier: a bag manufacturer points out that a 7-mil bag presents &quot;7-mil on each side = 14 mil total sealing thickness&quot; [20], and one 12&quot; tabletop sealer rated to 8 mil for ordinary bags caps &quot;Metalized Food Bags&quot; at <strong>2.5 mil</strong> on the same machine [21].</p>\n\n<h2>For food kept sealed</h2>\n<p>This is the case the foil laminate is built for, and the case where the container is the smaller half of the decision. The published mylar specification for freeze-dried food is narrow: &quot;5&ndash;7 mil thickness, no clear plastic window,&quot; plus an oxygen absorber [17]. The window is disqualifying, which is exactly why the kraft-window pouches in the table above sit in a different section.</p>\n<p>Two preconditions travel with every shelf-life figure attached to a sealed container. The food has to be dry &mdash; &quot;Foods should be below 10% moisture content for storing with absorbers&quot; [18] &mdash; and a low-oxygen package does not make a wet food safe. NC State Extension states the consequence plainly: &quot;This low-oxygen environment is just right for the development of several pathogens, but one to be specifically concerned about is botulism,&quot; and adds that &quot;these disease-causing bacteria may not change the color or look of the food&quot; [22]. Vacuum sealing does not substitute for either condition [11][22]. Extension measurement of small-scale freeze-dryer output found &quot;the water activity did not ever rise above 0.6, indicating that no food safety or spoilage risk occurred&quot; [26], and USU puts finished freeze-dried product at &quot;about 0.3 or below, with many products falling in the range of 0.08&ndash;0.33&quot; [17].</p>\n<p>Absorber sizing is where sources stop agreeing. For a one-gallon container, the published figures in this set run 300 cc from extension [18] and <strong>700 cc</strong> from the freeze-dryer manufacturer, carrying only the condition &quot;For use in gallon-size Mylar bags&quot; [27] &mdash; the highest figure found and the thinnest condition attached to one. Extension's 2011 numbers are quart 50 cc, gallon or #10 can 300 cc, and three 500 cc packets for a 5-gallon container [18]. Sizing is by residual air volume, not food weight, and the reference volumes are 18,942 cc for a 5-gallon pail and 3,980 cc for a #10 can [19].</p>\n<p>Expect no visual confirmation. Absorbers take the oxygen fraction only, so &quot;1/5 of the air volume will be gone but 4/5 of the air will always remain&quot; [15], and a vacuum-packed look is not a test &mdash; &quot;It's a misconception that a 'vacuum-packed' look confirms the oxygen has been removed&quot; [14]. The published checks are mechanical: once cool, &quot;try to pull the mouth of the bag open. If it doesn't come open&hellip;&quot; the seal is holding, and folding the bag into a pail until trapped air pillows up and watching whether it deflates [13]. Foil micro-cracks at the folds are normal &mdash; &quot;Tiny breaks in the foil layer&hellip;are not holes&hellip; their barrier properties are not significantly affected&quot; [12] &mdash; and a bag that passes light through a flashlight test is not thereby defective, since &quot;inside a metalized bag in a cool, dark storage place, there is virtually no effect from light&quot; [12]. Absorbers themselves have a short open window: use within 15 minutes, and a spent one is &quot;brown and clumped together compared to a fresh pink or gray powder&quot; [18].</p>\n<p>Seal temperature, where anyone publishes it: 400&deg;F / 40 PSI / 1 sec for the 4.3 mil foil laminate [1], 375&ndash;425&deg;F for a flat iron on 7-mil bags [20], and 250&ndash;300&deg;F published by one seller <em>for the bare PET layer only, not the laminate</em> [8]. A home user who takes the 250&ndash;300&deg;F figure to a foil bag will under-seal it. And a vacuum sealer is not disqualified as a <em>sealer</em>: one manufacturer endorses using a FoodSaver with the pump off, &quot;just use the sealing feature&quot; [15], while a bag maker says the machine cannot manage 14 mil of stack [20]. Both positions are published; neither is tested.</p>\n\n<h2>For food opened often</h2>\n<p>Here the ranking inverts. A mylar bag is a single-seal package that gives up height every time you cut it [14][15], and an oxygen absorber is single-use &mdash; once its capacity is spent it does not recharge, which is why re-adding one is part of every reseal. A jar closes and reopens indefinitely, and extension puts glass with an absorber or a vacuum seal at &quot;many years&quot; while zip-top bags get &quot;a few months&quot; and vacuum-in-plastic 2&ndash;3 years [16].</p>\n<p>The sorbent also changes. For repeatedly opened containers the documented failure mode is moisture, not oxidation: a packaging manufacturer names freeze-dried goods in re-opened containers, along with salt and sugar, as the desiccant cases, and gives the physical separation rule if you run both &mdash; &quot;Oxygen absorbers have built in moisture to make them work; it is imperative to keep the desiccants separated from the oxygen absorbers&quot; [28]. Published desiccant sizing is &quot;about 1 gram of silica gel for roughly 120 cubic inches of space,&quot; which works out at 1&ndash;2 grams for a standard mason jar and 5&ndash;10 grams for a quart or gallon mylar bag [29]. Whether desiccants and absorbers belong in the same container at all is disputed between manufacturers, and none of them publishes a test.</p>\n<p>One practical consequence of the jar: it is clear. Extension recommends darkened jars for light-sensitive items such as dried milk [11], and the freeze-drying guidance rules out clear windows in bags for the same reason [17] &mdash; while a manufacturer argues light is irrelevant in a dark cupboard [12]. Nobody publishes a number that would settle it, which is covered below.</p>\n\n<h2>For carrying or selling</h2>\n<p>A pouch that travels is judged on presentation and closure as much as on barrier, and this is where the two kraft products separate. The foil-lined kraft laminate is a real barrier material with a published OTR of 0.01 cc/m&sup2;/24 hrs [2]; the window pouches that look like it are not, and their manufacturers say so &mdash; &quot;This product does not have foil lining&quot; [4], with structures that contain no metal layer [4][6]. Neither window pouch publishes an oxygen or moisture transmission figure [4][6]. If a customer stores your product for a year, that difference is the whole product.</p>\n<p>The rules on selling are state law, and they are not uniform. Some examples of the shapes they take, as published:</p>\n<ul>\n<li><strong>Ohio</strong> restricts the packaging method directly: &quot;Cottage food products may not be packed using reduced oxygen packaging&quot; [23]. That reaches an absorber-in-mylar pack.</li>\n<li><strong>Illinois</strong> permits dehydrated foods and states a target rather than a filing: &quot;Are dehydrated foods allowed? Yes, as long as no prohibited ingredients (such as meat, dairy, etc.) are included. For safety, aim for a water activity of 0.85 or less&quot; [24]. Its pH language, by contrast, requires a lab report [24].</li>\n<li><strong>New York</strong> lists &quot;Freeze-dried foods&quot; among products prohibited under its home processing exemption, and prohibits home drying of fruits and herbs while permitting repackaging of commercially dried ones [25].</li>\n</ul>\n<p>Labeling elements recur across states &mdash; producer name and address, product name, ingredients by weight, allergens, net weight &mdash; but the required disclosure sentence is written per state and does not port across a state line [23][24][25]. Sublime Pantry describes what these documents say; it does not tell you what is permitted where you live. The operative step is to ask your own state agency in writing and keep the reply.</p>\n\n<h2>What we could not source</h2>\n<ul>\n<li><strong>A light-transmission figure for any finished food bag.</strong> Every source treats light qualitatively. The only numeric optical property found in the whole search is 3.0% haze for a bare PET layer [8]. No container in the table above can be ranked on light, and no extension source publishes a lux figure, an exposure duration, or a vitamin-loss percentage to rank them against.</li>\n<li><strong>Oxygen or moisture transmission for glass jars and HDPE buckets.</strong> Neither appears in any retrieved datasheet. The bucket case rests on a general statement about plastics at 1&ndash;2 years [11] and on the instruction to line them [18].</li>\n<li><strong>Barrier numbers from the largest consumer mylar seller.</strong> Site-restricted searches for an OTR or WVTR value returned product and FAQ pages carrying marketing language only &mdash; no numeric barrier figure, no layer identities beyond &quot;three layers,&quot; no seal temperature. The specification data in this article comes from a converter that publishes datasheets [1][2][3][4].</li>\n<li><strong>Retail per-bag pricing for the case-only items.</strong> The kraft and vacuum SKUs above are sold by the case, so there is no comparable small-quantity price [3][5][6].</li>\n<li><strong>Whether &quot;7.5 mil&quot; means one wall or two.</strong> One seller publishes per side and total [10]; the datasheet grade publishes film gauge [4]. Unreconciled, and it decides whether a given sealer is in or out of spec [20][21].</li>\n<li><strong>A freeze-dried class on any absorber sizing chart.</strong> The charts stop at &quot;pasta and thicker, less dense foods.&quot; The one freeze-dryer manufacturer figure found, 700 cc per gallon bag [27], carries no food class and no fill level.</li>\n<li><strong>Sublime Pantry has bench-tested none of this.</strong> Every figure above is somebody else's published claim, with its units, conditions and publisher attached.</li>\n</ul>\n\n<h2>Next</h2>\n<ul>\n<li><a href=\"/compare/kraft-vs-mylar\">Kraft versus mylar</a> &mdash; the bag decision, in detail.</li><li><a href=\"/guides/mylar-absorber-myths\">Six beliefs the manufacturers contradict</a> &mdash; the folklore around sealing and absorbers.</li><li><a href=\"/troubleshooting/storage-failure\">When stored food fails</a> &mdash; what each container's failure mode looks like.</li>\n</ul>\n<p><strong>Sold by Sublime Pantry:</strong> <a href=\"/shop/snack-bags-6x6-50-pack-absorbers\">Snack Bags 6×6 — 50 Pack</a> &mdash; the mylar half of this comparison, with the absorber already matched to the bag.</p>",
+  "updatedDate": "2026-09-09"
 }
