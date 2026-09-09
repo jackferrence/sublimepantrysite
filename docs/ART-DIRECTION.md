@@ -18,14 +18,19 @@ not need one to be complete.
 These are not stylistic preferences. They are the conditions under which a
 photograph is allowed to appear on this site at all.
 
-- **One kitchen, one day, ~24 frames.** Consistency of room, surface and light
-  matters more than variety of subject.
+- **Use exact media for products; documentary media for context.** Supplier or
+  original pack images must match the active SKU on shop surfaces. Licensed
+  stock may establish a process or setting, but it must never stand in for a
+  product, our equipment, or evidence of Sublime Pantry testing.
 - **Window light from one side.** No flash, no ring light, no bounce card
   fighting the window. Shadows fall the same direction in every frame.
 - **Warm white balance**, matched across the set. The site ground is `#faf7f1`;
   photographs that read cool or grey will fight it.
-- **No stock. No AI. Nothing generated.** Every frame is a photograph of this
-  equipment in this kitchen.
+- **Stock must be useful, licensed, and recorded.** Prefer hands mid-task,
+  believable work surfaces, storage shelves, trail meals, and cooking process.
+  Record source, creator, acquisition date, permitted uses, restrictions,
+  crop safety, alt text, and credit in the asset manifest. Avoid staged eye
+  contact, generic kitchens, survival cosplay, and images chosen for mood alone.
 - **Nothing staged to imply testing that has not happened.** We publish
   specification comparisons, not bench tests (see `/review-methodology`). A
   photograph that looks like a controlled test is a claim, and we have not

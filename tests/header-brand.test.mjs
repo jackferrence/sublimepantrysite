@@ -56,10 +56,13 @@ test('the footer keeps the full lockup', () => {
   assert.match(f, /<svg[^>]*class="mark/, 'the footer keeps the token-drawn Mark');
 });
 
-test('the plate colour has exactly one name', () => {
+test('the approved ice colour has one primitive and semantic aliases use it', () => {
+  const source = readFileSync(new URL('../src/styles/tokens.tokens.json', import.meta.url), 'utf8');
+  const tokens = JSON.parse(source);
+  assert.equal(tokens.color.brand.ice.$value, '#B4D9EC');
+  assert.equal((source.match(/#B4D9EC/gi) ?? []).length, 1, 'the approved hex belongs to one primitive token');
   const css = readFileSync(new URL('../public/styles/base.css', import.meta.url), 'utf8');
-  const declarations = [...css.matchAll(/--([a-z-]+):\s*#b0ddec/gi)].map((m) => m[1]);
-  assert.deepEqual(declarations, ['logo-frost'], 'one hex, one token — no --ice-pale duplicate');
+  assert.match(css, /--logo-frost:\s*var\(--color-brand-ice\)/);
 });
 
 test('the documented rules match what the code does', () => {
