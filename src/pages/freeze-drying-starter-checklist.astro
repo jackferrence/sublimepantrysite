@@ -90,10 +90,31 @@ import { CHECKLIST_SECTIONS, CHECKLIST_RULE } from '../lib/checklist';
   .next-reading { margin-top: var(--s6); max-width: var(--measure); }
   .next-reading p { color: var(--ink-soft); }
 
+  /*
+   * What goes on the paper.
+   *
+   * Section 8.25: the print view carries the title and the key qualification,
+   * and leaves out navigation, product promotion and the newsletter form. It
+   * was doing the opposite with the qualification — `.checklist-note` holds
+   * "packaging cannot fix an under-dried batch", the one rule the whole sheet
+   * exists to enforce, and it was hidden on the printed copy while the site
+   * header, footer and signup form all printed.
+   *
+   * A checklist ends up taped to a machine. What survives that trip is the
+   * paper, so the paper is what has to carry the warning.
+   */
   @media print {
-    .print-button, .checklist-shop, .next-reading, .checklist-note { display: none !important; }
+    .print-button,
+    .checklist-shop,
+    .next-reading,
+    :global(.site-header),
+    :global(.site-footer),
+    :global(.newsletter),
+    :global(.breadcrumbs) { display: none !important; }
+    .checklist-note { display: block !important; border: 1px solid #000; padding: .5rem; }
     .checklist-page { padding: 0; }
     .checklist-grid { gap: .5rem; }
-    .checklist-card { break-inside: avoid; }
+    .checklist-card { break-inside: avoid; border: 1px solid #999; }
+    a[href]::after { content: none !important; }
   }
 </style>

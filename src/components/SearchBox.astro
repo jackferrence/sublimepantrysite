@@ -22,7 +22,7 @@ const { id, label = 'Search Sublime Pantry', autofocus = false } = Astro.props;
     id={id}
     type="text"
     role="searchbox"
-    placeholder="Search guides, fixes, comparisons…"
+    placeholder="Search machines, batch problems and storage…"
     autocomplete="off"
     autofocus={autofocus || undefined}
     data-search-input
@@ -105,7 +105,7 @@ const { id, label = 'Search Sublime Pantry', autofocus = false } = Astro.props;
 
         list.innerHTML = '';
         if (!results.length) {
-          status.textContent = 'No results for \u201C' + query + '\u201D.';
+          status.textContent = 'No matching articles. Try a food, machine or symptom.';
           return;
         }
         status.textContent = search.results.length + (search.results.length === 1 ? ' result.' : ' results.');
