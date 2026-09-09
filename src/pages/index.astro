@@ -25,6 +25,7 @@ import Newsletter from '../components/Newsletter.astro';
 import { CATALOG, SHIPPING, ownedEyebrow } from '../lib/commerce';
 import { articleHref, type Article } from '../lib/articles';
 import { findAsset, largest, srcSet } from '../lib/assets';
+import { homepageTool } from '../lib/tools';
 
 // Ask the library by intent and take null for an answer. The alt text arrives
 // with the photograph or there is no photograph — a hard-coded sentence here
@@ -103,6 +104,15 @@ const FAQ = [
   },
 ];
 
+/**
+ * The homepage tool slot.
+ *
+ * Renders the one tool that has asked to be embedded, and nothing at all until
+ * one does. An empty slot is empty: a placeholder announcing a tool that is not
+ * here would be the same class of claim as a nav item pointing at a 404.
+ */
+const embedded = homepageTool();
+
 const kit = CATALOG[0];
 const workflow = article('complete-batch-workflow');
 ---
@@ -160,6 +170,17 @@ const workflow = article('complete-batch-workflow');
       </ul>
     </div>
   </section>
+
+  {embedded && (
+    <section class="module" aria-labelledby="tool-slot-heading">
+      <div class="wrap card tool-slot">
+        <span class="kicker">Free tool</span>
+        <h2 id="tool-slot-heading">{embedded.answers}</h2>
+        <p>{embedded.summary}</p>
+        <a class="btn btn-primary" href={embedded.href} data-sp-event="tool_promo_click">Open the {embedded.name}</a>
+      </div>
+    </section>
+  )}
 
   <section class="module" aria-labelledby="routine-heading">
     <div class="wrap routine">
@@ -287,6 +308,10 @@ const workflow = article('complete-batch-workflow');
   .trust-links { color: var(--ink-soft); }
   .trust-example { padding: var(--s3); }
   .trust-example p { margin: var(--s1) 0 var(--s2); color: var(--ink-soft); }
+
+  .tool-slot { padding: var(--s4); }
+  .tool-slot h2 { margin: var(--s1) 0 var(--s2); }
+  .tool-slot p { color: var(--ink-soft); max-width: 60ch; }
 
   .section-lede { color: var(--ink-soft); max-width: 60ch; }
   .shop-caveat { margin-top: var(--s3); }

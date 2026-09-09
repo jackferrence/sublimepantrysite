@@ -1,0 +1,46 @@
+---
+/**
+ * The Dry Batch — what it is, before you are asked to subscribe to it.
+ *
+ * Every other signup on the site is a form beside an offer. This is the page
+ * for the reader who wants to know what arrives before giving an address, so
+ * it describes the email and then asks, in that order.
+ *
+ * Two things it deliberately does not say. It does not promise what each issue
+ * contains — M15 retired a per-issue format nobody had confirmed we could meet.
+ * And the "What subscribers get" section describes the standard the writing is
+ * held to, not a sample issue: there are no back issues, so there is nothing to
+ * link and nothing to preview. The section is sized to hold one when there is.
+ */
+import PageLayout from '../layouts/PageLayout.astro';
+import Newsletter from '../components/Newsletter.astro';
+---
+<PageLayout
+  title="The Dry Batch — a weekly freeze-drying email"
+  description="A weekly email on batch decisions, troubleshooting and storage, with the sources to follow. Subscribers get the printable Starter Checklist."
+  path="/newsletter"
+  breadcrumbs={[{ label: 'Newsletter', href: '/newsletter' }]}
+>
+  <span class="kicker">Newsletter</span>
+  <h1>The Dry Batch</h1>
+  <p class="lede">A weekly email on batch decisions, troubleshooting and storage, with the sources to follow.</p>
+
+  <p>It goes out once a week and covers the same ground as the site: what to change when a batch comes out wrong, how to decide between machines or containers, and what the published guidance actually says. Where a claim rests on a source, the email names it and links it, so you can disagree with us from the same page we read.</p>
+
+  <h2>What you get when you subscribe</h2>
+  <p>The printable <a href="/freeze-drying-starter-checklist">Starter Checklist</a> — one page of the checks worth running on every batch, from tray prep to a labelled sealed bag. It is free to open whether or not you subscribe; subscribing sends it to you so it is in your inbox when you need it.</p>
+  <h2>What we hold it to</h2>
+  <p>The same standard as everything published here. No shelf-life promises, no invented test results, and no advice we cannot point at a source for. Where the evidence runs out, the email says so rather than filling the gap with something that sounds right.</p>
+  <p class="meta">There are no back issues to read yet. When there are, a sample will sit here so you can judge the writing before subscribing rather than after.</p>
+
+  <section class="signup" aria-labelledby="newsletter-signup-heading">
+    <h2 id="newsletter-signup-heading" class="sr-only">Subscribe to The Dry Batch</h2>
+    <Newsletter heading="Get the checklist and the weekly email" />
+  </section>
+
+  <p class="meta">Every issue carries an unsubscribe link, and we use your address only for the content described above. See our <a href="/privacy">privacy policy</a>.</p>
+</PageLayout>
+
+<style>
+  .signup { margin: var(--s5) 0 var(--s4); }
+</style>

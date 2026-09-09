@@ -15,7 +15,8 @@ const columns = [
   { id: 'company', heading: 'Company', items: live(FOOTER_COMPANY) },
 ];
 
-const archive = NEWSLETTER_ARCHIVE.pending ? null : NEWSLETTER_ARCHIVE;
+// One rule for what gets linked, wherever it is linked from.
+const archive = live([NEWSLETTER_ARCHIVE])[0] ?? null;
 ---
 <footer class="site-footer">
   <div class="wrap">
