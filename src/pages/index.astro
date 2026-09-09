@@ -1,45 +1,129 @@
 ---
+/**
+ * The homepage, rewritten to section 7 of the messaging audit.
+ *
+ * The page objective is a consented newsletter subscription, and the old page
+ * pointed at two other things first: the hero's primary button opened the
+ * checklist page, its secondary opened the buying guide, and the signup form
+ * sat below the guides, the product and the tool. M07. The hero now leads to
+ * the form, and the three routes into the site are stated as the questions a
+ * reader actually arrives with rather than as three article cards.
+ *
+ * U05: the image slot held the brand monogram, because `findAsset` has never
+ * resolved a `brand` frame and the fallback is `<Mark>`. Section 7 asks for the
+ * real printable checklist preview and explicitly rules out an invented test
+ * bench or stock photography passed off as our own batches. `ChecklistPreview`
+ * renders the checklist's own contents; if a photograph of the sheet is ever
+ * catalogued, it takes the slot and the preview steps aside.
+ */
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Card from '../components/Card.astro';
+import ChecklistPreview from '../components/ChecklistPreview.astro';
 import Img from '../components/Img.astro';
-import Mark from '../components/Mark.astro';
 import Newsletter from '../components/Newsletter.astro';
 import { CATALOG, SHIPPING, ownedEyebrow } from '../lib/commerce';
-import { heroImage as articleHero, articleHref, type Article } from '../lib/articles';
+import { articleHref, type Article } from '../lib/articles';
 import { findAsset, largest, srcSet } from '../lib/assets';
 
-// The homepage hero asks the library for a wide brand frame and takes null for
-// an answer — today there is no `brand` asset, so the mark panel renders. It
-// used to resolve `/images/hero.jpg` against a hard-coded alt reading "Hands
-// loading prepared food trays into a home freeze dryer", which meant the first
-// file dropped at that path would ship that sentence to screen readers whatever
-// it actually showed. Asking by intent makes that impossible: alt arrives with
-// the photograph or there is no photograph.
+// Ask the library by intent and take null for an answer. The alt text arrives
+// with the photograph or there is no photograph — a hard-coded sentence here
+// would describe whatever file landed at the path, which is how the previous
+// hero shipped "Hands loading prepared food trays into a home freeze dryer" for
+// an image nobody had seen.
 const hero = findAsset({ cls: 'brand', ratio: '16:9', context: 'editorial' });
 const heroFrame = hero ? largest(hero, '16:9') : null;
 
 const articles = await getCollection('articles');
 const byId = new Map(articles.map((entry) => [entry.id, entry]));
-const startHere = ['complete-batch-workflow', 'which-freeze-dryer', 'home-freeze-dryers']
-  .map((id) => byId.get(id))
-  .filter((entry): entry is Article => Boolean(entry));
+const article = (id: string) => byId.get(id) as Article | undefined;
+
+/**
+ * Section 7's three routes in. Each is the question in front of the reader, not
+ * a description of the page it leads to — a visitor who has just closed the
+ * machine door is not looking for "guides".
+ */
+const ROUTES = [
+  {
+    heading: 'Running your next batch?',
+    body: 'Work through preparation, dryness checks, packaging and labeling in order.',
+    label: 'Follow the batch workflow',
+    href: '/guides/complete-batch-workflow',
+  },
+  {
+    heading: 'Something came out wrong?',
+    body: 'Find the checks for wet centers, chewy candy, vacuum errors or food that changed in storage.',
+    label: 'Find your symptom',
+    href: '/troubleshooting',
+  },
+  {
+    heading: 'Still choosing a machine?',
+    body: 'Compare batch capacity, space, power, maintenance and warranty before you buy.',
+    label: 'Read the buying guide',
+    href: '/guides/which-freeze-dryer',
+  },
+];
+
+const ROUTINE = [
+  {
+    heading: 'Find the guidance for your batch.',
+    body: 'Start with the food, symptom or decision you are working on.',
+  },
+  {
+    heading: 'Check, package and record.',
+    body: "Use the checklist alongside your machine's instructions, then save the details that affected the result.",
+  },
+  {
+    heading: 'Plan the next run.',
+    body: 'Compare your notes so you are not starting from memory every time.',
+  },
+];
+
+/**
+ * Section 7's homepage FAQ. These are answers, not teasers — the same standard
+ * M14 applied to the articles. Every one of them is a limit: what we have not
+ * done, what we do not sell, who ships the kit.
+ */
+const FAQ = [
+  {
+    q: 'What is The Dry Batch?',
+    a: 'A weekly email about freeze-drying decisions, troubleshooting and storage, with sources you can follow. The printable Starter Checklist is included when you subscribe.',
+  },
+  {
+    q: 'Do you test the machines?',
+    a: 'We have not bench-tested freeze dryers. Our comparisons assess published specifications and documentation, with sources and dates shown.',
+  },
+  {
+    q: 'Do you sell freeze dryers or food?',
+    a: 'No. We publish freeze-drying guidance and sell packaging. The Reserve Starter Kit is the only product we currently sell.',
+  },
+  {
+    q: 'Who ships the kit?',
+    a: 'PackFreshUSA ships it directly to you. Sublime Pantry is your contact for order questions and returns.',
+  },
+];
+
+const kit = CATALOG[0];
+const workflow = article('complete-batch-workflow');
 ---
 <BaseLayout
-  title="Home freeze-drying, batch by batch"
-  description="Sublime Pantry helps home freeze-drying enthusiasts and cottage sellers run better batches: machine decisions, troubleshooting, storage that lasts, and the economics of selling what you dry."
+  title="Know what to do with your next freeze-drying batch"
+  description="Practical guides to freeze-drying prep, batch checks and packaging, with dated sources and clear limits. Get the free printable Starter Checklist and The Dry Batch each week."
   path="/"
 >
   <section class="hero module">
     <div class="wrap hero-grid">
       <div class="hero-copy">
-        <span class="kicker">For home freeze-driers &amp; cottage sellers</span>
-        <h1>Home freeze-drying, batch by batch</h1>
-        <p class="lede">Machine decisions, batch troubleshooting, storage that actually lasts, and the real economics of selling what you dry. Every claim carries the source it came from.</p>
+        <span class="kicker">Practical guidance for home freeze-drying</span>
+        <h1>Know what to do with your next freeze-drying batch.</h1>
+        <p class="lede">Practical guides to prep, batch checks and packaging — with dated sources and clear limits. Get the free Starter Checklist and <strong>The Dry Batch</strong> each week.</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="/freeze-drying-starter-checklist" data-sp-event="hero_checklist_cta">Get the free Starter Checklist</a>
-          <a class="btn btn-secondary" href="/guides/which-freeze-dryer">Which freeze dryer should you buy?</a>
+          <a class="btn btn-primary" href="#newsletter" data-sp-event="hero_checklist_cta">Get the free checklist</a>
+          {workflow && (
+            <a class="btn btn-secondary" href={articleHref(workflow)}>Read the batch workflow</a>
+          )}
         </div>
+        <p class="hero-proof">Source-cited. Human-reviewed. Written and edited by <a href="/about">Jack Ferrence</a>.</p>
       </div>
 
       <div class="hero-media">
@@ -56,74 +140,109 @@ const startHere = ['complete-batch-workflow', 'which-freeze-dryer', 'home-freeze
             class="hero-img"
           />
         ) : (
-          <div class="hero-panel"><Mark height={120} /></div>
+          <ChecklistPreview />
         )}
       </div>
     </div>
   </section>
 
-  <section class="module" aria-labelledby="start-here">
+  <section class="module" aria-labelledby="routes-heading">
     <div class="wrap">
-      <div class="section-head">
-        <h2 id="start-here">Start here</h2>
-        <a class="btn-text" href="/guides">All guides</a>
-      </div>
-      <div class="card-grid">
-        {startHere.map((entry) => (
-          <Card
-            href={articleHref(entry)}
-            title={entry.data.title}
-            dek={entry.data.description}
-            kicker={entry.data.section ?? entry.data.kicker}
-            image={articleHero(entry)?.src}
-            imageAlt={articleHero(entry)?.alt}
-            transitionName={`sp-title-${entry.id}`}
-          />
+      <h2 id="routes-heading">Start with the question in front of you</h2>
+      <ul class="route-grid">
+        {ROUTES.map((route) => (
+          <li class="card route">
+            <h3>{route.heading}</h3>
+            <p>{route.body}</p>
+            <a class="btn-text" href={route.href}>{route.label} →</a>
+          </li>
         ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="module" aria-labelledby="routine-heading">
+    <div class="wrap routine">
+      <div class="routine-copy">
+        <h2 id="routine-heading">Build a routine you can repeat</h2>
+        <p class="section-lede">A finished cycle still leaves questions. Is the batch ready to package? Which container fits how you will use it? What should you record for next time?</p>
+        <a class="btn btn-secondary" href="/tools/batch-log" data-sp-event="tool_promo_click">Open the free Batch Log</a>
       </div>
+      <ol class="routine-steps">
+        {ROUTINE.map((step, i) => (
+          <li>
+            <span class="routine-n">{i + 1}</span>
+            <div>
+              <p class="routine-h">{step.heading}</p>
+              <p class="routine-b">{step.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="module" aria-labelledby="trust-heading">
+    <div class="wrap trust">
+      <div>
+        <h2 id="trust-heading">Advice you can check</h2>
+        <p>Sublime Pantry is a freeze-drying publication written and edited by Jack Ferrence. Articles link to dated sources, comparisons explain their criteria, and corrections are recorded publicly.</p>
+        <p>Our machine comparisons use published specifications and documentation. <strong>We have not bench-tested freeze dryers.</strong> Where sources disagree or leave a question open, the article explains the limit and what it means for your decision.</p>
+        <p class="trust-links">
+          <a href="/review-methodology">How we review</a> ·
+          <a href="/editorial-standards">Editorial standards</a> ·
+          <a href="/corrections">Corrections</a>
+        </p>
+      </div>
+      <aside class="card trust-example">
+        <span class="kicker">A correction, in public</span>
+        <p>We published the Harvest Right Premier as an oil-free pump. It is an oil pump, and oil-free is a priced upgrade. The comparison was corrected and the change logged.</p>
+        <a class="btn-text" href="/compare/home-freeze-dryers">Read the corrected comparison →</a>
+      </aside>
     </div>
   </section>
 
   <section class="module" aria-labelledby="shop-heading">
     <div class="wrap">
       <div class="section-head">
-        <h2 id="shop-heading">Packaging we sell</h2>
+        <h2 id="shop-heading">Packaging for the next step</h2>
         <a class="btn-text" href="/shop">All packaging</a>
       </div>
-      <p class="section-lede">A deliberately small catalog for storing what you dry, shipped free while we validate fulfillment.</p>
       <div class="card-grid">
-        {CATALOG.map((product) => (
-          <Card
-            href={product.detailsHref ?? '/shop'}
-            title={product.title}
-            dek={product.note}
-            kicker={ownedEyebrow(product)}
-            image={product.image}
-            imageAlt={product.imageAlt}
-            ratio="4/5"
-            fit="contain"
-            price={product.displayPrice}
-            meta={SHIPPING.shortNote}
-          />
+        <Card
+          href={kit.detailsHref ?? '/shop'}
+          title={kit.title}
+          dek={kit.note}
+          kicker={ownedEyebrow(kit)}
+          image={kit.image}
+          imageAlt={kit.imageAlt}
+          ratio="4/5"
+          fit="contain"
+          price={kit.displayPrice}
+          meta={SHIPPING.shortNote}
+        />
+      </div>
+      <p class="section-lede shop-caveat">Choose packaging after you have checked the food and decided how you will store and use it. Packaging does not finish an under-dried batch.</p>
+    </div>
+  </section>
+
+  <section class="module" aria-labelledby="faq-heading">
+    <div class="wrap prose">
+      <h2 id="faq-heading">A few questions before you start</h2>
+      <dl class="home-faq">
+        {FAQ.map((entry) => (
+          <div class="home-faq-row">
+            <dt>{entry.q}</dt>
+            <dd>{entry.a}</dd>
+          </div>
         ))}
-      </div>
+      </dl>
     </div>
   </section>
 
-  <section class="module" aria-labelledby="batch-log-heading">
-    <div class="wrap">
-      <div class="card batch-log">
-        <span class="kicker">Free tool</span>
-        <h2 id="batch-log-heading">The Batch Log &amp; Cost Tracker</h2>
-        <p>Log every batch: food, load weight, cycle hours, packaging, and water-activity readings. See your real cost per batch and per bag. Data stays in your browser; export to CSV anytime.</p>
-        <a class="btn btn-primary" href="/tools/batch-log" data-sp-event="tool_promo_click">Start logging batches</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="module">
+  <section class="module" id="newsletter">
     <div class="prose">
-      <Newsletter />
+      <Newsletter heading="Keep the checklist beside your machine" />
     </div>
   </section>
 </BaseLayout>
@@ -134,21 +253,46 @@ const startHere = ['complete-batch-workflow', 'which-freeze-dryer', 'home-freeze
 
   .hero-copy h1 { margin: 0 0 var(--s3); }
   .hero-actions { display: flex; flex-wrap: wrap; gap: var(--s2); margin-top: var(--s3); }
+  .hero-proof { margin: var(--s3) 0 0; font-size: .9rem; color: var(--ink-soft); }
 
   .hero-media :global(.hero-img) {
     width: 100%; aspect-ratio: 16 / 9; object-fit: cover;
     border-radius: var(--radius); display: block;
   }
-  .hero-panel {
-    aspect-ratio: 16 / 9;
-    display: grid; place-items: center;
-    background: var(--brand-tint);
-    border-radius: var(--radius);
+
+  .route-grid {
+    list-style: none; margin: var(--s3) 0 0; padding: 0;
+    display: grid; gap: var(--s3);
   }
+  @media (min-width: 760px) { .route-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .route { padding: var(--s3); display: flex; flex-direction: column; gap: var(--s1); }
+  .route h3 { margin: 0; font-size: var(--h3); }
+  .route p { margin: 0; color: var(--ink-soft); flex: 1; }
 
-  .section-lede { color: var(--ink-soft); max-width: 60ch; margin-top: calc(var(--s2) * -1); margin-bottom: var(--s3); }
+  .routine { display: grid; gap: var(--s4); }
+  @media (min-width: 900px) { .routine { grid-template-columns: 1fr 1fr; gap: var(--s6); align-items: start; } }
+  .routine-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s3); }
+  .routine-steps li { display: flex; gap: var(--s2); align-items: flex-start; }
+  .routine-n {
+    flex: none; width: 2rem; height: 2rem; border-radius: 50%;
+    display: grid; place-items: center;
+    background: var(--brand-tint); color: var(--brand); font-weight: 700;
+  }
+  .routine-h { margin: 0; font-weight: 700; }
+  .routine-b { margin: .2rem 0 0; color: var(--ink-soft); }
 
-  .batch-log { padding: var(--s4); }
-  .batch-log h2 { margin: 0 0 var(--s2); }
-  .batch-log p { color: var(--ink-soft); max-width: 60ch; }
+  .trust { display: grid; gap: var(--s4); }
+  @media (min-width: 900px) { .trust { grid-template-columns: 1.4fr 1fr; gap: var(--s6); align-items: start; } }
+  .trust p { max-width: 60ch; }
+  .trust-links { color: var(--ink-soft); }
+  .trust-example { padding: var(--s3); }
+  .trust-example p { margin: var(--s1) 0 var(--s2); color: var(--ink-soft); }
+
+  .section-lede { color: var(--ink-soft); max-width: 60ch; }
+  .shop-caveat { margin-top: var(--s3); }
+
+  .home-faq { margin: var(--s3) 0 0; }
+  .home-faq-row + .home-faq-row { margin-top: var(--s3); }
+  .home-faq dt { font-weight: 700; }
+  .home-faq dd { margin: .3rem 0 0; color: var(--ink-soft); max-width: 60ch; }
 </style>

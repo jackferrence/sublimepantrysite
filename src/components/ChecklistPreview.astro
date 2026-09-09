@@ -1,0 +1,94 @@
+---
+/**
+ * A preview of the Starter Checklist that is the Starter Checklist.
+ *
+ * Rendered from `CHECKLIST_SECTIONS`, the same data the printable page renders,
+ * so the hero cannot advertise a checklist whose contents have moved on. Two
+ * items per section is what fits at hero size; the count is the only thing this
+ * component decides.
+ *
+ * Presentational: the printable page is the real destination and it is one link
+ * away, so this is `aria-hidden` and the sighted-only detail it adds — the look
+ * of a printed sheet — costs a screen-reader user nothing. The hero copy beside
+ * it already says what the checklist is, which is the part that carries meaning.
+ */
+import { CHECKLIST_SECTIONS } from '../lib/checklist';
+
+const ITEMS_SHOWN = 2;
+const remaining =
+  CHECKLIST_SECTIONS.reduce((n, s) => n + s.items.length, 0) - CHECKLIST_SECTIONS.length * ITEMS_SHOWN;
+---
+<div class="checklist-preview" aria-hidden="true">
+  <div class="sheet">
+    <p class="sheet-title">The Freeze-Drying Starter Checklist</p>
+    <ul class="sheet-sections">
+      {CHECKLIST_SECTIONS.map((section) => (
+        <li class="sheet-section">
+          <p class="sheet-heading"><span class="sheet-step">{section.step}</span>{section.heading}</p>
+          <ul class="sheet-items">
+            {section.items.slice(0, ITEMS_SHOWN).map((item) => (
+              <li class="sheet-item"><span class="sheet-box"></span>{item}</li>
+            ))}
+          </ul>
+        </li>
+      ))}
+    </ul>
+    <p class="sheet-more">…and {remaining} more checks on the printable page.</p>
+  </div>
+</div>
+
+<style>
+  .checklist-preview {
+    aspect-ratio: 16 / 9;
+    display: grid;
+    place-items: center;
+    background: var(--brand-tint);
+    border-radius: var(--radius);
+    padding: var(--s3);
+    overflow: hidden;
+  }
+  .sheet {
+    background: var(--surface);
+    border: 1px solid var(--mist);
+    border-radius: 4px;
+    box-shadow: 0 10px 24px -18px rgba(34, 29, 25, .5);
+    padding: var(--s3);
+    width: 100%;
+    max-width: 30rem;
+  }
+  .sheet-title {
+    margin: 0 0 var(--s2);
+    padding-bottom: .4rem;
+    border-bottom: 2px solid var(--brand);
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+  .sheet-sections, .sheet-items { list-style: none; margin: 0; padding: 0; }
+  .sheet-sections { display: grid; gap: .6rem; }
+  @media (min-width: 30rem) { .sheet-sections { grid-template-columns: 1fr 1fr; gap: .6rem var(--s3); } }
+  .sheet-heading {
+    margin: 0 0 .25rem;
+    font-size: .68rem;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .sheet-step { color: var(--brand); font-weight: 700; margin-right: .4rem; }
+  .sheet-item {
+    display: flex;
+    gap: .4rem;
+    font-size: .72rem;
+    line-height: 1.35;
+    color: var(--ink);
+    margin-bottom: .2rem;
+  }
+  .sheet-box {
+    flex: none;
+    width: .68rem; height: .68rem;
+    margin-top: .18rem;
+    border: 1px solid var(--ink-soft);
+    border-radius: 2px;
+  }
+  .sheet-more { margin: var(--s2) 0 0; font-size: .68rem; color: var(--ink-soft); }
+</style>
