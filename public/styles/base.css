@@ -196,6 +196,55 @@ thead th, th[scope="col"] {
 }
 caption { caption-side: bottom; font-size: .88rem; color: var(--ink-soft); padding-top: var(--s1); text-align: left; }
 
+/* The row label is the only thing that says which criterion a value belongs to.
+   In a table wider than the screen it is the first thing to scroll away, which
+   leaves the reader looking at "$2,395 [1]" with nothing to attach it to. */
+.table-scroll th[scope="row"] {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--paper);
+  box-shadow: inset -1px 0 0 var(--mist);
+}
+
+/* The inset edge shadow was the only signal that a table continued off-screen.
+   Say it. Hidden with the table wherever cards replace it. */
+.table-cue {
+  margin: calc(-1 * var(--s2)) 0 var(--s3);
+  font-size: .88rem;
+  color: var(--ink-soft);
+}
+
+/* The same comparison as one card per model. Generated from the table in
+   `polishTables`, so the figures cannot drift; exactly one of the two is in the
+   document at any width, which keeps them out of the accessibility tree in
+   pairs. Shown below 44rem — a phone, and a 1280px desktop at 200% zoom. */
+.table-cards { display: none; }
+.table-card-list { list-style: none; margin: var(--s3) 0 var(--s1); padding: 0; display: grid; gap: var(--s2); }
+.table-card {
+  border: 1px solid var(--mist);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: var(--s2);
+}
+.table-card-name { margin: 0 0 var(--s1); font-weight: 600; font-size: 1.05rem; }
+.table-card-specs { margin: 0; }
+.table-card-specs dt {
+  font-size: .78rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-top: var(--s1);
+}
+.table-card-specs dd { margin: .15rem 0 0; font-variant-numeric: tabular-nums; }
+.table-cards-caption { font-size: .88rem; color: var(--ink-soft); margin: var(--s1) 0 var(--s3); }
+
+@media (max-width: 44rem) {
+  .table-scroll.has-cards,
+  .table-scroll.has-cards + .table-cue { display: none; }
+  .table-cards { display: block; }
+}
+
 /* --- Buttons ----------------------------------------------------------- */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
@@ -281,7 +330,13 @@ label:has(> input[type="checkbox"]) { display: flex; min-height: 44px; align-ite
 .article-body > p, .article-body > ul, .article-body > ol { max-width: var(--measure); }
 .article-body h2 { scroll-margin-top: var(--s7); }
 .article-body table { font-size: .95rem; }
-.article-body .diagram-figure svg { display: block; width: 100%; height: auto; }
+/* Diagram labels are drawn as small as 9px inside a 920-wide viewBox, so a
+   diagram scaled to fit a phone renders them at under 4px. The figure keeps its
+   drawn size and the wrapper scrolls instead — `.table-scroll` already gives
+   that wrapper a keyboard focus stop and a name from the SVG's own <title>.
+   Every diagram also carries a <desc> and a figcaption, which is the equivalent
+   text for anyone who cannot use the picture at any size. */
+.article-body .diagram-figure svg { display: block; width: 100%; height: auto; min-width: 57.5rem; }
 
 .disclosure-line {
   margin: var(--s4) 0;

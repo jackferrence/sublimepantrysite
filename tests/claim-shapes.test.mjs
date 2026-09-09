@@ -74,3 +74,32 @@ test('PRICE: our product price is written in exactly one place', () => {
     .filter((f) => /\$\d+\.\d{2}/.test(readFileSync(join(root, f), 'utf8')));
   assert.deepEqual(offenders, [], 'a product price is hardcoded outside src/lib/commerce.ts');
 });
+
+/*
+ * The shipping shape has a source side as well as a rendered side.
+ *
+ * The rendered check above reads sentences, and a two-word table cell is not a
+ * sentence: `['Shipping', 'Free, US only']` sat in the product page's spec list
+ * through the whole of Phase 2, stating a shipping scope by hand and stating no
+ * threshold at all. It matched no sweep and no shape, because both were looking
+ * for prose. Anything that names the scope or the money belongs to SHIPPING.
+ */
+test('SHIPPING: the scope and the figures are never written by hand', () => {
+  const stripComments = (src) =>
+    src.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/(^|[^:])\/\/.*$/gm, '$1');
+
+  const offenders = [];
+  for (const file of globSync('src/**/*.{astro,ts}', { cwd: root })) {
+    if (file === 'src/lib/commerce.ts') continue;
+    stripComments(readFileSync(join(root, file), 'utf8'))
+      .split('\n')
+      .forEach((line, i) => {
+        const scope = /\bU\.?S\.?[- ]only\b/i.test(line);
+        const paidClaim = /\b(free\s+(?:US\s+)?shipping|ships?\s+free)\b/i.test(line) && /\$\d/.test(line);
+        if ((scope || paidClaim) && !line.includes('SHIPPING.')) {
+          offenders.push(`${file}:${i + 1} — ${line.trim().slice(0, 90)}`);
+        }
+      });
+  }
+  assert.deepEqual(offenders, [], 'a shipping term is written outside src/lib/commerce.ts');
+});

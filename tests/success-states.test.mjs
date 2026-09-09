@@ -76,3 +76,44 @@ test('both confirmation pages stay out of the index', () => {
     assert.match(page(f), /name="robots" content="noindex/, `${f} must be noindex`);
   }
 });
+
+/*
+ * U07 — a button has to name its outcome, and an offer to skip has to be
+ * something the reader can press.
+ */
+
+test('the preference question says what saving it does, and offers a real skip', () => {
+  const html = page('thanks.html');
+  assert.match(
+    html,
+    /<button[^>]*type="submit"[^>]*>Save my preference<\/button>/,
+    '"Send" names the mechanism; the button has to name the outcome',
+  );
+  assert.doesNotMatch(html, /<button[^>]*>Send<\/button>/, 'the old "Send" button is still rendered');
+
+  const skip = html.match(/<button[^>]*data-stage-skip[^>]*>([^<]+)<\/button>/);
+  assert.ok(skip, 'the page offers to skip the question but gives nothing to press');
+  assert.equal(skip[1].trim(), 'Skip this question');
+  assert.match(
+    html,
+    /data-stage-skipped[^>]*\bhidden\b/,
+    'the skip acknowledgement must ship hidden — nothing has been skipped yet',
+  );
+});
+
+/*
+ * U08 — the cart controls Shopify leaves unnamed.
+ *
+ * Verified in the live drawer with a line in it before this was written: the
+ * quantity stepper was two buttons with no text and no label, the discount
+ * toggle's whole accessible name was "+", and the <dialog> had no name. This
+ * asserts the names ship; that they are only ever *added* to an unnamed control
+ * is the guard in CartDrawer.astro, and it is why a future Shopify release that
+ * labels these itself will not collide with us.
+ */
+test('the cart names its own quantity, discount and dialog controls', () => {
+  const html = page('index.html');
+  for (const name of ['Decrease quantity', 'Increase quantity', 'Add a discount code', 'Shopping cart']) {
+    assert.ok(html.includes(name), `the cart script no longer supplies "${name}"`);
+  }
+});

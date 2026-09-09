@@ -87,9 +87,16 @@ const menuId = (label: string) => `nav-menu-${label.toLowerCase()}`;
         <Icon name="search" size={20} label="Search" />
       </button>
 
-      <button type="button" class="icon-button cart-button" data-sp-cart-open>
-        <Icon name="shopping-bag" size={20} label="Cart" />
-        <span class="cart-count" data-cart-count hidden>0</span>
+      <!--
+        The button's accessible name was "Cart 0": the icon's label plus the
+        count badge, which named the contents rather than the action and read
+        out a number nobody asked for. It opens a dialog, so it says so. The
+        icon and the badge are both decorative here — the count is announced by
+        the name, which CartDrawer rewrites as the cart changes.
+      -->
+      <button type="button" class="icon-button cart-button" aria-label="Open shopping cart" data-sp-cart-open>
+        <Icon name="shopping-bag" size={20} />
+        <span class="cart-count" data-cart-count aria-hidden="true" hidden>0</span>
       </button>
 
       <button

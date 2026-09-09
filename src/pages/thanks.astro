@@ -84,8 +84,19 @@ import Icon from '../components/Icon.astro';
         </select>
       </div>
 
-      <button class="btn btn-primary" type="submit">Send</button>
+      <!--
+        U07: "Send" names the mechanism, not the outcome. The button now says
+        what the submission does, and the skip is a control rather than a
+        sentence — "skip it if you'd rather not say" is only an offer if there
+        is something to press.
+      -->
+      <div class="stage-actions">
+        <button class="btn btn-primary" type="submit">Save my preference</button>
+        <button class="stage-skip" type="button" data-stage-skip>Skip this question</button>
+      </div>
     </form>
+
+    <p class="stage-skipped" data-stage-skipped hidden>Skipped. Nothing was sent.</p>
   </section>
 </PageLayout>
 
@@ -102,6 +113,17 @@ import Icon from '../components/Icon.astro';
       document.querySelectorAll('[data-signup-confirmed]').forEach(function (el) { el.hidden = false; });
       var cold = document.querySelector('[data-signup-cold]');
       if (cold) cold.hidden = true;
+    }
+
+    // The skip is a real dismissal: the question goes away and nothing is sent.
+    var skip = document.querySelector('[data-stage-skip]');
+    if (skip) {
+      skip.addEventListener('click', function () {
+        var form = document.querySelector('.stage form');
+        if (form) form.hidden = true;
+        var note = document.querySelector('[data-stage-skipped]');
+        if (note) note.hidden = false;
+      });
     }
 
     var form = document.querySelector('.stage form');
@@ -130,4 +152,12 @@ import Icon from '../components/Icon.astro';
   .stage p { color: var(--ink-soft); }
   .stage-field { margin: var(--s2) 0; max-width: 26rem; }
   .stage-field label { display: block; margin-bottom: .35rem; font-size: .9rem; }
+  .stage-actions { display: flex; align-items: center; gap: var(--s3); flex-wrap: wrap; }
+  /* Quieter than the submit, but still a real control with a real target. */
+  .stage-skip {
+    background: none; border: 0; padding: .5rem 0; min-height: 44px;
+    color: var(--brand); font: inherit; text-decoration: underline; cursor: pointer;
+  }
+  .stage-skip:hover { color: var(--brand-hover); }
+  .stage-skipped { margin: 0; }
 </style>

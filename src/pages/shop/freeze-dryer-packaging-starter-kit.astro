@@ -53,7 +53,9 @@ const specs: [string, string][] = [
   ['Labels included', '100 adhesive'],
   ['Documentation', 'PackFreshUSA food-storage guide'],
   ['Manufacturer', 'PackFreshUSA'],
-  ['Shipping', 'Free, US only'],
+  // One shipping rule, one place. This row said "Free, US only" — true for
+  // this kit, but written by hand, and it stated no threshold at all.
+  ['Shipping', SHIPPING.shortNote],
 ];
 
 const faq = [
