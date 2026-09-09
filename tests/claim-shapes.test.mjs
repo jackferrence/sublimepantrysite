@@ -51,6 +51,35 @@ test('SHELF LIFE: no shelf-life promise in our own voice', () => {
   }
 });
 
+/*
+ * The duration form of the same claim class.
+ *
+ * The sentence shape above looks for a verb — "stays crisp for decades",
+ * "lasts 25 years". It caught none of these, because a shelf-life promise does
+ * not need a verb: "the checkpoints that separate a 25-year pantry shelf from a
+ * bag of stale disappointment" was live on the workflow guide, and the storage
+ * diagram carried "decades-class shelf life" in its <desc> and "longest —
+ * decades-class, sealed" in a visible SVG label. Iowa State is the source the
+ * site itself cites for why that figure is unverified for home-produced food.
+ */
+test('SHELF LIFE: no storage duration is used as a bare label either', () => {
+  const shape = /\b\d{1,3}[- ]year\b|\bdecades?[- ](?:class|scale|long)\b|\blifetime\b/gi;
+  const storage = /shelf|storage|pantry|store[ds]?\b|keeps?\b|last/i;
+  // Attribution, denial — including "a poor one for decade-scale storage",
+  // which withholds a duration rather than promising one — or a figure that is
+  // plainly about something else: a warranty term, a re-check schedule, a jar
+  // you reuse.
+  const allowed =
+    /no verification|supposedly|claims?|attributed|commercially|manufacturer|Iowa State|Minnesota|\bnot\b|\bnever\b|\bpoor\b|unsuitable|warrant|re-?check|reusable/i;
+  for (const { file, text } of pages()) {
+    for (const m of text.matchAll(shape)) {
+      const s = sentenceAround(text, m.index);
+      if (!storage.test(s)) continue;
+      assert.ok(allowed.test(s), `${file}: bare shelf-life duration — "${s.slice(0, 170)}"`);
+    }
+  }
+});
+
 test('TESTING: the site never claims hands-on testing', () => {
   const shape = /\bwe\b(?:\s+\w+){0,3}\s+(?:bench-?)?tested\b/gi;
   for (const { file, text } of pages()) {
