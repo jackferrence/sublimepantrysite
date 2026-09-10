@@ -18,7 +18,7 @@
   --sp-color-rustSoft: #F1E2D6;
   --sp-color-hairline: #D9D1C6;
   --sp-color-textInk: #191713;
-  --sp-color-textMuted: #5D554D;
+  --sp-color-textMuted: #585149;
   --sp-color-info: #315F73;
   --sp-color-success: #2F694D;
   --sp-color-danger: #96362F;
@@ -112,13 +112,13 @@
   --sp-color-surface-inverse: #000000;
   --sp-color-text-body: #191713;
   --color-semantic-text: var(--sp-color-text-body);
-  --sp-color-text-muted: #5D554D;
+  --sp-color-text-muted: #585149;
   --color-semantic-muted: var(--sp-color-text-muted);
   --sp-color-text-inverse: #FAF8F4;
   --sp-color-text-inverseMuted: #C9C2B7;
   --sp-color-border-hairline: #D9D1C6;
   --color-semantic-border: var(--sp-color-border-hairline);
-  --sp-color-border-strong: #5D554D;
+  --sp-color-border-strong: #585149;
   --sp-color-border-focus: #8B4A21;
   --sp-color-border-focusOnInverse: #B4D9EC;
   --sp-color-action-primary: #8B4A21;
@@ -156,7 +156,7 @@
   --sp-color-text-muted: #B9AFA2;
   --color-semantic-muted: var(--sp-color-text-muted);
   --sp-color-text-inverse: #15130F;
-  --sp-color-text-inverseMuted: #5D554D;
+  --sp-color-text-inverseMuted: #585149;
   --sp-color-border-hairline: #3A362F;
   --color-semantic-border: var(--sp-color-border-hairline);
   --sp-color-border-strong: #B9AFA2;

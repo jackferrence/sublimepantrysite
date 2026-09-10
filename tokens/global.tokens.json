@@ -12,7 +12,7 @@
     "rustSoft": { "$type": "color", "$value": "#F1E2D6" },
     "hairline": { "$type": "color", "$value": "#D9D1C6" },
     "textInk": { "$type": "color", "$value": "#191713" },
-    "textMuted": { "$type": "color", "$value": "#5D554D" },
+    "textMuted": { "$type": "color", "$description": "Darkened from #5D554D (6.89:1 on the page ground, short of BRAND.md's 7:1 AAA bar for muted text) to #585149 (7.37:1) — the T5.6 contrast-audit fix, tokens/CONTRAST.md. Same hue, ~5% darker; not a visible colour change, a contrast one.", "$value": "#585149" },
     "info": { "$type": "color", "$value": "#315F73" },
     "success": { "$type": "color", "$value": "#2F694D" },
     "danger": { "$type": "color", "$value": "#96362F" },

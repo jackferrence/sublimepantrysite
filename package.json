@@ -6,6 +6,7 @@
   "scripts": {
     "tokens": "node scripts/generate-tokens.mjs",
     "tokens:check": "node scripts/generate-tokens.mjs --check",
+    "contrast": "node scripts/contrast-audit.mjs",
     "dev": "astro dev",
     "start": "astro dev",
     "build": "npm run tokens:check && astro check && node scripts/generate-og.mjs && astro build && pagefind --site dist",
@@ -17,7 +18,7 @@
     "test:a11y": "playwright test",
     "test:lhci": "lhci autorun --config=.lighthouserc.cjs",
     "test:budget": "node scripts/budget.mjs",
-    "check": "npm run tokens:check && npm run lint:css && npm run build && npm test && npm run test:budget && npm run test:a11y",
+    "check": "npm run tokens:check && npm run contrast && npm run lint:css && npm run build && npm test && npm run test:budget && npm run test:a11y",
     "editorial:dry-run": "node scripts/editorial-controller.mjs dry-run",
     "editorial:research": "node scripts/editorial-controller.mjs research",
     "editorial:draft": "node scripts/editorial-controller.mjs draft",
