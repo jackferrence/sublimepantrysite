@@ -1,0 +1,55 @@
+---
+/**
+ * docs/CLAUDE-CODE-PROMPT.md T2.4. Flat-vs-puffed bag, day 0 / day 2 — the
+ * puffy-bag test: flat after 24-48h means a good seal and a live absorber;
+ * still puffed means check the seal. Same spec: 2px stroke, ice-100 single
+ * fill, one rust accent (the "still puffed" warning outline).
+ *
+ * Methodology framing, same as OxygenIndicator (see docs/DECISIONS.md's
+ * methodology decision and the note in that component): this is generic
+ * technique education for the READER to run on THEIR OWN batch. The
+ * caption is written in the imperative/second person ("run this on your
+ * own bag") on purpose, never "we ran this test" or "our bags passed" —
+ * Sublime Pantry does no physical product testing and this diagram must
+ * not imply otherwise.
+ */
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+<figure class={className}>
+  <svg viewBox="0 0 360 160" role="img" aria-labelledby="puffy-bag-test-title" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+    <title id="puffy-bag-test-title">The puffy-bag test: a flat bag at day 0 and day 2 means a good seal</title>
+
+    <!-- Day 0: freshly sealed, flat -->
+    <g transform="translate(20,20)">
+      <rect x="0" y="0" width="90" height="110" rx="10" fill="var(--sp-color-surface-ice)" />
+      <line x1="0" y1="14" x2="90" y2="14" opacity="0.4" />
+      <text x="45" y="140" font-size="11" text-anchor="middle" stroke="none" fill="currentColor">Day 0 — sealed flat</text>
+    </g>
+
+    <!-- Arrow -->
+    <path d="M130 75 L170 75" />
+    <path d="M162 68 L170 75 L162 82" />
+
+    <!-- Day 2, good seal: still flat -->
+    <g transform="translate(190,20)">
+      <rect x="0" y="0" width="90" height="110" rx="10" fill="var(--sp-color-surface-ice)" />
+      <line x1="0" y1="14" x2="90" y2="14" opacity="0.4" />
+      <text x="45" y="140" font-size="11" text-anchor="middle" stroke="none" fill="currentColor">Day 2 — still flat: good</text>
+    </g>
+  </svg>
+  <figcaption>
+    <p class="label">Run this on your own bag, not ours</p>
+    <p>Seal the bag and check it again in 24-48 hours. If it is still flat, the seal held and the absorber is doing its job — the vacuum an absorber pulls as it reacts is what keeps the film drawn tight against the food. If the bag has puffed back up, air is getting in: check the seam first, then the absorber.</p>
+  </figcaption>
+</figure>
+
+<style>
+  figure { margin: 0; max-width: 40rem; }
+  svg { width: 100%; height: auto; }
+  figcaption { margin-top: var(--s2); }
+  figcaption p { margin: 0 0 var(--s1); }
+  figcaption p:last-child { margin-bottom: 0; }
+</style>

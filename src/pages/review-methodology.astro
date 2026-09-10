@@ -1,5 +1,7 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
+import OxygenIndicator from '../components/figures/OxygenIndicator.astro';
+import PuffyBagTest from '../components/figures/PuffyBagTest.astro';
 ---
 <PageLayout title="Review Methodology" description="How Sublime Pantry compares freeze dryers and gear: stated criteria, documented specifications, and honest labels for what we have and haven't tested." path="/review-methodology" breadcrumbs={[{ label: "Review Methodology", href: "/review-methodology" }]}>
   <span class="kicker">Policy</span>
@@ -18,4 +20,9 @@ import PageLayout from '../layouts/PageLayout.astro';
 
   <h2>Conflicts</h2>
   <p>We hold no affiliate relationships today. We do sell our own packaging, and it sits in a category we compare — the <a href="/compare/storage-containers">storage container comparison</a> — so that relationship is disclosed inside the comparison itself, not only here — see our <a href="/affiliate-disclosure">affiliate disclosure</a>.</p>
+
+  <h2>What you can check yourself</h2>
+  <p>We don't run a test bench, but the checks below take a few minutes with what's already on your counter, and they tell you more about a specific bag or batch than any published spec can.</p>
+  <PuffyBagTest />
+  <OxygenIndicator />
 </PageLayout>
