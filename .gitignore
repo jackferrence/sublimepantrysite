@@ -23,3 +23,10 @@ assets/originals/freeze-dryer-pair-loaded-trays.jpeg
 
 # netlify-cli local build cache.
 .netlify/
+
+# Playwright test run artifacts (tests/a11y — T5.1).
+test-results/
+playwright-report/
+
+# Lighthouse CI run artifacts (T5.2).
+.lighthouseci/
