@@ -40,6 +40,7 @@
   --sp-color-inverseMuted: #C9C2B7;
   --sp-color-shadowHover: rgba(34, 29, 25, .35);
   --sp-color-shadowInset: rgba(34, 29, 25, .28);
+  --sp-color-shadowStrong: rgba(34, 29, 25, .5);
   --sp-font-family-display: "Bodoni Moda Variable", serif;
   --font-family-display: var(--sp-font-family-display);
   --sp-font-family-prose: "Literata Variable", Georgia, serif;

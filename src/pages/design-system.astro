@@ -103,7 +103,16 @@ const sampleTestedProducts = [
   section { margin-block: var(--s6); }
   .swatches { display: grid; grid-template-columns: repeat(auto-fit,minmax(9rem,1fr)); }
   .swatches div { min-height: 8rem; padding: var(--s2); border: 1px solid var(--ink); }
-  .ink { background:#000;color:#fff }.paper{background:#faf8f4}.ice{background:#b4d9ec}.deep-ice{background:#7fb6d2}.rust{background:#8b4a21;color:#fff}.warm{background:#f2ece3}
+  /* Swatches now reference the live tokens they're demonstrating (not a
+     second, hand-typed copy of the hex values that could silently drift
+     from the real palette) — also closes the one raw-hex stylelint
+     violation this QA page carried since T1.1. */
+  .ink { background: var(--sp-color-ink); color: var(--sp-color-white); }
+  .paper { background: var(--sp-color-paper); }
+  .ice { background: var(--sp-color-ice); }
+  .deep-ice { background: var(--sp-color-iceDeep); }
+  .rust { background: var(--sp-color-rust); color: var(--sp-color-white); }
+  .warm { background: var(--sp-color-warm); }
   .control-row { display:flex;align-items:center;flex-wrap:wrap;gap:var(--s2);margin-bottom:var(--s3) }
   label { display:block;max-width:28rem }
   .state-grid { display:grid;gap:var(--s4);grid-template-columns:repeat(auto-fit,minmax(18rem,1fr));margin-top:var(--s4) }

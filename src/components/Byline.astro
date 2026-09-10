@@ -41,6 +41,10 @@ const fmt = (iso: string) =>
   .byline { margin: var(--s3) 0 var(--s4); }
   .byline-row { display: flex; align-items: center; gap: var(--s2); }
   .byline-portrait {
+    /* stylelint-disable-next-line unit-disallowed-list -- a small inline
+       avatar (AuthorBio's is the 72px/--sp-space-6 primary size; this is
+       the byline-row miniature), no space-scale step between 32 and 48
+       reads right at this scale. */
     width: 40px; height: 40px; border-radius: 50%; flex: none;
     object-fit: cover; background: var(--brand-tint);
   }

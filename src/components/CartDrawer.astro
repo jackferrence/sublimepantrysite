@@ -55,7 +55,7 @@ const cartDiscountCodes = LAUNCH_OFFER.enabled ? LAUNCH_OFFER.code : undefined;
     color: var(--surface);
     border: 2px solid transparent;
     border-radius: var(--radius);
-    min-height: 44px;
+    min-height: var(--sp-size-control);
     font: 600 1rem var(--font-body);
   }
   shopify-cart::part(secondary-button),
@@ -65,7 +65,7 @@ const cartDiscountCodes = LAUNCH_OFFER.enabled ? LAUNCH_OFFER.code : undefined;
     fill: var(--ink);
     border: 2px solid var(--ink);
     border-radius: var(--radius);
-    min-height: 44px;
+    min-height: var(--sp-size-control);
   }
   shopify-cart::part(discount-code) {
     border: 1px solid var(--mist);

@@ -518,10 +518,20 @@ describe('behaviour', () => {
   });
 
   test('interactive targets are at least 44px', () => {
+    // Was a literal `min-height: 44px` match. The T1.4 stylelint sweep
+    // (docs/DECISIONS.md) replaced that literal with
+    // var(--sp-size-control) — a real token, not a rename, and it's
+    // exactly 44px: --sp-size-control is generated from
+    // tokens/global.tokens.json's size.control (44px) by
+    // scripts/generate-tokens.mjs, and public/styles/tokens.css is
+    // checked into the repo and covered by `npm run tokens:check`, so a
+    // token whose value drifted from 44px would fail that check before
+    // this test ever ran. Matching the token reference is exactly as
+    // strong a guarantee as matching the literal was.
     const style = PAGE.slice(PAGE.lastIndexOf('<style>'));
-    assert.match(style, /\.field input, \.field select \{[\s\S]*?min-height: 44px/);
-    assert.match(style, /\.chip \{[\s\S]*?min-height: 44px/);
-    assert.match(style, /\.toggle \{[\s\S]*?min-height: 44px/);
+    assert.match(style, /\.field input, \.field select \{[\s\S]*?min-height: var\(--sp-size-control\)/);
+    assert.match(style, /\.chip \{[\s\S]*?min-height: var\(--sp-size-control\)/);
+    assert.match(style, /\.toggle \{[\s\S]*?min-height: var\(--sp-size-control\)/);
   });
 
   test('the stacked-card fallback fires at 719px', () => {

@@ -237,6 +237,7 @@ function srcs(ids: readonly SourceId[]) {
     --oa-muted: color-mix(in srgb, currentColor 65%, transparent);
     --oa-tint: color-mix(in srgb, currentColor 5%, transparent);
     --oa-accent: currentColor;
+
     container-type: inline-size;
     max-width: 48rem;
   }
@@ -251,7 +252,7 @@ function srcs(ids: readonly SourceId[]) {
 
   fieldset {
     border: 1px solid var(--oa-border);
-    border-radius: 8px;
+    border-radius: var(--sp-radius-panel);
     padding: 0.75rem 1rem 1rem;
     margin: 0;
     min-inline-size: 0;
@@ -287,7 +288,7 @@ function srcs(ids: readonly SourceId[]) {
     min-block-size: 2.75rem;
     padding: 0.5rem 0.75rem;
     border: 1px solid var(--oa-border);
-    border-radius: 6px;
+    border-radius: var(--sp-radius-panel);
     cursor: pointer;
     /* 1rem prevents iOS zooming the page on focus. */
     font-size: 1rem;
@@ -331,7 +332,7 @@ function srcs(ids: readonly SourceId[]) {
 
   .oa-result {
     border: 1px solid var(--oa-border);
-    border-radius: 8px;
+    border-radius: var(--sp-radius-panel);
     padding: 1rem 1.125rem 1.25rem;
   }
 

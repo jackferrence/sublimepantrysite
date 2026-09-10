@@ -56,7 +56,7 @@ const schema = {
   :root[data-embed='1'] [data-embed-hide] { display: none !important; }
   .tool-header, .tool-footer { max-width: var(--wrap); margin: auto; padding: var(--s3); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s3); border-bottom: 1px solid var(--mist); }
   .tool-header nav, .tool-footer { display: flex; gap: var(--s3); }
-  .tool-header a, .tool-footer a, .attribution a { display: inline-flex; align-items: center; min-height: 44px; }
+  .tool-header a, .tool-footer a, .attribution a { display: inline-flex; align-items: center; min-height: var(--sp-size-control); }
   .tool-home img { display: block; width: clamp(8.5rem, 18vw, 11rem); height: auto; }
   .tool-content { max-width: 68rem; margin: auto; padding: var(--s4) var(--s3) var(--s6); }
   .tool-content h1 { font-size: clamp(2rem,5vw,3.7rem); max-width: 22ch; line-height: 1.08; }
@@ -64,8 +64,8 @@ const schema = {
   .tool-content h3, .tool-content h4 { font-family: var(--font-body); }
   .tool-content p, .tool-content li { max-width: 70ch; }
   .tool-content :is(input, select, textarea, button) { font-family: var(--font-body); font-size: 1rem; }
-  .tool-content :is(input:not([type=radio]):not([type=checkbox]), select, textarea) { max-width: 100%; min-height: 44px; }
-  .tool-content :is(button, summary) { min-height: 44px; cursor: pointer; }
+  .tool-content :is(input:not([type="radio"], [type="checkbox"]), select, textarea) { max-width: 100%; min-height: var(--sp-size-control); }
+  .tool-content :is(button, summary) { min-height: var(--sp-size-control); cursor: pointer; }
   .tool-content :is(.tool-panel,.panel,.oa-calc) { margin: var(--s4) 0; max-width: none; padding: var(--s4); border: 1px solid var(--mist); border-top: 3px solid var(--brand); background: var(--surface); border-radius: var(--radius-panel); }
   .tool-content :is(.tool-panel,.panel,.oa-calc) > h2 { margin-top: 0; }
   .tool-content :is(.stat,.result,.oa-headline) { background: var(--color-brand-ice); color: var(--ink); padding: var(--s2); border-radius: var(--radius-control); }

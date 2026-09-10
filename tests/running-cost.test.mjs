@@ -312,10 +312,17 @@ test('touch targets clear 44px and the small-screen layout drops horizontal scro
   const html = PAGE();
   // The rules live in one global block on this page; assert they are present
   // rather than measuring, which is what a browser test would do.
-  assert.match(html, /\.field input,\s*\.field select\s*\{[^}]*min-height:\s*44px/);
-  assert.match(html, /#recalc-btn\s*\{[^}]*min-height:\s*44px/);
-  assert.match(html, /#embed-btn\s*\{[^}]*min-height:\s*44px/);
-  assert.match(html, /summary\s*\{[^}]*min-height:\s*44px/);
+  // Was a literal `min-height: 44px` match. The T1.4 stylelint sweep
+  // (docs/DECISIONS.md) replaced that literal with var(--sp-size-control)
+  // — a real token, exactly 44px: --sp-size-control is generated from
+  // tokens/global.tokens.json's size.control (44px), and
+  // public/styles/tokens.css is checked into the repo and covered by
+  // `npm run tokens:check`, so a drifted token would fail that check
+  // before this test ever ran.
+  assert.match(html, /\.field input,\s*\.field select\s*\{[^}]*min-height:\s*var\(--sp-size-control\)/);
+  assert.match(html, /#recalc-btn\s*\{[^}]*min-height:\s*var\(--sp-size-control\)/);
+  assert.match(html, /#embed-btn\s*\{[^}]*min-height:\s*var\(--sp-size-control\)/);
+  assert.match(html, /summary\s*\{[^}]*min-height:\s*var\(--sp-size-control\)/);
   // Lightning CSS may emit either `max-width:719px` or the range syntax
   // `width<=719px`; the breakpoint is what matters, not the spelling.
   assert.match(html, /@media[^{]*719px/, 'the stacked-card fallback must exist for narrow viewports');

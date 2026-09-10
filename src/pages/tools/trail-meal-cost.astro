@@ -766,19 +766,19 @@ const defaultPer500 = costPer500Kcal(defaultResult.totalUsd, DEFAULT_CALORIES) a
   .field--wide { grid-column: 1 / -1; }
   .field label { display: block; font-weight: 600; margin-bottom: 0.35rem; }
   .field input, .field select {
-    width: 100%; min-height: 44px; padding: 0.5rem 0.6rem;
+    width: 100%; min-height: var(--sp-size-control); padding: 0.5rem 0.6rem;
     font-size: 1rem; border: 1px solid currentColor; border-radius: var(--radius-control); background: transparent;
   }
   .help { font-size: 0.875rem; line-height: 1.5; opacity: 0.85; margin: 0.4rem 0 0; }
   .caveat { font-size: 0.875rem; line-height: 1.5; opacity: 0.85; }
   .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
   .chip {
-    min-height: 44px; min-width: 44px; padding: 0.4rem 0.8rem; font-size: 0.875rem;
+    min-height: var(--sp-size-control); min-width: var(--sp-size-control); padding: 0.4rem 0.8rem; font-size: 0.875rem;
     border: 1px solid currentColor; border-radius: var(--radius-control); background: transparent; cursor: pointer;
   }
   .elec { border: 1px dashed currentColor; border-radius: var(--radius-panel); padding: 1rem; margin-top: 1.25rem; }
   .elec legend { padding: 0 0.4rem; }
-  .toggle { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; font-weight: 600; }
+  .toggle { display: inline-flex; align-items: center; gap: 0.5rem; min-height: var(--sp-size-control); font-weight: 600; }
   .toggle input { width: 1.15rem; height: 1.15rem; }
   .flag {
     font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em;
@@ -799,6 +799,9 @@ const defaultPer500 = costPer500Kcal(defaultResult.totalUsd, DEFAULT_CALORIES) a
 
   @media (max-width: 719px) {
     .grid, .results { grid-template-columns: minmax(0, 1fr); }
+    /* stylelint-disable-next-line unit-disallowed-list -- the standard
+     visually-hidden technique, same exception as public/styles/base.css
+     .sr-only (T1.4). */
     thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
     tr { display: block; border: 1px solid currentColor; border-radius: var(--radius-panel); margin-bottom: 0.75rem; padding: 0.25rem 0.5rem; }
     th, td { display: block; border: 0; padding: 0.35rem 0; }
