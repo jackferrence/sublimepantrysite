@@ -1,8 +1,18 @@
 ---
 /**
- * docs/CLAUDE-CODE-PROMPT.md T3.4. "What we tested — and didn't", built
- * from a guide's `testedProducts[]` (the .note field) and `notTested[]`
- * (src/content.config.ts). Prose, no icons, hairline rules above and below.
+ * docs/CLAUDE-CODE-PROMPT.md T3.4, retitled "What we compared — and
+ * didn't" rather than the brief's literal "What we tested — and didn't".
+ * tests/claim-shapes.test.mjs's TESTING guard ("the site never claims
+ * hands-on testing") fails the build on the exact phrase "we ... tested"
+ * within a few words — a real, deliberate rule: this site's disclosed
+ * position is that it has not bench-tested any machine or product, and
+ * publishes specification comparisons instead (see /review-methodology).
+ * docs/CLAUDE-CODE-PROMPT.md's "who tests and fulfils everything himself"
+ * framing assumes a persona this specific site does not claim. Kept the
+ * schema field names (`testedProducts`, `notTested` in src/content.config.ts)
+ * as-is — they're just data plumbing — and changed only the rendered copy,
+ * here and in the two column headings below, to match what the site can
+ * actually stand behind. Flagged in docs/DECISIONS.md.
  */
 import { CATALOG } from '../../lib/commerce.ts';
 
@@ -22,11 +32,11 @@ const { testedProducts, notTested } = Astro.props;
 ---
 {(testedProducts.length > 0 || notTested.length > 0) && (
   <section class="honesty-block" aria-labelledby="honesty-block-heading">
-    <p class="label" id="honesty-block-heading">What we tested — and didn't</p>
+    <p class="label" id="honesty-block-heading">What we compared — and didn't</p>
     <div class="honesty-columns">
       {testedProducts.length > 0 && (
         <div>
-          <h4>Tested</h4>
+          <h4>Compared</h4>
           <ul>
             {testedProducts.map((item) => {
               const product = CATALOG.find((p) => p.handle === item.productHandle);
@@ -41,7 +51,7 @@ const { testedProducts, notTested } = Astro.props;
       )}
       {notTested.length > 0 && (
         <div>
-          <h4>Not tested</h4>
+          <h4>Not compared</h4>
           <ul>
             {notTested.map((item) => (
               <li><strong>{item.name}</strong> — {item.reason}</li>

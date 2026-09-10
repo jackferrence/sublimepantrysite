@@ -9,6 +9,11 @@ import AuthorBio from '../components/AuthorBio.astro';
 import RelatedArticles from '../components/RelatedArticles.astro';
 import Newsletter from '../components/Newsletter.astro';
 import EditorialToolLink from '../components/EditorialToolLink.astro';
+import WhoFor from '../components/blocks/WhoFor.astro';
+import VerdictBox from '../components/blocks/VerdictBox.astro';
+import ComparisonTable from '../components/blocks/ComparisonTable.astro';
+import HonestyBlock from '../components/blocks/HonestyBlock.astro';
+import LimitationsCallout from '../components/blocks/LimitationsCallout.astro';
 import { CATALOG } from '../lib/commerce';
 import { PILLAR_LABEL, withToc, polishTables, expandGeneratedBlocks, verifiedDate, nextCheckDate, formatDate, heroImage, type Article } from '../lib/articles';
 import { recipeJsonLd } from '../lib/schema';
@@ -147,6 +152,14 @@ if (d.pillar === 'compare' && d.comparisonCriteria) {
       <span class="kicker">{d.section ?? d.kicker}</span>
       <h1 transition:name={`sp-title-${entry.id}`}>{d.title}</h1>
       <Byline author={d.author} publishedDate={d.publishedDate} updatedDate={d.updatedDate} />
+      {/* docs/CLAUDE-CODE-PROMPT.md T4.2: WhoFor sits directly under the
+          byline. Gated on the guides pillar and on the fields actually
+          being populated — no published guide sets these yet (they're new,
+          optional fields as of T2.1), so this renders nothing today and
+          changes nothing until a guide adopts them. */}
+      {d.pillar === 'guides' && ((d.whoFor?.length ?? 0) > 0 || (d.whoNotFor?.length ?? 0) > 0) && (
+        <WhoFor whoFor={d.whoFor ?? []} whoNotFor={d.whoNotFor ?? []} />
+      )}
     </div></div>
 
     {hero && (
@@ -183,6 +196,13 @@ if (d.pillar === 'compare' && d.comparisonCriteria) {
 
         <div class="article-body" set:html={bodyOpening} />
 
+        {/* docs/CLAUDE-CODE-PROMPT.md T4.2: VerdictBoxes come right after the
+            opening, before the rest of the prose. Same "renders nothing
+            until a guide sets verdicts[]" gating as WhoFor above. */}
+        {d.pillar === 'guides' && d.verdicts?.map((v) => (
+          <VerdictBox label={v.label} productHandle={v.productHandle} why={v.why} />
+        ))}
+
         {featuredTools.map((placement) => (
           <EditorialToolLink href={placement.href} context={placement.context} />
         ))}
@@ -197,6 +217,19 @@ if (d.pillar === 'compare' && d.comparisonCriteria) {
         )}
 
         <div class="article-body" set:html={bodyRest} />
+
+        {/* docs/CLAUDE-CODE-PROMPT.md T4.2 order: ComparisonTable ->
+            HonestyBlock -> LimitationsCallout, after the prose. Same
+            renders-nothing-until-populated gating as above. */}
+        {d.pillar === 'guides' && (d.testedProducts?.length ?? 0) > 0 && (
+          <ComparisonTable testedProducts={d.testedProducts!} />
+        )}
+        {d.pillar === 'guides' && ((d.testedProducts?.length ?? 0) > 0 || (d.notTested?.length ?? 0) > 0) && (
+          <HonestyBlock testedProducts={d.testedProducts ?? []} notTested={d.notTested ?? []} />
+        )}
+        {d.pillar === 'guides' && d.limitations && (
+          <LimitationsCallout limitations={d.limitations} />
+        )}
 
         <ToolsMentioned bodyHtml={bodyHtml} />
 
