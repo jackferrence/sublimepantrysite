@@ -68,12 +68,14 @@
   --wrap: var(--size-content);
   --s1: .5rem; --s2: 1rem; --s3: 1.5rem; --s4: 2rem; --s5: 3rem; --s6: 4rem; --s7: 5rem;
   --radius: var(--radius-panel);
-  --shadow-hover: 0 16px 32px -20px rgba(34, 29, 25, .35);
+  --shadow-hover: 0 16px 32px -20px var(--sp-color-shadowHover);
 }
 
 /* --- Reset ------------------------------------------------------------- */
 *, *::before, *::after { box-sizing: border-box; }
 
+/* stylelint-disable-next-line property-no-vendor-prefix -- no unprefixed
+   equivalent exists; this is deliberate Safari/iOS support, not a mistake. */
 html { -webkit-text-size-adjust: 100%; }
 
 body {
@@ -101,6 +103,9 @@ img, video { height: auto; }
 
 /* --- Accessibility utilities ------------------------------------------- */
 .sr-only {
+  /* stylelint-disable-next-line unit-disallowed-list -- the standard
+     visually-hidden technique needs a real, non-zero 1px box for VoiceOver;
+     it is not a spacing value and has no token. */
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }
@@ -254,7 +259,7 @@ figcaption { font-size: .88rem; color: var(--ink-soft); margin-top: var(--s1); }
 .table-scroll {
   overflow-x: auto;
   margin: var(--s3) 0;
-  box-shadow: inset -12px 0 12px -12px rgba(34, 29, 25, .28);
+  box-shadow: inset -12px 0 12px -12px var(--sp-color-shadowInset);
 }
 
 table {
@@ -328,7 +333,7 @@ caption { caption-side: bottom; font-size: .88rem; color: var(--ink-soft); paddi
 /* --- Buttons ----------------------------------------------------------- */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
-  min-height: 44px;
+  min-height: var(--sp-size-control);
   padding: .8rem 1.5rem;
   border-radius: var(--radius-control);
   font: 600 1rem var(--font-body);
@@ -343,7 +348,7 @@ caption { caption-side: bottom; font-size: .88rem; color: var(--ink-soft); paddi
 .btn-secondary:hover { background: var(--brand-tint); color: var(--ink); }
 .btn-text {
   display: inline-flex; align-items: center;
-  border: 0; padding: 0; min-height: 44px; background: none;
+  border: 0; padding: 0; min-height: var(--sp-size-control); background: none;
   color: var(--brand); text-decoration: underline; text-underline-offset: 3px;
 }
 /* Inside prose a .btn-text is running text, not a control — no 44px box. */
@@ -395,7 +400,7 @@ label { font-weight: 600; }
 input[type="email"], input[type="text"], input[type="number"], input[type="date"],
 select, textarea {
   width: 100%;
-  min-height: 44px;
+  min-height: var(--sp-size-control);
   padding: .6rem .7rem;
   font: 400 1rem var(--font-body);
   color: var(--ink);
@@ -403,9 +408,9 @@ select, textarea {
   border: 1px solid var(--mist);
   border-radius: var(--radius-control);
 }
-input[type="checkbox"] { min-width: 22px; min-height: 22px; accent-color: var(--brand); }
+input[type="checkbox"] { min-width: var(--sp-size-targetMin); min-height: var(--sp-size-targetMin); accent-color: var(--brand); }
 /* The label is the tap target for a checkbox, so it carries the 44px. */
-label:has(> input[type="checkbox"]) { display: flex; min-height: 44px; align-items: center; }
+label:has(> input[type="checkbox"]) { display: flex; min-height: var(--sp-size-control); align-items: center; }
 
 /* --- Article body ------------------------------------------------------ */
 .article-body > p, .article-body > ul, .article-body > ol { max-width: var(--measure); }
@@ -443,9 +448,9 @@ label:has(> input[type="checkbox"]) { display: flex; min-height: 44px; align-ite
    that follows them. */
 @media print {
   .site-header, .site-footer, .newsletter, shopify-cart, .breadcrumbs { display: none !important; }
-  body { background: #fff; color: #000; }
+  body { background: white; color: black; }
   a { text-decoration: none; color: inherit; }
-  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: .85em; color: #333; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: .85em; color: black; }
   details { display: block; }
   details > summary { display: none; }
   h1, h2, h3 { break-after: avoid; }

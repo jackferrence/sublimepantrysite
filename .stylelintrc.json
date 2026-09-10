@@ -1,0 +1,54 @@
+{
+  "extends": "stylelint-config-standard",
+  "ignoreFiles": ["public/styles/tokens.css", "dist/**/*.css"],
+  "rules": {
+    "declaration-property-value-disallowed-list": [
+      {
+        "/^(color|background|background-color|border|border-color|outline|outline-color|fill|stroke|box-shadow|text-shadow)$/": [
+          "/#[0-9a-fA-F]{3,8}\\b/",
+          "/rgba?\\(/",
+          "/hsla?\\(/",
+          "/oklch\\(/"
+        ],
+        "font-family": ["/Inter/", "/Roboto/", "/Geist/", "/system-ui/"]
+      },
+      { "message": "Colour comes from a token (var(--sp-color-*) or a legacy alias), never a raw literal — see BRAND.md and docs/CLAUDE-CODE-PROMPT.md ground rule 4. Banned font families: see ground rule 5." }
+    ],
+    "unit-disallowed-list": [
+      ["px"],
+      {
+        "ignoreProperties": {
+          "px": [
+            "border", "border-width", "border-top", "border-right", "border-bottom", "border-left",
+            "border-top-width", "border-right-width", "border-bottom-width", "border-left-width",
+            "outline", "outline-width", "outline-offset", "stroke-width",
+            "box-shadow", "text-underline-offset", "/^--shadow/"
+          ]
+        },
+        "ignoreMediaFeatureNames": {
+          "px": ["min-width", "max-width", "min-height", "max-height"]
+        },
+        "message": "Spacing/sizing comes from a token (var(--sp-space-*), var(--sp-size-*)) or the fluid var(--sp-font-size-step-*) scale, not a raw px value — see BRAND.md. px is allowed for hairline borders/outlines/shadows and viewport breakpoints; anything else, use stylelint-disable with a one-line reason (the visually-hidden 1px trick in .sr-only is the one deliberate exception in this file)."
+      }
+    ],
+    "font-family-name-quotes": "always-where-recommended",
+    "custom-property-pattern": null,
+    "selector-class-pattern": null,
+    "no-descending-specificity": null,
+    "declaration-block-no-shorthand-property-overrides": null,
+    "value-keyword-case": null,
+    "alpha-value-notation": null,
+    "color-function-notation": null,
+
+    "declaration-block-single-line-max-declarations": null,
+    "rule-empty-line-before": null,
+    "at-rule-empty-line-before": null,
+    "comment-empty-line-before": null,
+    "media-feature-range-notation": null,
+    "property-no-deprecated": null,
+    "declaration-property-value-keyword-no-deprecated": null,
+    "selector-pseudo-class-no-unknown": [true, { "ignorePseudoClasses": ["global"] }],
+    "shorthand-property-no-redundant-values": null,
+    "declaration-block-no-redundant-longhand-properties": null
+  }
+}

@@ -32,7 +32,9 @@
     "infoNight": { "$type": "color", "$value": "#6FA3BD" },
     "successNight": { "$type": "color", "$value": "#6BAE8B" },
     "dangerNight": { "$type": "color", "$value": "#D98A82" },
-    "inverseMuted": { "$type": "color", "$description": "Muted text on the inverse (footer) surface in light mode.", "$value": "#C9C2B7" }
+    "inverseMuted": { "$type": "color", "$description": "Muted text on the inverse (footer) surface in light mode.", "$value": "#C9C2B7" },
+    "shadowHover": { "$type": "color", "$description": "The one hover-elevation shadow the site uses (product gallery). Kept as a token rather than a literal so stylelint's no-raw-color rule (T1.4) can apply to base.css too.", "$value": "rgba(34, 29, 25, .35)" },
+    "shadowInset": { "$type": "color", "$value": "rgba(34, 29, 25, .28)" }
   },
   "font": {
     "family": {
