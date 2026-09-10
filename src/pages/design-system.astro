@@ -1,0 +1,30 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+---
+<PageLayout title="Design system" description="Internal visual quality-assurance reference." path="/design-system" width="wrap" breadcrumbs={[{ label: 'Design system', href: '/design-system' }]} noindex>
+  <span class="kicker">Internal reference · noindex</span>
+  <h1>Technical field guide, pantry warmth.</h1>
+  <p class="lede">A durable visual QA page for the primitives and states used across editorial, tools, and commerce.</p>
+
+  <section aria-labelledby="ds-color"><h2 id="ds-color">Color</h2><div class="swatches">
+    <div class="ink">Ink</div><div class="paper">Paper</div><div class="ice">Ice · ink text</div><div class="deep-ice">Deep ice · ink text</div><div class="rust">Rust · white text</div><div class="warm">Warm surface</div>
+  </div></section>
+
+  <section aria-labelledby="ds-type"><h2 id="ds-type">Type</h2><p class="kicker">Source checked · 09 September 2026</p><h3>An editorial display</h3><p class="lede">Leads stay within a readable 45–60 character measure.</p><p>This body copy uses Source Sans 3 at a fluid size and a generous reading line-height. Article measures remain close to 62–72 characters.</p></section>
+
+  <section aria-labelledby="ds-controls"><h2 id="ds-controls">Controls</h2><div class="control-row"><a class="btn btn-primary" href="#states">Primary action</a><a class="btn btn-secondary" href="#states">Secondary action</a><a href="#states">Inline link</a></div><label>Email address <input type="email" placeholder="you@example.com" /></label></section>
+
+  <section id="states" aria-labelledby="ds-states"><h2 id="ds-states">Evidence and states</h2><div class="notice"><strong>What we could verify.</strong> The source and date are visible beside the decision.</div><div class="state-grid"><div class="field-note"><span class="kicker">Field note 04</span><h3>Fits this job</h3><p>Specific operational guidance lives directly on the paper field, bounded by a rule rather than another floating card.</p></div><div class="error" role="alert"><strong>Could not calculate.</strong><p>Check the labeled fields; the previous values remain available.</p></div></div></section>
+
+  <section aria-labelledby="ds-table"><h2 id="ds-table">Data</h2><div class="table-scroll" tabindex="0" role="region" aria-label="Sample absorber data"><table><thead><tr><th scope="col">Container</th><th scope="col">Known capacity</th><th scope="col">Source state</th></tr></thead><tbody><tr><th scope="row">Pint bag</th><td>100cc</td><td>Published</td></tr><tr><th scope="row">Unknown vessel</th><td>—</td><td>Not published</td></tr></tbody></table></div></section>
+</PageLayout>
+<style>
+  section { margin-block: var(--s6); }
+  .swatches { display: grid; grid-template-columns: repeat(auto-fit,minmax(9rem,1fr)); }
+  .swatches div { min-height: 8rem; padding: var(--s2); border: 1px solid var(--ink); }
+  .ink { background:#000;color:#fff }.paper{background:#faf8f4}.ice{background:#b4d9ec}.deep-ice{background:#7fb6d2}.rust{background:#8b4a21;color:#fff}.warm{background:#f2ece3}
+  .control-row { display:flex;align-items:center;flex-wrap:wrap;gap:var(--s2);margin-bottom:var(--s3) }
+  label { display:block;max-width:28rem }
+  .state-grid { display:grid;gap:var(--s4);grid-template-columns:repeat(auto-fit,minmax(18rem,1fr));margin-top:var(--s4) }
+  .field-note,.error { border-top:1px solid var(--ink);padding-top:var(--s2) }.error{border-color:var(--color-semantic-danger)}
+</style>

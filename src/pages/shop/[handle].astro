@@ -22,6 +22,7 @@ import Card from '../../components/Card.astro';
 import Icon from '../../components/Icon.astro';
 import Newsletter from '../../components/Newsletter.astro';
 import StickyBuyBar from '../../components/StickyBuyBar.astro';
+import ProductGallery from '../../components/ProductGallery.astro';
 import {
   LINE_LABEL,
   SHIPPING,
@@ -129,6 +130,7 @@ const faqSchema = {
 >
   <div data-sp-view="product_view" data-sp-props={trackProps}>
     <div class="pdp-top">
+      <ProductGallery images={product.images} productName={product.title} />
       <div class="buybox">
         <span class="kicker">{ownedEyebrow(product)}</span>
         <h1>{product.title}</h1>
@@ -257,7 +259,8 @@ const faqSchema = {
 <style>
   .pdp-top { display: grid; gap: var(--s4); }
   @media (min-width: 900px) {
-    .pdp-top { max-width: 46rem; }
+    .pdp-top { grid-template-columns: minmax(0, 1.2fr) minmax(20rem, 1fr); align-items: start; }
+    .buybox { position: sticky; top: 6rem; }
   }
 
   .buybox h1 { margin: 0 0 var(--s2); font-size: clamp(1.9rem, 3.4vw, 2.6rem); }
