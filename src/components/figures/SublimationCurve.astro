@@ -29,7 +29,7 @@ const { class: className } = Astro.props;
 
     <!-- Solid / liquid / gas regions, roughly to scale, filled with ice-100 for solid only -->
     <path d="M50 220 L110 60 L50 20 Z" fill="var(--sp-color-surface-ice)" opacity="0.5" />
-    <text x="62" y="150" font-size="11" stroke="none" fill="currentColor">Solid</text>
+    <text x="54" y="115" font-size="11" stroke="none" fill="currentColor">Solid</text>
     <text x="230" y="205" font-size="11" stroke="none" fill="currentColor">Gas</text>
     <text x="150" y="90" font-size="11" stroke="none" fill="currentColor">Liquid</text>
 
@@ -40,7 +40,7 @@ const { class: className } = Astro.props;
 
     <!-- Triple point -->
     <circle cx="110" cy="60" r="3.5" fill="currentColor" stroke="none" />
-    <text x="118" y="55" font-size="10" stroke="none" fill="currentColor">Triple point</text>
+    <text x="122" y="72" font-size="10" stroke="none" fill="currentColor">Triple point</text>
 
     <!-- The sublimation path: solid straight to gas, the one the freeze dryer holds the food on -->
     <path d="M65 195 Q85 140 100 90" stroke="var(--sp-color-action-primary)" stroke-width="2.5" stroke-dasharray="1 5" />
