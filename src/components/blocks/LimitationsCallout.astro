@@ -6,6 +6,13 @@
  * deliberately alias to rust rather than a separate yellow: "never yellow,
  * never an exclamation icon" per the spec, and rust is already the one
  * accent tied to "a verdict, a limitation, a warning" (Appendix A).
+ *
+ * Eyebrow reads "What we haven't verified", not "...tested" — per Jack's
+ * 2026-09-10 methodology decision (docs/DECISIONS.md): Sublime Pantry does
+ * no physical product testing at all, so "haven't tested" would wrongly
+ * imply some subset of products IS physically tested. "Verified" covers
+ * the site's real method (comparing specs, certifications, vendor data)
+ * without claiming any of it.
  */
 interface Props {
   limitations: string;
@@ -13,7 +20,7 @@ interface Props {
 const { limitations } = Astro.props;
 ---
 <aside class="limitations-callout">
-  <p class="label">What we haven't tested</p>
+  <p class="label">What we haven't verified</p>
   <p>{limitations}</p>
 </aside>
 

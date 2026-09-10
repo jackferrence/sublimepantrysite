@@ -15,6 +15,16 @@
  * design choice, which is exactly why docs/CLAUDE-CODE-PROMPT.md T2.4 calls
  * them out as a named semantic exception rather than folding them into
  * status.warn/status.danger.
+ *
+ * Methodology note for whoever builds the remaining diagrams (SublimationCurve,
+ * ChamberCutaway, SealSteps, PuffyBagTest): per Jack's 2026-09-10 decision
+ * (docs/DECISIONS.md), Sublime Pantry does no physical product testing.
+ * These diagrams teach the READER how to run a check on THEIR OWN batch —
+ * generic technique education, which is fine and central to the site's
+ * value. The line not to cross is implying Sublime Pantry ran the
+ * technique on a product and is reporting the result; this component's own
+ * caption below is careful to say "the absorber did its job" (the reader's
+ * absorber, in the reader's bag), not "we tested this absorber."
  */
 interface Props {
   class?: string;

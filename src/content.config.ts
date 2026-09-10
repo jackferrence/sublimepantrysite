@@ -147,10 +147,14 @@ const articles = defineCollection({
     /** WhoFor's two lists. */
     whoFor: z.array(z.string()).optional(),
     whoNotFor: z.array(z.string()).optional(),
-    /** Shown next to "Updated" per T4.2. Distinct from verifiedDate above,
-     *  which is about facts/figures generally; this is specifically "when did
-     *  someone last run the tests/checks a verdict on this page depends on". */
-    lastTested: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+    /** Shown next to "Updated" per T4.2. Named `lastReviewed`, not `lastTested`
+     *  — per Jack's 2026-09-10 methodology decision (docs/DECISIONS.md),
+     *  Sublime Pantry does no physical product testing, so a field named
+     *  "lastTested" would misrepresent the method even as an internal name.
+     *  Distinct from verifiedDate above, which is about facts/figures
+     *  generally; this is specifically "when did someone last recheck the
+     *  spec/certification comparison a verdict on this page depends on". */
+    lastReviewed: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
     bodyHtml: z.string(),
   }).refine(
     (data) => data.pillar !== 'compare' || (data.comparisonCriteria && data.comparisonCriteria.length > 0),

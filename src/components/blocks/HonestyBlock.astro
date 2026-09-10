@@ -2,17 +2,21 @@
 /**
  * docs/CLAUDE-CODE-PROMPT.md T3.4, retitled "What we compared — and
  * didn't" rather than the brief's literal "What we tested — and didn't".
- * tests/claim-shapes.test.mjs's TESTING guard ("the site never claims
- * hands-on testing") fails the build on the exact phrase "we ... tested"
- * within a few words — a real, deliberate rule: this site's disclosed
- * position is that it has not bench-tested any machine or product, and
- * publishes specification comparisons instead (see /review-methodology).
- * docs/CLAUDE-CODE-PROMPT.md's "who tests and fulfils everything himself"
- * framing assumes a persona this specific site does not claim. Kept the
- * schema field names (`testedProducts`, `notTested` in src/content.config.ts)
- * as-is — they're just data plumbing — and changed only the rendered copy,
- * here and in the two column headings below, to match what the site can
- * actually stand behind. Flagged in docs/DECISIONS.md.
+ * Confirmed by Jack's 2026-09-10 methodology decision (docs/DECISIONS.md):
+ * Sublime Pantry does NO physical product testing — verdicts are built
+ * from comparing published specs, certification language, and vendor
+ * data only. tests/claim-shapes.test.mjs's TESTING guard ("the site never
+ * claims hands-on testing") independently enforces the same thing at
+ * build time. Kept the schema field names (`testedProducts`, `notTested`
+ * in src/content.config.ts) as-is — they're data plumbing — and changed
+ * only the rendered copy, here and in the two column headings below.
+ *
+ * Content-authoring rule for the `.note` a guide passes per tested
+ * product: state the comparison basis (the datasheet figure, the
+ * certification language, what the vendor's own listing says), never a
+ * physical result. "Highest cc rating per the datasheet" is right;
+ * "held up best in our test" is exactly the claim this component exists
+ * to avoid making.
  */
 import { CATALOG } from '../../lib/commerce.ts';
 

@@ -11,6 +11,12 @@
  * than taking price/title as props, so a verdict can never state a price or
  * name Shopify doesn't actually have — the same "Shopify owns the name"
  * discipline commerce.ts's own `title` field comment describes.
+ *
+ * Content-authoring rule for `why`, per Jack's 2026-09-10 methodology
+ * decision (docs/DECISIONS.md): Sublime Pantry does no physical product
+ * testing, so the reason has to be a comparison claim — "highest cc rating
+ * per the datasheet", "the only one with a stated FDA-compliance letter" —
+ * never a physical-result claim like "held up best in our test".
  */
 import Packshot from '../figures/Packshot.astro';
 import { CATALOG } from '../../lib/commerce.ts';
