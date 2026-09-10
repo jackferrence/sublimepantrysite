@@ -53,9 +53,9 @@ const groups = LINE_ORDER.map((line) => ({
   {groups.map((group) => (
     <section class="shop-group" aria-labelledby={`group-${group.line}`}>
       <h2 id={`group-${group.line}`}>{group.label}</h2>
-      <div class="card-grid">
+      <div class="supply-shelf">
         {group.products.map((product) => (
-          <article class="card product-card">
+          <article class:list={['product-card', { 'product-card--bundle': product.line === 'bundle' }] }>
             {product.image && (
               <div class="product-card-media">
                 <Img
@@ -136,13 +136,15 @@ const groups = LINE_ORDER.map((line) => ({
 
 <style>
   .shop-group { margin-top: var(--s5); }
-  .shop-group h2 { margin-top: 0; }
+  .shop-group h2 { margin: 0; padding-bottom: var(--s2); border-bottom: 2px solid var(--ink); }
 
-  .product-card { display: flex; flex-direction: column; }
-  .product-card-media { aspect-ratio: 4 / 5; background: var(--brand-tint); }
+  .supply-shelf { display: grid; }
+  .product-card { display: grid; grid-template-columns: minmax(9rem, .55fr) minmax(0, 1.45fr); gap: var(--s4); padding: var(--s4) 0; border-bottom: 1px solid var(--mist); }
+  .product-card--bundle { grid-template-columns: minmax(12rem, .85fr) minmax(0, 1.15fr); background: var(--color-semantic-warm); padding-inline: var(--s3); }
+  .product-card-media { aspect-ratio: 4 / 5; background: var(--surface); }
   .product-card-media :global(.product-card-img) { width: 100%; height: 100%; object-fit: contain; display: block; }
 
-  .product-card-body { padding: var(--s3); display: flex; flex-direction: column; gap: var(--s1); flex: 1; }
+  .product-card-body { padding: var(--s2) var(--s3) var(--s2) 0; display: flex; flex-direction: column; gap: var(--s1); }
   .product-card-body h3 { margin: 0; font-size: var(--h3); }
   .product-card-body h3 a { color: var(--ink); text-decoration: none; }
   .product-card-body h3 a:hover { color: var(--brand); text-decoration: underline; }
@@ -163,4 +165,9 @@ const groups = LINE_ORDER.map((line) => ({
   }
   .product-stock-note { margin: 0; font-size: .9rem; color: var(--ink-soft); }
   .product-details { margin: auto 0 0; padding-top: var(--s2); }
+  @media (max-width: 639px) {
+    .product-card, .product-card--bundle { grid-template-columns: 7.5rem minmax(0, 1fr); gap: var(--s2); padding-inline: 0; }
+    .product-card-body { padding: 0; }
+    .product-card-note { font-size: .92rem; }
+  }
 </style>

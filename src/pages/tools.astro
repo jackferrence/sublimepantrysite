@@ -2,8 +2,8 @@
 /**
  * The tools hub.
  *
- * Cards come from `TOOLS`, so a calculator added to that list appears here
- * without touching this file. Each card leads with the question the tool
+ * Entries come from `TOOLS`, so a calculator added to that list appears here
+ * without touching this file. Each entry leads with the question the tool
  * settles rather than the tool's name, because a reader deciding whether to
  * open something is matching it against a question they already have.
  */
@@ -11,6 +11,8 @@ import PageLayout from '../layouts/PageLayout.astro';
 import { liveTools } from '../lib/tools';
 
 const tools = liveTools();
+const featured = tools.find((tool) => tool.homepageEmbed) ?? tools[0];
+const rest = tools.filter((tool) => tool !== featured);
 
 const jsonLd = [
   {
@@ -42,37 +44,44 @@ const jsonLd = [
 >
   <span class="kicker">Tools</span>
   <h1>Answer the question, then keep the answer.</h1>
-  <p class="lede">Free tools for the parts of freeze-drying worth writing down. No account. Records stay in your browser, and you can export them.</p>
+  <p class="lede">Private calculators and a batch record for decisions worth checking twice. Each answer keeps its formula, source date and known gaps beside the result.</p>
 
-  <ul class="tool-grid">
-    {tools.map((tool) => (
-      <li class="card tool">
+  {featured && <article class="featured-tool" aria-labelledby="featured-tool-heading">
+    <span class="kicker">Current utility</span>
+    <p class="tool-question">{featured.answers}</p>
+    <h2 id="featured-tool-heading" class="tool-name"><a href={featured.href} data-sp-event="tool_full_open" data-sp-props={JSON.stringify({ tool: featured.slug })}>{featured.name}</a></h2>
+    <p class="tool-summary">{featured.summary}</p>
+    <p class="tool-provenance"><strong>Data basis:</strong> {featured.provenance}</p>
+    <a class="btn btn-primary" href={featured.href} data-sp-event="tool_full_open" data-sp-props={JSON.stringify({ tool: featured.slug })}>Open the calculator</a>
+  </article>}
+
+  <ol class="tool-ledger">
+    {rest.map((tool, index) => (
+      <li class="tool">
+        <span class="tool-index" aria-hidden="true">{String(index + 2).padStart(2, '0')}</span>
+        <div>
         <p class="tool-question">{tool.answers}</p>
-        <h2 class="tool-name"><a href={tool.href}>{tool.name}</a></h2>
+        <h2 class="tool-name"><a href={tool.href} data-sp-event="tool_full_open" data-sp-props={JSON.stringify({ tool: tool.slug })}>{tool.name}</a></h2>
         <p class="tool-summary">{tool.summary}</p>
-        <p class="tool-open"><a class="btn-text" href={tool.href}>Open the {tool.name}</a></p>
+        <p class="tool-provenance"><strong>Data basis:</strong> {tool.provenance}</p>
+        </div>
+        <a class="btn-text tool-open" href={tool.href} data-sp-event="tool_full_open" data-sp-props={JSON.stringify({ tool: tool.slug })}>Open <span aria-hidden="true">↗</span></a>
       </li>
     ))}
-  </ul>
+  </ol>
 
-  <section class="card tool-note" aria-labelledby="tool-note-heading">
-    <h2 id="tool-note-heading">Where your records live</h2>
-    <p>Everything these tools store is kept in the browser you enter it in. There is no account, no server copy and no sync between devices, and we never see it. Clearing your browser data removes it, so export a copy when the record matters. See our <a href="/privacy">privacy policy</a>.</p>
+  <section class="tool-note" aria-labelledby="tool-note-heading">
+    <h2 id="tool-note-heading">What leaves this page</h2>
+    <p>The four calculators send no inputs or results, use no cookies and save nothing. Batch Log stores its disclosed records only in this browser and can export CSV. There is no account or server copy. See our <a href="/privacy">privacy policy</a>.</p>
   </section>
 </PageLayout>
 
 <style>
-  .tool-grid {
-    list-style: none;
-    margin: var(--s4) 0 0;
-    padding: 0;
-    display: grid;
-    gap: var(--s3);
-    max-width: 54rem;
-  }
-  @media (min-width: 760px) { .tool-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-
-  .tool { padding: var(--s4); display: flex; flex-direction: column; gap: var(--s1); }
+  .featured-tool { margin-top: var(--s5); max-width: 58rem; padding: var(--s5); background: var(--color-brand-ice); border-top: 4px solid var(--ink); }
+  .featured-tool .tool-question { font-size: clamp(1.6rem, 3vw, 2.35rem); max-width: 30ch; }
+  .tool-ledger { list-style: none; margin: var(--s5) 0 0; padding: 0; max-width: 64rem; border-top: 2px solid var(--ink); }
+  .tool { display: grid; grid-template-columns: 3rem minmax(0, 1fr) auto; gap: var(--s3); padding: var(--s3) 0; border-bottom: 1px solid var(--mist); align-items: start; }
+  .tool-index { color: var(--brand); font-variant-numeric: tabular-nums; }
   .tool-question {
     margin: 0;
     font-family: var(--font-display);
@@ -82,10 +91,16 @@ const jsonLd = [
   .tool-name { margin: var(--s1) 0 0; font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; }
   .tool-name a { color: var(--brand); text-decoration: none; }
   .tool-name a:hover { text-decoration: underline; }
-  .tool-summary { margin: var(--s1) 0 0; color: var(--ink-soft); flex: 1; }
-  .tool-open { margin: var(--s2) 0 0; }
+  .tool-summary { margin: var(--s1) 0 0; color: var(--ink-soft); }
+  .tool-provenance { margin: .5rem 0 0; color: var(--ink-soft); font-size: .9rem; }
+  .tool-open { white-space: nowrap; }
 
-  .tool-note { margin-top: var(--s5); padding: var(--s4); max-width: 54rem; }
+  .tool-note { margin-top: var(--s5); padding: var(--s4) 0; max-width: 54rem; border-top: 1px solid var(--ink); }
   .tool-note h2 { margin: 0 0 var(--s2); font-size: var(--h3); }
   .tool-note p { color: var(--ink-soft); max-width: 66ch; margin: 0; }
+  @media (max-width: 639px) {
+    .featured-tool { padding: var(--s3); }
+    .tool { grid-template-columns: 2rem minmax(0, 1fr); gap: var(--s2); }
+    .tool-open { grid-column: 2; }
+  }
 </style>

@@ -32,12 +32,12 @@ test('the brand name survives in the HTML, visually hidden', () => {
   assert.match(header(built('index.html')), /<span class="sr-only"[^>]*>Sublime Pantry<\/span>/);
 });
 
-test('the plate is decorative, so the link is not announced twice', () => {
-  assert.match(header(built('index.html')), /<img src="\/brand\/[^"]+\.svg" alt=""/);
+test('the supplied artwork is decorative, so the link is not announced twice', () => {
+  assert.match(header(built('index.html')), /<img class="brand-wordmark" src="\/brand\/approved\/[^"]+\.svg" alt=""/);
 });
 
 test('the artwork the header points at actually exists', () => {
-  const m = /<img src="(\/brand\/[^"]+\.svg)"/.exec(header(built('index.html')));
+  const m = /<img[^>]+src="(\/brand\/[^"]+\.svg)"/.exec(header(built('index.html')));
   assert.ok(m, 'the brand block must reference a file');
   assert.ok(existsSync(new URL(`../public${m[1]}`, import.meta.url)), `${m[1]} is not in public/`);
 });
@@ -50,10 +50,9 @@ test('Organization structured data still carries the name', () => {
 });
 
 test('the footer keeps the full lockup', () => {
-  // This change is header-only. The footer is where the wordmark still reads.
   const f = footer(built('index.html'));
-  assert.ok(f.includes('Sublime Pantry'), 'the footer wordmark must remain');
-  assert.match(f, /<svg[^>]*class="mark/, 'the footer keeps the token-drawn Mark');
+  assert.match(f, /sublimepantry-tagline-ink-ice\.svg/, 'the footer must use the supplied tagline lockup');
+  assert.ok(!/<svg[^>]*class="mark/.test(f), 'retired reconstructed mark returned');
 });
 
 test('the approved ice colour has one primitive and semantic aliases use it', () => {
@@ -69,7 +68,25 @@ test('the documented rules match what the code does', () => {
   // A rule the code contradicts is worse than no rule: the next person cannot
   // tell which is authoritative.
   const media = readFileSync(new URL('../src/lib/media.ts', import.meta.url), 'utf8');
-  assert.ok(media.includes('BrandBlock'), 'media.ts must name the one sanctioned exception');
+  assert.match(media, /Roman SP is the single selected monogram/);
+  assert.match(media, /\/brand\/approved/);
+  const component = readFileSync(new URL('../src/components/BrandBlock.astro', import.meta.url), 'utf8');
+  assert.match(component, /BRAND\.wordmark/);
+  assert.match(component, /BRAND\.mark/);
+  assert.ok(!/Sublime Pantry<\/|<svg|<path/.test(component), 'the component must not typeset or redraw the mark');
+});
+
+test('the approved contexts select the inline wordmark and roman SP monogram', () => {
+  const html = header(built('index.html'));
+  assert.match(html, /sublimepantry-inline-ink-ice\.svg/);
+  assert.match(html, /sublimepantry-sp-ink-ice\.svg/);
+  assert.match(html, /brand-wordmark[^>]*width="1406"/);
+});
+
+test('the display system names Bodoni Moda and retires the temporary faces', () => {
+  const tokens = readFileSync(new URL('../src/styles/tokens.tokens.json', import.meta.url), 'utf8');
   const css = readFileSync(new URL('../public/styles/base.css', import.meta.url), 'utf8');
-  assert.ok(/header brand block/.test(css), '--logo-frost must permit the block it is used for');
+  assert.match(tokens, /Bodoni Moda Variable/);
+  assert.ok(!/Didot|Ibarra Real Nova/.test(tokens + css));
+  assert.match(css, /font-optical-sizing:\s*auto/);
 });

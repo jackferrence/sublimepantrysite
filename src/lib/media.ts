@@ -16,40 +16,20 @@ export function publicImage(path: string): string | undefined {
   return existsSync(join(PUBLIC_DIR, path)) ? path : undefined;
 }
 
-/**
- * Brand files, by name rather than by path.
- *
- * These are the downloadable / off-site versions and keep the artwork's own
- * colours. The on-site mark is `Mark.astro`, which redraws the same geometry
- * from design tokens.
- *
- * One template may reach for a file here, and only one: the header brand block
- * (`BrandBlock.astro`). That block is the plate — the artwork's own #b0ddec
- * ground, bleeding to the top and left edges of the header — and a redrawn
- * token version would be reproducing the background rather than showing the
- * artwork. Everywhere else still goes through `Mark.astro` or `publicImage`.
- *
- * `reversed*` are knockouts: white letterforms that vanish on --paper and
- * --surface. They exist for dark or plated grounds only, which is why they are
- * grouped separately rather than sitting in one flat list where someone
- * reaching for "the white one" would drop an invisible logo into the header.
+/** Approved outlined artwork, unchanged including its built-in clearspace.
+ * BrandBlock and Mark render these files; never derive logo color from tokens.
+ * Roman SP is the single selected monogram. White artwork is for dark grounds.
  */
+const LOGOS = '/brand/approved';
 export const BRAND = {
-  /** For light grounds. The default press mark. */
-  mark: '/brand/mark-black.svg',
-  markPng: '/brand/mark-black.png',
-  /** On the logo's own pale-blue plate. Good for social avatars. */
-  markPlate: '/brand/mark-black-plate.svg',
-  markPlatePng: '/brand/mark-black-plate.png',
-  reversed: {
-    /** White letterforms, --brand outline. Dark grounds only. */
-    brand: '/brand/mark-reversed-brand.svg',
-    brandPng: '/brand/mark-reversed-brand.png',
-    /** White letterforms, frost outline. Lowest contrast of the set. */
-    frost: '/brand/mark-reversed-frost.svg',
-    frostPng: '/brand/mark-reversed-frost.png',
-    /** The same two, on the pale-blue plate. */
-    brandPlate: '/brand/mark-reversed-brand-plate.svg',
-    frostPlate: '/brand/mark-reversed-frost-plate.svg',
-  },
+  wordmark: `${LOGOS}/01-wordmark/sublimepantry-inline-ink-ice.svg`,
+  wordmarkDark: `${LOGOS}/01-wordmark/sublimepantry-inline-white-ice.svg`,
+  wordmarkIce: `${LOGOS}/01-wordmark/sublimepantry-inline-ink-rust.svg`,
+  tagline: `${LOGOS}/01-wordmark/sublimepantry-tagline-ink-ice.svg`,
+  stacked: `${LOGOS}/01-wordmark/sublimepantry-stacked-ink-ice.svg`,
+  mark: `${LOGOS}/02-monogram/sublimepantry-sp-ink-ice.svg`,
+  markSmall: `${LOGOS}/02-monogram/sublimepantry-sp-solid-ink.svg`,
+  markPng: `${LOGOS}/02-monogram/sublimepantry-sp-ink-ice-512px.png`,
+  appIcon: `${LOGOS}/03-app-icons/sublimepantry-icon-square-on-paper-512px.png`,
+  favicon: '/favicon.svg',
 } as const;

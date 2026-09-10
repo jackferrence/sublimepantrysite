@@ -1,0 +1,89 @@
+---
+import { getTool, toolUrl } from '../lib/tools';
+import { BRAND } from '../lib/media';
+import ToolEmbed from '../components/ToolEmbed.astro';
+interface Props { slug: string }
+const tool = getTool(Astro.props.slug);
+const canonical = toolUrl(tool);
+const schema = {
+  '@context': 'https://schema.org', '@type': 'WebApplication',
+  name: tool.name, description: tool.summary, url: canonical,
+  applicationCategory: 'UtilitiesApplication', operatingSystem: 'Any',
+  browserRequirements: 'The default answer is available without JavaScript. JavaScript updates the result.',
+  isAccessibleForFree: true, offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  publisher: { '@type': 'Organization', name: 'Sublime Pantry', url: 'https://www.sublimepantry.com/' },
+};
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{tool.name} | Sublime Pantry</title>
+    <meta name="description" content={tool.summary} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={tool.name} />
+    <meta property="og:description" content={tool.summary} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script is:inline>
+      if (new URLSearchParams(location.search).get('embed') === '1') {
+        document.documentElement.setAttribute('data-embed', '1');
+      }
+    </script>
+    <link rel="stylesheet" href="/styles/base.css" />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />
+  </head>
+  <body class="tool-document">
+    <a class="skip-link" href="#main">Skip to calculator</a>
+    <header class="tool-header" data-embed-hide>
+      <a href="/" class="tool-home" aria-label="Sublime Pantry — home">
+        <img src={BRAND.wordmark} alt="" width="490" height="90" />
+      </a>
+      <nav aria-label="Tools navigation"><a href="/tools">All tools</a><a href="/guides">Guides</a><a href="/shop">Shop</a></nav>
+    </header>
+    <main id="main" class="tool-content" data-pagefind-body>
+      <p class="tool-privacy" data-embed-hide>No account. Calculations stay on this page and are not saved or sent anywhere.</p>
+      <noscript><p class="tool-noscript">JavaScript is off. The published default answer below remains available; turn on JavaScript to recalculate with your inputs.</p></noscript>
+      <slot />
+      <ToolEmbed tool={tool} />
+    </main>
+    <footer class="tool-footer" data-embed-hide><a href="/tools">All free tools</a><a href="/privacy">Privacy</a><a href="/editorial-standards">Editorial standards</a></footer>
+  </body>
+</html>
+<style is:global>
+  :root[data-embed='1'] [data-embed-hide] { display: none !important; }
+  .tool-header, .tool-footer { max-width: var(--wrap); margin: auto; padding: var(--s3); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s3); border-bottom: 1px solid var(--mist); }
+  .tool-header nav, .tool-footer { display: flex; gap: var(--s3); }
+  .tool-header a, .tool-footer a, .attribution a { display: inline-flex; align-items: center; min-height: 44px; }
+  .tool-home img { display: block; width: clamp(8.5rem, 18vw, 11rem); height: auto; }
+  .tool-content { max-width: 68rem; margin: auto; padding: var(--s4) var(--s3) var(--s6); }
+  .tool-content h1 { font-size: clamp(2rem,5vw,3.7rem); max-width: 22ch; line-height: 1.08; }
+  .tool-content h2 { font-size: clamp(1.6rem,3vw,2.3rem); margin-top: var(--s5); }
+  .tool-content h3, .tool-content h4 { font-family: var(--font-body); }
+  .tool-content p, .tool-content li { max-width: 70ch; }
+  .tool-content :is(input, select, textarea, button) { font-family: var(--font-body); font-size: 1rem; }
+  .tool-content :is(input:not([type=radio]):not([type=checkbox]), select, textarea) { max-width: 100%; min-height: 44px; }
+  .tool-content :is(button, summary) { min-height: 44px; cursor: pointer; }
+  .tool-content :is(.tool-panel,.panel,.oa-calc) { margin: var(--s4) 0; max-width: none; padding: var(--s4); border: 1px solid var(--mist); border-top: 3px solid var(--brand); background: var(--surface); border-radius: var(--radius-panel); }
+  .tool-content :is(.tool-panel,.panel,.oa-calc) > h2 { margin-top: 0; }
+  .tool-content :is(.stat,.result,.oa-headline) { background: var(--color-brand-ice); color: var(--ink); padding: var(--s2); border-radius: var(--radius-control); }
+  .tool-content :is(.value,.figure,.big,.oa-figure) { font-family: var(--font-body); font-variant-numeric: tabular-nums; font-weight: 600; }
+  .tool-content :is(.not-published,.notpub,.oa-gap) { color: var(--ink); background: var(--color-semantic-warm); }
+  .tool-content .tmc { padding: 0; max-width: none; }
+  .tool-content .table-scroll, .tool-content .scroll { max-width: 100%; }
+  .tool-content .embed-block { margin-top: var(--s5); padding-top: var(--s3); border-top: 1px solid var(--mist); }
+  .tool-content .embed-block label { display: block; margin-top: var(--s3); font-weight: 600; }
+  .tool-content #embed-code { width: 100%; padding: var(--s2); font-family: ui-monospace, monospace; font-size: .85rem; }
+  .tool-privacy, .tool-noscript { font-size: .9rem; color: var(--ink-soft); }
+  .tool-noscript { padding: var(--s2); border: 1px solid var(--mist); }
+  :root[data-embed='1'] .tool-content { max-width: none; padding: var(--s2); }
+  :root[data-embed='1'] .tool-content :is(.tool-panel,.panel,.oa-calc) { margin-top: 0; }
+  @media (max-width: 719px) {
+    .tool-content { padding: var(--s3) var(--s2); }
+    .tool-content :is(.tool-panel,.panel,.oa-calc) { padding: var(--s2); }
+    .tool-content .tool-table td { display: block; text-align: left; overflow-wrap: anywhere; }
+    .tool-content .tool-table td::before { display: block; margin-bottom: .25rem; }
+  }
+</style>

@@ -146,7 +146,7 @@ An empty result renders nothing. That is correct behaviour, not a bug to paper o
 | Widths | 1:1: 400/800 |
 | Subject | `mylar-bag`, `6x6`, `oxygen-absorber`, `100cc`, `snack`, `SP-SNK-KIT` |
 | Restrictions | — |
-| Used by | *unplaced* |
+| Used by | product: SP-SNK-50<br>product: SP-SNK-100<br>product: SP-BUNDLE-STARTER<br>product: SP-BUNDLE-SEASON |
 
 ### `packfresh-6x6-bag-dimensions`
 
@@ -162,7 +162,7 @@ An empty result renders nothing. That is correct behaviour, not a bug to paper o
 | Widths | 1:1: 400/800 |
 | Subject | `mylar-bag`, `6x6`, `dimensions`, `snack`, `SP-SNK-KIT` |
 | Restrictions | — |
-| Used by | *unplaced* |
+| Used by | product: SP-SNK-50<br>product: SP-SNK-100<br>product: SP-BUNDLE-STARTER<br>product: SP-BUNDLE-SEASON |
 
 ### `packfresh-mre-half-front`
 
@@ -274,7 +274,7 @@ An empty result renders nothing. That is correct behaviour, not a bug to paper o
 | Widths | 1:1: 400/800 |
 | Subject | `mylar-bag`, `quart`, `oxygen-absorber`, `reserve`, `SP-RSV-QUART` |
 | Restrictions | — |
-| Used by | *unplaced* |
+| Used by | product: SP-QT-50 |
 
 ### `packfresh-quart-flat-dimensions`
 
@@ -290,7 +290,7 @@ An empty result renders nothing. That is correct behaviour, not a bug to paper o
 | Widths | 1:1: 400/800 |
 | Subject | `mylar-bag`, `quart`, `dimensions`, `reserve`, `SP-RSV-QUART` |
 | Restrictions | — |
-| Used by | *unplaced* |
+| Used by | product: SP-QT-50 |
 
 ### `packfresh-mini-sealer-open`
 
@@ -306,7 +306,7 @@ An empty result renders nothing. That is correct behaviour, not a bug to paper o
 | Widths | 4:5: 400/800 |
 | Subject | `sealer`, `tool`, `SP-TOOL-SEALER` |
 | Restrictions | — |
-| Used by | *unplaced* |
+| Used by | product: SP-TOOL-HM150<br>product: SP-BUNDLE-STARTER<br>product: SP-BUNDLE-SEASON |
 
 ### `packfresh-mini-sealer-angled`
 
@@ -322,7 +322,7 @@ An empty result renders nothing. That is correct behaviour, not a bug to paper o
 | Widths | 4:5: 400/800 |
 | Subject | `sealer`, `tool`, `SP-TOOL-SEALER` |
 | Restrictions | — |
-| Used by | *unplaced* |
+| Used by | product: SP-TOOL-HM150<br>product: SP-BUNDLE-STARTER<br>product: SP-BUNDLE-SEASON |
 
 ### `packfresh-mini-sealer-sealing-bag`
 
@@ -338,7 +338,7 @@ An empty result renders nothing. That is correct behaviour, not a bug to paper o
 | Widths | 4:5: 400/800 |
 | Subject | `sealer`, `tool`, `sealing`, `SP-TOOL-SEALER` |
 | Restrictions | — |
-| Used by | *unplaced* |
+| Used by | product: SP-TOOL-HM150<br>product: SP-BUNDLE-STARTER<br>product: SP-BUNDLE-SEASON |
 
 ## Classes with nothing in them
 

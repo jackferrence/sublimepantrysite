@@ -24,34 +24,21 @@ const outDir = join(root, 'public', 'og');
 const WIDTH = 1200;
 const HEIGHT = 630;
 
-const PAPER = '#faf7f1';
-const INK = '#221d19';
+const PAPER = '#FAF8F4';
+const INK = '#000000';
 const INK_SOFT = '#6b5f55';
-const BRAND = '#8a3d10';
+const BRAND = '#8B4A21';
 const BRAND_TINT = '#f6e8dc';
 
 const fonts = [
-  { name: 'Ibarra Real Nova', data: readFileSync(join(assets, 'ibarra-real-nova-600.ttf')), weight: 600, style: 'normal' },
-  { name: 'Ibarra Real Nova', data: readFileSync(join(assets, 'ibarra-real-nova-400.ttf')), weight: 400, style: 'normal' },
   { name: 'Source Sans 3', data: readFileSync(join(assets, 'source-sans-3-600.ttf')), weight: 600, style: 'normal' },
 ];
 
-/** The mark, embedded as an SVG data URI — satori renders <img>, not <svg>. */
-function markSvg() {
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
-  <rect x="56" y="64" width="144" height="160" rx="24" fill="${BRAND_TINT}" stroke="${INK}" stroke-width="14"/>
-  <rect x="72" y="32" width="112" height="32" rx="12" fill="${BRAND}"/>
-  <g stroke="${BRAND}" stroke-width="13" stroke-linecap="round">
-    <line x1="128" y1="96" x2="128" y2="192"/>
-    <line x1="86.4" y1="120" x2="169.6" y2="168"/>
-    <line x1="169.6" y1="120" x2="86.4" y2="168"/>
-  </g>
-</svg>`;
-}
-
-function mark(size) {
-  const src = `data:image/svg+xml;base64,${Buffer.from(markSvg()).toString('base64')}`;
-  return { type: 'img', props: { src, width: size, height: size } };
+/** Supplied primary logo, byte-for-byte with original clearspace and colors. */
+function mark() {
+  const artwork = readFileSync(join(root, 'public/brand/approved/01-wordmark/sublimepantry-inline-ink-ice.svg'));
+  const src = `data:image/svg+xml;base64,${artwork.toString('base64')}`;
+  return { type: 'img', props: { src, width: 360, height: 360 * 265 / 1406 } };
 }
 
 function card({ title, kicker }) {
@@ -74,14 +61,7 @@ function card({ title, kicker }) {
           props: {
             style: { display: 'flex', alignItems: 'center', gap: '18px' },
             children: [
-              mark(64),
-              {
-                type: 'div',
-                props: {
-                  style: { fontFamily: 'Ibarra Real Nova', fontSize: '34px', fontWeight: 600, color: INK },
-                  children: 'Sublime Pantry',
-                },
-              },
+              mark(),
             ],
           },
         },
@@ -104,7 +84,7 @@ function card({ title, kicker }) {
                 type: 'div',
                 props: {
                   style: {
-                    fontFamily: 'Ibarra Real Nova', fontWeight: 600,
+                    fontFamily: 'Source Sans 3', fontWeight: 600,
                     fontSize: title.length > 78 ? '54px' : '66px',
                     lineHeight: 1.08, letterSpacing: '-1.5px', color: INK,
                   },

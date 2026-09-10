@@ -1,3 +1,4 @@
+import { productMedia } from './product-media.ts';
 /**
  * Sublime Pantry — commerce configuration.
  *
@@ -28,6 +29,10 @@ export interface ProductImage {
    *  tests/assets.test.mjs fails the build if a `not-product-imagery` asset is
    *  named here. Shopify CDN URLs have no entry and keep using `src` alone. */
   assetId?: string;
+  highRes?: string;
+  caption?: string;
+  width?: number;
+  height?: number;
   src: string;
   alt: string;
   /** What the frame shows, used for the thumbnail's accessible name. */
@@ -150,7 +155,7 @@ const FOIL_OPACITY =
 const SEALER_REQUIRED =
   "A heat sealer, or a household iron \u2014 mylar has to be heat sealed to close.";
 
-export const CATALOG: CatalogProduct[] = [
+const CATALOG_RECORDS: CatalogProduct[] = [
   {
     handle: 'snack-bags-6x6-50-pack-absorbers',
     sku: 'SP-SNK-50',
@@ -488,6 +493,12 @@ export const CATALOG: CatalogProduct[] = [
     relatedArticles: ['storage-failure', 'complete-batch-workflow', 'storage-containers'],
   },
 ];
+
+export const CATALOG: CatalogProduct[] = CATALOG_RECORDS.map(product => {
+  const images = productMedia(product.sku);
+  return { ...product, images, image: images[0]?.src ?? '', imageAlt: images[0]?.alt ?? '' };
+});
+
 
 /**
  * The ownership disclosure, written once.

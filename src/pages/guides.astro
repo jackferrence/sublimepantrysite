@@ -1,8 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import PageLayout from '../layouts/PageLayout.astro';
-import Card from '../components/Card.astro';
-import { heroImage, articleHref, newestFirst } from '../lib/articles';
+import EditorialListing from '../components/EditorialListing.astro';
+import { newestFirst } from '../lib/articles';
 
 const entries = (await getCollection('articles', ({ data }) => data.pillar === 'guides')).sort(newestFirst);
 
@@ -38,22 +38,9 @@ const jsonLd = [
   <h1>Find the next step for your freeze-drying project.</h1>
   <p class="lede">Practical, source-cited guidance for choosing a machine, running a batch and evaluating a small food business.</p>
 
-  <div class="card-grid hub-grid">
-    {entries.map((entry) => (
-      <Card
-        href={articleHref(entry)}
-        title={entry.data.title}
-        dek={entry.data.description}
-        headingLevel={2}
-        kicker={entry.data.section ?? entry.data.kicker}
-        image={heroImage(entry)?.src}
-        imageAlt={heroImage(entry)?.alt}
-        transitionName={`sp-title-${entry.id}`}
-      />
-    ))}
-  </div>
+  <EditorialListing entries={entries} leadId="complete-batch-workflow" />
 
-  <section class="hub-next card" aria-labelledby="specific-problem">
+  <section class="hub-next" aria-labelledby="specific-problem">
     <h2 id="specific-problem">Have a specific problem?</h2>
     <p>Start with the symptom if a batch, package or machine is not behaving as expected. The troubleshooting pages take one symptom at a time.</p>
     <a class="btn btn-secondary" href="/troubleshooting">Find a troubleshooting guide</a>
@@ -62,7 +49,7 @@ const jsonLd = [
 
 <style>
   .hub-grid { margin-top: var(--s4); }
-  .hub-next { margin-top: var(--s5); padding: var(--s4); }
+  .hub-next { margin-top: var(--s5); padding: var(--s4) 0; border-top: 1px solid var(--ink); }
   .hub-next h2 { margin: 0 0 var(--s2); font-size: var(--h3); }
   .hub-next p { color: var(--ink-soft); max-width: 62ch; }
 </style>

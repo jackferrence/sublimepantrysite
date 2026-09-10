@@ -2,51 +2,100 @@
 import type { ProductImage } from '../lib/commerce';
 interface Props { images: ProductImage[]; productName: string; }
 const { images, productName } = Astro.props;
+const galleryId = `gallery-${productName.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
 ---
 {images.length ? (
   <section class="gallery" aria-label={`${productName} product images`} data-product-gallery>
     <div class="gallery-stage">
       {images.map((image, index) => (
-        <figure id={`product-image-${index}`} class:list={['gallery-frame', { active: index === 0 }]}>
-          <img src={image.src} alt={image.alt} width="800" height="800" loading={index ? 'lazy' : 'eager'} />
-          {image.source === 'manufacturer' && <figcaption>Exact product media · Photo: manufacturer</figcaption>}
+        <figure id={`${galleryId}-${index}`} class:list={['gallery-frame', { active: index === 0 }]}>
+          <a href={image.highRes ?? image.src} data-gallery-zoom data-sp-event="gallery_interaction" data-sp-props={JSON.stringify({ action: 'zoom', image_index: index + 1 })} aria-label={`Enlarge: ${image.alt}`}>
+            <img src={image.src} srcset={`${image.src.replace('-800.webp', '-400.webp')} 400w, ${image.src} 800w`} alt={image.alt} width={image.width ?? 800} height={image.height ?? 800} loading={index ? 'lazy' : 'eager'} sizes="(min-width: 900px) 55vw, 100vw" />
+          </a>
+          <figcaption>{image.caption ?? (image.source === 'manufacturer' ? 'Exact product media · Photo: manufacturer' : 'Photo: Sublime Pantry')}</figcaption>
         </figure>
       ))}
     </div>
+    <p class="gallery-hint">Select a view. Open the image for a closer look.</p>
     {images.length > 1 && (
-      <div class="gallery-thumbs" role="tablist" aria-label="Choose a product image">
+      <div class="gallery-thumbs" aria-label="Choose a product image">
         {images.map((image, index) => (
-          <button type="button" role="tab" aria-selected={index === 0 ? 'true' : 'false'} aria-controls={`product-image-${index}`} data-gallery-index={index}>
-            <img src={image.src} alt="" width="72" height="72" loading="lazy" />
-            <span class="sr-only">Show {image.kind} view</span>
+          <button type="button" aria-pressed={index === 0 ? 'true' : 'false'} aria-controls={`${galleryId}-${index}`} data-gallery-index={index} data-sp-event="gallery_interaction" data-sp-props={JSON.stringify({ action: 'select', image_index: index + 1 })}>
+            <img src={image.src} srcset={`${image.src.replace('-800.webp', '-400.webp')} 400w, ${image.src} 800w`} sizes="64px" alt="" width="64" height="64" loading="lazy" />
+            <span class="sr-only">View {index + 1}: {image.alt}</span>
           </button>
         ))}
       </div>
     )}
+    <dialog class="gallery-dialog" aria-label={`${productName}: enlarged image`}>
+      <form method="dialog"><button class="btn btn-secondary" autofocus>Close image</button></form>
+      <img data-gallery-large alt="" width="1280" height="1280" />
+      <p data-gallery-caption></p>
+    </dialog>
   </section>
 ) : (
-  <div class="gallery-missing" role="note"><span class="kicker">Exact media pending</span><p>A verified image for this exact product is not available yet. We will not substitute a generic product photograph.</p></div>
+  <div class="gallery-missing" role="note"><span class="kicker">Exact product media pending</span><p>A verified image of this exact refill pack is not available yet.</p><p>Read the packet size, count and sealed-pack configuration in the contents below.</p></div>
 )}
 <script>
-  document.querySelectorAll('[data-product-gallery]').forEach((gallery) => {
-    const tabs = [...gallery.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
-    const frames = [...gallery.querySelectorAll<HTMLElement>('.gallery-frame')];
-    tabs.forEach((tab, index) => tab.addEventListener('click', () => {
-      tabs.forEach((item, i) => item.setAttribute('aria-selected', String(i === index)));
-      frames.forEach((frame, i) => frame.classList.toggle('active', i === index));
-    }));
-  });
+  function initGalleries() {
+    document.querySelectorAll<HTMLElement>('[data-product-gallery]').forEach((gallery) => {
+      if (gallery.dataset.enhanced) return;
+      gallery.dataset.enhanced = 'true';
+      const buttons = [...gallery.querySelectorAll<HTMLButtonElement>('[data-gallery-index]')];
+      const frames = [...gallery.querySelectorAll<HTMLElement>('.gallery-frame')];
+      const dialog = gallery.querySelector<HTMLDialogElement>('dialog')!;
+      const enlarged = gallery.querySelector<HTMLImageElement>('[data-gallery-large]')!;
+      let previousFocus: HTMLElement | null = null;
+      function select(index: number) {
+        buttons.forEach((item, i) => item.setAttribute('aria-pressed', String(i === index)));
+        frames.forEach((frame, i) => { frame.hidden = i !== index; frame.classList.toggle('active', i === index); });
+      }
+      if (buttons.length) select(0);
+      buttons.forEach((button, index) => {
+        button.addEventListener('click', () => select(index));
+        button.addEventListener('keydown', (event) => {
+          let next = index;
+          if (event.key === 'ArrowRight') next = (index + 1) % buttons.length;
+          else if (event.key === 'ArrowLeft') next = (index + buttons.length - 1) % buttons.length;
+          else if (event.key === 'Home') next = 0;
+          else if (event.key === 'End') next = buttons.length - 1;
+          else return;
+          event.preventDefault(); select(next); buttons[next].focus();
+        });
+      });
+      gallery.querySelectorAll<HTMLAnchorElement>('[data-gallery-zoom]').forEach(link => {
+        link.addEventListener('click', event => {
+          event.preventDefault(); previousFocus = link;
+          enlarged.src = link.href;
+          enlarged.alt = link.querySelector('img')?.alt ?? '';
+          gallery.querySelector('[data-gallery-caption]')!.textContent = link.closest('figure')?.querySelector('figcaption')?.textContent ?? '';
+          dialog.showModal();
+        });
+      });
+      dialog.addEventListener('close', () => previousFocus?.focus());
+    });
+  }
+  initGalleries();
+  document.addEventListener('astro:page-load', initGalleries);
 </script>
 <style>
-  .gallery-stage { background: var(--color-semantic-warm); border-top: 1px solid var(--ink); }
-  .gallery-frame { display: none; margin: 0; }
-  .gallery-frame.active { display: block; }
-  .gallery-frame img { display: block; width: 100%; aspect-ratio: 1; object-fit: contain; background: var(--surface); }
-  figcaption { padding: .5rem 0; }
-  .gallery-thumbs { display: flex; gap: var(--s1); margin-top: var(--s2); }
-  .gallery-thumbs button { width: 72px; height: 72px; padding: 0; background: var(--surface); border: 1px solid var(--mist); border-radius: var(--radius-control); cursor: pointer; }
-  .gallery-thumbs button[aria-selected="true"] { border: 2px solid var(--brand); }
-  .gallery-thumbs img { width: 100%; height: 100%; object-fit: cover; }
-  .gallery-missing { min-height: 24rem; display: grid; align-content: center; padding: var(--s4); background: var(--color-semantic-warm); border-block: 1px solid var(--ink); }
+  .gallery { min-width: 0; }
+  .gallery-stage { background: var(--surface); border-top: 1px solid var(--ink); }
+  .gallery-frame { margin: 0; }
+  .gallery-frame img { display: block; width: 100%; aspect-ratio: 1; height: auto; object-fit: contain; background: var(--surface); }
+  figcaption { padding: .65rem .8rem; font-size: .82rem; color: var(--ink-soft); }
+  .gallery-thumbs { display: none; gap: var(--s1); flex-wrap: wrap; }
+  [data-enhanced] .gallery-thumbs { display: flex; }
+  .gallery-hint { margin: .75rem 0; font-size: .85rem; color: var(--ink-soft); }
+  .gallery-thumbs button { width: 64px; height: 64px; padding: 0; background: var(--surface); border: 1px solid var(--ink-soft); border-radius: var(--radius-control); cursor: pointer; }
+  .gallery-thumbs button[aria-pressed="true"] { outline: 2px solid var(--brand); outline-offset: 2px; }
+  .gallery-thumbs img { width: 100%; height: 100%; object-fit: contain; }
+  .gallery-missing { min-height: 20rem; display: grid; align-content: center; padding: var(--s4); background: var(--color-semantic-warm); border-block: 1px solid var(--ink); }
   .gallery-missing p { max-width: 34ch; color: var(--ink-soft); }
+  .gallery-dialog { width: min(90vw, 78rem); max-height: 92dvh; padding: 1rem; border: 1px solid var(--ink); background: var(--paper); }
+  .gallery-dialog::backdrop { background: rgb(0 0 0 / .7); }
+  .gallery-dialog form { position: sticky; top: 0; display: flex; justify-content: end; }
+  .gallery-dialog img { width: 100%; height: auto; object-fit: contain; }
+  .gallery-dialog p { font-size: .9rem; }
+  @media print { .gallery { display: none; } }
 </style>

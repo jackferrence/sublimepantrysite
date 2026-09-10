@@ -1,0 +1,422 @@
+---
+/**
+ * /tools/absorber-calculator
+ *
+ * Browser-only. No account, no network calls, no analytics, no cookies, no
+ * storage. Every figure on the page comes from src/data/absorberSizing.ts, which
+ * AbsorberSizingTable.astro reads too, so the calculator and the table cannot drift.
+ *
+ * ?embed=1 renders the calculator alone with no site chrome, plus an attribution
+ * link back here. The switch is made in an inline head script from
+ * location.search, not at build time, so it works under static output.
+ */
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import AbsorberCalculator from '../../components/AbsorberCalculator.astro';
+import AbsorberSizingTable from '../../components/AbsorberSizingTable.astro';
+import { getTool, toolPath } from '../../lib/tools';
+import {
+  PACKFRESH_NOTES,
+  ONE_ABSORBER_RULE,
+  SIZING_BASIS,
+  COULD_NOT_SOURCE,
+  OXYGEN_FRACTIONS,
+  getSource,
+  ACCESS_DATE,
+  type SourceId,
+} from '../../data/absorberSizing';
+
+const tool = getTool('absorber-calculator');
+
+function srcs(ids: readonly SourceId[]) {
+  return ids.map((id) => getSource(id));
+}
+
+const disclosure =
+  'Sublime Pantry has no affiliate relationships, sponsorships, or paid placements as of publication. We sell packaging; where a product we sell appears, it is labeled.';
+---
+
+<ToolLayout slug="absorber-calculator">
+
+  <article>
+    <header data-embed-hide>
+      <p class="kicker">{tool.kicker}</p>
+      <h1>{tool.title}</h1>
+
+      <p class="short-version">
+        <strong>The short version:</strong> size the absorber to the air left in the
+        container, not to the weight of the food. Pick your container and how airy the food
+        is, and the calculator runs the arithmetic the manufacturers publish — then shows
+        you every cc figure those same manufacturers print for that container, which range
+        over eightfold and contradict each other.
+      </p>
+
+    </header>
+
+    <AbsorberCalculator />
+
+
+    <div data-embed-hide>
+      <h2>How the calculation works</h2>
+      <p>
+        Two multiplications, both of them the sources’ own. The container’s air volume times
+        the share of that volume the food leaves as air gives the residual air. That times
+        the oxygen fraction of air gives the oxygen the packet has to clear. Impak works the
+        same sum for a rice-filled pail — “3,066 (cc) residual air volume x .21 (oxygen
+        fraction in air) = 628.53 cc oxygen”{' '}
+        <span class="src">
+          {srcs(['O9']).map((s) => <a href={s.url} rel="nofollow noopener" target="_blank">[{s.id}]</a>)}
+        </span>{' '}
+        — and PackFreshUSA works it for a gallon jar{' '}
+        <span class="src">
+          {srcs(['O1']).map((s) => <a href={s.url} rel="nofollow noopener" target="_blank">[{s.id}]</a>)}
+        </span>.
+      </p>
+      <p>
+        The result is then rounded up to the smallest packet size somebody in this source set
+        actually sells. It is never rounded down, and no size is invented.
+      </p>
+
+      <h3>The oxygen fraction of air is not a settled number</h3>
+      <p>
+        Five different values are in print across these manufacturers, and two of them
+        contradict themselves across their own documents. The calculator uses 21%, because
+        that is the figure the published worked examples use, and it shows you the spread.
+      </p>
+      <ul class="fraction-list">
+        {
+          OXYGEN_FRACTIONS.map((f) => (
+            <li>
+              <strong>{f.label}</strong>{' '}
+              <span class="muted">
+                {srcs(f.sources).map((s) => (
+                  <Fragment>
+                    {s.publisher}{' '}
+                    <span class="src">
+                      <a href={s.url} rel="nofollow noopener" target="_blank">
+                        [{s.id}]
+                      </a>
+                    </span>{' '}
+                  </Fragment>
+                ))}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+
+      <h2>Two things PackFreshUSA says that change the answer</h2>
+      <p class="muted small">
+        These are passages of body prose on PackFreshUSA’s learn page, above and below its
+        sizing chart. The chart itself is an image with no caption and no notes attached, so
+        these are not chart footnotes and should not be repeated as such.
+      </p>
+      {
+        PACKFRESH_NOTES.map((note) => (
+          <section class="note">
+            <h3>{note.heading}</h3>
+            <blockquote>
+              {note.quote}
+              <footer>
+                PackFreshUSA{' '}
+                <a href={getSource(note.source).url} rel="nofollow noopener" target="_blank">
+                  [{note.source}]
+                </a>
+              </footer>
+            </blockquote>
+            <p>{note.explanation}</p>
+          </section>
+        ))
+      }
+
+      <h2>One absorber per bag, and why a second one does nothing</h2>
+      <p>
+        The practice several manufacturers state is one packet per bag, sized up rather than
+        doubled. Wallaby: “{ONE_ABSORBER_RULE.for[0].quote}”{' '}
+        <span class="src">
+          {srcs(ONE_ABSORBER_RULE.for[0].sources).map((s) => (
+            <a href={s.url} rel="nofollow noopener" target="_blank">[{s.id}]</a>
+          ))}
+        </span>. PackFreshUSA: “{ONE_ABSORBER_RULE.for[1].quote}”{' '}
+        <span class="src">
+          {srcs(ONE_ABSORBER_RULE.for[1].sources).map((s) => (
+            <a href={s.url} rel="nofollow noopener" target="_blank">[{s.id}]</a>
+          ))}
+        </span>
+      </p>
+      <p>
+        The reason a second packet buys nothing is that a packet is a capacity, not a rate
+        setting. Once the oxygen in a sealed bag is gone, there is nothing left for a second
+        packet to react with, so it sits there unreacted. Discount Mylar Bags puts it
+        plainly: “{ONE_ABSORBER_RULE.whyDoublingDoesNothing[0].quote}”{' '}
+        <span class="src">
+          {srcs(ONE_ABSORBER_RULE.whyDoublingDoesNothing[0].sources).map((s) => (
+            <a href={s.url} rel="nofollow noopener" target="_blank">[{s.id}]</a>
+          ))}
+        </span>{' '}
+        Dry &amp; Dry agrees there is no harm in it{' '}
+        <span class="src">
+          {srcs(ONE_ABSORBER_RULE.whyDoublingDoesNothing[1].sources).map((s) => (
+            <a href={s.url} rel="nofollow noopener" target="_blank">[{s.id}]</a>
+          ))}
+        </span>, and Impak notes the rated cc is a floor rather than a ceiling{' '}
+        <span class="src">
+          {srcs(ONE_ABSORBER_RULE.whyDoublingDoesNothing[2].sources).map((s) => (
+            <a href={s.url} rel="nofollow noopener" target="_blank">[{s.id}]</a>
+          ))}
+        </span>. Doubling up is neither dangerous nor useful; it is a wasted packet.
+      </p>
+      <p>
+        Not everyone holds the line. Three sources in this set recommend splitting the load
+        or buying small and adding more:
+      </p>
+      <ul>
+        {
+          ONE_ABSORBER_RULE.against.map((a) => (
+            <li>
+              “{a.quote}” — {a.publisher}{' '}
+              <span class="src">
+                {srcs(a.sources).map((s) => (
+                  <a href={s.url} rel="nofollow noopener" target="_blank">[{s.id}]</a>
+                ))}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="caveat">{ONE_ABSORBER_RULE.caveat}</p>
+      <p>
+        One more thing an absorber will not do: pull the bag flat. It takes out the oxygen
+        and leaves the nitrogen, so roughly four-fifths of the air stays where it is and the
+        bag will not look vacuum-sealed{' '}
+        <span class="src">
+          {srcs(ONE_ABSORBER_RULE.notAVacuum.sources as readonly SourceId[]).map((s) => (
+            <a href={s.url} rel="nofollow noopener" target="_blank">[{s.id}]</a>
+          ))}
+        </span>.
+      </p>
+
+      <h2>Why the input is a container, not a weight</h2>
+      <ul>
+        {
+          SIZING_BASIS.byVolume.map((b) => (
+            <li>
+              “{b.quote}” — {b.publisher}{' '}
+              <span class="src">
+                {srcs(b.sources).map((s) => (
+                  <a href={s.url} rel="nofollow noopener" target="_blank">[{s.id}]</a>
+                ))}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+      <p>
+        One source in this set does it the other way, indexing on kilograms of food with no
+        container volume in the input at all{' '}
+        <span class="src">
+          {srcs(SIZING_BASIS.byWeight[0].sources).map((s) => (
+            <a href={s.url} rel="nofollow noopener" target="_blank">[{s.id}]</a>
+          ))}
+        </span>. Both methods are shown here because both are published; this calculator uses
+        volume.
+      </p>
+
+      <AbsorberSizingTable headingLevel={2} />
+
+      <h2>What we could not source</h2>
+      <ul>
+        {COULD_NOT_SOURCE.map((item) => <li>{item}</li>)}
+      </ul>
+      <p class="caveat">
+        Where a figure is missing above, it is missing because nobody published it. Filling
+        the gap by interpolating between neighbouring rows would produce a number no
+        manufacturer stands behind.
+      </p>
+
+      <h2>Packaging</h2>
+      <p>
+        The calculator sizes the packet; the bag it goes into is a separate decision. Our{' '}
+        <a href="/shop/starter-set-50-bags-50-absorbers-sealer">Starter Set — 50 Bags, 50 Absorbers, Sealer</a> includes flat snack bags,
+        matched absorbers and a sealer — <strong>Sold by Sublime Pantry</strong>.
+        Note PackFreshUSA’s point above: nominal bag names are not measured internal volumes,
+        ours included.
+      </p>
+
+      <h2>Next</h2>
+      <ul class="next-links">
+        <li><a href="/guides/mylar-bag-materials">What the mylar thickness numbers actually mean</a></li>
+        <li><a href="/guides/sealing-mylar-bags">Sealing mylar bags, and how to check the seal held</a></li>
+        <li><a href="/troubleshooting/absorber-did-not-work">The absorber did not seem to work</a></li>
+      </ul>
+
+      <footer class="page-meta">
+        <p class="disclosure">{disclosure}</p>
+        <p class="sources-line">
+          All figures on this page are transcribed from the manufacturer, brand and
+          university-extension documents linked inline, each accessed{' '}
+          <time datetime={ACCESS_DATE}>{ACCESS_DATE}</time>. Nothing here has been tested by
+          Sublime Pantry.
+        </p>
+      </footer>
+    </div>
+  </article>
+</ToolLayout>
+
+
+<style>
+  .kicker {
+    margin: 0 0 0.25rem;
+    text-transform: lowercase;
+    letter-spacing: 0.04em;
+    font-size: 0.875rem;
+    color: color-mix(in srgb, currentColor 65%, transparent);
+  }
+
+  h1 {
+    margin: 0 0 1rem;
+  }
+
+  .short-version {
+    max-width: 62ch;
+    font-size: 1.0625rem;
+  }
+
+  .tool-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.875rem;
+    margin-block: 1.25rem 0.5rem;
+  }
+
+  [data-embed-copy] {
+    min-block-size: 2.75rem;
+    min-inline-size: 2.75rem;
+    padding: 0.5rem 1.125rem;
+    font: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    border: 1px solid currentColor;
+    border-radius: var(--radius-panel);
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  [data-embed-copy]:hover {
+    background: color-mix(in srgb, currentColor 8%, transparent);
+  }
+
+  .embed-help,
+  .embed-status {
+    font-size: 0.875rem;
+    color: color-mix(in srgb, currentColor 65%, transparent);
+  }
+
+  .embed-status:not(:empty) {
+    color: inherit;
+    font-weight: 600;
+  }
+
+  .embed-details {
+    margin-block-end: 1.5rem;
+    max-width: 62ch;
+  }
+
+  .embed-details summary {
+    min-block-size: 2.75rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 0.9375rem;
+  }
+
+  .embed-details pre {
+    overflow-x: auto;
+    padding: 0.75rem;
+    border: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+    border-radius: var(--radius-panel);
+    font-size: 0.8125rem;
+    /* Long attribute strings must wrap rather than push the page sideways. */
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .embed-attribution {
+    margin-block-start: 0.875rem;
+    font-size: 0.8125rem;
+  }
+
+  blockquote {
+    margin: 0 0 0.75rem;
+    padding-inline-start: 1rem;
+    border-inline-start: 3px solid color-mix(in srgb, currentColor 20%, transparent);
+    font-style: italic;
+    max-width: 62ch;
+  }
+
+  blockquote footer {
+    margin-block-start: 0.375rem;
+    font-style: normal;
+    font-size: 0.875rem;
+    color: color-mix(in srgb, currentColor 65%, transparent);
+  }
+
+  .note {
+    margin-block-end: 2rem;
+  }
+
+  p,
+  li {
+    max-width: 68ch;
+  }
+
+  .caveat,
+  .muted {
+    color: color-mix(in srgb, currentColor 70%, transparent);
+  }
+
+  .small {
+    font-size: 0.9375rem;
+  }
+
+  .fraction-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .fraction-list li {
+    padding-block: 0.25rem;
+  }
+
+  .src a,
+  blockquote footer a {
+    display: inline-block;
+    margin-inline-start: 0.25rem;
+    min-inline-size: 2.75rem;
+    min-block-size: 2.75rem;
+    line-height: 2.75rem;
+    text-align: center;
+    margin-block: -1rem;
+    font-size: 0.875rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .next-links li {
+    padding-block: 0.25rem;
+  }
+
+  .next-links a {
+    display: inline-block;
+    min-block-size: 2.75rem;
+    line-height: 2.75rem;
+  }
+
+  .page-meta {
+    margin-block-start: 2.5rem;
+    padding-block-start: 1.25rem;
+    border-block-start: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+    font-size: 0.875rem;
+    color: color-mix(in srgb, currentColor 70%, transparent);
+  }
+</style>

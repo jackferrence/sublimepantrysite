@@ -1,0 +1,744 @@
+---
+/**
+ * /tools/batch-planner — freeze-drying batch planner.
+ *
+ * The honesty problem this page exists to solve: a batch planner wants to say
+ * how much comes out, on how many trays, in how many bags, and the published
+ * record answers about a third of that. So every output here is either a
+ * sourced figure with its arithmetic printed, or the words "Not published"
+ * with the search that failed behind them. Nothing is estimated to fill a gap.
+ *
+ * Everything numeric comes from `src/data/batchPlanning.ts`, which in turn
+ * imports its absorber figures from `src/data/absorberSizing.ts` so this tool
+ * and the absorber calculator cannot drift. This file contains no figure of
+ * its own.
+ *
+ * The default answer is rendered server-side from the prefilled values, so the
+ * page answers the question with JavaScript off. The client script only
+ * recomputes; it never supplies a number the page did not already show.
+ */
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { toolByHref } from '../../lib/tools';
+import {
+  SOURCES,
+  cite,
+  FOODS,
+  foodById,
+  DEFAULT_FOOD_ID,
+  DEFAULT_FRESH_LB,
+  DEFAULT_MACHINE,
+  MACHINE_SIZES,
+  MACHINE_CAPACITY,
+  TRAY_AREA,
+  LOADING_DEPTH,
+  TRAY_DIMENSIONS,
+  SINGLE_LAYER_POSITIONS,
+  plannerContainers,
+  recommendationsFor,
+  ONE_PER_BAG,
+  BAGS_NOT_DERIVABLE,
+  COULD_NOT_SOURCE,
+  driedWeight,
+  traysNeeded,
+  batchesNeeded,
+  isUnavailable,
+  range,
+  DISCLOSURE,
+} from '../../data/batchPlanning';
+
+const tool = toolByHref('/tools/batch-planner')!;
+
+const containers = plannerContainers();
+const groups = [...new Set(FOODS.map((f) => f.group))];
+const withYield = FOODS.filter((f) => f.yieldLow !== null);
+const withoutYield = FOODS.filter((f) => f.yieldLow === null);
+
+/* The server-rendered default answer. */
+const food = foodById(DEFAULT_FOOD_ID)!;
+const dried = driedWeight(food, DEFAULT_FRESH_LB);
+const trays = traysNeeded(food, DEFAULT_FRESH_LB, 'lb');
+const batches = batchesNeeded(DEFAULT_FRESH_LB, DEFAULT_MACHINE);
+
+---
+
+<ToolLayout slug="batch-planner">
+  {/*
+    Embed mode. Set before first paint from location.search, because the site
+    is statically built and the server never sees the query string.
+  */}
+
+  <div class="batch-planner">
+    <div data-embed-hide>
+      <span class="kicker">Free tool</span>
+      <h1>Freeze-Drying Batch Planner</h1>
+      <p class="lede">
+        <strong>The short version:</strong> pick a food and a fresh weight and this returns the dried
+        weight, the trays or batches, and the absorbers, each with the source behind it. For most
+        foods the dried weight comes back <strong>Not published</strong>, because three foods in the
+        whole research set carry a fresh-to-dried figure and all three are secondary-tier.
+      </p>
+      <p>
+        No extension service publishes a yield figure for any food. No source publishes a general
+        pounds-per-tray figure, and neither research pack publishes how many trays a machine holds.
+        A bag count cannot be derived from a weight at all. Those gaps are the reason this page
+        exists in the shape it does, and each of them is named where it bites rather than papered
+        over with a plausible number.
+      </p>
+    </div>
+
+    <!-- ---------------------------------------------------------------- -->
+    <!-- The planner -->
+    <!-- ---------------------------------------------------------------- -->
+
+    <section class="card tool-panel" aria-labelledby="plan-heading">
+      <h2 id="plan-heading" class="panel-heading">Plan a batch</h2>
+
+      <form id="plan-form" novalidate>
+        <div class="field-grid">
+          <div class="field">
+            <label for="f-food">Food</label>
+            <select id="f-food" name="food" aria-describedby="food-help">
+              {groups.map((g) => (
+                <optgroup label={g}>
+                  {FOODS.filter((f) => f.group === g).map((f) => (
+                    <option value={f.id} selected={f.id === DEFAULT_FOOD_ID}>
+                      {f.label}{f.yieldLow === null ? ' — yield not published' : ''}
+                    </option>
+                  ))}
+                </optgroup>
+              ))}
+            </select>
+            <p class="field-help" id="food-help">
+              Every food in the research pack’s per-food table is listed, including the ones with no
+              published yield, because knowing a figure does not exist is the answer to the question
+              for most of them.
+            </p>
+          </div>
+
+          <div class="field">
+            <label for="f-fresh">Fresh amount</label>
+            <input
+              type="number"
+              id="f-fresh"
+              name="fresh"
+              min="0"
+              max="10000"
+              step="0.1"
+              value={DEFAULT_FRESH_LB}
+              inputmode="decimal"
+              aria-describedby="fresh-help"
+            />
+            <p class="field-help" id="fresh-help">
+              Weigh the food after trimming and cutting, not at the store. No source states which
+              point in preparation its yield figure was measured from, so treat any result as
+              conditional on that.
+            </p>
+          </div>
+
+          <div class="field">
+            <label for="f-unit">Unit</label>
+            <select id="f-unit" name="unit" aria-describedby="unit-help">
+              <option value="lb" selected>pounds</option>
+              <option value="cups">cups</option>
+            </select>
+            <p class="field-help" id="unit-help">
+              Batch capacity is published in pounds. The one per-tray figure for milk is published in
+              cups. The two are not converted into each other here, because no source publishes the
+              density that would let them be.
+            </p>
+          </div>
+
+          <div class="field">
+            <label for="f-machine">Machine size</label>
+            <select id="f-machine" name="machine" aria-describedby="machine-help">
+              {MACHINE_SIZES.map((s) => (
+                <option value={s} selected={s === DEFAULT_MACHINE}>{s}</option>
+              ))}
+            </select>
+            <p class="field-help" id="machine-help">
+              Small, Medium, Large and X-Large are the size names every publisher uses. They are not
+              the same machine across brands, and the published capacities differ accordingly.
+            </p>
+          </div>
+        </div>
+
+        <fieldset class="bag-fields">
+          <legend>Bags you plan to fill</legend>
+          <p class="field-help" id="bags-help">{BAGS_NOT_DERIVABLE}</p>
+          <div class="bag-grid">
+            {containers.map((c) => (
+              <div class="field">
+                <label for={`f-bags-${c.id}`}>
+                  {c.label} <span class="meta">({c.volumeCc.toLocaleString()} cc)</span>
+                </label>
+                <input
+                  type="number"
+                  id={`f-bags-${c.id}`}
+                  class="bag-input"
+                  data-container={c.id}
+                  min="0"
+                  max="1000"
+                  step="1"
+                  value="0"
+                  inputmode="numeric"
+                  aria-describedby="bags-help"
+                />
+              </div>
+            ))}
+          </div>
+        </fieldset>
+
+        <p class="form-note">
+          <button class="btn btn-secondary" type="button" id="replan-btn">Recalculate</button>
+          <span class="meta">Results update as you type. The button is here for anyone who would rather press it.</span>
+        </p>
+      </form>
+
+      <h3 class="result-heading">Expected dried weight</h3>
+      <div id="dried-result" role="status" aria-live="polite">
+        {isUnavailable(dried) ? (
+          <p class="not-published"><strong>Not published.</strong> {dried.reason}</p>
+        ) : (
+          <>
+            <p class="figure" id="r-dried">{range(dried.value, 'lb')}</p>
+            <p class="formula-line" id="fx-dried">
+              {dried.workings}. Published as “{food.publishedAs}”. {food.derivation}
+            </p>
+            <p class="meta" id="r-dried-src">
+              {dried.sourceUrls.map((u) => `[${cite(u)}]`).join(' ')}
+              {dried.secondaryOnly ? ' — secondary source' : ''}
+            </p>
+          </>
+        )}
+        <p class="caution" id="r-caution">{food.caution}</p>
+      </div>
+
+      <h3 class="result-heading">Trays</h3>
+      <div id="trays-result" role="status" aria-live="polite">
+        {isUnavailable(trays) ? (
+          <p class="not-published"><strong>Not published.</strong> {trays.reason}</p>
+        ) : (
+          <>
+            <p class="figure">{range(trays.value)}</p>
+            <p class="formula-line">{trays.workings}</p>
+          </>
+        )}
+      </div>
+
+      <h3 class="result-heading">Batches on a <span id="r-machine">{DEFAULT_MACHINE}</span> machine</h3>
+      <div id="batches-result" role="status" aria-live="polite">
+        <div class="table-scroll" tabindex="0" role="region" aria-label="Batches needed, by publisher">
+          <table class="tool-table">
+            <caption class="sr-only">
+              Batches needed, one row per publisher. The publishers disagree about capacity and none
+              is preferred here.
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Publisher</th>
+                <th scope="col">Batches</th>
+                <th scope="col">Published capacity</th>
+                <th scope="col">The arithmetic</th>
+                <th scope="col">Source</th>
+              </tr>
+            </thead>
+            <tbody id="batches-body">
+              {batches.map((b) => (
+                <tr>
+                  <th scope="row" data-label="Publisher">{b.publisher}</th>
+                  <td data-label="Batches">
+                    {b.low === null ? <span class="not-published-inline">Not published</span> : <strong>{b.low === b.high ? b.low : `${b.low}–${b.high}`}</strong>}
+                  </td>
+                  <td data-label="Published capacity">{b.capacity}</td>
+                  <td data-label="The arithmetic">{b.workings || b.condition}</td>
+                  <td data-label="Source">[{cite(b.sourceUrl)}]</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <h3 class="result-heading">Absorbers</h3>
+      <div id="absorbers-result" role="status" aria-live="polite">
+        <p class="not-published" id="absorbers-empty">
+          Enter the number of bags you plan to fill above. {BAGS_NOT_DERIVABLE}
+        </p>
+      </div>
+      <p class="meta">
+        One absorber per bag is published practice: “{ONE_PER_BAG.text}” — {ONE_PER_BAG.publisher} [{cite(ONE_PER_BAG.sourceUrl)}].
+        {' '}{ONE_PER_BAG.caveat} [{cite(ONE_PER_BAG.caveatSourceUrl)}]
+      </p>
+
+      <details class="disclosure-block">
+        <summary>Every published absorber size for these three volumes</summary>
+        <p>
+          Publishers disagree, and the disagreement is the finding. Each row is that publisher’s own
+          figure with the condition it attached; nothing is averaged and no size is recommended over
+          another.
+        </p>
+        <div class="table-scroll" tabindex="0" role="region" aria-label="Published absorber recommendations by container volume">
+          <table class="tool-table">
+            <thead>
+              <tr>
+                <th scope="col">Container</th>
+                <th scope="col">Volume</th>
+                <th scope="col">Publisher</th>
+                <th scope="col">Published</th>
+                <th scope="col">Condition attached</th>
+                <th scope="col">Source</th>
+              </tr>
+            </thead>
+            <tbody>
+              {containers.flatMap((c) =>
+                recommendationsFor(c.id).map((r) => (
+                  <tr>
+                    <th scope="row" data-label="Container">{c.label}</th>
+                    <td data-label="Volume">
+                      {c.volumeCc.toLocaleString()} cc —{' '}
+                      {c.volumePublished
+                        ? `published ${c.volumeSourceUrls.map((u) => `[${cite(u)}]`).join(' ')}`
+                        : 'arithmetic on the published gallon figure, not itself published'}
+                    </td>
+                    <td data-label="Publisher">{r.publisher}</td>
+                    <td data-label="Published"><strong>{r.published}</strong></td>
+                    <td data-label="Condition attached">{r.condition || 'None attached by the publisher'}</td>
+                    <td data-label="Source">{r.sourceUrls.map((u) => `[${cite(u)}]`).join(' ')}</td>
+                  </tr>
+                )),
+              )}
+            </tbody>
+          </table>
+        </div>
+      </details>
+    </section>
+
+    <!-- ---------------------------------------------------------------- -->
+
+    <div data-embed-hide>
+      <h2>Yield, as published</h2>
+      <p>
+        Three foods across the whole per-food table carry a fresh-to-dried figure, and all three are
+        secondary-tier. Everything else in the table is a recorded absence rather than an omission.
+      </p>
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Foods with a published yield">
+        <table class="tool-table">
+          <thead>
+            <tr>
+              <th scope="col">Food</th>
+              <th scope="col">Published as</th>
+              <th scope="col">Used here</th>
+              <th scope="col">How</th>
+              <th scope="col">Source</th>
+            </tr>
+          </thead>
+          <tbody>
+            {withYield.map((f) => (
+              <tr>
+                <th scope="row" data-label="Food">{f.label}</th>
+                <td data-label="Published as">{f.publishedAs}</td>
+                <td data-label="Used here">
+                  <strong>
+                    {f.yieldLow === f.yieldHigh
+                      ? `${(f.yieldLow! * 100).toFixed(0)}%`
+                      : `${(f.yieldLow! * 100).toFixed(1)}–${(f.yieldHigh! * 100).toFixed(1)}%`}
+                  </strong>
+                </td>
+                <td data-label="How">{f.derivation}</td>
+                <td data-label="Source">{f.yieldSourceUrls.map((u) => `[${cite(u)}]`).join(' ')}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <details class="disclosure-block">
+        <summary>The {withoutYield.length} foods with no published yield</summary>
+        <ul class="gap-list">
+          {withoutYield.map((f) => (
+            <li>
+              <strong>{f.label}:</strong> {f.publishedAs}
+              {f.yieldSourceUrls.length > 0 ? ` ${f.yieldSourceUrls.map((u) => `[${cite(u)}]`).join(' ')}` : ''}
+              {f.caution ? ` ${f.caution}` : ''}
+            </li>
+          ))}
+        </ul>
+      </details>
+
+      <h2>Trays and batches, as published</h2>
+      <p>
+        Two per-food load densities exist and both are secondary-tier: about 3–4 cups of whole milk
+        per tray [{cite('https://practicalselfreliance.com/freeze-dried-milk/')}] and 3 lbs of
+        potatoes per tray [{cite('https://montanahomesteadharvest.com/freeze-drying-potatoes-a-complete-guide/')}].
+        For every other food the planner counts whole batches, and four publishers disagree about how
+        much fits in one.
+      </p>
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Fresh pounds per batch, by publisher">
+        <table class="tool-table capacity-table">
+          <thead>
+            <tr>
+              <th scope="col">Publisher</th>
+              {MACHINE_SIZES.map((s) => <th scope="col">{s}</th>)}
+              <th scope="col">Condition</th>
+              <th scope="col">Source</th>
+            </tr>
+          </thead>
+          <tbody>
+            {MACHINE_CAPACITY.map((cap) => (
+              <tr>
+                <th scope="row" data-label="Publisher">{cap.publisher}</th>
+                {MACHINE_SIZES.map((s) => {
+                  const row = cap.sizes.find((x) => x.label === s)!;
+                  return (
+                    <td data-label={s}>
+                      {row.lowLb === null ? (
+                        <span class="not-published-inline">{row.note}</span>
+                      ) : (
+                        `${row.lowLb}–${row.highLb} lb`
+                      )}
+                    </td>
+                  );
+                })}
+                <td data-label="Condition">{cap.condition}</td>
+                <td data-label="Source">[{cite(cap.sourceUrl)}]</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Loading depth, tray dimensions, and one contradiction</h3>
+      <ul class="gap-list">
+        {LOADING_DEPTH.map((d) => (
+          <li>“{d.text}” — {d.publisher} [{cite(d.sourceUrl)}]</li>
+        ))}
+        {TRAY_DIMENSIONS.map((t) => (
+          <li><strong>{t.label} tray:</strong> {t.dims} [{cite(t.sourceUrl)}]</li>
+        ))}
+        <li>
+          <strong>Tray area by machine size:</strong>{' '}
+          {TRAY_AREA.rows.map((r) => `${r.label} ${r.sqin.toLocaleString()} sq in`).join('; ')}{' '}
+          [{cite(TRAY_AREA.sourceUrl)}]. Tray <em>count</em> per machine is not published by anyone,
+          which is why this tool counts batches rather than trays.
+        </li>
+        <li>
+          <strong>Whether pieces may touch is contradicted within one manufacturer’s own guidance.</strong>{' '}
+          {SINGLE_LAYER_POSITIONS.map((p) => `“${p.text}” [${cite(p.sourceUrl)}]`).join(' against ')}.
+          Both statements are Harvest Right’s. Recorded, not reconciled.
+        </li>
+      </ul>
+
+      <h2>What we could not source</h2>
+      <ul class="gap-list">
+        {COULD_NOT_SOURCE.map((gap) => (
+          <li>
+            <strong>{gap.what}</strong> {gap.detail} [{cite(gap.sourceUrl)}]
+          </li>
+        ))}
+      </ul>
+
+      <h2>Packaging</h2>
+      <p>
+        The absorber counts above assume one bag sealed at a time. If you need the bags and absorbers
+        themselves, the <a href="/shop/starter-set-50-bags-50-absorbers-sealer">Starter Set — 50 Bags, 50 Absorbers, Sealer</a>
+        includes the snack bags, matched absorbers and a sealer. <em>Sold by Sublime Pantry.</em>
+      </p>
+
+      <h2>Sources</h2>
+      <ol class="source-list">
+        {SOURCES.map((source) => (
+          <li>
+            <a href={source.url} rel="nofollow noopener" target="_blank">{source.title}</a> — {source.publisher} ({source.tier};
+            accessed {source.accessDate})
+          </li>
+        ))}
+      </ol>
+
+      <h2>Next</h2>
+      <ul>
+        <li><a href="/tools/absorber-calculator">Oxygen Absorber Calculator</a> — the same absorber data, sized by container and food class.</li>
+        <li><a href="/tools/batch-log">Batch Log &amp; Cost Tracker</a> — record what a batch actually yielded, since the published figures do not cover your food.</li>
+        <li><a href="/guides/sealing-mylar-bags">Sealing mylar bags</a> — what happens after the bags are filled.</li>
+      </ul>
+
+      <p class="disclosure meta"><strong>Disclosure.</strong> {DISCLOSURE}</p>
+
+
+    </div>
+
+  </div>
+
+  <style is:global>
+    .batch-planner { padding-bottom: var(--s6); }
+
+    /* Embed mode: the tool, its attribution, and nothing else. */
+    :root[data-embed='1'] .site-header,
+    :root[data-embed='1'] .site-footer,
+    :root[data-embed='1'] .breadcrumbs,
+    :root[data-embed='1'] [data-embed-hide] { display: none !important; }
+    :root[data-embed='1'] .page-body { padding-top: var(--s2); }
+
+    .tool-panel { padding: var(--s4); margin: var(--s4) 0; }
+    .panel-heading { margin-top: 0; }
+
+    .field-grid { display: grid; gap: var(--s3); grid-template-columns: 1fr; }
+    @media (min-width: 720px) { .field-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    .field label { display: block; margin-bottom: .35rem; font-weight: 600; font-size: .95rem; }
+    .field input,
+    .field select { width: 100%; min-height: 44px; }
+    .field-help { margin: .4rem 0 0; font-size: .85rem; color: var(--ink-soft); }
+
+    .bag-fields {
+      margin: var(--s3) 0 0; padding: var(--s3);
+      border: 1px solid var(--mist); border-radius: var(--radius);
+    }
+    .bag-fields legend { font-weight: 600; font-size: .95rem; padding: 0 .4rem; }
+    .bag-grid { display: grid; gap: var(--s3); grid-template-columns: 1fr; margin-top: var(--s2); }
+    @media (min-width: 720px) { .bag-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+    .form-note { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2); margin-top: var(--s3); }
+    #replan-btn { min-height: 44px; }
+
+    .result-heading { margin: var(--s4) 0 var(--s2); font-size: 1.05rem; }
+    .figure {
+      font-family: var(--font-display); font-size: 1.6rem; line-height: 1.2;
+      font-variant-numeric: tabular-nums; color: var(--ink); margin: 0;
+    }
+    .formula-line {
+      margin: .35rem 0; font-variant-numeric: tabular-nums;
+      font-size: .9rem; color: var(--ink-soft);
+    }
+
+    /*
+      "Not published" is a result, not an error. It gets the same visual weight
+      as a number so it does not read as the tool failing.
+    */
+    .not-published {
+      background: var(--surface); border: 1px solid var(--mist); border-left: 3px solid var(--brand);
+      border-radius: var(--radius); padding: var(--s2) var(--s3); margin: .35rem 0;
+    }
+    .not-published-inline { color: var(--ink-soft); font-style: italic; }
+    .caution {
+      margin: var(--s2) 0 0; font-size: .88rem; color: var(--ink-soft);
+      border-left: 3px solid var(--mist); padding-left: var(--s2);
+    }
+    .caution:empty { display: none; }
+
+    .disclosure-block { margin-top: var(--s4); }
+    .disclosure-block summary { cursor: pointer; font-weight: 600; min-height: 44px; padding: .6rem 0; }
+
+    .tool-table { min-width: 46rem; font-size: .9rem; }
+    .tool-table th[scope='row'] { text-align: left; font-weight: 600; }
+    .capacity-table { min-width: 54rem; }
+
+    .gap-list li { margin-bottom: var(--s2); }
+    .source-list { font-size: .88rem; }
+    .source-list li { margin-bottom: .4rem; word-break: break-word; }
+
+    .attribution { margin: var(--s3) 0 0; font-size: .85rem; color: var(--ink-soft); }
+
+    .embed-block { margin-top: var(--s5); }
+    #embed-btn { min-height: 44px; }
+    .embed-code {
+      width: 100%; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .8rem;
+      padding: var(--s2); border: 1px solid var(--mist); border-radius: var(--radius);
+      background: var(--surface); color: var(--ink);
+    }
+
+    /*
+      Under 720px the wide tables stop being tables and become one card per
+      row. Each cell carries its column name in data-label and prints it as the
+      row label, so nothing depends on horizontal scrolling at 390px or at
+      200% zoom.
+    */
+    @media (max-width: 719px) {
+      .table-scroll { overflow-x: visible; box-shadow: none; }
+      .tool-table, .capacity-table { min-width: 0; }
+      .tool-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+      .tool-table tbody, .tool-table tr, .tool-table td, .tool-table th[scope='row'] { display: block; width: 100%; }
+      .tool-table tr {
+        background: var(--surface); border: 1px solid var(--mist);
+        border-radius: var(--radius); padding: var(--s2); margin-bottom: var(--s2);
+      }
+      .tool-table td {
+        border: 0; border-bottom: 1px solid var(--mist);
+        display: flex; justify-content: space-between; gap: var(--s2);
+        padding: .35rem 0; text-align: right;
+      }
+      .tool-table td:last-child { border-bottom: 0; }
+      .tool-table td::before {
+        content: attr(data-label);
+        font-size: var(--kicker); text-transform: uppercase; letter-spacing: .06em;
+        color: var(--ink-soft); text-align: left; flex: none;
+      }
+      .tool-table td:not([data-label]) { display: block; text-align: left; }
+      .tool-table td:not([data-label])::before { content: none; }
+    }
+  </style>
+
+  <script>
+    import {
+      cite,
+      foodById,
+      driedWeight,
+      traysNeeded,
+      batchesNeeded,
+      absorberPlan,
+      totalAbsorbers,
+      isUnavailable,
+      range,
+      BAGS_NOT_DERIVABLE,
+      ONE_PER_BAG,
+    } from '../../data/batchPlanning';
+
+    (function () {
+      'use strict';
+
+      const foodEl = document.getElementById('f-food') as HTMLSelectElement | null;
+      const freshEl = document.getElementById('f-fresh') as HTMLInputElement | null;
+      const unitEl = document.getElementById('f-unit') as HTMLSelectElement | null;
+      const machineEl = document.getElementById('f-machine') as HTMLSelectElement | null;
+      if (!foodEl || !freshEl || !unitEl || !machineEl) return;
+
+      const bagInputs = Array.from(
+        document.querySelectorAll<HTMLInputElement>('.bag-input'),
+      );
+
+      /** Blank and malformed inputs read as zero rather than NaN. */
+      function num(el: HTMLInputElement): number {
+        const v = parseFloat(el.value);
+        return Number.isFinite(v) && v >= 0 ? v : 0;
+      }
+
+      function esc(s: string): string {
+        return String(s).replace(
+          /[&<>"']/g,
+          (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!,
+        );
+      }
+
+      const citations = (urls: string[]) => urls.map((u) => `[${cite(u)}]`).join(' ');
+
+      function set(id: string, html: string) {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = html;
+      }
+
+      function render() {
+        const food = foodById(foodEl!.value);
+        if (!food) return;
+        const fresh = num(freshEl!);
+        const unit = unitEl!.value as 'lb' | 'cups';
+        const machine = machineEl!.value as any;
+
+        /* Dried weight. */
+        const dried = driedWeight(food, fresh);
+        if (isUnavailable(dried)) {
+          set(
+            'dried-result',
+            `<p class="not-published"><strong>Not published.</strong> ${esc(dried.reason)}</p>` +
+              `<p class="caution">${esc(food.caution)}</p>`,
+          );
+        } else {
+          set(
+            'dried-result',
+            `<p class="figure">${esc(range(dried.value, unit))}</p>` +
+              `<p class="formula-line">${esc(dried.workings)}. Published as “${esc(food.publishedAs)}”. ${esc(food.derivation)}</p>` +
+              `<p class="meta">${citations(dried.sourceUrls)}${dried.secondaryOnly ? ' — secondary source' : ''}</p>` +
+              `<p class="caution">${esc(food.caution)}</p>`,
+          );
+        }
+
+        /* Trays. */
+        const trays = traysNeeded(food, fresh, unit);
+        if (isUnavailable(trays)) {
+          set('trays-result', `<p class="not-published"><strong>Not published.</strong> ${esc(trays.reason)}</p>`);
+        } else {
+          set(
+            'trays-result',
+            `<p class="figure">${esc(range(trays.value))}</p>` +
+              `<p class="formula-line">${esc(trays.workings)}</p>` +
+              `<p class="meta">${citations(trays.sourceUrls)} — secondary source</p>`,
+          );
+        }
+
+        /* Batches. Capacity is published in pounds and is not converted. */
+        const machineLabel = document.getElementById('r-machine');
+        if (machineLabel) machineLabel.textContent = machine;
+        if (unit !== 'lb') {
+          set(
+            'batches-result',
+            '<p class="not-published">Batch capacity is published in pounds. Switch the unit to pounds to see batch counts — no source publishes a density that would convert cups to pounds for this food.</p>',
+          );
+        } else {
+          const rows = batchesNeeded(fresh, machine)
+            .map(
+              (b) =>
+                `<tr><th scope="row" data-label="Publisher">${esc(b.publisher)}</th>` +
+                `<td data-label="Batches">${
+                  b.low === null
+                    ? `<span class="not-published-inline">${esc(b.note)}</span>`
+                    : `<strong>${b.low === b.high ? b.low : `${b.low}–${b.high}`}</strong>`
+                }</td>` +
+                `<td data-label="Published capacity">${esc(b.capacity)}</td>` +
+                `<td data-label="The arithmetic">${esc(b.workings || b.condition)}</td>` +
+                `<td data-label="Source">[${cite(b.sourceUrl)}]</td></tr>`,
+            )
+            .join('');
+          set(
+            'batches-result',
+            '<div class="table-scroll" tabindex="0" role="region" aria-label="Batches needed, by publisher">' +
+              '<table class="tool-table"><caption class="sr-only">Batches needed, one row per publisher. The publishers disagree about capacity and none is preferred here.</caption>' +
+              '<thead><tr><th scope="col">Publisher</th><th scope="col">Batches</th><th scope="col">Published capacity</th><th scope="col">The arithmetic</th><th scope="col">Source</th></tr></thead>' +
+              `<tbody>${rows}</tbody></table></div>`,
+          );
+        }
+
+        /* Absorbers. One per bag, and the bag count is an input, never derived. */
+        const counts: Record<string, number> = {};
+        for (const input of bagInputs) counts[input.dataset.container!] = num(input);
+        const plan = absorberPlan(counts).filter((row) => row.bags > 0);
+        if (!plan.length) {
+          set(
+            'absorbers-result',
+            `<p class="not-published">Enter the number of bags you plan to fill above. ${esc(BAGS_NOT_DERIVABLE)}</p>`,
+          );
+        } else {
+          const total = totalAbsorbers(plan);
+          const blocks = plan
+            .map(
+              (row) =>
+                `<p class="formula-line"><strong>${esc(row.container.label)}</strong> — ${esc(row.workings)} absorbers. ` +
+                `Container volume ${row.container.volumeCc.toLocaleString()} cc, ` +
+                (row.container.volumePublished
+                  ? `published ${citations(row.container.volumeSourceUrls)}`
+                  : 'arithmetic on the published gallon figure, not itself published') +
+                `. Sizes published for this volume: ` +
+                row.recommendations
+                  .map((r) => `${esc(r.publisher)} ${esc(r.published)} ${citations(r.sourceUrls)}`)
+                  .join('; ') +
+                `.</p>`,
+            )
+            .join('');
+          set(
+            'absorbers-result',
+            `<p class="figure">${total}</p>` +
+              `<p class="formula-line">One absorber per bag [${cite(ONE_PER_BAG.sourceUrl)}], summed across the bag sizes you entered.</p>` +
+              blocks,
+          );
+        }
+      }
+
+      [foodEl, freshEl, unitEl, machineEl, ...bagInputs].forEach((el) =>
+        el.addEventListener('input', render),
+      );
+      machineEl.addEventListener('change', render);
+      unitEl.addEventListener('change', render);
+      foodEl.addEventListener('change', render);
+      document.getElementById('plan-form')!.addEventListener('submit', (e) => e.preventDefault());
+      document.getElementById('replan-btn')?.addEventListener('click', render);
+
+      render();
+    })();
+  </script>
+</ToolLayout>

@@ -556,6 +556,9 @@ test('PRICE and SHIPPING TERMS are written in exactly one source file', () => {
   const offenders = [];
   for (const file of globSync('src/**/*.{astro,ts}', { cwd: root })) {
     if (file === 'src/lib/commerce.ts') continue;
+    // These calculator data modules preserve dated third-party research prices;
+    // they are evidence inputs, never Sublime Pantry product or shipping terms.
+    if (file === 'src/data/runningCost.ts' || file === 'src/data/trailMealCost.ts') continue;
     const src = stripComments(readFileSync(join(root, file), 'utf8'));
     if (/\$\d+\.\d{2}/.test(src)) offenders.push(`${file}: a price`);
     src.split('\n').forEach((line, i) => {

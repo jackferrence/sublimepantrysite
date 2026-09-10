@@ -8,6 +8,7 @@ import ToolsMentioned from '../components/ToolsMentioned.astro';
 import AuthorBio from '../components/AuthorBio.astro';
 import RelatedArticles from '../components/RelatedArticles.astro';
 import Newsletter from '../components/Newsletter.astro';
+import EditorialToolLink from '../components/EditorialToolLink.astro';
 import { CATALOG } from '../lib/commerce';
 import { PILLAR_LABEL, withToc, polishTables, expandGeneratedBlocks, verifiedDate, nextCheckDate, formatDate, heroImage, type Article } from '../lib/articles';
 import { recipeJsonLd } from '../lib/schema';
@@ -67,6 +68,14 @@ const mentionedProducts = CATALOG.filter(
 const ownership = mentionedProducts.length
   ? `Sold by Sublime Pantry: ${mentionedProducts.map((p) => p.title).join('; ')}. `
   : '';
+
+const TOOL_PLACEMENTS: ReadonlyArray<{ match: RegExp; href: string; context: string }> = [
+  { match: /(oxygen-absorbers-cc|mylar-absorber-myths|storage-containers|storage-failure)/, href: '/tools/absorber-calculator', context: 'Size the absorber from the published container guidance, with disagreements and missing figures left visible.' },
+  { match: /(first-five-batches|complete-batch-workflow|which-freeze-dryer|home-freeze-dryers)/, href: '/tools/batch-planner', context: 'Turn a fresh load into published yield, tray and machine-capacity ranges without filling the gaps with estimates.' },
+  { match: /(what-it-costs-to-run-a-freeze-dryer|which-freeze-dryer|home-freeze-dryers|cottage-economics)/, href: '/tools/running-cost', context: 'Use the checkable kilowatt-hour figure and your electricity rate to see the arithmetic for a cycle.' },
+  { match: /(three-day-trail-menu|week-of-trail-meals-cost|backpack-food-survival|trail-meal-water)/, href: '/tools/trail-meal-cost', context: 'Compare your meal cost and calories with dated commercial pouch prices; measured yield stays your input.' },
+];
+const featuredTools = TOOL_PLACEMENTS.filter((placement) => placement.match.test(path)).slice(0, 2);
 
 const crumbs = [
   { label: 'Home', href: '/' },
@@ -173,6 +182,10 @@ if (d.pillar === 'compare' && d.comparisonCriteria) {
         {d.riskClass === 'elevated' && <EducationalNotice />}
 
         <div class="article-body" set:html={bodyOpening} />
+
+        {featuredTools.map((placement) => (
+          <EditorialToolLink href={placement.href} context={placement.context} />
+        ))}
 
         {bodyRest && (
           <aside class="inline-signup" aria-labelledby="inline-signup-heading">

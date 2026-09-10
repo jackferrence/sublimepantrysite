@@ -1,13 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import PageLayout from '../layouts/PageLayout.astro';
-import Card from '../components/Card.astro';
-import { heroImage, articleHref, newestFirst, formatDate, verifiedDate } from '../lib/articles';
-
-const listingDescription: Record<string, string> = {
-  'home-freeze-dryers': 'Price, capacity, power, pump, and warranty. Every figure comes from manufacturer documentation, with access dates.',
-  'storage-containers': 'The three legitimate storage systems for freeze-dried food, compared on barrier quality, cost per unit, resealability, and fitness for selling vs. pantry use.',
-};
+import EditorialListing from '../components/EditorialListing.astro';
+import { newestFirst } from '../lib/articles';
 
 const entries = (await getCollection('articles', ({ data }) => data.pillar === 'compare')).sort(newestFirst);
 
@@ -43,27 +38,9 @@ const jsonLd = [
   <h1>Compare the things that change your decision.</h1>
   <p class="lede">Criteria first, sources beside the facts, and clear limits on what documentation can establish.</p>
 
-  <div class="card-grid hub-grid">
-    {entries.map((entry) => (
-      <Card
-        href={articleHref(entry)}
-        title={entry.data.title}
-        dek={listingDescription[entry.id] ?? entry.data.description}
-        headingLevel={2}
-        kicker={entry.data.section ?? entry.data.kicker}
-        image={heroImage(entry)?.src}
-        imageAlt={heroImage(entry)?.alt}
-        meta={[
-          `${entry.data.comparisonCriteria?.length ?? 0} criteria`,
-          // No date rather than a date we did not earn. See verifiedDate().
-          verifiedDate(entry) ? `verified ${formatDate(verifiedDate(entry)!)}` : null,
-        ].filter(Boolean).join(' · ')}
-        transitionName={`sp-title-${entry.id}`}
-      />
-    ))}
-  </div>
+  <EditorialListing entries={entries} leadId="home-freeze-dryers" />
 
-  <section class="hub-next card" aria-labelledby="how-made">
+  <section class="hub-next" aria-labelledby="how-made">
     <h2 id="how-made">How these comparisons are made</h2>
     <p>We have not bench-tested the machines or the containers. Each comparison identifies its sources and keeps published information separate from our own judgment, and each one says on the page when its figures were last checked.</p>
     <a class="btn btn-secondary" href="/review-methodology">Read the review methodology</a>
@@ -72,7 +49,7 @@ const jsonLd = [
 
 <style>
   .hub-grid { margin-top: var(--s4); }
-  .hub-next { margin-top: var(--s5); padding: var(--s4); }
+  .hub-next { margin-top: var(--s5); padding: var(--s4) 0; border-top: 1px solid var(--ink); }
   .hub-next h2 { margin: 0 0 var(--s2); font-size: var(--h3); }
   .hub-next p { color: var(--ink-soft); max-width: 62ch; }
 </style>

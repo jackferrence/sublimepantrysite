@@ -1,0 +1,566 @@
+---
+/**
+ * /tools/running-cost — freeze dryer running cost calculator.
+ *
+ * The honesty problem this page exists to solve: every brand in the category
+ * publishes a dollars-per-batch number, and not one of them publishes the two
+ * inputs that would let you check it. So the calculator computes from a kWh
+ * figure whose publisher stated both its rate and its duration, prints the
+ * arithmetic in full, and shows the manufacturers' dollar claims in a separate
+ * table that is never computed with.
+ *
+ * Everything numeric comes from `src/data/runningCost.ts`. This file contains
+ * no figure of its own.
+ *
+ * The default result is rendered server-side from the prefilled values, so the
+ * page answers the question with JavaScript off. The client script only
+ * recomputes; it never supplies a number the page did not already show.
+ */
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { toolByHref } from '../../lib/tools';
+import {
+  SOURCES,
+  cite,
+  CHECKABLE_KWH,
+  MONTHLY_US,
+  RATE_OPTIONS,
+  DEFAULT_RATE_ID,
+  DEFAULT_CYCLES_PER_MONTH,
+  RATE_CONFUSIONS,
+  MANUFACTURER_CLAIMS,
+  CLAIM_SPREAD,
+  NO_KWH_AT_ALL,
+  METERED,
+  METERED_NOTE,
+  COULD_NOT_SOURCE,
+  computeCost,
+  usd,
+  DISCLOSURE,
+} from '../../data/runningCost';
+
+const tool = toolByHref('/tools/running-cost')!;
+
+const defaultRate = RATE_OPTIONS.find((r) => r.id === DEFAULT_RATE_ID)!;
+const initial = computeCost(CHECKABLE_KWH.kwh, defaultRate.cents, DEFAULT_CYCLES_PER_MONTH);
+
+const sf = cite(CHECKABLE_KWH.sourceUrl);
+const eiaMonthly = cite(MONTHLY_US.sourceUrl);
+
+---
+
+<ToolLayout slug="running-cost">
+  {/*
+    Embed mode. Set before first paint from location.search, because the site
+    is statically built and the server never sees the query string. Inline and
+    render-blocking on purpose: a flash of the full page inside someone else's
+    iframe is the bug this avoids.
+  */}
+
+  <div class="running-cost">
+    <div data-embed-hide>
+      <span class="kicker">Free tool</span>
+      <h1>Freeze Dryer Running Cost Calculator</h1>
+      <p class="lede">
+        <strong>The short version:</strong> a freeze-drying cycle costs kilowatt-hours times your rate, and nothing
+        else. At the one published kWh figure in this category that a reader can actually check — {CHECKABLE_KWH.kwh} kWh
+        for a 24-hour cycle [{sf}] — and the EIA US residential average for {MONTHLY_US.period} [{eiaMonthly}], that is
+        about {usd(initial.perBatch)} a batch. Change either number below and the arithmetic changes with it.
+      </p>
+      <p>
+        Every brand selling a home freeze dryer in the US under $5,000 publishes a dollars-per-batch figure. Not one of
+        them publishes both the electricity rate and the cycle length it assumed, so not one of those figures can be
+        reproduced. They are in the table further down, marked for what they are, and they are not used in any
+        calculation on this page.
+      </p>
+    </div>
+
+    <!-- ---------------------------------------------------------------- -->
+    <!-- The calculator -->
+    <!-- ---------------------------------------------------------------- -->
+
+    <section class="card tool-panel" aria-labelledby="calc-heading">
+      <h2 id="calc-heading" class="panel-heading">Work out your cost</h2>
+
+      <form id="cost-form" novalidate>
+        <div class="field-grid">
+          <div class="field">
+            <label for="f-kwh">Electricity per cycle (kWh)</label>
+            <input
+              type="number"
+              id="f-kwh"
+              name="kwh"
+              min="0"
+              max="500"
+              step="0.1"
+              value={CHECKABLE_KWH.kwh}
+              inputmode="decimal"
+              aria-describedby="kwh-help"
+            />
+            <p class="field-help" id="kwh-help">
+              Prefilled with {CHECKABLE_KWH.kwh} kWh — the only published energy figure in this category whose publisher
+              stated both the rate and the duration behind it, so you can check it [{sf}]. It is a {CHECKABLE_KWH.docType}
+              figure, generic rather than model-specific. If you have metered your own machine, use your number instead.
+            </p>
+          </div>
+
+          <div class="field">
+            <label for="f-rate">Electricity rate (¢/kWh)</label>
+            <input
+              type="number"
+              id="f-rate"
+              name="rate"
+              min="0"
+              max="200"
+              step="0.01"
+              value={defaultRate.cents}
+              inputmode="decimal"
+              aria-describedby="rate-help"
+            />
+            <p class="field-help" id="rate-help">
+              Prefilled with {MONTHLY_US.cents} ¢/kWh — EIA’s US residential average for {MONTHLY_US.period},
+              released {MONTHLY_US.releaseDate}, {MONTHLY_US.yoyChange} year on year [{eiaMonthly}]. Your own bill beats
+              any average here.
+            </p>
+          </div>
+
+          <div class="field">
+            <label for="f-state">Fill the rate from a published EIA figure</label>
+            <select id="f-state" name="state" aria-describedby="state-help">
+              {RATE_OPTIONS.map((option) => (
+                <option value={option.cents} selected={option.id === DEFAULT_RATE_ID}>
+                  {option.label} — {option.cents} ¢/kWh
+                </option>
+              ))}
+            </select>
+            <p class="field-help" id="state-help">
+              Choosing a row writes its value into the rate box above, which is what the arithmetic uses. Rows marked
+              2024 annual come from EIA’s annual state table; the June 2026 row is monthly and national. The two
+              vintages are not interchangeable — see the four-numbers table below. With JavaScript off, type the rate
+              in directly.
+            </p>
+          </div>
+
+          <div class="field">
+            <label for="f-cycles">Cycles per month</label>
+            <input
+              type="number"
+              id="f-cycles"
+              name="cycles"
+              min="0"
+              max="60"
+              step="1"
+              value={DEFAULT_CYCLES_PER_MONTH}
+              inputmode="numeric"
+              aria-describedby="cycles-help"
+            />
+            <p class="field-help" id="cycles-help">
+              A 24-hour cycle plus loading and packing time puts a hard ceiling on this. Nobody publishes a typical
+              figure, so {DEFAULT_CYCLES_PER_MONTH} is a starting point, not a finding.
+            </p>
+          </div>
+        </div>
+
+        <p class="form-note">
+          <button class="btn btn-secondary" type="button" id="recalc-btn">Recalculate</button>
+          <span class="meta">Results update as you type. The button is here for anyone who would rather press it.</span>
+        </p>
+      </form>
+
+      <h3 class="result-heading">Electricity only</h3>
+      <div class="stat-row" id="results" role="status" aria-live="polite">
+        <div class="stat">
+          <div class="label">Per batch</div>
+          <div class="value" id="r-batch">{usd(initial.perBatch)}</div>
+        </div>
+        <div class="stat">
+          <div class="label">Per month</div>
+          <div class="value" id="r-month">{usd(initial.perMonth)}</div>
+        </div>
+        <div class="stat">
+          <div class="label">Per year</div>
+          <div class="value" id="r-year">{usd(initial.perYear)}</div>
+        </div>
+        <div class="stat">
+          <div class="label">kWh per month</div>
+          <div class="value" id="r-kwh">{initial.kwhPerMonth.toFixed(1)}</div>
+        </div>
+      </div>
+
+      <h3 class="result-heading">The formula, in full</h3>
+      <div class="formula" id="formula">
+        <p class="formula-line">
+          <span class="formula-label">Per batch</span>
+          <span id="fx-batch"
+            >{CHECKABLE_KWH.kwh} kWh × ({defaultRate.cents} ¢ ÷ 100) = {usd(initial.perBatch)}</span
+          >
+        </p>
+        <p class="formula-line">
+          <span class="formula-label">Per month</span>
+          <span id="fx-month"
+            >{usd(initial.perBatch)} × {DEFAULT_CYCLES_PER_MONTH} cycles = {usd(initial.perMonth)}</span
+          >
+        </p>
+      </div>
+      <p class="meta">
+        That is the entire model. It covers electricity and nothing else — not bags, not absorbers, not pump oil, not
+        the machine. Two brands publish per-load dollar figures with bags or pump oil folded in; those are not
+        comparable to this number, and the table below says which.
+      </p>
+
+      <details class="disclosure-block">
+        <summary>Where the {CHECKABLE_KWH.kwh} kWh comes from, and what is wrong with it</summary>
+        <p>
+          {CHECKABLE_KWH.publisher} publishes it on a {CHECKABLE_KWH.docType} dated {CHECKABLE_KWH.published}, worded
+          “{CHECKABLE_KWH.wording}”, with its own stated rate of {CHECKABLE_KWH.statedRateCents} ¢/kWh
+          (“{CHECKABLE_KWH.statedRateWording}”) and its own arithmetic: {CHECKABLE_KWH.publisherArithmetic} [{sf}]. It is
+          the only published figure in this category that states both inputs, which is the whole reason it is the
+          prefill.
+        </p>
+        <div class="table-scroll" tabindex="0" role="region" aria-label="Published phase breakdown">
+          <table class="tool-table">
+            <thead>
+              <tr>
+                <th scope="col">Phase</th>
+                <th scope="col">kWh</th>
+                <th scope="col">Publisher’s cost</th>
+                <th scope="col">As published</th>
+              </tr>
+            </thead>
+            <tbody>
+              {CHECKABLE_KWH.phases.map((phase) => (
+                <tr>
+                  <th scope="row" data-label="Phase">{phase.name}</th>
+                  <td data-label="kWh">{phase.kwh}</td>
+                  <td data-label="Publisher’s cost">{usd(phase.usd)}</td>
+                  <td data-label="As published">{phase.wording}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p><strong>Conditions the publisher attached, and problems with the figure:</strong></p>
+        <ul>
+          {CHECKABLE_KWH.conditions.map((condition) => <li>{condition}</li>)}
+        </ul>
+      </details>
+    </section>
+
+    <!-- ---------------------------------------------------------------- -->
+
+    <div data-embed-hide>
+      <h2>What manufacturers claim</h2>
+      <p>
+        <strong>Every figure in this table is uncheckable</strong>, by one test applied literally: a cost claim is
+        checkable only if its publisher states both the assumed rate and the assumed cycle length, so a reader can
+        reproduce the arithmetic. None of these do. They are recorded here because the claims are what a buyer meets
+        first, not because they are usable. <strong>None of them feeds the calculator above.</strong>
+      </p>
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Manufacturer and extension cost claims, all uncheckable">
+        <table class="tool-table claims-table">
+          <caption class="sr-only">
+            Published cost-per-batch claims. Every row is marked uncheckable because neither the rate nor the duration
+            behind it is published.
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Who</th>
+              <th scope="col">Model</th>
+              <th scope="col">Claim</th>
+              <th scope="col">Rate stated?</th>
+              <th scope="col">Duration stated?</th>
+              <th scope="col">Verdict</th>
+              <th scope="col">Why</th>
+              <th scope="col">Source</th>
+            </tr>
+          </thead>
+          <tbody>
+            {MANUFACTURER_CLAIMS.map((claim) => (
+              <tr>
+                <th scope="row" data-label="Who">{claim.who}</th>
+                <td data-label="Model">{claim.model}</td>
+                <td data-label="Claim"><strong>{claim.claim}</strong></td>
+                <td data-label="Rate stated?">{claim.rateStated ? 'Yes' : 'No'}</td>
+                <td data-label="Duration stated?">{claim.durationStated ? 'Yes' : 'No'}</td>
+                <td data-label="Verdict"><span class="verdict">Uncheckable</span></td>
+                <td data-label="Why">{claim.whyUncheckable}</td>
+                <td data-label="Source">{claim.docType} [{cite(claim.sourceUrl)}]</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p>{CLAIM_SPREAD}</p>
+
+      <h3>Brands publishing no kWh figure at all</h3>
+      <ul>
+        {NO_KWH_AT_ALL.map((row) => (
+          <li><strong>{row.who}:</strong> {row.what} [{cite(row.sourceUrl)}]</li>
+        ))}
+      </ul>
+
+      <h2>The only two metered measurements anyone has published</h2>
+      <p>
+        Both are user-reported. No standardised protocol, no calibration statement, no lab and no third-party
+        verification exists for either.
+      </p>
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Independent metered measurements">
+        <table class="tool-table">
+          <thead>
+            <tr>
+              <th scope="col">Who measured</th>
+              <th scope="col">Machine</th>
+              <th scope="col">Meter</th>
+              <th scope="col">Measured</th>
+              <th scope="col">Their cost</th>
+              <th scope="col">Reproducible?</th>
+              <th scope="col">Caveat</th>
+            </tr>
+          </thead>
+          <tbody>
+            {METERED.map((row) => (
+              <tr>
+                <th scope="row" data-label="Who measured">{row.who} [{cite(row.sourceUrl)}]</th>
+                <td data-label="Machine">{row.model}</td>
+                <td data-label="Meter">{row.device}</td>
+                <td data-label="Measured"><strong>{row.figure}</strong></td>
+                <td data-label="Their cost">{row.dollars}</td>
+                <td data-label="Reproducible?">{row.reproducible ? 'Yes — rate stated' : 'No — no rate stated'}</td>
+                <td data-label="Caveat">{row.caveat}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p>{METERED_NOTE}</p>
+
+      <h2>Four EIA numbers, three of which are the wrong one</h2>
+      <p>
+        Substituting the all-sector average for the residential one is the likeliest sourcing error in this topic, and
+        the trap is on eia.gov itself. If you replace the prefilled rate with a figure you found elsewhere, check which
+        of these it is.
+      </p>
+      <div class="table-scroll" tabindex="0" role="region" aria-label="EIA figures in circulation">
+        <table class="tool-table">
+          <thead>
+            <tr>
+              <th scope="col">Figure</th>
+              <th scope="col">What it actually is</th>
+              <th scope="col">Period</th>
+              <th scope="col">Source</th>
+            </tr>
+          </thead>
+          <tbody>
+            {RATE_CONFUSIONS.map((row) => (
+              <tr>
+                <th scope="row" data-label="Figure">{row.figure}</th>
+                <td data-label="What it actually is">{row.what}</td>
+                <td data-label="Period">{row.period}</td>
+                <td data-label="Source">[{cite(row.sourceUrl)}]</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="meta">{MONTHLY_US.caution}</p>
+
+      <h2>What we could not source</h2>
+      <ul class="gap-list">
+        {COULD_NOT_SOURCE.map((gap) => (
+          <li>
+            <strong>{gap.what}</strong> {gap.detail} [{cite(gap.sourceUrl)}]
+          </li>
+        ))}
+      </ul>
+
+      <h2>Sources</h2>
+      <ol class="source-list">
+        {SOURCES.map((source) => (
+          <li>
+            <a href={source.url} rel="nofollow noopener" target="_blank">{source.title}</a> — {source.publisher} ({source.tier};
+            accessed {source.accessDate})
+          </li>
+        ))}
+      </ol>
+
+      <h2>Next</h2>
+      <ul>
+        <li><a href="/tools/batch-log">Batch Log &amp; Cost Tracker</a> — log what your machine actually draws, instead of what a blog says it draws.</li>
+        <li><a href="/start-selling">Selling what you dry</a> — where electricity sits among the costs that set a floor under your pricing.</li>
+        <li><a href="/compare">Comparisons</a> — the machine decisions this number feeds into.</li>
+      </ul>
+
+      <p class="disclosure meta"><strong>Disclosure.</strong> {DISCLOSURE}</p>
+
+
+    </div>
+
+  </div>
+
+  <style is:global>
+    .running-cost { padding-bottom: var(--s6); }
+
+    /* Embed mode: the tool, its attribution, and nothing else. */
+    :root[data-embed='1'] .site-header,
+    :root[data-embed='1'] .site-footer,
+    :root[data-embed='1'] .breadcrumbs,
+    :root[data-embed='1'] [data-embed-hide] { display: none !important; }
+    :root[data-embed='1'] .page-body { padding-top: var(--s2); }
+
+    .tool-panel { padding: var(--s4); margin: var(--s4) 0; }
+    .panel-heading { margin-top: 0; }
+
+    .field-grid { display: grid; gap: var(--s3); grid-template-columns: 1fr; }
+    @media (min-width: 720px) { .field-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    .field label { display: block; margin-bottom: .35rem; font-weight: 600; font-size: .95rem; }
+    .field input,
+    .field select { width: 100%; min-height: 44px; }
+    .field-help { margin: .4rem 0 0; font-size: .85rem; color: var(--ink-soft); }
+
+    .form-note { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2); margin-top: var(--s3); }
+    #recalc-btn { min-height: 44px; }
+
+    .result-heading { margin: var(--s4) 0 var(--s2); font-size: 1.05rem; }
+    .stat-row { display: grid; gap: var(--s2); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    @media (min-width: 720px) { .stat-row { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+    .stat { background: var(--surface); border: 1px solid var(--mist); border-radius: var(--radius); padding: var(--s2); }
+    .stat .label { font-size: var(--kicker); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-soft); }
+    .stat .value {
+      font-family: var(--font-display); font-size: 1.6rem; line-height: 1.2;
+      font-variant-numeric: tabular-nums; color: var(--ink);
+    }
+
+    .formula {
+      background: var(--surface); border: 1px solid var(--mist); border-radius: var(--radius);
+      padding: var(--s2) var(--s3);
+    }
+    .formula-line {
+      margin: .35rem 0; font-variant-numeric: tabular-nums;
+      display: flex; flex-wrap: wrap; gap: .25rem var(--s2); align-items: baseline;
+    }
+    .formula-label {
+      font-size: var(--kicker); text-transform: uppercase; letter-spacing: .08em;
+      color: var(--ink-soft); flex: none; min-width: 6rem;
+    }
+
+    .disclosure-block { margin-top: var(--s4); }
+    .disclosure-block summary { cursor: pointer; font-weight: 600; min-height: 44px; padding: .6rem 0; }
+
+    .verdict {
+      display: inline-block; padding: .1rem .45rem; border-radius: var(--radius);
+      border: 1px solid var(--brand); color: var(--brand);
+      font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em;
+      white-space: nowrap;
+    }
+
+    .tool-table { min-width: 46rem; font-size: .9rem; }
+    .tool-table th[scope='row'] { text-align: left; font-weight: 600; }
+    .claims-table { min-width: 58rem; }
+
+    .gap-list li { margin-bottom: var(--s2); }
+    .source-list { font-size: .88rem; }
+    .source-list li { margin-bottom: .4rem; word-break: break-word; }
+
+    .attribution { margin: var(--s3) 0 0; font-size: .85rem; color: var(--ink-soft); }
+
+    .embed-block { margin-top: var(--s5); }
+    #embed-btn { min-height: 44px; }
+    .embed-code {
+      width: 100%; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .8rem;
+      padding: var(--s2); border: 1px solid var(--mist); border-radius: var(--radius);
+      background: var(--surface); color: var(--ink);
+    }
+
+    /*
+      Under 720px the wide tables stop being tables and become one card per
+      row. Each cell carries its column name in data-label and prints it as the
+      row label, so nothing depends on horizontal scrolling at 390px or at
+      200% zoom.
+    */
+    @media (max-width: 719px) {
+      .table-scroll { overflow-x: visible; box-shadow: none; }
+      .tool-table, .claims-table { min-width: 0; }
+      .tool-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+      .tool-table tbody, .tool-table tr, .tool-table td, .tool-table th[scope='row'] { display: block; width: 100%; }
+      .tool-table tr {
+        background: var(--surface); border: 1px solid var(--mist);
+        border-radius: var(--radius); padding: var(--s2); margin-bottom: var(--s2);
+      }
+      .tool-table td {
+        border: 0; border-bottom: 1px solid var(--mist);
+        display: flex; justify-content: space-between; gap: var(--s2);
+        padding: .35rem 0; text-align: right;
+      }
+      .tool-table td:last-child { border-bottom: 0; }
+      .tool-table td::before {
+        content: attr(data-label);
+        font-size: var(--kicker); text-transform: uppercase; letter-spacing: .06em;
+        color: var(--ink-soft); text-align: left; flex: none;
+      }
+      .tool-table td:not([data-label]) { display: block; text-align: left; }
+      .tool-table td:not([data-label])::before { content: none; }
+    }
+  </style>
+
+  <script>
+    import { computeCost, usd } from '../../data/runningCost';
+
+    (function () {
+      'use strict';
+
+      const kwhEl = document.getElementById('f-kwh') as HTMLInputElement | null;
+      const rateEl = document.getElementById('f-rate') as HTMLInputElement | null;
+      const stateEl = document.getElementById('f-state') as HTMLSelectElement | null;
+      const cyclesEl = document.getElementById('f-cycles') as HTMLInputElement | null;
+      if (!kwhEl || !rateEl || !stateEl || !cyclesEl) return;
+
+      /** Blank and malformed inputs read as zero rather than NaN. */
+      function num(el: HTMLInputElement): number {
+        const v = parseFloat(el.value);
+        return Number.isFinite(v) && v >= 0 ? v : 0;
+      }
+
+      function text(id: string, value: string) {
+        const el = document.getElementById(id);
+        if (el) el.textContent = value;
+      }
+
+      function render() {
+        const kwh = num(kwhEl!);
+        const rate = num(rateEl!);
+        const cycles = num(cyclesEl!);
+        const r = computeCost(kwh, rate, cycles);
+
+        text('r-batch', usd(r.perBatch));
+        text('r-month', usd(r.perMonth));
+        text('r-year', usd(r.perYear));
+        text('r-kwh', r.kwhPerMonth.toFixed(1));
+
+        // The formula is re-rendered with the reader's own numbers in it, not
+        // with a static example. A formula that does not track the inputs is
+        // decoration.
+        text('fx-batch', `${kwh} kWh × (${rate} ¢ ÷ 100) = ${usd(r.perBatch)}`);
+        text('fx-month', `${usd(r.perBatch)} × ${cycles} cycles = ${usd(r.perMonth)}`);
+      }
+
+      // Selecting a published rate writes into the rate box, which is the only
+      // control the arithmetic reads. One value, one input.
+      stateEl.addEventListener('change', () => {
+        rateEl.value = stateEl.value;
+        render();
+      });
+
+      // Typing a rate by hand no longer matches whatever row is selected, so
+      // the select stops claiming it does.
+      rateEl.addEventListener('input', () => {
+        if (stateEl.value !== rateEl.value) stateEl.selectedIndex = -1;
+        render();
+      });
+
+      [kwhEl, cyclesEl].forEach((el) => el.addEventListener('input', render));
+      document.getElementById('cost-form')!.addEventListener('submit', (e) => e.preventDefault());
+      document.getElementById('recalc-btn')?.addEventListener('click', render);
+
+      render();
+    })();
+  </script>
+</ToolLayout>

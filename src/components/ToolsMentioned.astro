@@ -13,7 +13,7 @@
  * escape hatch is gone; the only way a product appears here is that the article
  * refers to it.
  */
-import Card from './Card.astro';
+import Img from './Img.astro';
 import { CATALOG, SHIPPING } from '../lib/commerce';
 
 interface Props {
@@ -26,30 +26,29 @@ const mentioned = CATALOG.filter(
   (product) =>
     bodyHtml.includes(product.handle) ||
     Boolean(product.detailsHref && bodyHtml.includes(product.detailsHref)),
-).slice(0, 3);
+).slice(0, 2);
 ---
 {mentioned.length > 0 && (
   <section class="tools-mentioned" aria-labelledby="tools-mentioned-heading">
     <h2 id="tools-mentioned-heading">Tools mentioned in this guide</h2>
-    <div class="card-grid">
+    <ol class="product-continuations">
       {mentioned.map((product) => (
-        <Card
-          href={product.detailsHref ?? `/shop`}
-          title={product.title}
-          dek={product.note}
-          kicker="Sold by Sublime Pantry"
-          image={product.image}
-          imageAlt={product.imageAlt}
-          ratio="4/5"
-          fit="contain"
-          price={product.displayPrice}
-          meta={SHIPPING.shortNote}
-        />
+        <li>
+          {product.image && <a class="continuation-image" href={product.detailsHref ?? '/shop'} tabindex="-1" aria-hidden="true"><Img src={product.image} alt="" width={160} height={160} fit="contain" /></a>}
+          <div><span class="kicker">Sold by Sublime Pantry</span><h3><a href={product.detailsHref ?? '/shop'}>{product.title}</a></h3><p>{product.note}</p><p class="meta">{product.displayPrice} · {SHIPPING.shortNote}</p></div>
+        </li>
       ))}
-    </div>
+    </ol>
   </section>
 )}
 
 <style>
   .tools-mentioned { margin: var(--s5) 0; }
+  .product-continuations { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
+  .product-continuations li { display: grid; grid-template-columns: 8rem minmax(0, 1fr); gap: var(--s3); padding: var(--s3) 0; border-bottom: 1px solid var(--mist); }
+  .continuation-image { background: var(--surface); }
+  .continuation-image :global(img) { display: block; width: 100%; aspect-ratio: 1; object-fit: contain; }
+  .product-continuations h3 { margin: .35rem 0; font-family: var(--font-body); font-size: 1.2rem; }
+  .product-continuations p { margin: 0 0 .5rem; color: var(--ink-soft); }
+  @media (max-width: 520px) { .product-continuations li { grid-template-columns: 6rem minmax(0, 1fr); gap: var(--s2); } }
 </style>

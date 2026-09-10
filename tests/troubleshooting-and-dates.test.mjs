@@ -77,11 +77,10 @@ test('only an article with a recorded recheck shows a verification date', () => 
 
 test('the comparisons hub omits the date it does not have', () => {
   const t = text(page('compare.html'));
-  const cards = [...t.matchAll(/(\d+) criteria([^A-Z]*)/g)].map((m) => m[2]);
-  assert.ok(cards.length >= 3, 'expected three comparison cards');
-  const dated = cards.filter((c) => /verified/.test(c));
-  assert.equal(dated.length, articles().filter((a) => a.data.verifiedDate && a.data.pillar === 'compare').length,
-    'a card claims a verification the article does not record, or drops one it does');
+  for (const article of articles().filter((entry) => entry.data.pillar === 'compare')) {
+    assert.ok(t.includes(article.data.title), `comparison hub omitted ${article.data.title}`);
+  }
+  assert.ok(!/Figures verified/.test(t), 'the hub claims a verification date outside the article record');
 });
 
 test('the troubleshooting pages make no promise about somebody else’s machine', () => {

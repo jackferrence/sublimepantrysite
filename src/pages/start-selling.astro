@@ -10,26 +10,32 @@ import Newsletter from '../components/Newsletter.astro';
     <strong>Before anything else:</strong> cottage food rules are state law, they vary widely, and they change. Everything here is educational. Confirm your state's current rules with your Department of Agriculture or health department before your first sale.
   </div>
   <h2>Start here</h2>
-  <ul class="card-grid">
-    <li class="card">
+  <ol class="seller-ledger">
+    <li>
       <span class="kicker">Flagship guide</span>
       <h3><a href="/guides/cottage-economics">Selling freeze-dried food from home: rules, testing, and real unit economics</a></h3>
       <p>What cottage food laws generally allow, the 0.85 water-activity line, labeling, and a worked cost-per-bag model.</p>
     </li>
-    <li class="card">
+    <li>
       <span class="kicker">Free tool</span>
       <h3><a href="/tools/batch-log">The Batch Log &amp; Cost Tracker</a></h3>
       <p>Know your true cost per batch and per bag: the number your pricing depends on. Includes a water-activity reading field for your records.</p>
     </li>
-    <li class="card">
+    <li>
       <span class="kicker">Troubleshooting</span>
       <h3><a href="/troubleshooting/storage-failure">Bags lost their crunch in storage</a></h3>
       <p>The five failure points between a perfect batch and a stale product, and how sellers prevent every one.</p>
     </li>
-  </ul>
+  </ol>
   <h2>The three questions every new seller must answer</h2>
   <p><strong>1. Is my product allowed?</strong> Most states allow shelf-stable, non-potentially-hazardous foods under cottage law. For freeze-dried products the dividing line is usually water activity (0.85 or below is the common threshold), plus categorical rules (meat, poultry, and seafood are broadly excluded).</p>
   <p><strong>2. Can I prove it?</strong> A growing number of states expect sellers to verify water activity. University extension programs have validated sub-$100 meters for cottage producers; our economics guide covers testing practice and record-keeping.</p>
   <p><strong>3. Does the math work?</strong> Electricity, packaging, absorbers, labels, candy cost, and, above all, your machine's cycle time set a floor under your pricing. Log a few real batches in the <a href="/tools/batch-log">Batch Log</a> before you print price tags.</p>
   <Newsletter />
 </PageLayout>
+<style>
+  .seller-ledger { list-style: decimal-leading-zero; margin: var(--s3) 0 var(--s5); padding-left: 2.5rem; border-top: 2px solid var(--ink); }
+  .seller-ledger li { padding: var(--s3) 0 var(--s3) var(--s2); border-bottom: 1px solid var(--mist); }
+  .seller-ledger h3 { margin: .4rem 0; font-family: var(--font-body); font-size: 1.25rem; }
+  .seller-ledger p { margin: 0; color: var(--ink-soft); }
+</style>

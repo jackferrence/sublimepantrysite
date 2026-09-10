@@ -3,7 +3,7 @@
 /* =========================================================================
    Sublime Pantry — base stylesheet.
 
-   One accent colour (--brand), one display face (Ibarra Real Nova), one body
+   One accent colour (--brand), one display face (Bodoni Moda Variable), one body
    face (Source Sans 3). No gradients, no custom scrollbars, no ::selection
    styling, no lift/spring transitions. Every colour in the codebase is
    defined here as a token; nothing outside this file may use a hex literal.
@@ -29,13 +29,7 @@
   --ok: var(--color-semantic-success);
   --info-bg: var(--color-brand-ice);
   --info-line: var(--color-semantic-info);
-  /* The logo's pale blue. LOGO ONLY — the mark's own ground. Permitted: the
-     SP offset edge, and the header brand block, where the plate IS the
-     artwork's background rather than a surface we chose. Never text, never a
-     border, never a section background: ~1.4:1 on --paper. If you are reaching
-     for this to tint a surface, use --brand-tint, or --info-bg for a cool one.
-     (The previous version of this note pointed at "--ice" and an "Ice
-     section". Neither has ever existed in this file.) */
+  /* Legacy Ice alias. Approved logo files carry their own immutable colors. */
   --logo-frost: var(--color-brand-ice);
 
   /* type */
