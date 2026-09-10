@@ -145,6 +145,29 @@ Every commit on this branch has `npm run build` (70 pages) and `npm test` (371/3
 
 Handover docs (T6.1: `docs/components.md`, `docs/content-authoring.md`, `docs/images.md`; T6.2: `docs/MANUAL-TASKS.md`; T6.3: final state) are all open.
 
-## Next steps, in priority order
+## T2.4 remainder, methodology reframing, Phase 5, and the stylelint sweep: done
 
-(1) The pre-existing `text.muted` contrast miss found in T5.6, fixed with a visual pass. (2) `scripts/contrast-audit.mjs` to automate T5.6 going forward. (3) The deferred ~230-violation full-repo stylelint pass (T1.4) — now that `scripts/screenshot-templates.mjs` exists, use it for real before/after verification rather than reasoning blind. (4) The "Quart Bags 8×12" blank-thumbnail screenshot artifact noted in T5.5 — probably not a real bug, worth one look with a proper lazy-load wait to be sure. (5) T6.1/T6.2 handover docs. (6) A component-by-component T3.1 primitive audit against the full spec (Input/Select error states, a dedicated Rule component).
+Since the entry above was written, this session:
+
+- **Built the four remaining T2.4 diagrams** (`SublimationCurve`, `ChamberCutaway`, `SealSteps`, `PuffyBagTest`), completing all five. `PuffyBagTest` and `OxygenIndicator` are wired live on `/review-methodology`, not just the QA page — confirmed rendering in the built HTML.
+- **Applied Jack's methodology decision directly to code**, not just recorded it: `LimitationsCallout`'s eyebrow, `HonestyBlock`'s/`VerdictBox`'s content-authoring doc comments, `content.config.ts`'s `lastTested` → `lastReviewed` rename, and a methodology note on `OxygenIndicator.astro` for future diagram builders. See "RESOLVED — methodology" above for the full decision text and every file it touched.
+- **Finished Phase 5 (T5.1–T5.6), all six items**, not just T5.6 — see the "Phase 5 (T5.1–T5.6): done" section above for the full breakdown. Running the actual tools for real (not just wiring them and assuming) found and led to fixing **five real bugs**: an unnamed link on the homepage, a colour-contrast failure in `EducationalNotice.astro`, a second instance of the same contrast bug in a `.notice` link on `/shop`, a path-resolution bug in the test infrastructure itself that was silently hiding real content behind the 404 page, and a missing-Packshot-fallback gap on `/shop`'s own product listing.
+- **Started the deferred T1.4 stylelint sweep for real**, file by file with visual (screenshot) verification: `Header.astro`, `Footer.astro`, `BrandBlock.astro` — the three files every page renders — are now clean (`npx stylelint` exit 0). `npm run lint:css:all` is down to 66 problems across roughly 19 remaining files (from ~230 at the start of this session), each either a genuine token match (fixed) or a documented, reasoned exception (a stylelint-disable comment explaining why, not a silent ignore). The remaining files are listed by `npm run lint:css:all`'s own output — not re-listed here since that list is live, not static.
+
+## Phase 6 (T6.1–T6.3)
+
+- **T6.1: done.** `README.md` (didn't exist before this session — created fresh, with the full scripts table and a docs map), `docs/components.md`, `docs/content-authoring.md`, `docs/images.md` all written, covering exactly what's actually built (not what the original spec assumed — e.g. `docs/content-authoring.md` explicitly corrects the MDX-component assumption that doesn't match this site's real JSON+`bodyHtml` content model).
+- **T6.2: done.** `docs/MANUAL-TASKS.md` written, adapted to this repo's real state (e.g. item 4's `src/data/sizing.json` doesn't exist — the real equivalent, `src/data/absorberSizing.ts`/`batchPlanning.ts`, is named instead). Verified rather than assumed: grepped for `TODO(jack)` markers in `src/` before writing item 5 — zero found (the only hits anywhere in the repo are inside `docs/CLAUDE-CODE-PROMPT.md`'s own prose describing the convention).
+- **T6.3: this is that state.** `npm run build`: 70 pages, clean. `npm test`: 371/371. `npx playwright test` (T5.1): 28/28. `npx lhci autorun` (T5.2): all assertions pass. `npm run test:budget` (T5.3): all pages within budget. `npm run check` (T5.4): full chain green end to end. Everything run for real this session, immediately before this commit, not assumed from an earlier run. Branch `redesign/design-system` pushed to `origin` after every commit in this session; nothing on `main`; no PR opened.
+
+## What's left, for a future session
+
+Not fabricated as "done" anywhere above — genuinely open:
+
+1. The pre-existing `text.muted` contrast miss found in T5.6 (6.89:1 vs. 7:1 AAA, light mode) — needs a deliberate, visually-verified fix, not a blind hex edit.
+2. `scripts/contrast-audit.mjs` to automate T5.6 going forward (currently a one-time hand calculation, `tokens/CONTRAST.md` says so at the top).
+3. The remaining ~66 stylelint violations across ~19 files (`npm run lint:css:all` for the live list) — same file-by-file, screenshot-verified discipline as the Header/Footer/BrandBlock pass.
+4. The "Quart Bags 8×12" blank-thumbnail screenshot artifact noted in T5.5 — very likely a `loading="lazy"`/screenshot-timing artifact in `scripts/screenshot-templates.mjs`, not a site defect (the file demonstrably exists and the HTML is correct), but worth one confirming look with a proper lazy-load wait before closing it out.
+5. A component-by-component T3.1 primitive audit against the full spec (dedicated `Input`/`Select` error states, a standalone `Rule` component).
+6. T4.1 (home page — now unblocked, `SublimationCurve` exists), T4.3 (recipe template specifics — no recipe content exists to build against yet), the rest of T4.4 (a dedicated "Used in these guides" list, bundle-specific "who this kit is for"), T4.5/T4.8 (store index and guides-index audits against every new-system visual detail, not just "does it still work").
+7. Everything under "Manual tasks" in `docs/MANUAL-TASKS.md` — by definition, none of it is code work.
