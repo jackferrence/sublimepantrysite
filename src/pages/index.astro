@@ -7,6 +7,7 @@ import Newsletter from '../components/Newsletter.astro';
 import Img from '../components/Img.astro';
 import Packshot from '../components/figures/Packshot.astro';
 import SublimationCurve from '../components/figures/SublimationCurve.astro';
+import PullQuote from '../components/blocks/PullQuote.astro';
 import { CATALOG, SHIPPING } from '../lib/commerce';
 import { liveTools, homepageTool } from '../lib/tools';
 const articles = await getCollection('articles');
@@ -41,9 +42,20 @@ const routes = [
     <section class="shop-shelf" aria-labelledby="shop-heading">
       <div class="section-head"><div><span class="kicker">From our own stock</span><h2 id="shop-heading">Ready for packaging.</h2></div><a class="btn-text" href="/shop">Visit the small shop →</a></div>
       <p class="shop-note">Choose packaging after checking the food. A bag and an absorber do not finish an under-dried batch.</p>
-      <ul class="product-shelf">{CATALOG.slice(0,3).map(product => <li><a class="product-picture" href={product.detailsHref ?? '/shop'}>{product.image ? <Img src={product.image} alt={product.imageAlt} width={600} height={600} /> : <Packshot sku={product.handle} title={product.shortTitle} />}</a><span class="kicker">Sold by Sublime Pantry</span><h3><a href={product.detailsHref ?? '/shop'}>{product.title}</a></h3><p>{product.displayPrice}</p></li>)}</ul>
+      {/* docs/CLAUDE-CODE-PROMPT.md T4.1: "ShopTheTools with the 8 SKUs in
+          two rows of four" — was CATALOG.slice(0,3) (3 of 8), widened to
+          the full catalog per spec. */}
+      <ul class="product-shelf">{CATALOG.map(product => <li><a class="product-picture" href={product.detailsHref ?? '/shop'}>{product.image ? <Img src={product.image} alt={product.imageAlt} width={600} height={600} /> : <Packshot sku={product.handle} title={product.shortTitle} />}</a><span class="kicker">Sold by Sublime Pantry</span><h3><a href={product.detailsHref ?? '/shop'}>{product.shortTitle}</a></h3><p>{product.displayPrice}</p></li>)}</ul>
       <p class="meta">{SHIPPING.shortNote}</p>
     </section>
+    {/* docs/CLAUDE-CODE-PROMPT.md T4.1: "one PullQuote". Not new copy —
+        the first sentence of src/lib/commerce.ts's ABSORBER_SIZING
+        constant, already published verbatim across several product FAQs
+        on this site; PullQuote requires a plain-text prop (not a slot,
+        see the component's own doc comment) so it's not imported as a
+        shared constant, just kept identical to it. 17 words, under the
+        20-word cap. */}
+    <PullQuote text="Absorber size follows the air volume left in the sealed container, not the weight of the food." />
     <section class="evidence-note" aria-labelledby="evidence-heading"><span class="kicker">A note on the evidence</span><div><h2 id="evidence-heading">Read the sources.<br />Know the limits.</h2><p>Written and edited by <a href="/about">Jack Ferrence</a>. Our machine comparisons assess published specifications and documentation. <strong>We have not bench-tested freeze dryers.</strong></p><p><a href="/review-methodology">Review methodology</a> · <a href="/corrections">Public corrections</a></p></div></section>
     <div id="newsletter"><Newsletter heading="Notes for the next batch." /></div>
   </div>
@@ -64,7 +76,8 @@ const routes = [
 .section-label h2,.workbench h2,.evidence-note h2 { font-size:clamp(2rem,4vw,3.25rem); line-height:1.08; margin:var(--s2) 0; }
 .pathways ol { list-style:none; padding:0; margin:0; }.pathways li { display:grid; grid-template-columns:2rem 1fr; gap:var(--s3); border-top:1px solid var(--mist); padding:var(--s3) 0; }.pathways li:first-child { border-top:2px solid var(--ink); }.path-number { font-size:.85rem; color:var(--brand); padding-top:.4rem; }.pathways h3 { font-size:1.65rem; margin:0 0 .5rem; }.pathways h3 a { color:var(--ink); text-decoration:none; }.pathways h3 a:hover { text-decoration:underline; }.pathways p { margin:0; color:var(--ink-soft); max-width:55ch; }
 .workbench { display:grid; grid-template-columns:1fr 1.35fr; gap:var(--s6); border-top:1px solid var(--ink); padding:var(--s5) 0; }.workbench>div>p { max-width:35ch; color:var(--ink-soft); }.workbench-tools :global(.editorial-tool) { margin:0; border-top:0; padding-top:0; }.workbench-tools ul { list-style:none; padding:0; margin:0; }.workbench-tools li { border-bottom:1px solid var(--mist); }.workbench-tools li a { display:flex; justify-content:space-between; padding:1rem 0; text-decoration:none; }.workbench-tools li a:hover { text-decoration:underline; }
-.shop-shelf { padding:var(--s5) 0; border-top:1px solid var(--ink); }.shop-shelf h2 { margin:.5rem 0 0; }.shop-note { max-width:65ch; color:var(--ink-soft); }.product-shelf { display:grid; grid-template-columns:1.2fr 1fr 1fr; gap:var(--s4); list-style:none; padding:0; margin:var(--s4) 0; }.product-picture { display:block; margin-bottom:var(--s2); background:var(--surface); }.product-picture :global(img) { display:block; width:100%; aspect-ratio:1; object-fit:contain; }.product-shelf h3 { font-family:var(--font-body); font-size:1.15rem; line-height:1.35; margin:.4rem 0; }.product-shelf h3 a { color:var(--ink); text-decoration:none; }.product-shelf h3 a:hover { text-decoration:underline; }.product-shelf p { margin:0; }
+.shop-shelf { padding:var(--s5) 0; border-top:1px solid var(--ink); }.shop-shelf h2 { margin:.5rem 0 0; }.shop-note { max-width:65ch; color:var(--ink-soft); }.product-shelf { display:grid; grid-template-columns:repeat(4,1fr); gap:var(--s4); list-style:none; padding:0; margin:var(--s4) 0; }
+@media(max-width:900px) { .product-shelf { grid-template-columns:repeat(2,1fr); } }.product-picture { display:block; margin-bottom:var(--s2); background:var(--surface); }.product-picture :global(img) { display:block; width:100%; aspect-ratio:1; object-fit:contain; }.product-shelf h3 { font-family:var(--font-body); font-size:1.15rem; line-height:1.35; margin:.4rem 0; }.product-shelf h3 a { color:var(--ink); text-decoration:none; }.product-shelf h3 a:hover { text-decoration:underline; }.product-shelf p { margin:0; }
 .evidence-note { display:grid; grid-template-columns:1fr 1.7fr; gap:var(--s6); border-top:1px solid var(--ink); padding:var(--s5) 0; }.evidence-note p { max-width:58ch; }
 @media(max-width:700px) { .publication-intro,.pathways,.workbench,.evidence-note { grid-template-columns:1fr; gap:var(--s3); }.publication-intro>.kicker { margin:0; }.intro-note { max-width:45ch; }.product-shelf { grid-template-columns:1fr; gap:var(--s4); }.product-shelf li { display:grid; grid-template-columns:7rem 1fr; column-gap:var(--s2); }.product-picture { grid-row:1/4; margin:0; }.product-shelf .kicker { align-self:end; font-size:.65rem; }.shop-shelf .section-head { align-items:start; }.home-publication { padding-top:var(--s4); } }
 </style>
