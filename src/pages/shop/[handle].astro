@@ -18,11 +18,11 @@
  */
 import { getCollection } from 'astro:content';
 import PageLayout from '../../layouts/PageLayout.astro';
-import Card from '../../components/Card.astro';
 import Icon from '../../components/Icon.astro';
 import Newsletter from '../../components/Newsletter.astro';
 import StickyBuyBar from '../../components/StickyBuyBar.astro';
 import ProductGallery from '../../components/ProductGallery.astro';
+import EditorialToolLink from '../../components/EditorialToolLink.astro';
 import {
   LINE_LABEL,
   SHIPPING,
@@ -34,7 +34,7 @@ import ProductReviews from '../../components/ProductReviews.astro';
 import { getProductReviews } from '../../lib/reviews';
 import { stockedCatalog, NOT_STOCKED_LABEL, stockNoteFor } from '../../lib/stock';
 import { SUPPORT_EMAIL } from '../../lib/paths';
-import { heroImage, articleHref } from '../../lib/articles';
+import { articleHref } from '../../lib/articles';
 
 export async function getStaticPaths() {
   // Declared inside, not above: Astro extracts getStaticPaths into its own
@@ -64,6 +64,13 @@ const reviews = await getProductReviews(product);
 
 const path = `/shop/${product.handle}`;
 const trackProps = JSON.stringify({ product_handle: product.handle, sku: product.sku });
+const productToolHref = product.line === 'snack'
+  ? '/tools/trail-meal-cost'
+  : product.category === 'Packaging'
+    ? '/tools/absorber-calculator'
+    : product.line === 'bundle'
+      ? '/tools/batch-planner'
+      : null;
 
 /**
  * Product structured data, with offers.
@@ -214,6 +221,15 @@ const faqSchema = {
         <ul>{product.highlights.map((item) => <li>{item}</li>)}</ul>
       </section>
 
+      <section class="pantry-rationale" aria-labelledby="pantry-rationale-heading">
+        <span class="kicker">Editorial note</span>
+        <h2 id="pantry-rationale-heading">Why this is in the pantry</h2>
+        <p>This item covers a specific packaging job in a deliberately small catalog: {product.note}</p>
+        <p><strong>Testing status:</strong> Sublime Pantry has not independently bench-tested this product. Counts, dimensions and compatibility statements come from the supplier record and the active Shopify listing unless a source is named beside the claim.</p>
+      </section>
+
+      {productToolHref && <EditorialToolLink href={productToolHref} />}
+
       <section>
         <h2>Questions</h2>
         {product.faq.map((item) => (
@@ -234,18 +250,15 @@ const faqSchema = {
             <h2>Related reading</h2>
             <a class="btn-text" href="/guides">All guides</a>
           </div>
-          <div class="card-grid">
+          <ol class="related-ledger">
             {related.map((entry) => (
-              <Card
-                href={articleHref(entry)}
-                title={entry.data.title}
-                dek={entry.data.description}
-                kicker={entry.data.section ?? entry.data.kicker}
-                image={heroImage(entry)?.src}
-                imageAlt={heroImage(entry)?.alt}
-              />
+              <li>
+                <span class="kicker">{entry.data.section ?? entry.data.kicker}</span>
+                <h3><a href={articleHref(entry)}>{entry.data.title}</a></h3>
+                <p>{entry.data.description}</p>
+              </li>
             ))}
-          </div>
+          </ol>
         </section>
       </div>
     )}
@@ -293,4 +306,11 @@ const faqSchema = {
 
   .pdp-wide { margin-top: var(--s5); }
   .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s2); }
+  .pantry-rationale { padding: var(--s4); border-left: 4px solid var(--brand); background: var(--color-semantic-warm); }
+  .pantry-rationale h2 { margin-top: .35rem; }
+  .related-ledger { list-style: decimal-leading-zero; padding-left: 2.5rem; border-top: 2px solid var(--ink); }
+  .related-ledger li { padding: var(--s3) 0 var(--s3) var(--s2); border-bottom: 1px solid var(--mist); }
+  .related-ledger h3 { margin: .35rem 0; font-family: var(--font-body); font-size: 1.25rem; }
+  .related-ledger h3 a { color: var(--ink); }
+  .related-ledger p { margin: 0; max-width: 64ch; color: var(--ink-soft); }
 </style>

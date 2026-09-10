@@ -32,7 +32,6 @@ import { readFileSync, existsSync, globSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { CATALOG } from '../src/lib/commerce.ts';
-import { CHECKLIST_SECTIONS } from '../src/lib/checklist.ts';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const dist = join(root, 'dist');
@@ -134,44 +133,29 @@ test('the archived product URL redirects rather than rendering or 404ing', () =>
   );
 });
 
-test('M07: the homepage hero leads to the thing the page is for', () => {
+test('M07: the homepage leads with a current answer and an editorial trust path', () => {
   const html = page('index.html');
-  const hero = html.slice(html.indexOf('hero-actions'), html.indexOf('</section>'));
-  const primary = hero.match(/<a class="btn btn-primary"[^>]*href="([^"]+)"[^>]*>([^<]+)</);
-  assert.ok(primary, 'the hero has no primary action');
-  assert.equal(primary[1], '#newsletter', 'the hero button points away from the signup');
-  assert.equal(primary[2].trim(), 'Get the free checklist');
-  assert.match(html, /id="newsletter"/, 'the hero points at an anchor that is not on the page');
+  const t = text(html);
+  assert.match(t, /The complete batch workflow/);
+  assert.match(t, /How we publish/);
+  assert.ok(t.indexOf('The complete batch workflow') < t.indexOf('Find your next step'));
 });
 
-test('U05: the hero preview is the checklist, not a monogram', () => {
+test('U05: the homepage task index covers the three reader jobs', () => {
   const html = page('index.html');
-  const heroMedia = html.slice(html.indexOf('hero-media'), html.indexOf('routes-heading'));
-  assert.doesNotMatch(heroMedia, /<svg[^>]*class="[^"]*mark/i, 'the brand monogram is back in the image slot');
-
-  // Every heading and every previewed item must be the checklist's own.
-  const shown = text(heroMedia);
-  for (const section of CHECKLIST_SECTIONS) {
-    assert.ok(shown.includes(section.heading), `hero preview omits "${section.heading}"`);
-    for (const item of section.items.slice(0, 2)) {
-      assert.ok(shown.includes(item), `hero preview shows an item the checklist does not: "${item}"`);
-    }
-  }
-
-  // And the printable page must still contain everything the preview promises.
-  const printable = text(page('freeze-drying-starter-checklist.html'));
-  for (const section of CHECKLIST_SECTIONS) {
-    for (const item of section.items) {
-      assert.ok(printable.includes(item), `the printable checklist is missing "${item}"`);
-    }
-  }
+  const shown = text(html);
+  assert.match(shown, /Choose the machine/);
+  assert.match(shown, /Run and troubleshoot batches/);
+  assert.match(shown, /Package and store the result/);
+  assert.doesNotMatch(html, /<svg[^>]*class="[^"]*mark/i, 'a reconstructed monogram returned as homepage decoration');
 });
 
 test('the homepage answers its own questions, and each answer is a limit', () => {
   const t = text(page('index.html'));
   assert.match(t, /We have not bench-tested freeze dryers/);
-  assert.match(t, /Every item is assembled from our own stock and shipped by Sublime Pantry/);
-  assert.match(t, /We publish freeze-drying guidance and sell packaging/);
+  assert.match(t, /From our own stock/);
+  assert.match(t, /Choose packaging after checking the food/);
+  assert.match(t, /Sources you can follow\. Limits made clear/);
 });
 
 test('U06: the shop describes the product, not the roadmap', () => {

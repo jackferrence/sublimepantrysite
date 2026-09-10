@@ -1,0 +1,30 @@
+---
+import { embedSnippet, embedUrl, toolUrl, type Tool } from '../lib/tools';
+interface Props { tool: Tool }
+const { tool } = Astro.props;
+---
+<p class="attribution"><a href={toolUrl(tool)} target="_blank" rel="noopener">Calculator by Sublime Pantry</a></p>
+{tool.embeddable && <section class="embed-block" data-embed-hide aria-labelledby="embed-heading">
+  <h2 id="embed-heading">Use this calculator on your site</h2>
+  <p>Copy the code below. The frame keeps the attribution, full-page link and room to scroll through the evidence.</p>
+  <button class="btn btn-secondary" type="button" id="embed-btn" data-embed-copy data-sp-event="tool_embed_copy" data-sp-props={JSON.stringify({ tool: tool.slug })} aria-describedby="embed-status">Embed this</button>
+  <span id="embed-status" data-embed-status role="status" aria-live="polite"></span>
+  <label for="embed-code">Embed code</label>
+  <textarea id="embed-code" rows="5" readonly spellcheck="false">{embedSnippet(tool)}</textarea>
+  <p><a href={embedUrl(tool)}>Preview the embedded calculator</a></p>
+</section>}
+<script>
+  const button = document.querySelector<HTMLButtonElement>('[data-embed-copy]');
+  const code = document.querySelector<HTMLTextAreaElement>('#embed-code');
+  const status = document.querySelector<HTMLElement>('[data-embed-status]');
+  button?.addEventListener('click', async () => {
+    if (!code || !status) return;
+    try {
+      await navigator.clipboard.writeText(code.value);
+      status.textContent = 'Embed code copied.';
+    } catch {
+      code.focus(); code.select();
+      status.textContent = 'Embed code selected — press Ctrl+C or Cmd+C to copy.';
+    }
+  });
+</script>

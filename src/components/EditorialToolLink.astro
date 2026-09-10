@@ -1,0 +1,18 @@
+---
+import { liveTools } from '../lib/tools';
+interface Props { href: string; context?: string; }
+const { href, context } = Astro.props;
+const tool = liveTools().find(t => t.href === href);
+---
+{tool && <aside class="editorial-tool" aria-label="Related free tool">
+  <span class="kicker">At the workbench / free tool</span>
+  <h2><a href={tool.href} data-sp-event="tool_discovery_click" data-sp-props={JSON.stringify({ tool: tool.slug })}>{tool.name} <span aria-hidden="true">↗</span></a></h2>
+  <p>{context ?? tool.summary}</p>
+</aside>}
+<style>
+.editorial-tool { border-top:2px solid var(--ink); border-bottom:1px solid var(--mist); padding:var(--s3) 0; margin:var(--s4) 0; }
+.editorial-tool h2 { font-family:var(--font-body); font-size:1.3rem; margin:.5rem 0; font-weight:600; }
+.editorial-tool h2 a { text-decoration:none; }.editorial-tool h2 a:hover { text-decoration:underline; }
+.editorial-tool p { color:var(--ink-soft); max-width:60ch; margin:0; }
+@media print { .editorial-tool { display:none; } }
+</style>

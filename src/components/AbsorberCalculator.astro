@@ -1,0 +1,470 @@
+---
+/**
+ * AbsorberCalculator.astro
+ *
+ * Browser-only oxygen absorber sizing calculator.
+ *
+ * - No account, no network calls, no analytics, no storage. Every keystroke and
+ *   every result stays in the page. Nothing is submitted anywhere.
+ * - All figures come from src/data/absorberSizing.ts, the same module
+ *   AbsorberSizingTable.astro reads, so the calculator and the table cannot drift.
+ * - The full result set is rendered server-side, one block per
+ *   container × food class. The client script only toggles which block is shown,
+ *   so the calculator answers with JavaScript disabled too (all blocks visible,
+ *   headed by their inputs) and there is no client-side arithmetic to get wrong.
+ */
+import {
+  CONTAINERS,
+  FOOD_CLASSES,
+  calculateSizing,
+  getSource,
+  CALC_OXYGEN_FRACTION_SOURCES,
+  OXYGEN_FRACTION_MIN,
+  OXYGEN_FRACTION_MAX,
+  HALF_GALLON_GAP,
+  type SourceId,
+} from '../data/absorberSizing';
+
+interface Props {
+  /** Default selection, so the tool shows a real answer on first paint. */
+  defaultContainer?: string;
+  defaultFoodClass?: string;
+  /** Rendered inside an iframe embed: drops the wrapper heading. */
+  embedded?: boolean;
+}
+
+const {
+  defaultContainer = 'gallon',
+  defaultFoodClass = 'porous',
+  embedded = false,
+} = Astro.props;
+
+const results = CONTAINERS.flatMap((c) =>
+  FOOD_CLASSES.map((f) => calculateSizing(c.id, f.id)),
+);
+
+const fmt = (n: number) => Math.round(n).toLocaleString('en-US');
+const pct = (n: number) => `${(n * 100).toFixed(n === 0.2095 ? 2 : 0)}%`;
+
+function srcs(ids: readonly SourceId[]) {
+  return ids.map((id) => getSource(id));
+}
+---
+
+<div class="oa-calc" data-oa-calc>
+  {!embedded && <h2 id="oa-calc-heading">Size the absorber</h2>}
+
+  <form
+    class="oa-form"
+    data-oa-form
+    aria-labelledby={embedded ? undefined : 'oa-calc-heading'}
+    aria-label={embedded ? 'Oxygen absorber sizing calculator' : undefined}
+  >
+    <fieldset>
+      <legend>Container size</legend>
+      <div class="options">
+        {
+          CONTAINERS.map((c) => (
+            <label class="option">
+              <input
+                type="radio"
+                name="container"
+                value={c.id}
+                checked={c.id === defaultContainer}
+              />
+              <span>{c.label}</span>
+            </label>
+          ))
+        }
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>How airy the food is</legend>
+      <p class="field-help">How much of the container the food leaves as air.</p>
+      <div class="options options--stacked">
+        {
+          FOOD_CLASSES.map((f) => (
+            <label class="option">
+              <input
+                type="radio"
+                name="foodClass"
+                value={f.id}
+                checked={f.id === defaultFoodClass}
+              />
+              <span>
+                <strong>{f.label}</strong>
+                <small>{f.examples}</small>
+              </span>
+            </label>
+          ))
+        }
+      </div>
+    </fieldset>
+  </form>
+
+  <div class="oa-results" data-oa-results aria-live="polite" aria-atomic="true">
+    {
+      results.map((r) => (
+        <article
+          class="oa-result"
+          data-container={r.container.id}
+          data-food-class={r.foodClass.id}
+          hidden={
+            !(r.container.id === defaultContainer && r.foodClass.id === defaultFoodClass)
+          }
+        >
+          <h3 class="oa-result__heading">
+            {r.container.label} · {r.foodClass.label}
+          </h3>
+
+          <p class="oa-headline">
+            {r.packetCc === null ? (
+              <Fragment>
+                <span class="oa-figure">Above 3,000cc</span>
+                <span class="oa-figure-label">
+                  more than the largest packet size any source in this set names
+                </span>
+              </Fragment>
+            ) : (
+              <Fragment>
+                <span class="oa-figure">{fmt(r.packetCc)}cc</span>
+                <span class="oa-figure-label">
+                  the smallest packet size these sources name that covers the calculated
+                  demand
+                </span>
+              </Fragment>
+            )}
+          </p>
+
+          <p class="oa-math">
+            {fmt(r.container.volumeCc)}cc of air in the container ×{' '}
+            {r.foodClass.airFractionLabel} air once the food is in it ={' '}
+            <strong>{fmt(r.residualAirCc)}cc of air left</strong>. At 21% oxygen, that is{' '}
+            <strong>{fmt(r.oxygenCc)}cc of oxygen</strong> for the packet to clear
+            {' '}({fmt(r.oxygenCcLow)}–{fmt(r.oxygenCcHigh)}cc across the range of oxygen
+            fractions the sources publish, {pct(OXYGEN_FRACTION_MIN)} to{' '}
+            {pct(OXYGEN_FRACTION_MAX)}).{' '}
+            <span class="oa-src">
+              {srcs(CALC_OXYGEN_FRACTION_SOURCES).map((s) => (
+                <a href={s.url} rel="nofollow noopener" target="_blank">
+                  [{s.id}]
+                </a>
+              ))}
+            </span>
+          </p>
+
+          <p class="oa-caveat">
+            This is arithmetic, not a manufacturer recommendation. It runs the same
+            calculation the sources run, on the air fraction they publish for this class of
+            food. What the manufacturers themselves say for this container is below, and
+            they do not agree with each other.
+          </p>
+
+          {r.container.volumeBasis === 'derived' && (
+            <p class="oa-caveat">
+              <strong>The container volume here is derived.</strong> {r.container.volumeNote}
+            </p>
+          )}
+
+          {r.noPublishedFigures ? (
+            <p class="oa-gap">{HALF_GALLON_GAP}</p>
+          ) : (
+            <div class="oa-published">
+              <h4>What the manufacturers publish for a {r.container.label.toLowerCase()}</h4>
+              <ul>
+                {r.published.map((p) => (
+                  <li>
+                    <span class="oa-pub-cc">{p.cc}</span>
+                    <span class="oa-pub-who">
+                      {p.publisher}
+                      {p.foodClass === r.foodClass.id && (
+                        <span class="oa-match"> · matches this food class</span>
+                      )}
+                      <span class="oa-src">
+                        {srcs(p.sources).map((s) => (
+                          <a href={s.url} rel="nofollow noopener" target="_blank">
+                            [{s.id}]
+                          </a>
+                        ))}
+                      </span>
+                    </span>
+                    <span class="oa-pub-cond">{p.condition}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </article>
+      ))
+    }
+  </div>
+
+  <p class="oa-privacy">
+    Runs entirely in your browser. No account, no sign-in, nothing sent anywhere, nothing
+    stored.
+  </p>
+</div>
+
+<script>
+  // Progressive enhancement: the results are already in the DOM. This only decides
+  // which one is visible. No arithmetic, no network, no storage.
+  for (const root of document.querySelectorAll<HTMLElement>('[data-oa-calc]')) {
+    const form = root.querySelector<HTMLFormElement>('[data-oa-form]');
+    const results = root.querySelectorAll<HTMLElement>('.oa-result');
+    if (!form || results.length === 0) continue;
+
+    const update = () => {
+      const data = new FormData(form);
+      const container = String(data.get('container') ?? '');
+      const foodClass = String(data.get('foodClass') ?? '');
+      for (const el of results) {
+        el.hidden = !(
+          el.dataset.container === container && el.dataset.foodClass === foodClass
+        );
+      }
+    };
+
+    form.addEventListener('change', update);
+    // Guard against a browser restoring a different radio state on back-navigation.
+    update();
+  }
+</script>
+
+<style>
+  .oa-calc {
+    --oa-border: color-mix(in srgb, currentColor 20%, transparent);
+    --oa-muted: color-mix(in srgb, currentColor 65%, transparent);
+    --oa-tint: color-mix(in srgb, currentColor 5%, transparent);
+    --oa-accent: currentColor;
+    container-type: inline-size;
+    max-width: 48rem;
+  }
+
+  /* ---------- form ---------- */
+
+  .oa-form {
+    display: grid;
+    gap: 1.25rem;
+    margin-block-end: 1.5rem;
+  }
+
+  fieldset {
+    border: 1px solid var(--oa-border);
+    border-radius: 8px;
+    padding: 0.75rem 1rem 1rem;
+    margin: 0;
+    min-inline-size: 0;
+  }
+
+  legend {
+    padding-inline: 0.375rem;
+    font-weight: 600;
+  }
+
+  .field-help {
+    margin: 0 0 0.5rem;
+    font-size: 0.875rem;
+    color: var(--oa-muted);
+  }
+
+  .options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .options--stacked {
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .option {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.625rem;
+    /* 44px minimum target, and it stays 44px at 200% zoom because it is in rem. */
+    min-block-size: 2.75rem;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--oa-border);
+    border-radius: 6px;
+    cursor: pointer;
+    /* 1rem prevents iOS zooming the page on focus. */
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .option:hover {
+    background: var(--oa-tint);
+  }
+
+  .option input {
+    accent-color: var(--oa-accent);
+    inline-size: 1.15rem;
+    block-size: 1.15rem;
+    margin: 0.2rem 0 0;
+    flex: none;
+  }
+
+  .option:has(input:checked) {
+    background: var(--oa-tint);
+    border-color: var(--oa-accent);
+    box-shadow: inset 0 0 0 1px var(--oa-accent);
+  }
+
+  .option:has(input:focus-visible) {
+    outline: 3px solid var(--oa-accent);
+    outline-offset: 2px;
+  }
+
+  .option span {
+    display: block;
+  }
+
+  .option small {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--oa-muted);
+  }
+
+  /* ---------- result ---------- */
+
+  .oa-result {
+    border: 1px solid var(--oa-border);
+    border-radius: 8px;
+    padding: 1rem 1.125rem 1.25rem;
+  }
+
+  .oa-result__heading {
+    margin: 0 0 0.5rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--oa-muted);
+  }
+
+  .oa-headline {
+    margin: 0 0 0.875rem;
+  }
+
+  .oa-figure {
+    display: block;
+    font-size: clamp(2rem, 8cqi, 3rem);
+    font-weight: 700;
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .oa-figure-label {
+    display: block;
+    max-inline-size: 34ch;
+    font-size: 0.9375rem;
+    color: var(--oa-muted);
+  }
+
+  .oa-math,
+  .oa-caveat,
+  .oa-gap {
+    margin: 0 0 0.75rem;
+    max-inline-size: 62ch;
+    font-size: 0.9375rem;
+  }
+
+  .oa-caveat {
+    color: var(--oa-muted);
+  }
+
+  .oa-gap {
+    padding: 0.75rem 0.875rem;
+    border-inline-start: 4px solid var(--oa-border);
+    background: var(--oa-tint);
+  }
+
+  .oa-published {
+    margin-block-start: 1.25rem;
+    padding-block-start: 1rem;
+    border-block-start: 1px solid var(--oa-border);
+  }
+
+  .oa-published h4 {
+    margin: 0 0 0.625rem;
+    font-size: 1rem;
+  }
+
+  .oa-published ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .oa-published li {
+    display: grid;
+    grid-template-columns: minmax(6rem, auto) 1fr;
+    gap: 0.125rem 0.875rem;
+    align-items: baseline;
+  }
+
+  .oa-pub-cc {
+    grid-row: 1;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .oa-pub-who {
+    grid-row: 1;
+  }
+
+  .oa-pub-cond {
+    grid-column: 2;
+    font-size: 0.875rem;
+    color: var(--oa-muted);
+  }
+
+  .oa-match {
+    font-weight: 600;
+  }
+
+  .oa-src a {
+    display: inline-block;
+    margin-inline-start: 0.25rem;
+    min-inline-size: 2.75rem;
+    min-block-size: 2.75rem;
+    line-height: 2.75rem;
+    text-align: center;
+    margin-block: -1rem;
+    font-size: 0.875rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .oa-privacy {
+    margin-block-start: 1rem;
+    font-size: 0.875rem;
+    color: var(--oa-muted);
+  }
+
+  :where(a, button, input):focus-visible {
+    outline: 3px solid var(--oa-accent);
+    outline-offset: 2px;
+  }
+
+  /* 390px viewport, and the same layout carries 200% zoom on a desktop width. */
+  @container (max-width: 34rem) {
+    .oa-published li {
+      grid-template-columns: 1fr;
+    }
+
+    .oa-pub-cc,
+    .oa-pub-who,
+    .oa-pub-cond {
+      grid-column: 1;
+      grid-row: auto;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      transition: none !important;
+    }
+  }
+</style>

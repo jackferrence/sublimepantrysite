@@ -1,0 +1,43 @@
+---
+import { articleHref, heroImage, formatDate, type Article } from '../lib/articles';
+import Img from './Img.astro';
+interface Props { entries: Article[]; leadId?: string; listing?: Record<string, {title: string; description: string}>; }
+const { entries, leadId, listing = {} } = Astro.props;
+const lead = entries.find(e => e.id === leadId) ?? entries[0];
+const rest = entries.filter(e => e !== lead);
+const picture = lead ? heroImage(lead) : null;
+---
+{lead && <div class="editorial-listing">
+  <article class:list={['listing-lead', !picture && 'without-image']}>
+    <div class="lead-copy">
+      <span class="kicker">Start here · {lead.data.section ?? lead.data.kicker}</span>
+      <h2><a href={articleHref(lead)}>{listing[lead.id]?.title ?? lead.data.title}</a></h2>
+      <p>{listing[lead.id]?.description ?? lead.data.description}</p>
+      <a class="btn-text" href={articleHref(lead)}>Read the guide <span aria-hidden="true">↗</span></a>
+    </div>
+    {picture && <figure><a href={articleHref(lead)} tabindex="-1" aria-hidden="true"><Img src={picture.src} srcset={picture.srcSet} alt="" width={picture.width} height={picture.height} sizes="(min-width: 800px) 50vw, 100vw" /></a>{picture.credit && <figcaption>{picture.credit}</figcaption>}</figure>}
+  </article>
+  <ol class="reading-list">
+    {rest.map((entry, i) => <li>
+      <span class="row-number" aria-hidden="true">{String(i + 2).padStart(2, '0')}</span>
+      <div><span class="kicker">{entry.data.section ?? entry.data.kicker}</span><h2><a href={articleHref(entry)}>{listing[entry.id]?.title ?? entry.data.title}</a></h2><p>{listing[entry.id]?.description ?? entry.data.description}</p></div>
+      <span class="row-meta">{entry.data.riskClass === 'elevated' ? 'Food-safety check' : formatDate(entry.data.updatedDate ?? entry.data.publishedDate)}</span>
+    </li>)}
+  </ol>
+</div>}
+<style>
+.editorial-listing { margin-top: var(--s5); }
+.listing-lead { display:grid; grid-template-columns:1.05fr 1fr; gap:var(--s5); border-top:2px solid var(--ink); padding-top:var(--s3); align-items:center; }
+.listing-lead.without-image { grid-template-columns:1fr; max-width:52rem; }
+.lead-copy h2 { font-size:clamp(2rem,3.7vw,3.25rem); line-height:1.12; margin:var(--s2) 0; }
+h2 a { color:var(--ink); text-decoration:none; } h2 a:hover { color:var(--brand); text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:.15em; }
+.lead-copy p { max-width:53ch; color:var(--ink-soft); }
+figure { margin:0; } figure :global(img) { width:100%; aspect-ratio:4/3; object-fit:cover; display:block; } figcaption { color:var(--ink-soft); font-size:.75rem; padding-top:.4rem; }
+.reading-list { list-style:none; margin:var(--s5) 0 0; padding:0; }
+.reading-list li { display:grid; grid-template-columns:3rem minmax(0,1fr) 10rem; gap:var(--s3); border-top:1px solid var(--mist); padding:var(--s3) 0; align-items:start; }
+.row-number { font-variant-numeric:tabular-nums; color:var(--brand); padding-top:.25rem; }
+.reading-list h2 { margin:.3rem 0 .6rem; font-size:clamp(1.5rem,2.5vw,2rem); }
+.reading-list p { margin:0; max-width:65ch; color:var(--ink-soft); }
+.row-meta { font-size:.8rem; color:var(--ink-soft); padding-top:.25rem; }
+@media(max-width:700px) { .listing-lead { grid-template-columns:1fr; gap:var(--s3); } .reading-list li { grid-template-columns:2rem minmax(0,1fr); gap:var(--s2); } .row-meta { grid-column:2; } }
+</style>

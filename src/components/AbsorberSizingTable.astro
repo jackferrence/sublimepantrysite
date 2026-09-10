@@ -1,0 +1,287 @@
+---
+/**
+ * AbsorberSizingTable.astro
+ *
+ * The full sourced sizing table. Every figure comes from src/data/absorberSizing.ts,
+ * which is the same module the calculator reads, so the two cannot drift.
+ *
+ * Nothing is reconciled here. Where manufacturers disagree, every published value
+ * is shown with its publisher, its condition and its source link.
+ */
+import {
+  recommendationsByContainer,
+  CHART_DISCLAIMERS,
+  HALF_GALLON_GAP,
+  getSource,
+  ACCESS_DATE,
+  type SourceId,
+} from '../data/absorberSizing';
+
+interface Props {
+  /** Heading level for the table's own heading, so it nests correctly. */
+  headingLevel?: 2 | 3;
+  /** Set false to render the table without its heading and intro. */
+  showHeading?: boolean;
+  id?: string;
+}
+
+const { headingLevel = 2, showHeading = true, id = 'sizing-table' } = Astro.props;
+const Heading = `h${headingLevel}` as 'h2' | 'h3';
+const SubHeading = `h${headingLevel + 1}` as 'h3' | 'h4';
+
+const groups = recommendationsByContainer();
+
+function sourceLinks(ids: readonly SourceId[]) {
+  return ids.map((sid) => getSource(sid));
+}
+---
+
+<section class="sizing-table-block" aria-labelledby={`${id}-heading`}>
+  {
+    showHeading && (
+      <Fragment>
+        <Heading id={`${id}-heading`}>Every published figure, side by side</Heading>
+        <p class="intro">
+          These are the numbers the manufacturers and one university extension service
+          actually print, transcribed with the condition each one attached. They disagree —
+          the gallon row alone spans 100cc to 800cc. Nothing below has been averaged or
+          reconciled, because doing that would invent a figure none of them published.
+        </p>
+      </Fragment>
+    )
+  }
+  {!showHeading && <h2 id={`${id}-heading`} class="visually-hidden">Published absorber sizing figures</h2>}
+
+  {
+    groups.map(({ container, rows }) => (
+      <div class="container-group">
+        <SubHeading id={`${id}-${container.id}`}>{container.label}</SubHeading>
+        <p class="volume-note">
+          <strong>{container.volumeCc.toLocaleString('en-US')}cc</strong> of air when empty.{' '}
+          {container.volumeBasis === 'derived' && <em>Derived, not published as such. </em>}
+          {container.volumeNote}
+        </p>
+
+        {rows.length === 0 ? (
+          <p class="gap-note">{HALF_GALLON_GAP}</p>
+        ) : (
+          <div class="table-scroll" tabindex="0" role="region" aria-labelledby={`${id}-${container.id}`}>
+            <table>
+              <caption class="visually-hidden">
+                Published oxygen absorber recommendations for a {container.label.toLowerCase()} container
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Published size</th>
+                  <th scope="col">Publisher</th>
+                  <th scope="col">Food class as published</th>
+                  <th scope="col">Condition the publisher attached</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map((row) => (
+                  <tr>
+                    <td class="cc-cell">
+                      <strong>{row.cc}</strong>
+                    </td>
+                    <td>
+                      {row.publisher}{' '}
+                      <span class="src">
+                        {sourceLinks(row.sources).map((s) => (
+                          <a href={s.url} rel="nofollow noopener" target="_blank">
+                            [{s.id}]
+                          </a>
+                        ))}
+                      </span>
+                    </td>
+                    <td>{row.foodClass ? row.foodClass : <span class="none">none stated</span>}</td>
+                    <td>{row.condition}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+    ))
+  }
+
+  <div class="disclaimers">
+    <SubHeading>What the chart publishers say about their own charts</SubHeading>
+    <ul>
+      {
+        CHART_DISCLAIMERS.map((d) => (
+          <li>
+            <blockquote>{d.quote}</blockquote>
+            <cite>
+              {d.publisher}{' '}
+              {sourceLinks(d.sources).map((s) => (
+                <a href={s.url} rel="nofollow noopener" target="_blank">
+                  [{s.id}]
+                </a>
+              ))}
+            </cite>
+          </li>
+        ))
+      }
+    </ul>
+    <p>
+      Neither publisher presents its chart as binding. No source in this set does. A page
+      that showed you one canonical number would be contradicting every source it drew from.
+    </p>
+    <p class="access">All sources accessed {ACCESS_DATE}.</p>
+  </div>
+</section>
+
+<style>
+  .sizing-table-block {
+    --st-border: color-mix(in srgb, currentColor 18%, transparent);
+    --st-muted: color-mix(in srgb, currentColor 65%, transparent);
+    --st-zebra: color-mix(in srgb, currentColor 4%, transparent);
+    margin-block: 2rem;
+  }
+
+  .intro {
+    max-width: 62ch;
+  }
+
+  .container-group {
+    margin-block-start: 2rem;
+  }
+
+  .container-group > :is(h3, h4) {
+    margin-block-end: 0.25rem;
+  }
+
+  .volume-note {
+    margin-block: 0 0.75rem;
+    max-width: 70ch;
+    font-size: 0.9375rem;
+    color: var(--st-muted);
+  }
+
+  .gap-note {
+    margin: 0;
+    padding: 0.875rem 1rem;
+    border-inline-start: 4px solid var(--st-border);
+    background: var(--st-zebra);
+    max-width: 70ch;
+  }
+
+  /* Wide table scrolls inside its own box; the page never scrolls sideways. */
+  .table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid var(--st-border);
+    border-radius: 6px;
+  }
+
+  .table-scroll:focus-visible {
+    outline: 3px solid currentColor;
+    outline-offset: 2px;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 40rem;
+    font-size: 0.9375rem;
+  }
+
+  th,
+  td {
+    text-align: start;
+    vertical-align: top;
+    padding: 0.625rem 0.75rem;
+    border-block-end: 1px solid var(--st-border);
+  }
+
+  thead th {
+    font-weight: 600;
+    white-space: nowrap;
+    border-block-end-width: 2px;
+  }
+
+  tbody tr:nth-child(even) {
+    background: var(--st-zebra);
+  }
+
+  tbody tr:last-child :is(td) {
+    border-block-end: 0;
+  }
+
+  .cc-cell {
+    white-space: nowrap;
+  }
+
+  .none {
+    color: var(--st-muted);
+    font-style: italic;
+  }
+
+  .src a,
+  cite a {
+    /* 44px hit area on a small inline citation, without disturbing line boxes. */
+    display: inline-block;
+    margin-inline-start: 0.25rem;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    line-height: 2.75rem;
+    text-align: center;
+    margin-block: -1rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .disclaimers {
+    margin-block-start: 2.5rem;
+  }
+
+  .disclaimers ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem;
+  }
+
+  .disclaimers li {
+    margin-block-end: 1rem;
+  }
+
+  blockquote {
+    margin: 0;
+    padding-inline-start: 1rem;
+    border-inline-start: 3px solid var(--st-border);
+    font-style: italic;
+  }
+
+  cite {
+    display: block;
+    margin-block-start: 0.25rem;
+    padding-inline-start: 1rem;
+    font-size: 0.875rem;
+    font-style: normal;
+    color: var(--st-muted);
+  }
+
+  .access {
+    font-size: 0.875rem;
+    color: var(--st-muted);
+  }
+
+  .visually-hidden:where(:not(:focus-within, :active)) {
+    position: absolute !important;
+    clip-path: inset(50%) !important;
+    overflow: hidden !important;
+    width: 1px !important;
+    height: 1px !important;
+    margin: -1px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    white-space: nowrap !important;
+  }
+
+  @media (max-width: 30rem) {
+    table {
+      min-width: 34rem;
+    }
+  }
+</style>

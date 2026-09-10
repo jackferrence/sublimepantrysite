@@ -58,8 +58,8 @@ test('the hub renders every live tool, and only those', () => {
     assert.ok(t.includes(tool.answers), `the hub omits what ${tool.name} answers`);
     assert.ok(html.includes(`href="${tool.href}"`), `the hub does not link ${tool.href}`);
   }
-  const cards = (html.match(/<li class="card tool"[^>]*>/g) ?? []).length;
-  assert.equal(cards, liveTools().length, 'the hub renders a card the registry does not contain');
+  const entries = (html.match(/<li class="tool"[^>]*>/g) ?? []).length + (html.includes('class="featured-tool"') ? 1 : 0);
+  assert.equal(entries, liveTools().length, 'the hub renders an entry the registry does not contain');
 });
 
 test('the hub leads with the question, not the tool name', () => {
@@ -67,7 +67,7 @@ test('the hub leads with the question, not the tool name', () => {
   // question they already have. Compare within the card, on decoded text: the
   // name is "&amp;"-escaped in markup and the <head> says it first.
   const html = page('tools.html');
-  for (const card of html.match(/<li class="card tool"[^>]*>[\s\S]*?<\/li>/g) ?? []) {
+  for (const card of html.match(/<li class="tool"[^>]*>[\s\S]*?<\/li>/g) ?? []) {
     const t = text(card);
     const tool = liveTools().find((x) => t.includes(x.answers));
     assert.ok(tool, `a card matches no tool: ${t.slice(0, 60)}`);
@@ -78,23 +78,13 @@ test('the hub leads with the question, not the tool name', () => {
   }
 });
 
-test('the homepage slot is empty until a tool asks to be embedded', () => {
+test('the homepage renders the one tool selected by the canonical registry', () => {
   const html = page('index.html');
   const embedded = homepageTool();
-  assert.equal(
-    /id="tool-slot-heading"/.test(html),
-    Boolean(embedded),
-    embedded
-      ? `${embedded.name} sets homepageEmbed but the homepage renders no slot`
-      : 'the homepage renders a tool slot with no tool behind it',
-  );
-  if (!embedded) {
-    // And it is empty rather than a placeholder.
-    const t = text(html);
-    for (const tease of ['Coming soon', 'coming soon', 'More tools', 'in development']) {
-      assert.ok(!t.includes(tease), `the homepage advertises a tool that does not exist: "${tease}"`);
-    }
-  }
+  assert.ok(embedded, 'the finished tools department needs one featured homepage utility');
+  assert.equal(liveTools().filter((tool) => tool.homepageEmbed).length, 1);
+  assert.match(html, /id="workbench-heading"/);
+  assert.ok(text(html).includes(embedded.name), `${embedded.name} is selected but absent from the homepage`);
 });
 
 test('the nav links the hub, not any single tool', () => {

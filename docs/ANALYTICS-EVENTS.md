@@ -44,6 +44,10 @@ Analytics provider: **Plausible** (cookieless, `script.outbound-links.js`, loade
 | `storefront_fallback_click` | Reliability | Reader takes the fallback link to the Shopify product page | `product_handle`, `sku`, `destination`, `path` | Site |
 | `affiliate_outbound_click` | Monetisation | Click on any `rel="sponsored"` link | `destination`, `path` | Site |
 | `tool_promo_click` | Engagement | Batch Log promo on the homepage | `destination`, `path` | Site |
+| `tool_discovery_click` | Engagement | Contextual tool link in an article, comparison or product page | `tool`, `destination`, `path` | Site |
+| `tool_full_open` | Engagement | A reader opens a full tool from the tools hub | `tool`, `destination`, `path` | Site |
+| `tool_embed_copy` | Engagement | Embed copy control is used | `tool`, `path` | Declared on the private tool page; never add field or result props |
+| `gallery_interaction` | Consideration | A product image is selected or opened for zoom | `action`, `image_index`, `path` | Site |
 | `scroll_complete` | Engagement | Reader reaches 90% of the page, once | `path` | Site |
 
 ## Reliability events

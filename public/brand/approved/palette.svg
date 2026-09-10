@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 260" width="1280" height="260">
+<rect x="0" y="0" width="200" height="260" fill="#000000"/>
+<text x="18" y="212" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="600" fill="#FFFFFF">Ink</text>
+<text x="18" y="238" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#FFFFFF" opacity="0.72">#000000</text>
+<rect x="216" y="0" width="200" height="260" fill="#FFFFFF"/>
+<rect x="216" y="0" width="200" height="260" fill="none" stroke="#DDD8CE" stroke-width="2"/>
+<text x="234" y="212" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="600" fill="#000000">White</text>
+<text x="234" y="238" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#000000" opacity="0.72">#FFFFFF</text>
+<rect x="432" y="0" width="200" height="260" fill="#FAF8F4"/>
+<rect x="432" y="0" width="200" height="260" fill="none" stroke="#DDD8CE" stroke-width="2"/>
+<text x="450" y="212" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="600" fill="#000000">Paper</text>
+<text x="450" y="238" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#000000" opacity="0.72">#FAF8F4</text>
+<rect x="648" y="0" width="200" height="260" fill="#B4D9EC"/>
+<text x="666" y="212" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="600" fill="#000000">Ice</text>
+<text x="666" y="238" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#000000" opacity="0.72">#B4D9EC</text>
+<rect x="864" y="0" width="200" height="260" fill="#7FB6D2"/>
+<text x="882" y="212" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="600" fill="#000000">Deep Ice</text>
+<text x="882" y="238" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#000000" opacity="0.72">#7FB6D2</text>
+<rect x="1080" y="0" width="200" height="260" fill="#8B4A21"/>
+<text x="1098" y="212" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="600" fill="#FFFFFF">Rust</text>
+<text x="1098" y="238" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#FFFFFF" opacity="0.72">#8B4A21</text>
+</svg>

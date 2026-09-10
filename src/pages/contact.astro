@@ -8,7 +8,7 @@ import { SUPPORT_EMAIL } from '../lib/paths';
   <p>Report an error, ask about a batch problem we haven't covered, or tell us what to research next. Reader questions drive our editorial queue.</p>
   <p>Prefer your own mail client, or writing about an order or a return? Email <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a> — it reaches the same person. For a return, please write before sending anything back; the <a href="/shipping-returns">returns process</a> explains why.</p>
 
-  <div class="card contact-panel">
+  <div class="contact-panel">
     <form name="contact" method="POST" action="/message-received" data-netlify="true" netlify-honeypot="bot-field">
       <input type="hidden" name="form-name" value="contact" />
       <p hidden aria-hidden="true"><label>Don't fill this out: <input name="bot-field" /></label></p>
@@ -35,7 +35,7 @@ import { SUPPORT_EMAIL } from '../lib/paths';
 </PageLayout>
 
 <style>
-  .contact-panel { padding: var(--s4); margin-top: var(--s4); }
+  .contact-panel { padding: var(--s4); margin-top: var(--s4); background: var(--surface); border-top: 3px solid var(--brand); }
   .field { margin-bottom: var(--s3); }
   .field label { display: block; margin-bottom: .35rem; font-size: .9rem; }
   .field-grid { display: grid; gap: var(--s3); }

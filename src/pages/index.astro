@@ -1,323 +1,59 @@
 ---
-/**
- * The homepage, rewritten to section 7 of the messaging audit.
- *
- * The page objective is a consented newsletter subscription, and the old page
- * pointed at two other things first: the hero's primary button opened the
- * checklist page, its secondary opened the buying guide, and the signup form
- * sat below the guides, the product and the tool. M07. The hero now leads to
- * the form, and the three routes into the site are stated as the questions a
- * reader actually arrives with rather than as three article cards.
- *
- * U05: the image slot held the brand monogram, because `findAsset` has never
- * resolved a `brand` frame and the fallback is `<Mark>`. Section 7 asks for the
- * real printable checklist preview and explicitly rules out an invented test
- * bench or stock photography passed off as our own batches. `ChecklistPreview`
- * renders the checklist's own contents; if a photograph of the sheet is ever
- * catalogued, it takes the slot and the preview steps aside.
- */
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Card from '../components/Card.astro';
-import ChecklistPreview from '../components/ChecklistPreview.astro';
-import Img from '../components/Img.astro';
+import EditorialListing from '../components/EditorialListing.astro';
+import EditorialToolLink from '../components/EditorialToolLink.astro';
 import Newsletter from '../components/Newsletter.astro';
-import { CATALOG, SHIPPING, ownedEyebrow } from '../lib/commerce';
-import { articleHref, type Article } from '../lib/articles';
-import { findAsset, largest, srcSet } from '../lib/assets';
-import { homepageTool } from '../lib/tools';
-
-// Ask the library by intent and take null for an answer. The alt text arrives
-// with the photograph or there is no photograph — a hard-coded sentence here
-// would describe whatever file landed at the path, which is how the previous
-// hero shipped "Hands loading prepared food trays into a home freeze dryer" for
-// an image nobody had seen.
-const hero = findAsset({ cls: 'brand', ratio: '16:9', context: 'editorial' });
-const heroFrame = hero ? largest(hero, '16:9') : null;
-
+import Img from '../components/Img.astro';
+import { CATALOG, SHIPPING } from '../lib/commerce';
+import { liveTools, homepageTool } from '../lib/tools';
 const articles = await getCollection('articles');
-const byId = new Map(articles.map((entry) => [entry.id, entry]));
-const article = (id: string) => byId.get(id) as Article | undefined;
-
-/**
- * Section 7's three routes in. Each is the question in front of the reader, not
- * a description of the page it leads to — a visitor who has just closed the
- * machine door is not looking for "guides".
- */
-const ROUTES = [
-  {
-    heading: 'Running your next batch?',
-    body: 'Work through preparation, dryness checks, packaging and labeling in order.',
-    label: 'Follow the batch workflow',
-    href: '/guides/complete-batch-workflow',
-  },
-  {
-    heading: 'Something came out wrong?',
-    body: 'Find the checks for wet centers, chewy candy, vacuum errors or food that changed in storage.',
-    label: 'Find your symptom',
-    href: '/troubleshooting',
-  },
-  {
-    heading: 'Still choosing a machine?',
-    body: 'Compare batch capacity, space, power, maintenance and warranty before you buy.',
-    label: 'Read the buying guide',
-    href: '/guides/which-freeze-dryer',
-  },
+const lead = articles.filter(e => e.id === 'complete-batch-workflow');
+const featuredTool = homepageTool() ?? liveTools()[0];
+const otherTools = liveTools().filter(t => t !== featuredTool);
+const routes = [
+  { n: '01', title: 'Choose the machine', body: 'Capacity, circuits, operating conditions and running costs, with published limits kept visible.', href: '/compare/home-freeze-dryers', label: 'Compare the machines' },
+  { n: '02', title: 'Run and troubleshoot batches', body: 'Preparation, dryness checks, vacuum faults and the notes worth keeping between runs.', href: '/troubleshooting', label: 'Start with the batch' },
+  { n: '03', title: 'Package and store the result', body: 'Choose a container, size the absorber and verify the seal after the food is fully dry.', href: '/guides/mylar-absorber-myths', label: 'Finish the packaging job' },
 ];
-
-const ROUTINE = [
-  {
-    heading: 'Find the guidance for your batch.',
-    body: 'Start with the food, symptom or decision you are working on.',
-  },
-  {
-    heading: 'Check, package and record.',
-    body: "Use the checklist alongside your machine's instructions, then save the details that affected the result.",
-  },
-  {
-    heading: 'Plan the next run.',
-    body: 'Compare your notes so you are not starting from memory every time.',
-  },
-];
-
-/**
- * Section 7's homepage FAQ. These are answers, not teasers — the same standard
- * M14 applied to the articles. Every one of them is a limit: what we have not
- * done, what we do not sell, who ships the kit.
- */
-const FAQ = [
-  {
-    q: 'What is The Dry Batch?',
-    a: 'A weekly email about freeze-drying decisions, troubleshooting and storage, with sources you can follow. The printable Starter Checklist is included when you subscribe.',
-  },
-  {
-    q: 'Do you test the machines?',
-    a: 'We have not bench-tested freeze dryers. Our comparisons assess published specifications and documentation, with sources and dates shown.',
-  },
-  {
-    q: 'Do you sell freeze dryers or food?',
-    a: 'No. We publish freeze-drying guidance and sell packaging — mylar bags, oxygen absorbers, a bag sealer, and complete sets. Everything we sell is listed in the shop; we sell nothing else.',
-  },
-  {
-    q: 'Who ships my order?',
-    a: 'We do. Every item is assembled from our own stock and shipped by Sublime Pantry, which is also your contact for order questions and returns.',
-  },
-];
-
-/**
- * The homepage tool slot.
- *
- * Renders the one tool that has asked to be embedded, and nothing at all until
- * one does. An empty slot is empty: a placeholder announcing a tool that is not
- * here would be the same class of claim as a nav item pointing at a 404.
- */
-const embedded = homepageTool();
-
-const kit = CATALOG[0];
-const workflow = article('complete-batch-workflow');
 ---
-<BaseLayout
-  title="Know what to do with your next freeze-drying batch"
-  description="Practical guides to freeze-drying prep, batch checks and packaging, with dated sources and clear limits. Get the free printable Starter Checklist and The Dry Batch each week."
-  path="/"
->
-  <section class="hero module">
-    <div class="wrap hero-grid">
-      <div class="hero-copy">
-        <span class="kicker">Practical guidance for home freeze-drying</span>
-        <h1>Know what to do with your next freeze-drying batch.</h1>
-        <p class="lede">Practical guides to prep, batch checks and packaging — with dated sources and clear limits. Get the free Starter Checklist and <strong>The Dry Batch</strong> each week.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#newsletter" data-sp-event="hero_checklist_cta">Get the free checklist</a>
-          {workflow && (
-            <a class="btn btn-secondary" href={articleHref(workflow)}>Read the batch workflow</a>
-          )}
-        </div>
-        <p class="hero-proof">Source-cited. Human-reviewed. Written and edited by <a href="/about">Jack Ferrence</a>.</p>
-      </div>
-
-      <div class="hero-media">
-        {hero && heroFrame ? (
-          <Img
-            src={heroFrame.src}
-            srcset={srcSet(hero, '16:9')}
-            alt={hero.alt}
-            width={heroFrame.w}
-            height={heroFrame.h}
-            sizes="(min-width: 900px) 34rem, 100vw"
-            loading="eager"
-            fetchpriority="high"
-            class="hero-img"
-          />
-        ) : (
-          <ChecklistPreview />
-        )}
-      </div>
-    </div>
-  </section>
-
-  <section class="module" aria-labelledby="routes-heading">
-    <div class="wrap">
-      <h2 id="routes-heading">Start with the question in front of you</h2>
-      <ul class="route-grid">
-        {ROUTES.map((route) => (
-          <li class="card route">
-            <h3>{route.heading}</h3>
-            <p>{route.body}</p>
-            <a class="btn-text" href={route.href}>{route.label} →</a>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </section>
-
-  {embedded && (
-    <section class="module" aria-labelledby="tool-slot-heading">
-      <div class="wrap card tool-slot">
-        <span class="kicker">Free tool</span>
-        <h2 id="tool-slot-heading">{embedded.answers}</h2>
-        <p>{embedded.summary}</p>
-        <a class="btn btn-primary" href={embedded.href} data-sp-event="tool_promo_click">Open the {embedded.name}</a>
-      </div>
+<BaseLayout title="A field guide to home freeze-drying" description="Source-cited guidance for home freeze-drying: plan a batch, solve a problem, compare equipment and package the result." path="/">
+  <div class="wrap home-publication">
+    <header class="publication-intro">
+      <span class="kicker">The home freeze-drying field guide</span>
+      <h1>A better handle<br />on every batch.</h1>
+      <div class="intro-note"><p>Practical answers for the work between loading the trays and sealing the bag. Sources you can follow. Limits made clear.</p><a href="/editorial-standards">How we publish <span aria-hidden="true">↗</span></a></div>
+    </header>
+    <section aria-label="Current field guide"><EditorialListing entries={lead} leadId="complete-batch-workflow" /></section>
+    <section class="pathways" aria-labelledby="pathways-heading">
+      <div class="section-label"><span class="kicker">Find your next step</span><h2 id="pathways-heading">What is on<br />your bench?</h2></div>
+      <ol>{routes.map(route => <li><span class="path-number">{route.n}</span><div><h3><a href={route.href}>{route.title} <span aria-hidden="true">↗</span></a></h3><p>{route.body}</p></div></li>)}</ol>
     </section>
-  )}
-
-  <section class="module" aria-labelledby="routine-heading">
-    <div class="wrap routine">
-      <div class="routine-copy">
-        <h2 id="routine-heading">Build a routine you can repeat</h2>
-        <p class="section-lede">A finished cycle still leaves questions. Is the batch ready to package? Which container fits how you will use it? What should you record for next time?</p>
-        <a class="btn btn-secondary" href="/tools/batch-log" data-sp-event="tool_promo_click">Open the free Batch Log</a>
-      </div>
-      <ol class="routine-steps">
-        {ROUTINE.map((step, i) => (
-          <li>
-            <span class="routine-n">{i + 1}</span>
-            <div>
-              <p class="routine-h">{step.heading}</p>
-              <p class="routine-b">{step.body}</p>
-            </div>
-          </li>
-        ))}
-      </ol>
-    </div>
-  </section>
-
-  <section class="module" aria-labelledby="trust-heading">
-    <div class="wrap trust">
-      <div>
-        <h2 id="trust-heading">Advice you can check</h2>
-        <p>Sublime Pantry is a freeze-drying publication written and edited by Jack Ferrence. Articles link to dated sources, comparisons explain their criteria, and corrections are recorded publicly.</p>
-        <p>Our machine comparisons use published specifications and documentation. <strong>We have not bench-tested freeze dryers.</strong> Where sources disagree or leave a question open, the article explains the limit and what it means for your decision.</p>
-        <p class="trust-links">
-          <a href="/review-methodology">How we review</a> ·
-          <a href="/editorial-standards">Editorial standards</a> ·
-          <a href="/corrections">Corrections</a>
-        </p>
-      </div>
-      <aside class="card trust-example">
-        <span class="kicker">A correction, in public</span>
-        <p>We published the Harvest Right Premier as an oil-free pump. It is an oil pump, and oil-free is a priced upgrade. The comparison was corrected and the change logged.</p>
-        <a class="btn-text" href="/compare/home-freeze-dryers">Read the corrected comparison →</a>
-      </aside>
-    </div>
-  </section>
-
-  <section class="module" aria-labelledby="shop-heading">
-    <div class="wrap">
-      <div class="section-head">
-        <h2 id="shop-heading">Packaging for the next step</h2>
-        <a class="btn-text" href="/shop">All packaging</a>
-      </div>
-      <div class="card-grid">
-        <Card
-          href={kit.detailsHref ?? '/shop'}
-          title={kit.title}
-          dek={kit.note}
-          kicker={ownedEyebrow(kit)}
-          image={kit.image}
-          imageAlt={kit.imageAlt}
-          ratio="4/5"
-          fit="contain"
-          price={kit.displayPrice}
-          meta={SHIPPING.shortNote}
-        />
-      </div>
-      <p class="section-lede shop-caveat">Choose packaging after you have checked the food and decided how you will store and use it. Packaging does not finish an under-dried batch.</p>
-    </div>
-  </section>
-
-  <section class="module" aria-labelledby="faq-heading">
-    <div class="wrap prose">
-      <h2 id="faq-heading">A few questions before you start</h2>
-      <dl class="home-faq">
-        {FAQ.map((entry) => (
-          <div class="home-faq-row">
-            <dt>{entry.q}</dt>
-            <dd>{entry.a}</dd>
-          </div>
-        ))}
-      </dl>
-    </div>
-  </section>
-
-  <section class="module" id="newsletter">
-    <div class="prose">
-      <Newsletter heading="Keep the checklist beside your machine" />
-    </div>
-  </section>
+    <section class="workbench" aria-labelledby="workbench-heading">
+      <div><span class="kicker">The workbench</span><h2 id="workbench-heading">Put numbers<br />to the next step.</h2><p>Use your own batch details. Keep the assumptions beside the answer.</p><a class="btn-text" href="/tools">All free tools →</a></div>
+      <div class="workbench-tools">{featuredTool && <EditorialToolLink href={featuredTool.href} />}<ul>{otherTools.map(tool => <li><a href={tool.href} data-sp-event="tool_promo_click">{tool.name}<span aria-hidden="true">↗</span></a></li>)}</ul></div>
+    </section>
+    <section class="shop-shelf" aria-labelledby="shop-heading">
+      <div class="section-head"><div><span class="kicker">From our own stock</span><h2 id="shop-heading">Ready for packaging.</h2></div><a class="btn-text" href="/shop">Visit the small shop →</a></div>
+      <p class="shop-note">Choose packaging after checking the food. A bag and an absorber do not finish an under-dried batch.</p>
+      <ul class="product-shelf">{CATALOG.slice(0,3).map(product => <li><a class="product-picture" href={product.detailsHref ?? '/shop'}><Img src={product.image} alt={product.imageAlt} width={600} height={600} /></a><span class="kicker">Sold by Sublime Pantry</span><h3><a href={product.detailsHref ?? '/shop'}>{product.title}</a></h3><p>{product.displayPrice}</p></li>)}</ul>
+      <p class="meta">{SHIPPING.shortNote}</p>
+    </section>
+    <section class="evidence-note" aria-labelledby="evidence-heading"><span class="kicker">A note on the evidence</span><div><h2 id="evidence-heading">Read the sources.<br />Know the limits.</h2><p>Written and edited by <a href="/about">Jack Ferrence</a>. Our machine comparisons assess published specifications and documentation. <strong>We have not bench-tested freeze dryers.</strong></p><p><a href="/review-methodology">Review methodology</a> · <a href="/corrections">Public corrections</a></p></div></section>
+    <div id="newsletter"><Newsletter heading="Notes for the next batch." /></div>
+  </div>
 </BaseLayout>
-
 <style>
-  .hero-grid { display: grid; gap: var(--s4); align-items: center; }
-  @media (min-width: 900px) { .hero-grid { grid-template-columns: 1fr 1fr; gap: var(--s6); } }
-
-  .hero-copy h1 { margin: 0 0 var(--s3); }
-  .hero-actions { display: flex; flex-wrap: wrap; gap: var(--s2); margin-top: var(--s3); }
-  .hero-proof { margin: var(--s3) 0 0; font-size: .9rem; color: var(--ink-soft); }
-
-  .hero-media :global(.hero-img) {
-    width: 100%; aspect-ratio: 16 / 9; object-fit: cover;
-    border-radius: var(--radius); display: block;
-  }
-
-  .route-grid {
-    list-style: none; margin: var(--s3) 0 0; padding: 0;
-    display: grid; gap: var(--s3);
-  }
-  @media (min-width: 760px) { .route-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-  .route { padding: var(--s3); display: flex; flex-direction: column; gap: var(--s1); }
-  .route h3 { margin: 0; font-size: var(--h3); }
-  .route p { margin: 0; color: var(--ink-soft); flex: 1; }
-
-  .routine { display: grid; gap: var(--s4); }
-  @media (min-width: 900px) { .routine { grid-template-columns: 1fr 1fr; gap: var(--s6); align-items: start; } }
-  .routine-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s3); }
-  .routine-steps li { display: flex; gap: var(--s2); align-items: flex-start; }
-  .routine-n {
-    flex: none; width: 2rem; height: 2rem; border-radius: 50%;
-    display: grid; place-items: center;
-    background: var(--brand-tint); color: var(--brand); font-weight: 700;
-  }
-  .routine-h { margin: 0; font-weight: 700; }
-  .routine-b { margin: .2rem 0 0; color: var(--ink-soft); }
-
-  .trust { display: grid; gap: var(--s4); }
-  @media (min-width: 900px) { .trust { grid-template-columns: 1.4fr 1fr; gap: var(--s6); align-items: start; } }
-  .trust p { max-width: 60ch; }
-  .trust-links { color: var(--ink-soft); }
-  .trust-example { padding: var(--s3); }
-  .trust-example p { margin: var(--s1) 0 var(--s2); color: var(--ink-soft); }
-
-  .tool-slot { padding: var(--s4); }
-  .tool-slot h2 { margin: var(--s1) 0 var(--s2); }
-  .tool-slot p { color: var(--ink-soft); max-width: 60ch; }
-
-  .section-lede { color: var(--ink-soft); max-width: 60ch; }
-  .shop-caveat { margin-top: var(--s3); }
-
-  .home-faq { margin: var(--s3) 0 0; }
-  .home-faq-row + .home-faq-row { margin-top: var(--s3); }
-  .home-faq dt { font-weight: 700; }
-  .home-faq dd { margin: .3rem 0 0; color: var(--ink-soft); max-width: 60ch; }
+.home-publication { padding-top:var(--s5); }
+.publication-intro { display:grid; grid-template-columns:1.35fr 1fr; column-gap:var(--s6); align-items:end; }
+.publication-intro>.kicker { grid-column:1/-1; margin-bottom:var(--s3); }
+.publication-intro h1 { font-size:clamp(3.4rem,7.3vw,6.5rem); line-height:.98; letter-spacing:-.045em; margin:0; }
+.intro-note { max-width:39ch; padding-bottom:.5rem; }.intro-note p { font-size:1.15rem; line-height:1.5; margin:0 0 var(--s2); }
+.pathways { display:grid; grid-template-columns:1fr 1.7fr; gap:var(--s6); padding:var(--s6) 0; }
+.section-label h2,.workbench h2,.evidence-note h2 { font-size:clamp(2rem,4vw,3.25rem); line-height:1.08; margin:var(--s2) 0; }
+.pathways ol { list-style:none; padding:0; margin:0; }.pathways li { display:grid; grid-template-columns:2rem 1fr; gap:var(--s3); border-top:1px solid var(--mist); padding:var(--s3) 0; }.pathways li:first-child { border-top:2px solid var(--ink); }.path-number { font-size:.85rem; color:var(--brand); padding-top:.4rem; }.pathways h3 { font-size:1.65rem; margin:0 0 .5rem; }.pathways h3 a { color:var(--ink); text-decoration:none; }.pathways h3 a:hover { text-decoration:underline; }.pathways p { margin:0; color:var(--ink-soft); max-width:55ch; }
+.workbench { display:grid; grid-template-columns:1fr 1.35fr; gap:var(--s6); border-top:1px solid var(--ink); padding:var(--s5) 0; }.workbench>div>p { max-width:35ch; color:var(--ink-soft); }.workbench-tools :global(.editorial-tool) { margin:0; border-top:0; padding-top:0; }.workbench-tools ul { list-style:none; padding:0; margin:0; }.workbench-tools li { border-bottom:1px solid var(--mist); }.workbench-tools li a { display:flex; justify-content:space-between; padding:1rem 0; text-decoration:none; }.workbench-tools li a:hover { text-decoration:underline; }
+.shop-shelf { padding:var(--s5) 0; border-top:1px solid var(--ink); }.shop-shelf h2 { margin:.5rem 0 0; }.shop-note { max-width:65ch; color:var(--ink-soft); }.product-shelf { display:grid; grid-template-columns:1.2fr 1fr 1fr; gap:var(--s4); list-style:none; padding:0; margin:var(--s4) 0; }.product-picture { display:block; margin-bottom:var(--s2); background:var(--surface); }.product-picture :global(img) { display:block; width:100%; aspect-ratio:1; object-fit:contain; }.product-shelf h3 { font-family:var(--font-body); font-size:1.15rem; line-height:1.35; margin:.4rem 0; }.product-shelf h3 a { color:var(--ink); text-decoration:none; }.product-shelf h3 a:hover { text-decoration:underline; }.product-shelf p { margin:0; }
+.evidence-note { display:grid; grid-template-columns:1fr 1.7fr; gap:var(--s6); border-top:1px solid var(--ink); padding:var(--s5) 0; }.evidence-note p { max-width:58ch; }
+@media(max-width:700px) { .publication-intro,.pathways,.workbench,.evidence-note { grid-template-columns:1fr; gap:var(--s3); }.publication-intro>.kicker { margin:0; }.intro-note { max-width:45ch; }.product-shelf { grid-template-columns:1fr; gap:var(--s4); }.product-shelf li { display:grid; grid-template-columns:7rem 1fr; column-gap:var(--s2); }.product-picture { grid-row:1/4; margin:0; }.product-shelf .kicker { align-self:end; font-size:.65rem; }.shop-shelf .section-head { align-items:start; }.home-publication { padding-top:var(--s4); } }
 </style>

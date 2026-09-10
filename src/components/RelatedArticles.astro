@@ -4,8 +4,7 @@
  * wins when it declares one; otherwise the newest siblings fill the row.
  */
 import { getCollection } from 'astro:content';
-import Card from './Card.astro';
-import { heroImage, articleHref, newestFirst, type Article } from '../lib/articles';
+import { articleHref, newestFirst, type Article } from '../lib/articles';
 
 interface Props {
   entry: Article;
@@ -29,17 +28,16 @@ const picks = [...declared, ...filler].slice(0, 3);
       <h2 id="related-heading">Keep reading</h2>
       <a class="btn-text" href={`/${entry.data.pillar}`}>All {entry.data.pillar === 'compare' ? 'comparisons' : entry.data.pillar}</a>
     </div>
-    <div class="card-grid">
-      {picks.map((e) => (
-        <Card
-          href={articleHref(e)}
-          title={e.data.title}
-          dek={e.data.description}
-          kicker={e.data.section ?? e.data.kicker}
-          image={heroImage(e)?.src}
-          imageAlt={heroImage(e)?.alt}
-        />
-      ))}
-    </div>
+    <ol class="related-ledger">
+      {picks.map((e, index) => <li><span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><div><span class="kicker">{e.data.section ?? e.data.kicker}</span><h3><a href={articleHref(e)}>{e.data.title}</a></h3><p>{e.data.description}</p></div></li>)}
+    </ol>
   </section>
 )}
+<style>
+  .related-ledger { list-style: none; padding: 0; margin: 0; border-top: 2px solid var(--ink); }
+  .related-ledger li { display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: var(--s2); padding: var(--s3) 0; border-bottom: 1px solid var(--mist); }
+  .related-ledger > li > span { color: var(--brand); font-variant-numeric: tabular-nums; }
+  .related-ledger h3 { margin: .35rem 0; font-family: var(--font-body); font-size: 1.25rem; }
+  .related-ledger h3 a { color: var(--ink); }
+  .related-ledger p { margin: 0; max-width: 64ch; color: var(--ink-soft); }
+</style>

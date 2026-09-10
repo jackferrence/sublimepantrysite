@@ -32,9 +32,6 @@ const menuId = (label: string) => `nav-menu-${label.toLowerCase()}`;
 ---
 <header class="site-header">
   <div class="header-row">
-    <!-- The block sits outside .wrap on purpose: .wrap is centred and padded,
-         and a brand block that stops at the wrap's padding is not flush with
-         the header. Everything after it keeps the wrap's measure. -->
     <a href="/" class="brand" aria-label="Sublime Pantry — home">
       <BrandBlock size={60} />
       <span class="sr-only">Sublime Pantry</span>
@@ -112,7 +109,7 @@ const menuId = (label: string) => `nav-menu-${label.toLowerCase()}`;
     </div>
   </div>
 
-  <div class="overlay search-panel" id="site-search" hidden>
+  <div class="overlay search-panel" id="site-search" role="dialog" aria-modal="true" aria-label="Search Sublime Pantry" hidden>
     <div class="wrap search-panel-inner">
       <SearchBox id="header-search" />
       <button type="button" class="icon-button" data-sp-overlay-close>
@@ -123,7 +120,7 @@ const menuId = (label: string) => `nav-menu-${label.toLowerCase()}`;
 
   <!-- The drawer is flat. Dropdowns on a touch target this size buy nothing
        and cost a tap, so the groups become labelled sections instead. -->
-  <div class="overlay nav-drawer" id="site-drawer" hidden>
+  <div class="overlay nav-drawer" id="site-drawer" role="dialog" aria-modal="true" aria-label="Site navigation" hidden>
     <div class="nav-drawer-panel">
       <div class="nav-drawer-head">
         <span class="kicker">Menu</span>
@@ -172,31 +169,24 @@ const menuId = (label: string) => `nav-menu-${label.toLowerCase()}`;
     border-bottom: 1px solid var(--mist);
   }
 
-  /* Two parts: a flush brand block, then everything else on the wrap's
-     measure. `align-items: stretch` is what lets the block take the full
-     header height rather than centring at its own size — that is the whole
-     difference between a corner of colour and a floating logo. */
   .header-row {
-    display: flex; align-items: stretch;
-    min-height: 60px;
+    display: flex; align-items: center; gap: var(--s3);
+    max-width: var(--wrap); margin-inline: auto; padding-inline: var(--s3);
+    min-height: 72px;
   }
 
   .header-main {
     flex: 1; min-width: 0;
     display: flex; align-items: center; gap: var(--s3);
     max-width: var(--wrap);
-    padding-inline: var(--s3);
+    padding-inline: 0;
   }
 
-  /* The link is the block. No padding and no gap: the wordmark is gone, and
-     the only child that occupies space is the plate itself. */
   .brand {
     display: flex; align-items: stretch;
     text-decoration: none;
     flex: none;
   }
-  /* A focus ring drawn inside the block would sit on #b0ddec at ~1.4:1
-     against the plate. Offset outward, on --surface, where it is visible. */
   .brand:focus-visible {
     outline: 2px solid var(--brand);
     outline-offset: -2px;
@@ -212,7 +202,7 @@ const menuId = (label: string) => `nav-menu-${label.toLowerCase()}`;
   .site-nav > ul { display: flex; gap: var(--s3); list-style: none; margin: 0; padding: 0; }
   .site-nav > ul > li { margin: 0; }
   .site-nav a, .nav-trigger {
-    display: block; padding: .5rem 0;
+    display: flex; align-items: center; min-height: 44px; padding: .5rem 0;
     color: var(--ink-soft); text-decoration: none; font-size: .95rem;
     border-bottom: 2px solid transparent;
   }

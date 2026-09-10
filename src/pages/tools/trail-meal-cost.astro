@@ -1,0 +1,814 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import {
+  ACCESS_DATE,
+  PRICE_DATE,
+  DISCLOSURE,
+  SOURCES,
+  SOURCE_URLS as U,
+  cite,
+  POUCHES,
+  POUCH_SCORES,
+  EXCLUDED_COMPARATORS,
+  PEAK_REFUEL_WEIGHT_WARNING,
+  REFERENCE_RECIPE,
+  REFERENCE_INGREDIENT_COST,
+  REFERENCE_CALORIES,
+  REFERENCE_AS_PURCHASED_OZ,
+  REFERENCE_RECIPE_NOTE,
+  REFERENCE_TOTAL_ROUNDING_NOTE,
+  EXCLUDED_FROM_COST,
+  PACKAGING_OPTIONS,
+  PACKAGING_SPREAD_MULTIPLE,
+  MACHINE_BANDS,
+  BATCH_DURATION_RANGES,
+  BATCH_DURATION_CONFLICT,
+  ELECTRICITY_RATE_USD_PER_KWH,
+  ELECTRICITY_RATE_LABEL,
+  MANUFACTURER_BATCH_CLAIMS,
+  MANUFACTURER_CLAIM_CONFLICT,
+  MEALS_PER_BATCH_IS_AN_INPUT,
+  YIELD_ABSENCE,
+  YIELD_METHOD,
+  WATER_REMOVAL_CONTEXT,
+  WATER_REMOVAL_CONFLICT,
+  DEHYDRATOR_FIGURES_ARE_NOT_YIELDS,
+  WEIGHT_BENCHMARK,
+  WEIGHT_BENCHMARK_SECONDARY,
+  COULD_NOT_SOURCE,
+  RELATED,
+  PRODUCT,
+  costPerMeal,
+  costPer500Kcal,
+  usd,
+  usdPrecise,
+  grams,
+  ounces,
+  g,
+} from '../../data/trailMealCost';
+
+const title = 'Trail meal cost calculator';
+const description =
+  'Cost per meal for a home freeze-dried trail dinner, against three commercial pouches at dated prices, plus weight per 500 kcal.';
+
+/* Server-rendered defaults. The page answers with JavaScript off; the client
+   script only recomputes. Yield has no default, because no source publishes one. */
+const DEFAULT_INGREDIENT = REFERENCE_INGREDIENT_COST;      // $1.51
+const DEFAULT_PACKAGING = PACKAGING_OPTIONS[0].perPouchUsd; // retail 10-count
+const DEFAULT_CALORIES = REFERENCE_CALORIES;                // ~594
+const DEFAULT_PREPARED_G = g(REFERENCE_AS_PURCHASED_OZ);    // as-purchased, labeled as such
+
+const defaultResult = costPerMeal({
+  ingredientCostUsd: DEFAULT_INGREDIENT,
+  packagingCostUsd: DEFAULT_PACKAGING,
+  electricity: null,
+});
+const defaultPer500 = costPer500Kcal(defaultResult.totalUsd, DEFAULT_CALORIES) as number;
+---
+
+<ToolLayout slug="trail-meal-cost">
+
+  <div class="tmc" data-tool="trail-meal-cost">
+    <header data-embed-hide>
+      <p class="kicker">trail meals</p>
+      <h1>{title}</h1>
+      <p class="short">
+        <strong>The short version:</strong> at the reference recipe’s ingredient cost and a retail-priced
+        pouch, a home freeze-dried dinner lands near {usd(defaultResult.totalUsd)} before electricity —
+        roughly {usd(defaultPer500)} per 500 kcal — against {usd(Math.min(...POUCH_SCORES.map((s) => s.costPer500KcalUsd)))} to
+        {' '}{usd(Math.max(...POUCH_SCORES.map((s) => s.costPer500KcalUsd)))} per 500 kcal for the three commercial pouches below at
+        their brand-site prices on {PRICE_DATE}. Weight per 500 kcal needs one number nobody publishes:
+        your own measured yield.
+      </p>
+    </header>
+
+    <!-- ============================ CALCULATOR ============================ -->
+    <section class="panel" aria-labelledby="calc-h">
+      <h2 id="calc-h">Your meal</h2>
+
+      <form id="tmc-form" novalidate>
+        <div class="grid">
+          <div class="field">
+            <label for="ingredient">Ingredient cost per meal (USD)</label>
+            <input
+              id="ingredient"
+              name="ingredient"
+              type="number"
+              inputmode="decimal"
+              min="0"
+              step="0.01"
+              value={DEFAULT_INGREDIENT.toFixed(2)}
+              aria-describedby="ingredient-help"
+            />
+            <p class="help" id="ingredient-help">
+              What the food cost you. Prefilled with the reference recipe below,
+              {usd(REFERENCE_INGREDIENT_COST)} at Walmart on {PRICE_DATE}.
+            </p>
+          </div>
+
+          <div class="field">
+            <label for="packaging">Packaging cost per pouch (USD)</label>
+            <input
+              id="packaging"
+              name="packaging"
+              type="number"
+              inputmode="decimal"
+              min="0"
+              step="0.001"
+              value={DEFAULT_PACKAGING.toFixed(3)}
+              aria-describedby="packaging-help"
+            />
+            <p class="help" id="packaging-help">
+              One pouch, one meal. The published quantity breaks run from
+              {' '}{usdPrecise(PACKAGING_OPTIONS[2].perPouchUsd)} to
+              {' '}{usdPrecise(PACKAGING_OPTIONS[0].perPouchUsd)} for the identical bag — a
+              {' '}{PACKAGING_SPREAD_MULTIPLE}× spread, same vendor, same day [{cite(U.pfRetail)}][{cite(U.pfWholesale)}].
+            </p>
+            <div class="chips" role="group" aria-label="Published pouch prices">
+              {PACKAGING_OPTIONS.map((p) => (
+                <button
+                  type="button"
+                  class="chip"
+                  data-fill-packaging={p.perPouchUsd}
+                >
+                  {usdPrecise(p.perPouchUsd)} — {p.quantityBreak}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="calories">Calories per meal</label>
+            <input
+              id="calories"
+              name="calories"
+              type="number"
+              inputmode="numeric"
+              min="0"
+              step="10"
+              value={DEFAULT_CALORIES}
+              aria-describedby="calories-help"
+            />
+            <p class="help" id="calories-help">
+              Used for both per-500-kcal figures. Prefilled from label arithmetic on the reference
+              recipe’s five listings — about {DEFAULT_CALORIES} kcal. Not a lab result.
+            </p>
+          </div>
+
+          <div class="field">
+            <label for="prepared">Prepared weight going into the machine (g)</label>
+            <input
+              id="prepared"
+              name="prepared"
+              type="number"
+              inputmode="decimal"
+              min="0"
+              step="1"
+              value={Math.round(DEFAULT_PREPARED_G)}
+              aria-describedby="prepared-help"
+            />
+            <p class="help" id="prepared-help">
+              Prefilled with the reference recipe’s <em>as-purchased</em> weight
+              ({REFERENCE_AS_PURCHASED_OZ} oz). No source publishes what the assembled dish weighs
+              cooked, so replace this with your own scale reading.
+            </p>
+          </div>
+
+          <div class="field field--wide">
+            <label for="yield">Yield — dried weight as a percentage of prepared weight</label>
+            <input
+              id="yield"
+              name="yield"
+              type="number"
+              inputmode="decimal"
+              min="0.1"
+              max="100"
+              step="0.1"
+              value=""
+              placeholder="your measurement"
+              aria-describedby="yield-help"
+            />
+            <p class="help" id="yield-help">
+              <strong>Left empty on purpose.</strong> {YIELD_ABSENCE} {YIELD_METHOD}
+              {' '}[{cite(U.hrRehydrate)}][{cite(U.umn)}]
+            </p>
+          </div>
+        </div>
+
+        <!-- Electricity, optional and flagged -->
+        <fieldset class="elec">
+          <legend>
+            <label class="toggle">
+              <input type="checkbox" id="elec-on" name="elec-on" />
+              <span>Include electricity <span class="flag">approximate</span></span>
+            </label>
+          </legend>
+
+          <p class="help">
+            {MEALS_PER_BATCH_IS_AN_INPUT} The wattage bands and the rate below are published; the
+            batch duration is published twice, differently. {BATCH_DURATION_CONFLICT}
+          </p>
+
+          <div class="grid" id="elec-fields" hidden>
+            <div class="field">
+              <label for="machine">Machine size</label>
+              <select id="machine" name="machine" aria-describedby="machine-help">
+                {MACHINE_BANDS.map((m) => (
+                  <option value={m.id} data-kw-low={m.kwLow} data-kw-high={m.kwHigh}>
+                    {m.label} — {m.drawAsPublished}
+                  </option>
+                ))}
+              </select>
+              <p class="help" id="machine-help">
+                Manufacturer-published average draw [{cite(U.hrCost)}][{cite(U.hrFaq)}]. The
+                Small/Medium band is a range, so its result is shown as a range.
+              </p>
+            </div>
+
+            <div class="field">
+              <label for="hours">Batch duration (hours)</label>
+              <input
+                id="hours"
+                name="hours"
+                type="number"
+                inputmode="decimal"
+                min="0"
+                step="1"
+                value="24"
+                aria-describedby="hours-help"
+              />
+              <p class="help" id="hours-help">
+                Published ranges:
+                {BATCH_DURATION_RANGES.map((r, i) => (
+                  <span>
+                    {i > 0 ? ' and ' : ' '}
+                    {r.hoursLow}–{r.hoursHigh} h [{cite(r.source)}]
+                  </span>
+                ))}. Same manufacturer, no note explaining the difference.
+              </p>
+            </div>
+
+            <div class="field">
+              <label for="rate">Electricity rate (USD per kWh)</label>
+              <input
+                id="rate"
+                name="rate"
+                type="number"
+                inputmode="decimal"
+                min="0"
+                step="0.0001"
+                value={ELECTRICITY_RATE_USD_PER_KWH}
+                aria-describedby="rate-help"
+              />
+              <p class="help" id="rate-help">
+                {ELECTRICITY_RATE_LABEL} [{cite(U.eia)}]. Your own bill is the better number.
+              </p>
+            </div>
+
+            <div class="field">
+              <label for="meals">Meals per batch</label>
+              <input
+                id="meals"
+                name="meals"
+                type="number"
+                inputmode="numeric"
+                min="1"
+                step="1"
+                value="8"
+                aria-describedby="meals-help"
+              />
+              <p class="help" id="meals-help">
+                Your count. No publisher states a meals-per-batch figure for any model, so this
+                divisor cannot be sourced and neither can the per-meal result that depends on it.
+              </p>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+
+      <!-- ============================== RESULTS ============================== -->
+      <div class="results">
+        <div class="result" role="status" aria-live="polite" id="r-cost">
+          <h3>Cost per meal</h3>
+          <p class="big" id="out-total">{usd(defaultResult.totalUsd)}</p>
+          <p class="formula" id="out-total-formula">
+            {usd(defaultResult.ingredientCostUsd)} ingredients +
+            {' '}{usdPrecise(defaultResult.packagingCostUsd)} packaging, electricity not included
+          </p>
+          <p class="caveat">
+            Excludes {EXCLUDED_FROM_COST.join(', ').toLowerCase()}.
+          </p>
+        </div>
+
+        <div class="result" role="status" aria-live="polite" id="r-per500">
+          <h3>Cost per 500 kcal</h3>
+          <p class="big" id="out-per500">{usd(defaultPer500)}</p>
+          <p class="formula" id="out-per500-formula">
+            {usd(defaultResult.totalUsd)} ÷ {DEFAULT_CALORIES} kcal × 500
+          </p>
+        </div>
+
+        <div class="result" role="status" aria-live="polite" id="r-weight">
+          <h3>Weight per 500 kcal</h3>
+          <p class="big notpub" id="out-weight">Enter your measured yield</p>
+          <p class="formula" id="out-weight-formula">
+            Prepared weight × yield ÷ calories × 500. Yield is the one number no publisher supplies.
+          </p>
+          <p class="caveat" id="out-weight-verdict">
+            Benchmark: {WEIGHT_BENCHMARK.label} [{cite(U.nols)}]
+          </p>
+        </div>
+
+        <div class="result" role="status" aria-live="polite" id="r-elec" hidden>
+          <h3>Electricity <span class="flag">approximate</span></h3>
+          <p class="big" id="out-elec">—</p>
+          <p class="formula" id="out-elec-formula">—</p>
+        </div>
+      </div>
+
+
+    </section>
+
+    <div data-embed-hide>
+      <!-- ======================= COMMERCIAL COMPARISON ======================= -->
+      <section aria-labelledby="pouches-h">
+        <h2 id="pouches-h">Three commercial pouches, brand-site prices on {PRICE_DATE}</h2>
+        <p>
+          These three are here because they are the only brand-site entrees in the research that publish
+          both a calorie count and a net weight as text rather than as a label image. Prices are the
+          brand’s own on {PRICE_DATE} and move.
+        </p>
+
+        <div class="scroll" tabindex="0" role="region" aria-labelledby="pouches-h">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Pouch</th>
+                <th scope="col">Process</th>
+                <th scope="col">Price</th>
+                <th scope="col">Calories</th>
+                <th scope="col">Net dry weight</th>
+                <th scope="col">Cost / 500 kcal</th>
+                <th scope="col">Weight / 500 kcal</th>
+              </tr>
+            </thead>
+            <tbody>
+              {POUCH_SCORES.map((s) => (
+                <tr>
+                  <th scope="row" data-label="Pouch">
+                    {s.pouch.brand} {s.pouch.product} [{cite(s.pouch.priceSource)}]
+                  </th>
+                  <td data-label="Process">
+                    {s.pouch.process} [{cite(s.pouch.processSource)}]
+                  </td>
+                  <td data-label="Price">{usd(s.pouch.priceUsd)}</td>
+                  <td data-label="Calories">{s.pouch.caloriesPerPouch} per pouch</td>
+                  <td data-label="Net dry weight">
+                    {s.pouch.netWeightAsPublished}
+                    {s.pouch.weightCaveat ? <span class="caveat"> {s.pouch.weightCaveat}</span> : null}
+                  </td>
+                  <td data-label="Cost / 500 kcal">{usd(s.costPer500KcalUsd)}</td>
+                  <td data-label="Weight / 500 kcal">
+                    {grams(s.gramsPer500Kcal)} ({ounces(s.ozPer500Kcal)})
+                  </td>
+                </tr>
+              ))}
+              <tr class="you">
+                <th scope="row" data-label="Pouch">Your meal</th>
+                <td data-label="Process">freeze-dried, yours</td>
+                <td data-label="Price"><span id="tbl-total">{usd(defaultResult.totalUsd)}</span></td>
+                <td data-label="Calories"><span id="tbl-cal">{DEFAULT_CALORIES}</span> per meal</td>
+                <td data-label="Net dry weight"><span id="tbl-dry" class="notpub">yield not entered</span></td>
+                <td data-label="Cost / 500 kcal"><span id="tbl-per500">{usd(defaultPer500)}</span></td>
+                <td data-label="Weight / 500 kcal"><span id="tbl-w500" class="notpub">yield not entered</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="caveat">{PEAK_REFUEL_WEIGHT_WARNING}</p>
+
+        <h3>What is not in this table</h3>
+        <ul>
+          {EXCLUDED_COMPARATORS.map((e) => (
+            <li>
+              <strong>{e.brand}.</strong> {e.reason} [{e.sources.map((s) => cite(s)).join('][')}]
+            </li>
+          ))}
+        </ul>
+        <p>
+          A pouch holds two servings by the brands’ own counts, and a meal here is one dinner, so the
+          per-pouch price and the per-meal cost are not the same comparison. Cost per 500 kcal is the
+          column that compares like with like.
+        </p>
+      </section>
+
+      <!-- ========================== REFERENCE RECIPE ========================== -->
+      <section aria-labelledby="recipe-h">
+        <h2 id="recipe-h">The reference recipe behind the prefilled ingredient cost</h2>
+        <p>{REFERENCE_RECIPE_NOTE}</p>
+        <div class="scroll" tabindex="0" role="region" aria-labelledby="recipe-h">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Ingredient</th>
+                <th scope="col">Size sold</th>
+                <th scope="col">Pack price</th>
+                <th scope="col">Used</th>
+                <th scope="col">Cost</th>
+              </tr>
+            </thead>
+            <tbody>
+              {REFERENCE_RECIPE.map((i) => (
+                <tr>
+                  <th scope="row" data-label="Ingredient">{i.name} [{cite(i.source)}]</th>
+                  <td data-label="Size sold">{i.sizeSold}</td>
+                  <td data-label="Pack price">{usd(i.packPriceUsd)}</td>
+                  <td data-label="Used">{i.quantityUsed}</td>
+                  <td data-label="Cost">{usd(i.costUsd)}</td>
+                </tr>
+              ))}
+              <tr class="you">
+                <th scope="row" data-label="Ingredient">Ingredient total</th>
+                <td data-label="Size sold"></td>
+                <td data-label="Pack price"></td>
+                <td data-label="Used">{REFERENCE_AS_PURCHASED_OZ} oz as purchased</td>
+                <td data-label="Cost">{usd(REFERENCE_INGREDIENT_COST)}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="caveat">{REFERENCE_TOTAL_ROUNDING_NOTE}</p>
+        <p class="caveat">
+          This is not a finished per-meal cost on its own. It excludes
+          {' '}{EXCLUDED_FROM_COST.join(', ').toLowerCase()}, and the prices are single-day listings.
+        </p>
+      </section>
+
+      <!-- ============================== YIELD ============================== -->
+      <section aria-labelledby="yield-h">
+        <h2 id="yield-h">Why yield is a field and not a preset</h2>
+        <p>{YIELD_ABSENCE}</p>
+        <p>{YIELD_METHOD} [{cite(U.hrRehydrate)}][{cite(U.umn)}]</p>
+        <h3>What is published, and does not substitute for a yield</h3>
+        <ul>
+          {WATER_REMOVAL_CONTEXT.map((w) => (
+            <li>{w.figure} — {w.publisher} [{cite(w.source)}]</li>
+          ))}
+        </ul>
+        <p>{WATER_REMOVAL_CONFLICT}</p>
+        <p class="caveat">
+          {DEHYDRATOR_FIGURES_ARE_NOT_YIELDS} [{cite(U.usuDrying)}]
+        </p>
+      </section>
+
+      <!-- ============================ BENCHMARK ============================ -->
+      <section aria-labelledby="bench-h">
+        <h2 id="bench-h">The weight benchmark</h2>
+        <p>
+          <strong>{WEIGHT_BENCHMARK.label}.</strong> {WEIGHT_BENCHMARK.basis} [{cite(U.nols)}]
+        </p>
+        <p>
+          {WEIGHT_BENCHMARK_SECONDARY.label} — {WEIGHT_BENCHMARK_SECONDARY.derived}.
+          {' '}{WEIGHT_BENCHMARK_SECONDARY.note} [{cite(U.rei)}]
+        </p>
+      </section>
+
+      <!-- =========================== ELECTRICITY =========================== -->
+      <section aria-labelledby="elec-h">
+        <h2 id="elec-h">Electricity, and why it carries a flag</h2>
+        <p>{MEALS_PER_BATCH_IS_AN_INPUT}</p>
+        <p>{BATCH_DURATION_CONFLICT}</p>
+        <h3>Manufacturer dollar claims, shown but not used</h3>
+        <div class="scroll" tabindex="0" role="region" aria-labelledby="elec-h">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Model</th>
+                <th scope="col">Published claim</th>
+              </tr>
+            </thead>
+            <tbody>
+              {MANUFACTURER_BATCH_CLAIMS.map((c) => (
+                <tr>
+                  <th scope="row" data-label="Model">{c.model}</th>
+                  <td data-label="Published claim">{c.claim} [{cite(c.source)}]</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="caveat">{MANUFACTURER_CLAIM_CONFLICT}</p>
+        <p>
+          The running-cost calculator covers this ground in full, including which published cost claims
+          can be checked at all: <a href="/tools/running-cost">Freeze dryer running cost calculator</a>.
+        </p>
+      </section>
+
+      <!-- ============================= PRODUCT ============================= -->
+      <section aria-labelledby="kit-h">
+        <h2 id="kit-h">Packaging</h2>
+        <p>
+          <a href={PRODUCT.href}>{PRODUCT.name}</a> — <em>{PRODUCT.label}.</em> {PRODUCT.description}
+        </p>
+      </section>
+
+      <!-- ====================== COULD NOT SOURCE ====================== -->
+      <section aria-labelledby="cns-h">
+        <h2 id="cns-h">What we could not source</h2>
+        <ul>
+          {COULD_NOT_SOURCE.map((c) => <li>{c}</li>)}
+        </ul>
+      </section>
+
+      <!-- ============================== NEXT ============================== -->
+      <section aria-labelledby="next-h">
+        <h2 id="next-h">Next</h2>
+        <ul>
+          {RELATED.map((r) => (
+            <li><a href={r.href}>{r.label}</a></li>
+          ))}
+        </ul>
+      </section>
+
+      <!-- ============================ SOURCES ============================ -->
+      <section aria-labelledby="src-h">
+        <h2 id="src-h">Sources</h2>
+        <p class="caveat">All checked {ACCESS_DATE}.</p>
+        <ol>
+          {SOURCES.map((s) => (
+            <li>
+              <a href={s.url} rel="nofollow noopener">{s.title}</a> — {s.publisher}, {s.tier},
+              accessed {s.accessDate}
+            </li>
+          ))}
+        </ol>
+        <p class="caveat">{DISCLOSURE}</p>
+      </section>
+    </div>
+  </div>
+</ToolLayout>
+
+<script>
+  import {
+    costPerMeal,
+    costPer500Kcal,
+    driedWeightG,
+    weightPer500Kcal,
+    benchmarkVerdict,
+    WEIGHT_BENCHMARK,
+    usd,
+    usdPrecise,
+    grams,
+    ounces,
+  } from '../../data/trailMealCost';
+
+  const root = document.querySelector('[data-tool="trail-meal-cost"]');
+  if (root) {
+    const $ = (id: string) => root.querySelector('#' + id) as HTMLElement | null;
+    const val = (id: string) => {
+      const el = root.querySelector('#' + id) as HTMLInputElement | null;
+      if (!el || el.value.trim() === '') return null;
+      const n = Number(el.value);
+      return Number.isFinite(n) ? n : null;
+    };
+
+    const elecOn = root.querySelector('#elec-on') as HTMLInputElement | null;
+    const elecFields = $('elec-fields');
+    const elecResult = $('r-elec');
+
+    function machineKw(): { low: number; high: number } {
+      const sel = root!.querySelector('#machine') as HTMLSelectElement | null;
+      const opt = sel?.selectedOptions?.[0];
+      return {
+        low: Number(opt?.dataset.kwLow ?? 0),
+        high: Number(opt?.dataset.kwHigh ?? 0),
+      };
+    }
+
+    function recompute() {
+      const ingredient = val('ingredient') ?? 0;
+      const packaging = val('packaging') ?? 0;
+      const calories = val('calories') ?? 0;
+      const prepared = val('prepared') ?? 0;
+      const yieldPct = val('yield');
+      const on = !!elecOn?.checked;
+
+      if (elecFields) elecFields.hidden = !on;
+      if (elecResult) elecResult.hidden = !on;
+
+      const kw = machineKw();
+      const hours = val('hours') ?? 0;
+      const rate = val('rate') ?? 0;
+      const meals = val('meals') ?? 0;
+
+      const low = costPerMeal({
+        ingredientCostUsd: ingredient,
+        packagingCostUsd: packaging,
+        electricity: on
+          ? { kw: kw.low, hours, rateUsdPerKwh: rate, mealsPerBatch: meals }
+          : null,
+      });
+      const high = costPerMeal({
+        ingredientCostUsd: ingredient,
+        packagingCostUsd: packaging,
+        electricity: on
+          ? { kw: kw.high, hours, rateUsdPerKwh: rate, mealsPerBatch: meals }
+          : null,
+      });
+
+      const isRange = on && Math.abs(high.totalUsd - low.totalUsd) > 0.005;
+      const totalText = isRange
+        ? usd(low.totalUsd) + '–' + usd(high.totalUsd)
+        : usd(high.totalUsd);
+
+      setText('out-total', totalText);
+      setText('tbl-total', totalText);
+      setText(
+        'out-total-formula',
+        usd(ingredient) +
+          ' ingredients + ' +
+          usdPrecise(packaging) +
+          ' packaging' +
+          (on && high.electricityPerMealUsd !== null
+            ? ' + ' +
+              (isRange
+                ? usd(low.electricityPerMealUsd!) + '–' + usd(high.electricityPerMealUsd!)
+                : usd(high.electricityPerMealUsd!)) +
+              ' electricity (approximate)'
+            : ', electricity not included'),
+      );
+
+      const p5low = costPer500Kcal(low.totalUsd, calories);
+      const p5high = costPer500Kcal(high.totalUsd, calories);
+      if (p5high === null) {
+        setNotPublished('out-per500', 'Enter calories');
+        setNotPublished('tbl-per500', 'enter calories');
+        setText('out-per500-formula', 'Cost ÷ calories × 500');
+      } else {
+        const t =
+          isRange && p5low !== null && Math.abs(p5high - p5low) > 0.005
+            ? usd(p5low) + '–' + usd(p5high)
+            : usd(p5high);
+        setValue('out-per500', t);
+        setValue('tbl-per500', t);
+        setText('out-per500-formula', totalText + ' ÷ ' + calories + ' kcal × 500');
+      }
+
+      setText('tbl-cal', String(calories));
+
+      const dry = driedWeightG(prepared, yieldPct);
+      const w500 = weightPer500Kcal(dry, calories);
+      if (dry === null) {
+        setNotPublished('tbl-dry', 'yield not entered');
+      } else {
+        setValue('tbl-dry', grams(dry) + ' (' + ounces(dry / 28.349523125) + ')');
+      }
+
+      if (w500 === null) {
+        setNotPublished('out-weight', 'Enter your measured yield');
+        setNotPublished('tbl-w500', 'yield not entered');
+        setText(
+          'out-weight-verdict',
+          'Benchmark: ' + WEIGHT_BENCHMARK.label,
+        );
+      } else {
+        setValue('out-weight', grams(w500) + ' (' + ounces(w500 / 28.349523125) + ')');
+        setValue('tbl-w500', grams(w500) + ' (' + ounces(w500 / 28.349523125) + ')');
+        const v = benchmarkVerdict(w500);
+        setText(
+          'out-weight-verdict',
+          v === 'within'
+            ? 'Inside the ' + WEIGHT_BENCHMARK.label + ' band.'
+            : v === 'below'
+              ? 'Lighter than the ' + WEIGHT_BENCHMARK.label + ' band.'
+              : 'Heavier than the ' + WEIGHT_BENCHMARK.label + ' band.',
+        );
+      }
+
+      if (on) {
+        if (high.electricityPerBatchUsd === null || high.electricityPerMealUsd === null) {
+          setNotPublished('out-elec', 'Enter hours, rate and meals per batch');
+          setText('out-elec-formula', 'kW × hours × rate ÷ meals per batch');
+        } else {
+          const perBatch =
+            isRange && low.electricityPerBatchUsd !== null
+              ? usd(low.electricityPerBatchUsd) + '–' + usd(high.electricityPerBatchUsd)
+              : usd(high.electricityPerBatchUsd);
+          const perMeal =
+            isRange && low.electricityPerMealUsd !== null
+              ? usd(low.electricityPerMealUsd) + '–' + usd(high.electricityPerMealUsd)
+              : usd(high.electricityPerMealUsd);
+          setValue('out-elec', perMeal + ' per meal');
+          setText(
+            'out-elec-formula',
+            (isRange ? kw.low + '–' + kw.high : String(kw.high)) +
+              ' kW × ' +
+              hours +
+              ' h × ' +
+              usdPrecise(rate) +
+              '/kWh = ' +
+              perBatch +
+              ' per batch ÷ ' +
+              meals +
+              ' meals',
+          );
+        }
+      }
+    }
+
+    function setText(id: string, text: string) {
+      const el = root!.querySelector('#' + id);
+      if (el) el.textContent = text;
+    }
+    function setValue(id: string, text: string) {
+      const el = root!.querySelector('#' + id);
+      if (el) {
+        el.textContent = text;
+        el.classList.remove('notpub');
+      }
+    }
+    function setNotPublished(id: string, text: string) {
+      const el = root!.querySelector('#' + id);
+      if (el) {
+        el.textContent = text;
+        el.classList.add('notpub');
+      }
+    }
+
+    root.querySelectorAll('[data-fill-packaging]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const input = root.querySelector('#packaging') as HTMLInputElement;
+        input.value = Number(
+          (btn as HTMLElement).dataset.fillPackaging,
+        ).toFixed(3);
+        recompute();
+      });
+    });
+
+    root.querySelector('form')?.addEventListener('submit', (e) => e.preventDefault());
+
+    root.querySelectorAll('input, select').forEach((el) => {
+      el.addEventListener('input', recompute);
+      el.addEventListener('change', recompute);
+    });
+
+    recompute();
+  }
+</script>
+
+<style>
+  .tmc { max-width: 62rem; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+  .kicker { text-transform: lowercase; letter-spacing: 0.04em; opacity: 0.7; margin: 0; }
+  .short { font-size: 1.05rem; line-height: 1.6; }
+  .panel { border: 1px solid currentColor; border-radius: var(--radius-panel); padding: 1.25rem; margin: 1.5rem 0; }
+  .grid { display: grid; gap: 1.25rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .field--wide { grid-column: 1 / -1; }
+  .field label { display: block; font-weight: 600; margin-bottom: 0.35rem; }
+  .field input, .field select {
+    width: 100%; min-height: 44px; padding: 0.5rem 0.6rem;
+    font-size: 1rem; border: 1px solid currentColor; border-radius: var(--radius-control); background: transparent;
+  }
+  .help { font-size: 0.875rem; line-height: 1.5; opacity: 0.85; margin: 0.4rem 0 0; }
+  .caveat { font-size: 0.875rem; line-height: 1.5; opacity: 0.85; }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+  .chip {
+    min-height: 44px; min-width: 44px; padding: 0.4rem 0.8rem; font-size: 0.875rem;
+    border: 1px solid currentColor; border-radius: var(--radius-control); background: transparent; cursor: pointer;
+  }
+  .elec { border: 1px dashed currentColor; border-radius: var(--radius-panel); padding: 1rem; margin-top: 1.25rem; }
+  .elec legend { padding: 0 0.4rem; }
+  .toggle { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; font-weight: 600; }
+  .toggle input { width: 1.15rem; height: 1.15rem; }
+  .flag {
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em;
+    border: 1px solid currentColor; border-radius: var(--radius-control); padding: 0.1rem 0.35rem; opacity: 0.8;
+  }
+  .results { display: grid; gap: 1rem; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 1.5rem; }
+  .result { border-top: 2px solid currentColor; padding-top: 0.75rem; }
+  .result h3 { margin: 0 0 0.4rem; font-size: 0.95rem; }
+  .big { font-size: 1.75rem; font-weight: 700; margin: 0 0 0.3rem; line-height: 1.2; }
+  /* A missing figure is a result, not an error: same weight, no alarm colour. */
+  .notpub { font-size: 1.05rem; font-weight: 600; opacity: 0.9; }
+  .formula { font-size: 0.875rem; margin: 0 0 0.3rem; opacity: 0.85; }
+  .attribution { margin-top: 1.25rem; font-size: 0.875rem; }
+  .scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+  th, td { text-align: left; padding: 0.55rem 0.6rem; border-bottom: 1px solid currentColor; vertical-align: top; }
+  tr.you th, tr.you td { font-weight: 700; }
+
+  @media (max-width: 719px) {
+    .grid, .results { grid-template-columns: minmax(0, 1fr); }
+    thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    tr { display: block; border: 1px solid currentColor; border-radius: var(--radius-panel); margin-bottom: 0.75rem; padding: 0.25rem 0.5rem; }
+    th, td { display: block; border: 0; padding: 0.35rem 0; }
+    th[data-label]::before, td[data-label]::before {
+      content: attr(data-label); display: block; font-size: 0.75rem;
+      text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.7;
+    }
+  }
+
+  :global(html[data-embed='1']) [data-embed-hide] { display: none !important; }
+  :global(html[data-embed='1']) .tmc { padding: 0.75rem; }
+  :global(html[data-embed='1']) .panel { margin: 0; }
+</style>
