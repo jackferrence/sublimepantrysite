@@ -90,3 +90,23 @@ test('the display system names Bodoni Moda and retires the temporary faces', () 
   assert.ok(!/Didot|Ibarra Real Nova/.test(tokens + css));
   assert.match(css, /font-optical-sizing:\s*auto/);
 });
+
+test('Bodoni Moda Variable is declared, self-hosted, and not left an orphaned dependency', () => {
+  // The site self-hosts every face rather than linking Google Fonts or a
+  // package CDN, so a missing @font-face here means the family falls back to
+  // plain serif even though the package is installed. And an installed
+  // package the CSS never references is dead weight the same way.
+  const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
+  assert.ok(
+    pkg.dependencies?.['@fontsource-variable/bodoni-moda'],
+    '@fontsource-variable/bodoni-moda must be a declared dependency',
+  );
+  const css = readFileSync(new URL('../public/styles/base.css', import.meta.url), 'utf8');
+  const faces = [...css.matchAll(/@font-face\{font-family:"Bodoni Moda Variable";[^}]*\}/g)];
+  assert.ok(faces.length > 0, 'base.css must declare @font-face for Bodoni Moda Variable');
+  for (const [face] of faces) {
+    assert.match(face, /src:url\("\/fonts\/[^"]+\.woff2"\) format\("woff2-variations"\)/, 'must self-host from /fonts, not a remote CDN');
+    const file = face.match(/\/fonts\/([^"]+\.woff2)/)[1];
+    assert.ok(existsSync(new URL(`../public/fonts/${file}`, import.meta.url)), `public/fonts/${file} referenced but missing`);
+  }
+});

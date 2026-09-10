@@ -47,3 +47,83 @@ explicit pending state. Documentary stock must never enter this map.
 The final report records the exact commands and outcomes after the last edit.
 Shopify availability failures during local builds are expected to produce the
 unstocked fallback and must never be promoted to an in-stock guess.
+
+### 10 September 2026 — continuation session
+
+Picked up from `docs/CODING-SESSION-HANDOFF.md`. Registry DNS was available
+this session (it was not in the prior sandbox), so the blocking font item
+cleared:
+
+- Installed `@fontsource-variable/bodoni-moda@5.3.0` (exact version, pinned).
+  Self-hosted the `wght`-axis latin and latin-ext files under
+  `public/fonts/bodoni-moda-variable-*.woff2`, following the project's
+  existing self-hosted `@font-face` pattern (no Google Fonts link, no CDN
+  import) rather than importing the package's own CSS. Left the `opsz`-axis
+  subset unused — combining both axes in one file isn't something Fontsource
+  ships, and the wght-only file is what `@fontsource-variable/bodoni-moda`'s
+  own default entrypoint (`index.css`) selects.
+- `src/styles/tokens.tokens.json`'s `font.family.display` now reads
+  `["Bodoni Moda Variable", "serif"]` — dropped `Bodoni Moda` (the static
+  fallback name) and `Didot`. Regenerated `public/styles/tokens.css` via
+  `npm run tokens`.
+- Deleted the two tracked but unreferenced `ibarra-variable*.woff2` files
+  from `public/fonts/` — confirmed zero references to "Ibarra" anywhere in
+  tracked source first.
+- Added a regression test (`tests/header-brand.test.mjs`) asserting the
+  package is a declared dependency, `base.css` declares `@font-face` for
+  "Bodoni Moda Variable" self-hosted under `/fonts/`, and every referenced
+  file actually exists in `public/fonts/`.
+- Found and fixed 4 broken internal links surfaced by `check-links.py`
+  (pre-existing, not introduced this session): `/guides/mylar-bag-materials`
+  → `/guides/what-bag-thickness-actually-means` (title match, wrong slug);
+  `/troubleshooting/absorber-did-not-work` → `/troubleshooting/storage-failure`
+  (topical match — "Why your stored food failed" covers absorber failure).
+  `/guides/sealing-mylar-bags` had no matching article anywhere in
+  `src/content/articles/` — rather than point it at content that doesn't
+  deliver what the anchor text promises, removed the two links
+  (`absorber-calculator.astro`, `batch-planner.astro`) instead of guessing a
+  target. A dedicated sealing/seal-check guide remains unwritten.
+
+Command gate, run in full:
+
+```
+npm test              # 371/371 pass
+npm run tokens:check  # clean
+astro build            # 70 pages built (ran directly — astro check
+                        # still fails locally against an untracked
+                        # `embedded tools/` scratch directory in the
+                        # working tree that isn't part of the repo)
+npm run check-links    # OK — 70 files, 0 broken links
+git diff --check       # clean
+```
+
+Browser QA: **partial, not the full matrix.** Ran a Playwright smoke check
+against the local preview server — homepage at 1280×900 and 375×800, and
+`/tools/absorber-calculator` — confirming `getComputedStyle` resolves
+`"Bodoni Moda Variable"` and `document.fonts` reports it loaded (not just
+declared and silently falling back), the two corrected links resolve in the
+rendered DOM, and no horizontal overflow at 375px. Did not cover the full
+320–1440px × 200%-zoom matrix or the full page/state inventory the handoff
+specifies (hubs, hero/no-hero articles, all five tools, PDPs, cart,
+newsletter/policy/404, focus states, loading/error/empty/sold-out). That
+remains open.
+
+Live Shopify Storefront verification: **not done, still gated on
+credentials.** No `.env` exists in this working tree. The connected Shopify
+MCP tool authenticates against the Admin API (confirmed store: Sublime
+Pantry, `shop.sublimepantry.com`) — a different credential from the
+Storefront API token `src/lib/commerce.ts` needs at runtime, and not a
+substitute for it. Did not fabricate or borrow a token. The deterministic
+unstocked fallback is what actually ran during this session's builds, which
+is the documented, expected behavior without Storefront credentials — not a
+positive verification of live price/inventory/cart/checkout.
+
+Anti-template audit: **not a full pass.** The design hook flagged a
+"side-tab accent border" pattern three times across files touched or
+adjacent to this session's edits (`base.css`, `absorber-calculator.astro`,
+`batch-planner.astro`). Reviewed each: they match an accent-bar motif already
+used consistently in the site's SVG troubleshooting diagrams elsewhere
+(`storage-failure.json`, `vacuum-error.json`) and predate this session's
+changes — not something introduced here, and not flagged as a problem by the
+user. Left unchanged. No broader site-wide pass for generic grids, vague CTA
+copy, or decorative effects was run this session.
