@@ -1,0 +1,102 @@
+{
+  "$description": "Sublime Pantry — global (tier 1) tokens. Raw values only, no intent. Referenced exclusively by tokens/semantic.*.tokens.json (ground rule: components touch the semantic tier only, never this file). DTCG-shaped ($value/$type/$description).",
+  "color": {
+    "ink": { "$type": "color", "$value": "#000000" },
+    "white": { "$type": "color", "$value": "#FFFFFF" },
+    "paper": { "$type": "color", "$value": "#FAF8F4" },
+    "ice": { "$type": "color", "$description": "The wordmark's own pale blue. Logo/ghost ground only — never a section background, never text. See BRAND.md.", "$value": "#B4D9EC" },
+    "iceDeep": { "$type": "color", "$value": "#7FB6D2" },
+    "rust": { "$type": "color", "$description": "The one accent, tied to one meaning: a verdict, a limitation, a warning.", "$value": "#8B4A21" },
+    "rustDeep": { "$type": "color", "$value": "#6F3517" },
+    "warm": { "$type": "color", "$value": "#F2ECE3" },
+    "rustSoft": { "$type": "color", "$value": "#F1E2D6" },
+    "hairline": { "$type": "color", "$value": "#D9D1C6" },
+    "textInk": { "$type": "color", "$value": "#191713" },
+    "textMuted": { "$type": "color", "$value": "#5D554D" },
+    "info": { "$type": "color", "$value": "#315F73" },
+    "success": { "$type": "color", "$value": "#2F694D" },
+    "danger": { "$type": "color", "$value": "#96362F" },
+    "indicatorPink": { "$type": "color", "$description": "Oxygen-indicator pill: pink = absorbed. Semantic exception per docs/CLAUDE-CODE-PROMPT.md T2.4 — used nowhere but OxygenIndicator.", "$value": "#C97A93" },
+    "indicatorBlue": { "$type": "color", "$description": "Oxygen-indicator pill: blue = oxygen present. Semantic exception per docs/CLAUDE-CODE-PROMPT.md T2.4 — used nowhere but OxygenIndicator.", "$value": "#3F6E93" },
+
+    "inkNight": { "$type": "color", "$description": "Dark-mode page ground. New with the dark palette — see docs/DECISIONS.md T1.2 note; contrast re-audit is T5.6, not yet run.", "$value": "#15130F" },
+    "paperNight": { "$type": "color", "$value": "#F2EFE9" },
+    "mutedNight": { "$type": "color", "$value": "#B9AFA2" },
+    "raisedNight": { "$type": "color", "$value": "#1F1C17" },
+    "warmNight": { "$type": "color", "$value": "#262218" },
+    "rustSoftNight": { "$type": "color", "$value": "#2E2118" },
+    "hairlineNight": { "$type": "color", "$value": "#3A362F" },
+    "iceNight": { "$type": "color", "$value": "#8FC4DE" },
+    "rustNight": { "$type": "color", "$value": "#C97A45" },
+    "rustNightHover": { "$type": "color", "$value": "#E0925C" },
+    "infoNight": { "$type": "color", "$value": "#6FA3BD" },
+    "successNight": { "$type": "color", "$value": "#6BAE8B" },
+    "dangerNight": { "$type": "color", "$value": "#D98A82" },
+    "inverseMuted": { "$type": "color", "$description": "Muted text on the inverse (footer) surface in light mode.", "$value": "#C9C2B7" }
+  },
+  "font": {
+    "family": {
+      "display": { "$type": "fontFamily", "$description": "Headlines, the wordmark, PullQuote. Never under 20px; never below weight 500 under 28px.", "$value": ["Bodoni Moda Variable", "serif"] },
+      "prose": { "$type": "fontFamily", "$description": "Article body copy and .lead. Has an optical-size axis like Bodoni Moda.", "$value": ["Literata Variable", "Georgia", "serif"] },
+      "ui": { "$type": "fontFamily", "$description": "Product copy, tables, UI, nav. Real tabular figures.", "$value": ["Source Sans 3", "system-ui", "sans-serif"] },
+      "label": { "$type": "fontFamily", "$description": "Micro labels only: Eyebrow, .label.", "$value": ["Archivo Variable", "system-ui", "sans-serif"] }
+    },
+    "size": {
+      "step--2": { "$type": "dimension", "$value": "clamp(0.694rem, 0.665rem + 0.14vw, 0.78rem)" },
+      "step--1": { "$type": "dimension", "$value": "clamp(0.833rem, 0.79rem + 0.22vw, 0.975rem)" },
+      "step-0": { "$type": "dimension", "$value": "clamp(1rem, 0.94rem + 0.31vw, 1.1875rem)" },
+      "step-1": { "$type": "dimension", "$value": "clamp(1.2rem, 1.11rem + 0.44vw, 1.484rem)" },
+      "step-2": { "$type": "dimension", "$value": "clamp(1.44rem, 1.31rem + 0.63vw, 1.855rem)" },
+      "step-3": { "$type": "dimension", "$value": "clamp(1.728rem, 1.55rem + 0.89vw, 2.319rem)" },
+      "step-4": { "$type": "dimension", "$value": "clamp(2.074rem, 1.83rem + 1.24vw, 2.899rem)" },
+      "step-5": { "$type": "dimension", "$value": "clamp(2.488rem, 2.15rem + 1.71vw, 3.624rem)" },
+      "step-6": { "$type": "dimension", "$value": "clamp(2.986rem, 2.52rem + 2.34vw, 4.53rem)" }
+    },
+    "weight": {
+      "display-h1": { "$type": "fontWeight", "$value": 900 },
+      "display-h1-mobile": { "$type": "fontWeight", "$value": 800 },
+      "display-h2": { "$type": "fontWeight", "$value": 800 },
+      "display-h3": { "$type": "fontWeight", "$value": 700 },
+      "display-h5": { "$type": "fontWeight", "$value": 600 }
+    },
+    "tracking": {
+      "displayLarge": { "$type": "dimension", "$value": "-0.015em" },
+      "displaySmall": { "$type": "dimension", "$value": "0.005em" },
+      "label": { "$type": "dimension", "$value": "0.08em" }
+    },
+    "lineHeight": {
+      "display": { "$type": "number", "$value": 1.1 },
+      "displayWrap": { "$type": "number", "$value": 1.2 },
+      "body": { "$type": "number", "$value": 1.6 },
+      "prose": { "$type": "number", "$value": 1.6 }
+    },
+    "measure": {
+      "article": { "$type": "dimension", "$value": { "value": 68, "unit": "ch" } },
+      "product": { "$type": "dimension", "$value": { "value": 56, "unit": "ch" } }
+    }
+  },
+  "space": {
+    "1": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
+    "2": { "$type": "dimension", "$value": { "value": 16, "unit": "px" } },
+    "3": { "$type": "dimension", "$value": { "value": 24, "unit": "px" } },
+    "4": { "$type": "dimension", "$value": { "value": 32, "unit": "px" } },
+    "5": { "$type": "dimension", "$value": { "value": 48, "unit": "px" } },
+    "6": { "$type": "dimension", "$value": { "value": 72, "unit": "px" } },
+    "7": { "$type": "dimension", "$value": { "value": 96, "unit": "px" } }
+  },
+  "size": {
+    "content": { "$type": "dimension", "$value": { "value": 72, "unit": "rem" } },
+    "control": { "$type": "dimension", "$value": { "value": 44, "unit": "px" } },
+    "targetMin": { "$type": "dimension", "$value": { "value": 24, "unit": "px" } }
+  },
+  "radius": {
+    "control": { "$type": "dimension", "$description": "Buttons, inputs.", "$value": { "value": 3, "unit": "px" } },
+    "panel": { "$type": "dimension", "$description": "Capped at 4px per docs/CLAUDE-CODE-PROMPT.md ground rule 6 (0 is the default, 4px is the maximum). Was 8px before supersession; reduced here.", "$value": { "value": 4, "unit": "px" } },
+    "none": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
+  },
+  "motion": {
+    "fast": { "$type": "duration", "$value": { "value": 140, "unit": "ms" } },
+    "normal": { "$type": "duration", "$value": { "value": 200, "unit": "ms" } },
+    "entrance": { "$type": "duration", "$value": { "value": 300, "unit": "ms" } }
+  }
+}

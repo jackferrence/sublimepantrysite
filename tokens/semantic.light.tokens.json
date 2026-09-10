@@ -1,0 +1,39 @@
+{
+  "$description": "Sublime Pantry — semantic (tier 2, light) tokens. Intent, not raw value. This is the ONLY tier components may reference (docs/CLAUDE-CODE-PROMPT.md ground rule 4). Applied to :root unconditionally (light is the default).",
+  "color": {
+    "surface": {
+      "page": { "$type": "color", "$value": "{color.paper}" },
+      "raised": { "$type": "color", "$value": "{color.white}" },
+      "warm": { "$type": "color", "$value": "{color.warm}" },
+      "inset": { "$type": "color", "$value": "{color.rustSoft}" },
+      "ice": { "$type": "color", "$description": "Logo/ghost ground only — see BRAND.md.", "$value": "{color.ice}" },
+      "inverse": { "$type": "color", "$description": "Footer.", "$value": "{color.ink}" }
+    },
+    "text": {
+      "body": { "$type": "color", "$value": "{color.textInk}" },
+      "muted": { "$type": "color", "$value": "{color.textMuted}" },
+      "inverse": { "$type": "color", "$value": "{color.paper}" },
+      "inverseMuted": { "$type": "color", "$value": "{color.inverseMuted}" }
+    },
+    "border": {
+      "hairline": { "$type": "color", "$value": "{color.hairline}" },
+      "strong": { "$type": "color", "$value": "{color.textMuted}" },
+      "focus": { "$type": "color", "$value": "{color.rust}" },
+      "focusOnInverse": { "$type": "color", "$value": "{color.ice}" }
+    },
+    "action": {
+      "primary": { "$type": "color", "$value": "{color.rust}" },
+      "primaryHover": { "$type": "color", "$value": "{color.rustDeep}" },
+      "primaryText": { "$type": "color", "$value": "{color.white}" },
+      "secondaryBorder": { "$type": "color", "$value": "{color.rust}" }
+    },
+    "status": {
+      "info": { "$type": "color", "$value": "{color.info}" },
+      "success": { "$type": "color", "$value": "{color.success}" },
+      "danger": { "$type": "color", "$value": "{color.danger}" },
+      "warn": { "$type": "color", "$description": "Never yellow — rust carries the limitation/warning meaning.", "$value": "{color.rust}" },
+      "indicatorPink": { "$type": "color", "$value": "{color.indicatorPink}" },
+      "indicatorBlue": { "$type": "color", "$value": "{color.indicatorBlue}" }
+    }
+  }
+}

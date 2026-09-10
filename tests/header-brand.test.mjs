@@ -56,10 +56,18 @@ test('the footer keeps the full lockup', () => {
 });
 
 test('the approved ice colour has one primitive and semantic aliases use it', () => {
-  const source = readFileSync(new URL('../src/styles/tokens.tokens.json', import.meta.url), 'utf8');
+  // Token pipeline is now three-tier (tokens/global.tokens.json ->
+  // semantic.light/dark) per docs/CLAUDE-CODE-PROMPT.md T1.2; the ice
+  // primitive lives in the global tier only, and both semantic tiers alias
+  // it rather than redeclaring the hex.
+  const source = readFileSync(new URL('../tokens/global.tokens.json', import.meta.url), 'utf8');
   const tokens = JSON.parse(source);
-  assert.equal(tokens.color.brand.ice.$value, '#B4D9EC');
+  assert.equal(tokens.color.ice.$value, '#B4D9EC');
   assert.equal((source.match(/#B4D9EC/gi) ?? []).length, 1, 'the approved hex belongs to one primitive token');
+  for (const tier of ['semantic.light', 'semantic.dark']) {
+    const tierSource = readFileSync(new URL(`../tokens/${tier}.tokens.json`, import.meta.url), 'utf8');
+    assert.ok(!/#B4D9EC/i.test(tierSource), `${tier}.tokens.json must alias {color.ice}, not redeclare the hex`);
+  }
   const css = readFileSync(new URL('../public/styles/base.css', import.meta.url), 'utf8');
   assert.match(css, /--logo-frost:\s*var\(--color-brand-ice\)/);
 });
@@ -84,7 +92,7 @@ test('the approved contexts select the inline wordmark and roman SP monogram', (
 });
 
 test('the display system names Bodoni Moda and retires the temporary faces', () => {
-  const tokens = readFileSync(new URL('../src/styles/tokens.tokens.json', import.meta.url), 'utf8');
+  const tokens = readFileSync(new URL('../tokens/global.tokens.json', import.meta.url), 'utf8');
   const css = readFileSync(new URL('../public/styles/base.css', import.meta.url), 'utf8');
   assert.match(tokens, /Bodoni Moda Variable/);
   assert.ok(!/Didot|Ibarra Real Nova/.test(tokens + css));
