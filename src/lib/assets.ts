@@ -83,6 +83,33 @@ export interface Asset {
   /** Hard constraints. Enforced by tests, not by convention. */
   restrictions?: AssetRestriction[];
   usedBy: string[];           // populated at build; where it currently appears
+
+  /**
+   * Purchase/licence provenance, per docs/design-research.md §2's manifest
+   * schema (`src/data/images.json` in docs/CLAUDE-CODE-PROMPT.md T2.3). All
+   * optional and currently unset on every entry in MANIFEST below: nothing
+   * in this catalog has been purchased under a licence that requires
+   * tracking these fields yet (the `stock` entries here predate this
+   * rebuild and are recorded as `source: 'stock'` with a plain 'Stock
+   * photo' credit). Fill these in when a Stocksy/Adobe Stock/Unsplash+
+   * purchase actually happens, per docs/design-research.md §2's sourcing
+   * rules (Stocksy default for anything with hands in frame; never
+   * anything flagged Editorial on a page that sells).
+   */
+  sourceId?: string;
+  sourceUrl?: string;
+  licenseType?: string;
+  purchaseDate?: string;      // YYYY-MM-DD
+  cost?: string;               // as invoiced, e.g. "$49 USD" — never guessed
+  modelRelease?: boolean;
+  propertyRelease?: boolean;
+  requiresAttribution?: boolean;
+  expires?: string;            // YYYY-MM-DD, for a time-limited licence
+  /** The one mechanical treatment pass every purchased photo gets before it
+   *  ships, per docs/design-research.md §2 — desaturate 10-15%, lift
+   *  blacks, split-tone toward ice/paper. Baked into the delivered file;
+   *  this field records that it happened, not how. */
+  treatment?: string;
 }
 
 /** Widths `assets/build-derivatives.mjs` emits, never exceeding intrinsic. */

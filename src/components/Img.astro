@@ -11,6 +11,18 @@
 import { Image } from 'astro:assets';
 import { ASSETS, srcSet as assetSrcSet } from '../lib/assets';
 
+/** The four fixed ratios per docs/design-research.md §2 — one CI-checkable
+ *  aspect-ratio per usage context, not a per-template convention. `pack` is
+ *  the packshot/product-card slot (1:1); `inline` is new with this rebuild
+ *  (3:2, in-article photography) and has no caller yet. */
+const SLOT_ASPECT_RATIO = {
+  hero: '16 / 9',
+  card: '4 / 5',
+  inline: '3 / 2',
+  pack: '1 / 1',
+} as const;
+type ImgSlot = keyof typeof SLOT_ASPECT_RATIO;
+
 interface Props {
   src: string;
   /** Responsive candidates. Usually left off — a library `src` fills this in
@@ -23,6 +35,12 @@ interface Props {
   loading?: 'lazy' | 'eager';
   fetchpriority?: 'high' | 'auto' | 'low';
   class?: string;
+  /** Optional. When set, pins aspect-ratio + object-fit: cover to the
+   *  docs/design-research.md §2 slot ratio and gives the element a solid
+   *  --sp-color-surface-inset ground so a broken or still-loading image
+   *  reads as a tinted panel, never a layout hole. Existing callers that
+   *  don't pass this keep their current sizing exactly as-is. */
+  slot?: ImgSlot;
 }
 
 const {
@@ -35,7 +53,12 @@ const {
   loading = 'lazy',
   fetchpriority,
   class: className,
+  slot,
 } = Astro.props;
+
+const slotStyle = slot
+  ? `aspect-ratio:${SLOT_ASPECT_RATIO[slot]};object-fit:cover;width:100%;height:auto;background:var(--sp-color-surface-inset)`
+  : undefined;
 
 const optimisable = src.startsWith('https://cdn.shopify.com/');
 
@@ -62,6 +85,7 @@ const candidates =
     decoding="async"
     fetchpriority={fetchpriority}
     class={className}
+    style={slotStyle}
   />
 ) : (
   <img
@@ -75,5 +99,6 @@ const candidates =
     decoding="async"
     fetchpriority={fetchpriority}
     class={className}
+    style={slotStyle}
   />
 )}
