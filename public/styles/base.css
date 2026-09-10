@@ -426,7 +426,15 @@ p .btn-text, li .btn-text { display: inline; min-height: 0; }
   border-left-color: var(--brand);
 }
 
-/* --- Forms ------------------------------------------------------------- */
+/* --- Forms -------------------------------------------------------------
+   docs/CLAUDE-CODE-PROMPT.md T3.1: "Input/Select (44px, 1px border-strong,
+   focus ring, label above, error text in status-error with an inline icon
+   and aria-describedby)". Label-above and the focus ring (the global
+   :focus-visible rule above, which already applies here) were already
+   true of every form on the site; the border was --mist (the hairline
+   colour, meant for decorative rules) rather than the semantic
+   --sp-color-border-strong a form control actually needs — fixed below.
+   Error state is new: no form on the site had one before this pass. */
 label { font-weight: 600; }
 
 input[type="email"], input[type="text"], input[type="number"], input[type="date"],
@@ -437,12 +445,24 @@ select, textarea {
   font: 400 1rem var(--font-body);
   color: var(--ink);
   background: var(--surface);
-  border: 1px solid var(--mist);
+  border: 1px solid var(--sp-color-border-strong);
   border-radius: var(--radius-control);
 }
 input[type="checkbox"] { min-width: var(--sp-size-targetMin); min-height: var(--sp-size-targetMin); accent-color: var(--brand); }
 /* The label is the tap target for a checkbox, so it carries the 44px. */
 label:has(> input[type="checkbox"]) { display: flex; min-height: var(--sp-size-control); align-items: center; }
+
+/* An input/select in an error state (pair with aria-invalid="true" and
+   aria-describedby pointing at the .field-error's id — colour is never
+   the only signal, the icon and the text both carry it independently). */
+:is(input, select, textarea)[aria-invalid="true"] { border-color: var(--sp-color-status-danger); }
+.field-error {
+  display: flex; align-items: flex-start; gap: .4rem;
+  margin-top: .35rem;
+  color: var(--sp-color-status-danger);
+  font-size: .875rem;
+}
+.field-error svg { flex: none; margin-top: .1rem; }
 
 /* --- Article body ------------------------------------------------------ */
 .article-body > p, .article-body > ul, .article-body > ol { max-width: var(--measure); }

@@ -1,0 +1,49 @@
+---
+/**
+ * docs/CLAUDE-CODE-PROMPT.md T3.1. "Rule (1px border-hairline, with
+ * optional label centred)". A standalone primitive for the hairline
+ * section-break the rest of the system already uses everywhere as plain
+ * `border-top`/`<hr>` declarations — this doesn't replace those (a hairline
+ * used as a card/table/list-item edge stays exactly what it was), it's for
+ * the specific case a page wants a rule as its own element, optionally
+ * carrying a short label centred on it (e.g. "or", a section name), the
+ * way a print magazine breaks a page with a labelled rule rather than a
+ * full heading.
+ */
+interface Props {
+  label?: string;
+  class?: string;
+}
+const { label, class: className } = Astro.props;
+---
+{label ? (
+  <div class={`sp-rule sp-rule--labelled ${className ?? ''}`.trim()} role="separator">
+    <span class="label">{label}</span>
+  </div>
+) : (
+  <hr class={`sp-rule ${className ?? ''}`.trim()} />
+)}
+
+<style>
+  .sp-rule {
+    border: 0;
+    border-top: 1px solid var(--mist);
+    margin: var(--s4) 0;
+  }
+  .sp-rule--labelled {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: var(--s4) 0;
+  }
+  .sp-rule--labelled::before,
+  .sp-rule--labelled::after {
+    content: '';
+    flex: 1;
+    border-top: 1px solid var(--mist);
+  }
+  .sp-rule--labelled .label {
+    padding: 0 var(--s2);
+    /* .label already sets Archivo/uppercase/tracking (public/styles/base.css) */
+  }
+</style>

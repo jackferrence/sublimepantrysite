@@ -14,6 +14,7 @@ import ComparisonTable from '../components/blocks/ComparisonTable.astro';
 import SpecSheet from '../components/blocks/SpecSheet.astro';
 import PullQuote from '../components/blocks/PullQuote.astro';
 import Aside from '../components/blocks/Aside.astro';
+import Rule from '../components/blocks/Rule.astro';
 import { CATALOG } from '../lib/commerce.ts';
 
 // Sample data for the Phase 3 guide blocks below — real SKU handles from
@@ -40,7 +41,16 @@ const sampleTestedProducts = [
 
   <section aria-labelledby="ds-type"><h2 id="ds-type">Type</h2><p class="kicker">Source checked · 09 September 2026</p><h3>An editorial display</h3><p class="lede">Leads stay within a readable 45–60 character measure.</p><p>This body copy uses Source Sans 3 at a fluid size and a generous reading line-height. Article measures remain close to 62–72 characters.</p></section>
 
-  <section aria-labelledby="ds-controls"><h2 id="ds-controls">Controls</h2><div class="control-row"><a class="btn btn-primary" href="#states">Primary action</a><a class="btn btn-secondary" href="#states">Secondary action</a><a href="#states">Inline link</a></div><label>Email address <input type="email" placeholder="you@example.com" /></label></section>
+  <section aria-labelledby="ds-controls"><h2 id="ds-controls">Controls</h2><div class="control-row"><a class="btn btn-primary" href="#states">Primary action</a><a class="btn btn-secondary" href="#states">Secondary action</a><a href="#states">Inline link</a></div><label>Email address <input type="email" placeholder="you@example.com" /></label>
+    <label for="ds-error-example">Email address (error state)</label>
+    <input id="ds-error-example" type="email" value="not-an-email" aria-invalid="true" aria-describedby="ds-error-message" />
+    <p class="field-error" id="ds-error-message">
+      <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5" /><line x1="8" y1="4.5" x2="8" y2="9" stroke="currentColor" stroke-width="1.5" /><circle cx="8" cy="11.5" r="0.9" fill="currentColor" /></svg>
+      Enter a valid email address.
+    </p>
+    <Rule />
+    <Rule label="or" />
+  </section>
 
   <section id="states" aria-labelledby="ds-states"><h2 id="ds-states">Evidence and states</h2><div class="notice"><strong>What we could verify.</strong> The source and date are visible beside the decision.</div><div class="state-grid"><div class="field-note"><span class="kicker">Field note 04</span><h3>Fits this job</h3><p>Specific operational guidance lives directly on the paper field, bounded by a rule rather than another floating card.</p></div><div class="error" role="alert"><strong>Could not calculate.</strong><p>Check the labeled fields; the previous values remain available.</p></div></div></section>
 
