@@ -6,6 +6,7 @@ import EditorialToolLink from '../components/EditorialToolLink.astro';
 import Newsletter from '../components/Newsletter.astro';
 import Img from '../components/Img.astro';
 import Packshot from '../components/figures/Packshot.astro';
+import SublimationCurve from '../components/figures/SublimationCurve.astro';
 import { CATALOG, SHIPPING } from '../lib/commerce';
 import { liveTools, homepageTool } from '../lib/tools';
 const articles = await getCollection('articles');
@@ -22,9 +23,12 @@ const routes = [
   <div class="wrap home-publication">
     <header class="publication-intro">
       <span class="kicker">The home freeze-drying field guide</span>
-      <h1>A better handle<br />on every batch.</h1>
+      <h1><span class="sp-ghost" data-ghost-text="A better handle">A better handle</span><br /><span class="sp-ghost" data-ghost-text="on every batch.">on every batch.</span></h1>
       <div class="intro-note"><p>Practical answers for the work between loading the trays and sealing the bag. Sources you can follow. Limits made clear.</p><a href="/editorial-standards">How we publish <span aria-hidden="true">↗</span></a></div>
     </header>
+    <section class="hero-figure" aria-label="How freeze-drying works">
+      <SublimationCurve />
+    </section>
     <section aria-label="Current field guide"><EditorialListing entries={lead} leadId="complete-batch-workflow" /></section>
     <section class="pathways" aria-labelledby="pathways-heading">
       <div class="section-label"><span class="kicker">Find your next step</span><h2 id="pathways-heading">What is on<br />your bench?</h2></div>
@@ -47,6 +51,12 @@ const routes = [
 <style>
 .home-publication { padding-top:var(--s5); }
 .publication-intro { display:grid; grid-template-columns:1.35fr 1fr; column-gap:var(--s6); align-items:end; }
+/* docs/CLAUDE-CODE-PROMPT.md T4.1: the diagram, not a stock photo or a
+   carousel, at 16:9. SublimationCurve's own viewBox isn't quite 16:9, so
+   the wrapper sets the ratio and the SVG fills it (preserveAspectRatio's
+   default "meet" keeps the drawing centred and uncropped either way). */
+.hero-figure { aspect-ratio: 16 / 9; max-width: 48rem; margin: var(--s5) auto; padding: var(--s3); border: 1px solid var(--mist); }
+.hero-figure :global(svg) { width: 100%; height: 100%; }
 .publication-intro>.kicker { grid-column:1/-1; margin-bottom:var(--s3); }
 .publication-intro h1 { font-size:clamp(3.4rem,7.3vw,6.5rem); line-height:.98; letter-spacing:-.045em; margin:0; }
 .intro-note { max-width:39ch; padding-bottom:.5rem; }.intro-note p { font-size:1.15rem; line-height:1.5; margin:0 0 var(--s2); }
