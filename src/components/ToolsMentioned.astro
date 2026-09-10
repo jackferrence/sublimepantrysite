@@ -34,7 +34,7 @@ const mentioned = CATALOG.filter(
     <ol class="product-continuations">
       {mentioned.map((product) => (
         <li>
-          {product.image && <a class="continuation-image" href={product.detailsHref ?? '/shop'} tabindex="-1" aria-hidden="true"><Img src={product.image} alt="" width={160} height={160} fit="contain" /></a>}
+          {product.image && <a class="continuation-image" href={product.detailsHref ?? '/shop'} tabindex="-1" aria-hidden="true"><Img src={product.image} alt="" width={160} height={160} /></a>}
           <div><span class="kicker">Sold by Sublime Pantry</span><h3><a href={product.detailsHref ?? '/shop'}>{product.title}</a></h3><p>{product.note}</p><p class="meta">{product.displayPrice} · {SHIPPING.shortNote}</p></div>
         </li>
       ))}

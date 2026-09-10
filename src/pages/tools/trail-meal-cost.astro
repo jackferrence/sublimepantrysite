@@ -687,7 +687,7 @@ const defaultPer500 = costPer500Kcal(defaultResult.totalUsd, DEFAULT_CALORIES) a
       }
 
       if (on) {
-        if (high.electricityPerBatchUsd === null) {
+        if (high.electricityPerBatchUsd === null || high.electricityPerMealUsd === null) {
           setNotPublished('out-elec', 'Enter hours, rate and meals per batch');
           setText('out-elec-formula', 'kW × hours × rate ÷ meals per batch');
         } else {
@@ -698,7 +698,7 @@ const defaultPer500 = costPer500Kcal(defaultResult.totalUsd, DEFAULT_CALORIES) a
           const perMeal =
             isRange && low.electricityPerMealUsd !== null
               ? usd(low.electricityPerMealUsd) + '–' + usd(high.electricityPerMealUsd)
-              : usd(high.electricityPerMealUsd!);
+              : usd(high.electricityPerMealUsd);
           setValue('out-elec', perMeal + ' per meal');
           setText(
             'out-elec-formula',

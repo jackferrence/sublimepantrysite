@@ -36,7 +36,7 @@ const routes = [
     <section class="shop-shelf" aria-labelledby="shop-heading">
       <div class="section-head"><div><span class="kicker">From our own stock</span><h2 id="shop-heading">Ready for packaging.</h2></div><a class="btn-text" href="/shop">Visit the small shop →</a></div>
       <p class="shop-note">Choose packaging after checking the food. A bag and an absorber do not finish an under-dried batch.</p>
-      <ul class="product-shelf">{CATALOG.slice(0,3).map(product => <li><a class="product-picture" href={product.detailsHref ?? '/shop'}><Img src={product.image} alt={product.imageAlt} width={600} height={600} fit="contain" /></a><span class="kicker">Sold by Sublime Pantry</span><h3><a href={product.detailsHref ?? '/shop'}>{product.title}</a></h3><p>{product.displayPrice}</p></li>)}</ul>
+      <ul class="product-shelf">{CATALOG.slice(0,3).map(product => <li><a class="product-picture" href={product.detailsHref ?? '/shop'}><Img src={product.image} alt={product.imageAlt} width={600} height={600} /></a><span class="kicker">Sold by Sublime Pantry</span><h3><a href={product.detailsHref ?? '/shop'}>{product.title}</a></h3><p>{product.displayPrice}</p></li>)}</ul>
       <p class="meta">{SHIPPING.shortNote}</p>
     </section>
     <section class="evidence-note" aria-labelledby="evidence-heading"><span class="kicker">A note on the evidence</span><div><h2 id="evidence-heading">Read the sources.<br />Know the limits.</h2><p>Written and edited by <a href="/about">Jack Ferrence</a>. Our machine comparisons assess published specifications and documentation. <strong>We have not bench-tested freeze dryers.</strong></p><p><a href="/review-methodology">Review methodology</a> · <a href="/corrections">Public corrections</a></p></div></section>
