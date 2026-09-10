@@ -168,21 +168,21 @@ ${darkBlock}
 /* The offset "ghost" second copy — see BRAND.md § The ghost and
    docs/CLAUDE-CODE-PROMPT.md Appendix B. Ice on paper; rust when the element
    itself sits on an ice ground (wrap it in .sp-on-ice). Never under 24px,
-   never on body text, nav, buttons, or links. */
+   never on body text, nav, buttons, or links.
+
+   This must be \`text-shadow\`, not an absolutely-positioned \`::after\` with
+   \`content: attr(data-ghost-text)\`. The ghost is applied to inline spans
+   (the hero H1 wraps across several lines), and \`position: absolute\` on a
+   pseudo-element of a fragmented inline anchors to a single fragment — it
+   does not track each wrapped line. The visible symptom was a full second
+   copy of the whole span rendered as one extra block below the real lines,
+   not a subtle per-line offset. \`text-shadow\` is resolved per glyph, so it
+   follows the actual wrapped line boxes correctly. */
 .sp-ghost {
-  position: relative;
+  text-shadow: 0.03em 0.045em 0 var(--sp-color-surface-ice);
 }
-.sp-ghost::after {
-  content: attr(data-ghost-text);
-  position: absolute;
-  inset-inline-start: 0.03em;
-  inset-block-start: 0.045em;
-  z-index: -1;
-  color: var(--sp-color-surface-ice);
-  pointer-events: none;
-}
-.sp-on-ice.sp-ghost::after {
-  color: var(--sp-color-action-primary);
+.sp-on-ice.sp-ghost {
+  text-shadow: 0.03em 0.045em 0 var(--sp-color-action-primary);
 }
 `;
 
