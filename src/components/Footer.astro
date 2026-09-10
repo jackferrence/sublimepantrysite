@@ -71,10 +71,14 @@ const archive = live([NEWSLETTER_ARCHIVE])[0] ?? null;
   @media (min-width: 1000px) { .footer-columns { grid-template-columns: repeat(3, minmax(0, 1fr)) 1.6fr; } }
 
   .footer-brand {
-    display: flex; align-items: center; gap: .6rem; min-height: 44px;
+    display: flex; align-items: center; gap: .6rem; min-height: var(--sp-size-control);
     font-family: var(--font-body); font-size: 1.35rem; font-weight: 600;
     color: var(--ink); text-decoration: none;
   }
+  /* min-width: 120px is BRAND.md § Typeface's own stated rule ("the
+     wordmark ... never narrower than 120px"), not an arbitrary spacing
+     choice — a token would obscure exactly the number the brand doc names. */
+  /* stylelint-disable-next-line unit-disallowed-list */
   .footer-brand img { width: min(300px, 100%); min-width: 120px; height: auto; }
   .footer-line { margin: var(--s2) 0 0; color: var(--ink-soft); font-size: .92rem; }
   .footer-pitch { margin-top: .35rem; max-width: 34ch; }
@@ -87,7 +91,12 @@ const archive = live([NEWSLETTER_ARCHIVE])[0] ?? null;
   .site-footer ul { list-style: none; margin: 0; padding: 0; }
   .site-footer li { margin: 0; }
   .site-footer li a {
-    display: inline-flex; align-items: center; min-height: 32px;
+    display: inline-flex; align-items: center;
+    /* stylelint-disable-next-line unit-disallowed-list -- a dense footer
+       link list, not a primary control; --sp-size-control (44px) would
+       roughly double this directory's height for no benefit, and no
+       space-scale step lands between 24 and 32. */
+    min-height: 32px;
     color: var(--ink-soft); text-decoration: none; font-size: .92rem;
   }
   .site-footer li a:hover { color: var(--brand); text-decoration: underline; }

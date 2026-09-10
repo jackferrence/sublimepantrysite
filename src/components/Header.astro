@@ -172,7 +172,7 @@ const menuId = (label: string) => `nav-menu-${label.toLowerCase()}`;
   .header-row {
     display: flex; align-items: center; gap: var(--s3);
     max-width: var(--wrap); margin-inline: auto; padding-inline: var(--s3);
-    min-height: 72px;
+    min-height: var(--sp-space-6);
   }
 
   .header-main {
@@ -202,7 +202,7 @@ const menuId = (label: string) => `nav-menu-${label.toLowerCase()}`;
   .site-nav > ul { display: flex; gap: var(--s3); list-style: none; margin: 0; padding: 0; }
   .site-nav > ul > li { margin: 0; }
   .site-nav a, .nav-trigger {
-    display: flex; align-items: center; min-height: 44px; padding: .5rem 0;
+    display: flex; align-items: center; min-height: var(--sp-size-control); padding: .5rem 0;
     color: var(--ink-soft); text-decoration: none; font-size: .95rem;
     border-bottom: 2px solid transparent;
   }
@@ -240,7 +240,13 @@ const menuId = (label: string) => `nav-menu-${label.toLowerCase()}`;
   .nav-menu li { margin: 0; }
   .nav-menu a {
     padding: .55rem var(--s2);
-    display: flex; align-items: center; min-height: 40px;
+    display: flex; align-items: center;
+    /* stylelint-disable-next-line unit-disallowed-list -- a secondary
+       disclosure-menu row, not a primary control (--sp-size-control is
+       44px for those); no token in the 8px space scale lands here without
+       either shrinking the tap target below 40px or inflating this menu
+       taller than the design calls for. */
+    min-height: 40px;
     border-bottom: 0; white-space: nowrap;
   }
   .nav-menu a:hover { background: var(--brand-tint); color: var(--ink); }
@@ -276,13 +282,21 @@ const menuId = (label: string) => `nav-menu-${label.toLowerCase()}`;
   .icon-button {
     position: relative;
     display: inline-flex; align-items: center; justify-content: center;
-    min-width: 44px; min-height: 44px;
+    min-width: var(--sp-size-control); min-height: var(--sp-size-control);
     background: none; border: 0; border-radius: var(--radius);
     color: var(--ink); cursor: pointer;
     transition: color 150ms linear;
   }
   .icon-button:hover { color: var(--brand); }
 
+  /* A numeral badge sized to its own content, positioned inside a 44px
+     icon button (.icon-button, above) — every value here is a fraction of
+     that button's own box, not a spacing decision, and none of the 8px
+     space-scale steps fit a badge this small without either clipping it
+     or pushing it visibly off the button corner. stylelint-disable for
+     the block, not line-by-line, since every px value in it is the same
+     kind of exception. */
+  /* stylelint-disable unit-disallowed-list */
   .cart-count {
     position: absolute; top: 6px; right: 4px;
     min-width: 18px; height: 18px; padding: 0 4px;
@@ -291,6 +305,7 @@ const menuId = (label: string) => `nav-menu-${label.toLowerCase()}`;
     background: var(--brand); color: var(--surface);
     font-size: .68rem; font-weight: 700; font-variant-numeric: tabular-nums;
   }
+  /* stylelint-enable unit-disallowed-list */
 
   /* --- Overlays --- */
   .search-panel {
@@ -323,7 +338,7 @@ const menuId = (label: string) => `nav-menu-${label.toLowerCase()}`;
   .nav-drawer-list { list-style: none; margin: 0; padding: 0; }
   .nav-drawer-list li { margin: 0; border-top: 1px solid var(--mist); }
   .nav-drawer-list a {
-    display: flex; align-items: center; min-height: 48px;
+    display: flex; align-items: center; min-height: var(--sp-space-5);
     color: var(--ink); text-decoration: none;
   }
   /* Two states, deliberately different weights: you are *on* this page, or
