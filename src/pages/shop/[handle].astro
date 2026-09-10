@@ -23,6 +23,7 @@ import Newsletter from '../../components/Newsletter.astro';
 import StickyBuyBar from '../../components/StickyBuyBar.astro';
 import ProductGallery from '../../components/ProductGallery.astro';
 import EditorialToolLink from '../../components/EditorialToolLink.astro';
+import SpecSheet from '../../components/blocks/SpecSheet.astro';
 import {
   LINE_LABEL,
   SHIPPING,
@@ -215,6 +216,18 @@ const faqSchema = {
           </ul>
         </div>
       </section>
+
+      {/* docs/CLAUDE-CODE-PROMPT.md T4.4/T3.7. Only rendered when at least
+          one real spec exists (src/lib/commerce.ts's `specs` field — every
+          value there is copied from a fact this same product already
+          states above, nothing invented) — a product with none yet doesn't
+          get a SpecSheet full of em dashes. */}
+      {product.specs && Object.values(product.specs).some(Boolean) && (
+        <section aria-labelledby="specs-heading">
+          <h2 id="specs-heading">Specs</h2>
+          <SpecSheet productHandle={product.handle} />
+        </section>
+      )}
 
       <section>
         <h2>Highlights</h2>
