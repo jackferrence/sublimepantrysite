@@ -1,5 +1,8 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
+import Packshot from '../components/figures/Packshot.astro';
+import OxygenIndicator from '../components/figures/OxygenIndicator.astro';
+import { CATALOG } from '../lib/commerce.ts';
 ---
 <PageLayout title="Design system" description="Internal visual quality-assurance reference." path="/design-system" width="wrap" breadcrumbs={[{ label: 'Design system', href: '/design-system' }]} noindex>
   <span class="kicker">Internal reference · noindex</span>
@@ -17,6 +20,21 @@ import PageLayout from '../layouts/PageLayout.astro';
   <section id="states" aria-labelledby="ds-states"><h2 id="ds-states">Evidence and states</h2><div class="notice"><strong>What we could verify.</strong> The source and date are visible beside the decision.</div><div class="state-grid"><div class="field-note"><span class="kicker">Field note 04</span><h3>Fits this job</h3><p>Specific operational guidance lives directly on the paper field, bounded by a rule rather than another floating card.</p></div><div class="error" role="alert"><strong>Could not calculate.</strong><p>Check the labeled fields; the previous values remain available.</p></div></div></section>
 
   <section aria-labelledby="ds-table"><h2 id="ds-table">Data</h2><div class="table-scroll" tabindex="0" role="region" aria-label="Sample absorber data"><table><thead><tr><th scope="col">Container</th><th scope="col">Known capacity</th><th scope="col">Source state</th></tr></thead><tbody><tr><th scope="row">Pint bag</th><td>100cc</td><td>Published</td></tr><tr><th scope="row">Unknown vessel</th><td>—</td><td>Not published</td></tr></tbody></table></div></section>
+
+  <section aria-labelledby="ds-figures">
+    <h2 id="ds-figures">Figures</h2>
+    <p class="kicker">docs/CLAUDE-CODE-PROMPT.md T2.4 · no original photography yet</p>
+    <p>Flat vector packshots for the 8 SKUs, and the first of five technical diagrams. See docs/DECISIONS.md for which four diagrams remain.</p>
+    <div class="packshot-grid">
+      {CATALOG.map((product) => (
+        <figure class="packshot-cell">
+          <Packshot sku={product.handle} title={product.shortTitle} />
+          <figcaption class="label">{product.shortTitle}</figcaption>
+        </figure>
+      ))}
+    </div>
+    <OxygenIndicator />
+  </section>
 </PageLayout>
 <style>
   section { margin-block: var(--s6); }
@@ -27,4 +45,8 @@ import PageLayout from '../layouts/PageLayout.astro';
   label { display:block;max-width:28rem }
   .state-grid { display:grid;gap:var(--s4);grid-template-columns:repeat(auto-fit,minmax(18rem,1fr));margin-top:var(--s4) }
   .field-note,.error { border-top:1px solid var(--ink);padding-top:var(--s2) }.error{border-color:var(--color-semantic-danger)}
+  .packshot-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(9rem,1fr)); gap:var(--s3); margin-block:var(--s4); }
+  .packshot-cell { margin:0; border:1px solid var(--mist); padding:var(--s2); text-align:center; }
+  .packshot-cell svg { width:100%; height:auto; aspect-ratio:1/1; }
+  .packshot-cell figcaption { margin-top:var(--s1); }
 </style>
