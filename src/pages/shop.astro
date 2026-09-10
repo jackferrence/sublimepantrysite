@@ -15,6 +15,7 @@
 import PageLayout from '../layouts/PageLayout.astro';
 import Icon from '../components/Icon.astro';
 import Img from '../components/Img.astro';
+import Packshot from '../components/figures/Packshot.astro';
 import Newsletter from '../components/Newsletter.astro';
 import {
   LINE_ORDER,
@@ -56,8 +57,8 @@ const groups = LINE_ORDER.map((line) => ({
       <div class="supply-shelf">
         {group.products.map((product) => (
           <article class:list={['product-card', { 'product-card--bundle': product.line === 'bundle' }] }>
-            {product.image && (
-              <div class="product-card-media">
+            <div class="product-card-media">
+              {product.image ? (
                 <Img
                   src={product.image}
                   alt={product.imageAlt}
@@ -66,8 +67,17 @@ const groups = LINE_ORDER.map((line) => ({
                   sizes="(min-width: 900px) 22rem, 100vw"
                   class="product-card-img"
                 />
-              </div>
-            )}
+              ) : (
+                /* No product photography yet for this SKU — see
+                   docs/DECISIONS.md's fold-forward note from the retired
+                   ART-DIRECTION.md — a vector packshot (T2.4) instead of
+                   an empty media slot. Found missing here specifically by
+                   actually looking at a T5.5 screenshot, not by axe or
+                   Lighthouse: an image simply absent (rather than present
+                   with no accessible name) trips neither. */
+                <Packshot sku={product.handle} title={product.shortTitle} class="product-card-packshot" />
+              )}
+            </div>
 
             <div class="product-card-body">
               <span class="kicker">{ownedEyebrow(product)}</span>
@@ -143,6 +153,7 @@ const groups = LINE_ORDER.map((line) => ({
   .product-card--bundle { grid-template-columns: minmax(12rem, .85fr) minmax(0, 1.15fr); background: var(--color-semantic-warm); padding-inline: var(--s3); }
   .product-card-media { aspect-ratio: 4 / 5; background: var(--surface); }
   .product-card-media :global(.product-card-img) { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .product-card-media :global(.product-card-packshot) { width: 60%; height: 60%; margin: 20% auto; display: block; }
 
   .product-card-body { padding: var(--s2) var(--s3) var(--s2) 0; display: flex; flex-direction: column; gap: var(--s1); }
   .product-card-body h3 { margin: 0; font-size: var(--h3); }

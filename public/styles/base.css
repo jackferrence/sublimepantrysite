@@ -407,6 +407,17 @@ p .btn-text, li .btn-text { display: inline; min-height: 0; }
   margin: var(--s3) 0;
 }
 .notice > :last-child { margin-bottom: 0; }
+/* A link inside a .notice box (src/pages/shop.astro's shipping notice is a
+   real instance) is NOT covered by the fix above: the site-wide `a { color:
+   var(--brand) }` rule is more specific to the anchor than `.notice`'s own
+   color is, and --brand IS scheme-aware (dark mode: #C97A45), so it hit the
+   exact same "scheme-aware colour on a scheme-invariant ice ground" bug —
+   2.21:1 in dark mode, found the same way (T5.2's Lighthouse run) as the
+   first .notice bug, just on a different page. Pin the link colour to the
+   light-mode rust specifically (--sp-color-rust, a global, non-scheme-aware
+   token: 4.54:1 on ice, just clears AA) rather than the scheme-varying
+   semantic action colour. */
+.notice a { color: var(--sp-color-rust); }
 
 /* A correction is not an explainer. Same frame, the one accent on the rule, so a
    reader scanning a page cannot mistake a retracted claim for methodology. */

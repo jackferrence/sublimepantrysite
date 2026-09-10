@@ -30,3 +30,9 @@ playwright-report/
 
 # Lighthouse CI run artifacts (T5.2).
 .lighthouseci/
+
+# T5.5 visual-review screenshots (scripts/screenshot-templates.mjs) — 38MB
+# for one run across 5 templates x 4 widths x 2 schemes; regenerable on
+# demand, not something to keep committing new versions of on every design
+# change. The script that produces them is the durable artifact.
+docs/screens/

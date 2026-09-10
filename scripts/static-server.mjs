@@ -34,8 +34,19 @@ const TYPES = {
 
 async function resolve(urlPath) {
   const clean = urlPath.split('?')[0];
+  // Astro's build output here is flat files (dist/guides/foo.html), not
+  // dist/guides/foo/index.html — so a trailing-slash request
+  // (/guides/foo/, the canonical form every internal link on the site
+  // uses per src/layouts/BaseLayout.astro's canonicalPath) has to try the
+  // slash-stripped `.html` file too, not just an index.html that doesn't
+  // exist. Missing this candidate silently served the 404 page for every
+  // trailing-slash URL and both tests/a11y/axe.spec.ts and
+  // scripts/screenshot-templates.mjs were built against trailing-slash
+  // URLs — caught by actually looking at a screenshot (T5.5), not by axe
+  // or Lighthouse, both of which happily passed against the 404 page.
+  const withoutSlash = clean.endsWith('/') ? clean.slice(0, -1) : clean;
   const candidates = clean.endsWith('/')
-    ? [`${clean}index.html`]
+    ? [`${clean}index.html`, `${withoutSlash}.html`]
     : [clean, `${clean}.html`, `${clean}/index.html`];
   for (const candidate of candidates) {
     const filePath = new URL('.' + candidate, ROOT);
