@@ -24,6 +24,7 @@ import StickyBuyBar from '../../components/StickyBuyBar.astro';
 import ProductGallery from '../../components/ProductGallery.astro';
 import EditorialToolLink from '../../components/EditorialToolLink.astro';
 import SpecSheet from '../../components/blocks/SpecSheet.astro';
+import WhoFor from '../../components/blocks/WhoFor.astro';
 import {
   LINE_LABEL,
   SHIPPING,
@@ -218,6 +219,16 @@ const faqSchema = {
     </div>
 
     <div class="pdp-body">
+      {/* docs/CLAUDE-CODE-PROMPT.md T4.4: "Bundles add a 'Who this kit is
+          for / isn't for' block from metafields." Gated on the product
+          actually having the data (only the two bundle SKUs do, per the
+          commerce.ts note on the whoFor/whoNotFor fields — every line
+          extracted from that product's own existing copy, same discipline
+          as the specs field). */}
+      {product.line === 'bundle' && ((product.whoFor?.length ?? 0) > 0 || (product.whoNotFor?.length ?? 0) > 0) && (
+        <WhoFor whoFor={product.whoFor ?? []} whoNotFor={product.whoNotFor ?? []} />
+      )}
+
       <section class="two-up">
         <div>
           <h2>What's included</h2>

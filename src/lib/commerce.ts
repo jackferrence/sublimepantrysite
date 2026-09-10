@@ -143,6 +143,18 @@ export interface CatalogProduct {
     sealType?: string;
     bagSizeFits?: string;
   };
+  /**
+   * docs/CLAUDE-CODE-PROMPT.md T4.4: "who this kit is for / isn't for",
+   * bundle products only. Same discipline as `specs` above — every line
+   * is a fact or a direct logical consequence of a fact this same
+   * record's own `note`/`highlights`/`faq` already states (e.g. "the set
+   * includes a sealer" -> "skip it if you already own one" is the same
+   * inference the Season Set's own FAQ already draws about itself;
+   * applied here to both bundles since both literally include a sealer).
+   * Nothing here asserts a fact no catalog copy supports.
+   */
+  whoFor?: string[];
+  whoNotFor?: string[];
 }
 
 /** Shop section order. Only groups with products in them are rendered. */
@@ -389,6 +401,14 @@ const CATALOG_RECORDS: CatalogProduct[] = [
     ],
     relatedArticles: ['complete-batch-workflow', 'storage-failure', 'storage-containers'],
     specs: { mil: '4.3', dimensions: '6" × 6"', capacityCc: '100cc', sealType: 'Hand-held HM-150' },
+    whoFor: [
+      'You are sealing your first fifty bags and do not already own a sealer',
+      'You want the absorber size already matched to the bag, with nothing to work out',
+      'You would rather place one order than shop bags, absorbers and a sealer separately',
+    ],
+    whoNotFor: [
+      'You already own a heat sealer — the bag pack alone is the cheaper route',
+    ],
   },
   {
     handle: 'season-set-100-bags-100-absorbers-sealer',
@@ -434,6 +454,15 @@ const CATALOG_RECORDS: CatalogProduct[] = [
     ],
     relatedArticles: ['complete-batch-workflow', 'storage-failure', 'storage-containers'],
     specs: { mil: '4.3', dimensions: '6" × 6"', capacityCc: '100cc', sealType: 'Hand-held HM-150' },
+    whoFor: [
+      'You are sealing a hundred bags and running several foods to find out which sizes you use',
+      'You want the absorber size already matched to the bag, with nothing to work out',
+      'You would rather place one order than shop bags, absorbers and a sealer separately',
+    ],
+    whoNotFor: [
+      'You already own a heat sealer — the bag packs on their own are the cheaper route',
+      'You only need fifty bags or fewer — see the Starter Set',
+    ],
   },
   {
     handle: 'quart-bags-8x12-50-pack-300cc-absorbers',
