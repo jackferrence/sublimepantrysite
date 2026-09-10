@@ -1,0 +1,70 @@
+---
+/**
+ * docs/CLAUDE-CODE-PROMPT.md T3.4. "What we tested — and didn't", built
+ * from a guide's `testedProducts[]` (the .note field) and `notTested[]`
+ * (src/content.config.ts). Prose, no icons, hairline rules above and below.
+ */
+import { CATALOG } from '../../lib/commerce.ts';
+
+interface TestedProduct {
+  productHandle: string;
+  note: string;
+}
+interface NotTested {
+  name: string;
+  reason: string;
+}
+interface Props {
+  testedProducts: TestedProduct[];
+  notTested: NotTested[];
+}
+const { testedProducts, notTested } = Astro.props;
+---
+{(testedProducts.length > 0 || notTested.length > 0) && (
+  <section class="honesty-block" aria-labelledby="honesty-block-heading">
+    <p class="label" id="honesty-block-heading">What we tested — and didn't</p>
+    <div class="honesty-columns">
+      {testedProducts.length > 0 && (
+        <div>
+          <h4>Tested</h4>
+          <ul>
+            {testedProducts.map((item) => {
+              const product = CATALOG.find((p) => p.handle === item.productHandle);
+              return (
+                <li>
+                  <strong>{product?.shortTitle ?? item.productHandle}</strong> — {item.note}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
+      {notTested.length > 0 && (
+        <div>
+          <h4>Not tested</h4>
+          <ul>
+            {notTested.map((item) => (
+              <li><strong>{item.name}</strong> — {item.reason}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  </section>
+)}
+
+<style>
+  .honesty-block {
+    border-block: 1px solid var(--mist);
+    padding-block: var(--s3);
+    margin-block: var(--s5);
+  }
+  .honesty-columns { display: grid; gap: var(--s3); margin-top: var(--s2); }
+  .honesty-columns h4 { margin: 0 0 var(--s1); }
+  .honesty-columns ul { margin: 0; padding-inline-start: 1.2em; }
+  .honesty-columns li + li { margin-top: .35rem; }
+
+  @media (min-width: 720px) {
+    .honesty-columns { grid-template-columns: 1fr 1fr; }
+  }
+</style>

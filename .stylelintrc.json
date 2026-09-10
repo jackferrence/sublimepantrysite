@@ -21,6 +21,8 @@
           "px": [
             "border", "border-width", "border-top", "border-right", "border-bottom", "border-left",
             "border-top-width", "border-right-width", "border-bottom-width", "border-left-width",
+            "border-block", "border-inline", "border-block-start", "border-block-end",
+            "border-inline-start", "border-inline-end", "border-block-width", "border-inline-width",
             "outline", "outline-width", "outline-offset", "stroke-width",
             "box-shadow", "text-underline-offset", "/^--shadow/", "scroll-padding-top"
           ]

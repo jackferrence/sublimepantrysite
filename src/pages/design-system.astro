@@ -2,7 +2,25 @@
 import PageLayout from '../layouts/PageLayout.astro';
 import Packshot from '../components/figures/Packshot.astro';
 import OxygenIndicator from '../components/figures/OxygenIndicator.astro';
+import VerdictBox from '../components/blocks/VerdictBox.astro';
+import WhoFor from '../components/blocks/WhoFor.astro';
+import LimitationsCallout from '../components/blocks/LimitationsCallout.astro';
+import HonestyBlock from '../components/blocks/HonestyBlock.astro';
+import ComparisonTable from '../components/blocks/ComparisonTable.astro';
 import { CATALOG } from '../lib/commerce.ts';
+
+// Sample data for the Phase 3 guide blocks below — real SKU handles from
+// CATALOG, invented "why"/spec text clearly scoped to this QA page. None of
+// this is published guide content; it exists only to prove the components
+// render against the real schema shape from src/content.config.ts.
+// pricePerUnit deliberately omitted here (renders "—"): src/lib/commerce.ts
+// is the one place a Sublime Pantry price is allowed to live
+// (tests/claim-shapes.test.mjs enforces this), and per-unit math derived
+// from it belongs in the real component/guide, not invented for this QA page.
+const sampleTestedProducts = [
+  { productHandle: 'quart-bags-8x12-50-pack-300cc-absorbers', mil: '7', capacityCc: '300cc', sealType: 'Heat seal', foodSafeCert: 'FDA-compliant film', note: 'QA sample row — not a published verdict.' },
+  { productHandle: 'snack-bags-6x6-50-pack-absorbers', mil: '4.3', capacityCc: '100cc', sealType: 'Heat seal', foodSafeCert: 'FDA-compliant film', note: 'QA sample row — not a published verdict.' },
+];
 ---
 <PageLayout title="Design system" description="Internal visual quality-assurance reference." path="/design-system" width="wrap" breadcrumbs={[{ label: 'Design system', href: '/design-system' }]} noindex>
   <span class="kicker">Internal reference · noindex</span>
@@ -34,6 +52,30 @@ import { CATALOG } from '../lib/commerce.ts';
       ))}
     </div>
     <OxygenIndicator />
+  </section>
+
+  <section aria-labelledby="ds-guide-blocks">
+    <h2 id="ds-guide-blocks">Guide blocks (Phase 3)</h2>
+    <p class="kicker">docs/CLAUDE-CODE-PROMPT.md T3.2, T3.3, T3.4, T3.5, T3.6 · sample data, not published content</p>
+    <p>Sold by Sublime Pantry. VerdictBox below renders a real CATALOG price — this line is the disclosure tests/claim-shapes.test.mjs requires on any page that does.</p>
+
+    <h3>VerdictBox</h3>
+    <VerdictBox label="Our pick" productHandle="quart-bags-8x12-50-pack-300cc-absorbers" why="QA sample — not a published verdict. Matched 300cc absorbers, no sizing math to do." />
+
+    <h3>WhoFor</h3>
+    <WhoFor whoFor={['You already own a freeze dryer and are packaging your first batches', 'You want bags matched to absorbers, not a sizing calculation']} whoNotFor={['You need bulk pricing above 100 units', 'You are packaging for commercial resale (see /start-selling)']} />
+
+    <h3>ComparisonTable</h3>
+    <ComparisonTable testedProducts={sampleTestedProducts} whyItMatters="Mil and cc rating are the two numbers that actually predict seal life — QA sample row." />
+
+    <h3>HonestyBlock</h3>
+    <HonestyBlock
+      testedProducts={sampleTestedProducts}
+      notTested={[{ name: 'Gallon-size bags', reason: 'Source quantity/spec mismatch not yet resolved — see docs/COMMERCE-ARCHITECTURE.md' }]}
+    />
+
+    <h3>LimitationsCallout</h3>
+    <LimitationsCallout limitations="QA sample text. This callout is required on every published guide that has tested products — see docs/CLAUDE-CODE-PROMPT.md T4.2." />
   </section>
 </PageLayout>
 <style>

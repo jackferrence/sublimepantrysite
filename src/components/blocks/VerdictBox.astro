@@ -1,0 +1,71 @@
+---
+/**
+ * docs/CLAUDE-CODE-PROMPT.md T3.2. One hairline-bordered box per entry in a
+ * guide's `verdicts[]` (src/content.config.ts): Eyebrow label, product name
+ * as an H3, one-sentence "why", tabular price, a text-link CTA, and a
+ * packshot. No shadow, no fill, no card chrome — identical structure every
+ * instance, per docs/CLAUDE-CODE-PROMPT.md Appendix A ("hairline rules
+ * instead of shadowed cards").
+ *
+ * Reads the product from src/lib/commerce.ts's CATALOG by handle rather
+ * than taking price/title as props, so a verdict can never state a price or
+ * name Shopify doesn't actually have — the same "Shopify owns the name"
+ * discipline commerce.ts's own `title` field comment describes.
+ */
+import Packshot from '../figures/Packshot.astro';
+import { CATALOG } from '../../lib/commerce.ts';
+
+interface Props {
+  label: 'Our pick' | 'Also good' | 'Budget pick';
+  productHandle: string;
+  why: string;
+}
+
+const { label, productHandle, why } = Astro.props;
+const product = CATALOG.find((p) => p.handle === productHandle);
+
+if (!product) {
+  throw new Error(`VerdictBox: no CATALOG product for handle "${productHandle}"`);
+}
+---
+<div class="verdict-box">
+  <div class="verdict-copy">
+    <p class="label">{label}</p>
+    <h3>{product.shortTitle}</h3>
+    <p class="why">{why}</p>
+    <p class="price">{product.displayPrice}</p>
+    <a class="btn-text" href={product.detailsHref ?? `/shop/${product.handle}`}>
+      Buy {product.shortTitle}
+    </a>
+  </div>
+  <div class="verdict-figure">
+    <Packshot sku={product.handle} title={product.shortTitle} />
+  </div>
+</div>
+
+<style>
+  .verdict-box {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: var(--s3);
+    padding: var(--s3);
+    border: 1px solid var(--mist);
+    margin-block: var(--s4);
+  }
+  .verdict-copy h3 { margin: var(--s1) 0; }
+  .verdict-copy .why { margin: 0 0 var(--s2); }
+  .verdict-copy .price {
+    font-family: var(--sp-font-family-ui);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--sp-font-size-step-1);
+    margin: 0 0 var(--s2);
+  }
+  .verdict-figure { max-width: 8rem; margin-inline: auto; }
+  .verdict-figure svg { width: 100%; height: auto; }
+
+  @media (min-width: 640px) {
+    .verdict-box { flex-direction: row; align-items: center; justify-content: space-between; }
+    .verdict-copy { flex: 1; }
+    .verdict-figure { flex: 0 0 auto; margin-inline: 0; order: 2; }
+  }
+</style>

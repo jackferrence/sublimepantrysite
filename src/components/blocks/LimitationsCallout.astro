@@ -1,0 +1,28 @@
+---
+/**
+ * docs/CLAUDE-CODE-PROMPT.md T3.5. Required on every guide that has a
+ * `limitations` field (src/content.config.ts). Inset ground, 2px left
+ * border in status-warn — which BRAND.md/tokens/semantic.*.tokens.json
+ * deliberately alias to rust rather than a separate yellow: "never yellow,
+ * never an exclamation icon" per the spec, and rust is already the one
+ * accent tied to "a verdict, a limitation, a warning" (Appendix A).
+ */
+interface Props {
+  limitations: string;
+}
+const { limitations } = Astro.props;
+---
+<aside class="limitations-callout">
+  <p class="label">What we haven't tested</p>
+  <p>{limitations}</p>
+</aside>
+
+<style>
+  .limitations-callout {
+    background: var(--sp-color-surface-inset);
+    border-inline-start: 2px solid var(--sp-color-status-warn);
+    padding: var(--s3);
+    margin-block: var(--s4);
+  }
+  .limitations-callout p:last-child { margin-bottom: 0; }
+</style>
