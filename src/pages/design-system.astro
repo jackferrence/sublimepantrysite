@@ -8,6 +8,8 @@ import LimitationsCallout from '../components/blocks/LimitationsCallout.astro';
 import HonestyBlock from '../components/blocks/HonestyBlock.astro';
 import ComparisonTable from '../components/blocks/ComparisonTable.astro';
 import SpecSheet from '../components/blocks/SpecSheet.astro';
+import PullQuote from '../components/blocks/PullQuote.astro';
+import Aside from '../components/blocks/Aside.astro';
 import { CATALOG } from '../lib/commerce.ts';
 
 // Sample data for the Phase 3 guide blocks below — real SKU handles from
@@ -81,6 +83,12 @@ const sampleTestedProducts = [
     <h3>SpecSheet</h3>
     <p>Real per-SKU facts, not sample data — every value here is copied from CATALOG. "—" means the catalog genuinely does not state that fact (see foodSafeCert).</p>
     <SpecSheet productHandle="quart-bags-8x12-50-pack-300cc-absorbers" />
+
+    <h3>PullQuote</h3>
+    <PullQuote text="Absorber size follows the air left in the bag, not the weight of the food." />
+
+    <h3>Aside (marginalia)</h3>
+    <p>Body copy runs alongside an Aside at 1100px+; below that it becomes an indented block. <Aside>A moisture meter is the only way to confirm "dry enough" — texture alone reads dry well before it is.</Aside> The rest of this paragraph keeps going so there is something for the float to sit beside.</p>
   </section>
 </PageLayout>
 <style>
