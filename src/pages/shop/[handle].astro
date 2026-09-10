@@ -31,6 +31,7 @@ import {
   SHOPIFY_PUBLIC_DOMAIN,
   OWNERSHIP_LABEL,
   ownedEyebrow,
+  MINI_SEALER_OFFER,
 } from '../../lib/commerce';
 import ProductReviews from '../../components/ProductReviews.astro';
 import { getProductReviews } from '../../lib/reviews';
@@ -196,6 +197,10 @@ const faqSchema = {
 
             <p class="buybox-ships"><Icon name="package" size={15} /> {SHIPPING.rule}</p>
 
+            {MINI_SEALER_OFFER.enabled && MINI_SEALER_OFFER.eligibleHandles.includes(product.handle) && (
+              <p class="buybox-offer"><Icon name="check-circle" size={15} /> {MINI_SEALER_OFFER.headline} {MINI_SEALER_OFFER.detail}</p>
+            )}
+
             <div class="commerce-fallback" data-commerce-fallback hidden>
               <p>Live pricing and checkout are temporarily unavailable on this page.</p>
               <a class="btn btn-secondary" href={`https://${SHOPIFY_PUBLIC_DOMAIN}/products/${product.handle}`} rel="noopener" data-sp-event="storefront_fallback_click" data-sp-props={trackProps}>View this product on our Shopify store</a>
@@ -349,6 +354,12 @@ const faqSchema = {
     display: flex; align-items: center; gap: .4rem;
     font-size: .9rem; color: var(--ink-soft);
   }
+  .buybox-offer {
+    margin: 0 0 var(--s3);
+    display: flex; align-items: center; gap: .4rem;
+    font-size: .9rem; color: var(--ink-soft);
+  }
+  .buybox-offer strong { color: var(--ink); font-weight: 700; }
 
   .pdp-body { margin-top: var(--s5); }
   .pdp-body section { margin-bottom: var(--s5); }

@@ -648,3 +648,33 @@ export const LAUNCH_OFFER = {
   headline: 'New here? Take 10% off your first order with WELCOME10.',
   detail: 'Applied at checkout.',
 } as const;
+
+/**
+ * The free-sealer offer, mirrored from the live Shopify discount
+ * (`FREESEAL20`, a "Buy X get Y" code) rather than typed from memory — the
+ * threshold, the eligible products and the free item all come from what is
+ * actually configured in Shopify, checked 2026-09-10.
+ *
+ * Unlike LAUNCH_OFFER, this is not passed to `<shopify-cart discount-codes>`.
+ * WELCOME10 already occupies that slot, and stacking two codes there without
+ * first confirming they are set to combine in Shopify risks a silently wrong
+ * total — worse than a shopper having to type the code once at checkout. This
+ * is informational only: it tells a shopper the offer exists and what
+ * qualifies; Shopify's own checkout is what validates and applies it.
+ */
+export const MINI_SEALER_OFFER = {
+  enabled: true,
+  code: 'FREESEAL20',
+  minimumSpend: 20,
+  /** Handles Shopify's `customerBuys` scopes this discount to. */
+  eligibleHandles: [
+    'snack-bags-6x6-50-pack-absorbers',
+    'snack-bags-6x6-100-pack-absorbers',
+    '100cc-oxygen-absorber-refill-100-count',
+    'starter-set-50-bags-50-absorbers-sealer',
+    'season-set-100-bags-100-absorbers-sealer',
+  ] as readonly string[],
+  freeHandle: 'mini-heat-sealer-for-mylar-bags',
+  headline: 'Spend $20 on bags or absorbers, get a Mini Heat Sealer free.',
+  detail: 'Enter code FREESEAL20 at checkout. One per customer.',
+} as const;
