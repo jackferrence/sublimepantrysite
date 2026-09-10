@@ -84,7 +84,8 @@ const organizationGraph = [
     <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
     <link rel="apple-touch-icon" href={BRAND.appIcon} />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#FAF8F4" />
+    <meta name="theme-color" content="#FAF8F4" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#15130F" media="(prefers-color-scheme: dark)" />
     <link rel="alternate" type="application/rss+xml" title="Sublime Pantry" href={`${site}/rss.xml`} />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta property="og:title" content={title} />
@@ -92,7 +93,11 @@ const organizationGraph = [
     <meta property="og:type" content={ogType} />
     <meta property="og:url" content={pageUrl} />
     <meta property="og:site_name" content="Sublime Pantry" />
-    <link rel="preload" href="/fonts/source-sans-3-latin-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <!-- Preload exactly one font file per docs/CLAUDE-CODE-PROMPT.md T1.5: the
+         Bodoni Moda Variable file the hero H1 renders in, since h1 is Bodoni
+         on every page (public/styles/base.css) and is the LCP text element
+         on most templates. -->
+    <link rel="preload" href="/fonts/bodoni-moda-variable-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/styles/base.css" />
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />

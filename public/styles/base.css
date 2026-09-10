@@ -74,9 +74,19 @@
 /* --- Reset ------------------------------------------------------------- */
 *, *::before, *::after { box-sizing: border-box; }
 
-/* stylelint-disable-next-line property-no-vendor-prefix -- no unprefixed
-   equivalent exists; this is deliberate Safari/iOS support, not a mistake. */
-html { -webkit-text-size-adjust: 100%; }
+html {
+  /* stylelint-disable-next-line property-no-vendor-prefix -- no unprefixed
+     equivalent exists; this is deliberate Safari/iOS support. */
+  -webkit-text-size-adjust: 100%;
+  /* Dark mode ships on prefers-color-scheme only, no toggle — see BRAND.md
+     § Palette. This is what makes native form controls, scrollbars, etc.
+     follow it too, not just the tokens. */
+  color-scheme: light dark;
+  /* The header is sticky (Header.astro, min-height: 72px) — per ground rule
+     8 / WCAG 2.2 "focus not obscured", a keyboard user tabbing to an anchor
+     target must not land underneath it. */
+  scroll-padding-top: 72px;
+}
 
 body {
   margin: 0;
