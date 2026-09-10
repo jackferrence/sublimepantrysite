@@ -126,6 +126,23 @@ export interface CatalogProduct {
    * inventory does the work; this says what a shopper can do about it.
    */
   stockNote?: string;
+  /**
+   * Structured specs for the SpecSheet component (docs/CLAUDE-CODE-PROMPT.md
+   * T3.7/T4.4). Every value here is copied from a fact this same record
+   * already states elsewhere (`note`, `whatsIncluded`, `faq`) — nothing is
+   * invented for this field. `foodSafeCert` is deliberately absent from
+   * every record: no catalog copy anywhere states a certification, so
+   * SpecSheet renders "—" for it rather than a claim nobody wrote down.
+   * docs/CLAUDE-CODE-PROMPT.md T6.2 lists filling real Shopify metafields
+   * (including foodSafeCert, if true) as a Jack-owned manual task.
+   */
+  specs?: {
+    mil?: string;
+    dimensions?: string;
+    capacityCc?: string;
+    sealType?: string;
+    bagSizeFits?: string;
+  };
 }
 
 /** Shop section order. Only groups with products in them are rendered. */
@@ -198,6 +215,7 @@ const CATALOG_RECORDS: CatalogProduct[] = [
       },
     ],
     relatedArticles: ['storage-containers', 'storage-failure', 'chewy-candy'],
+    specs: { mil: '4.3', dimensions: '6" × 6"', capacityCc: '100cc', sealType: 'Heat seal' },
   },
   {
     handle: 'snack-bags-6x6-100-pack-absorbers',
@@ -241,6 +259,7 @@ const CATALOG_RECORDS: CatalogProduct[] = [
       },
     ],
     relatedArticles: ['storage-containers', 'storage-failure', 'chewy-candy'],
+    specs: { mil: '4.3', dimensions: '6" × 6"', capacityCc: '100cc', sealType: 'Heat seal' },
   },
   {
     handle: '100cc-oxygen-absorber-refill-100-count',
@@ -284,6 +303,7 @@ const CATALOG_RECORDS: CatalogProduct[] = [
       },
     ],
     relatedArticles: ['storage-failure', 'complete-batch-workflow', 'storage-containers'],
+    specs: { capacityCc: '100cc', bagSizeFits: 'Pint bag and smaller — matched to the 6" × 6" snack bags' },
   },
   {
     handle: 'mini-heat-sealer-for-mylar-bags',
@@ -323,6 +343,7 @@ const CATALOG_RECORDS: CatalogProduct[] = [
       },
     ],
     relatedArticles: ['complete-batch-workflow', 'storage-failure', 'storage-containers'],
+    specs: { sealType: 'Hand-held HM-150' },
   },
   {
     handle: 'starter-set-50-bags-50-absorbers-sealer',
@@ -367,6 +388,7 @@ const CATALOG_RECORDS: CatalogProduct[] = [
       },
     ],
     relatedArticles: ['complete-batch-workflow', 'storage-failure', 'storage-containers'],
+    specs: { mil: '4.3', dimensions: '6" × 6"', capacityCc: '100cc', sealType: 'Hand-held HM-150' },
   },
   {
     handle: 'season-set-100-bags-100-absorbers-sealer',
@@ -411,6 +433,7 @@ const CATALOG_RECORDS: CatalogProduct[] = [
       },
     ],
     relatedArticles: ['complete-batch-workflow', 'storage-failure', 'storage-containers'],
+    specs: { mil: '4.3', dimensions: '6" × 6"', capacityCc: '100cc', sealType: 'Hand-held HM-150' },
   },
   {
     handle: 'quart-bags-8x12-50-pack-300cc-absorbers',
@@ -451,6 +474,7 @@ const CATALOG_RECORDS: CatalogProduct[] = [
       },
     ],
     relatedArticles: ['storage-containers', 'storage-failure', 'complete-batch-workflow'],
+    specs: { mil: '4.3', dimensions: '8" × 12"', capacityCc: '300cc', sealType: 'Heat seal' },
   },
   {
     handle: '300cc-oxygen-absorber-refill-100-count',
@@ -491,6 +515,7 @@ const CATALOG_RECORDS: CatalogProduct[] = [
       },
     ],
     relatedArticles: ['storage-failure', 'complete-batch-workflow', 'storage-containers'],
+    specs: { capacityCc: '300cc', bagSizeFits: 'Quart bag — matched to the 8" × 12" quart bags' },
   },
 ];
 

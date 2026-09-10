@@ -7,6 +7,7 @@ import WhoFor from '../components/blocks/WhoFor.astro';
 import LimitationsCallout from '../components/blocks/LimitationsCallout.astro';
 import HonestyBlock from '../components/blocks/HonestyBlock.astro';
 import ComparisonTable from '../components/blocks/ComparisonTable.astro';
+import SpecSheet from '../components/blocks/SpecSheet.astro';
 import { CATALOG } from '../lib/commerce.ts';
 
 // Sample data for the Phase 3 guide blocks below — real SKU handles from
@@ -76,6 +77,10 @@ const sampleTestedProducts = [
 
     <h3>LimitationsCallout</h3>
     <LimitationsCallout limitations="QA sample text. This callout is required on every published guide that has tested products — see docs/CLAUDE-CODE-PROMPT.md T4.2." />
+
+    <h3>SpecSheet</h3>
+    <p>Real per-SKU facts, not sample data — every value here is copied from CATALOG. "—" means the catalog genuinely does not state that fact (see foodSafeCert).</p>
+    <SpecSheet productHandle="quart-bags-8x12-50-pack-300cc-absorbers" />
   </section>
 </PageLayout>
 <style>
