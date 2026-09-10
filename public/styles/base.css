@@ -390,6 +390,17 @@ p .btn-text, li .btn-text { display: inline; min-height: 0; }
 /* --- Notices ----------------------------------------------------------- */
 .notice {
   background: var(--info-bg);
+  /* --info-bg (--color-brand-ice) is a GLOBAL-tier value, not a semantic
+     surface — it is the logo's own pale blue, deliberately the same hex in
+     both colour schemes (see BRAND.md § Palette: "logo ground only", not a
+     surface a scheme should tint). The inherited body text colour (--ink)
+     IS scheme-aware, and once T1.2 turned dark mode on site-wide, that
+     mismatch made this box render near-white text on the same pale-blue
+     ground in dark mode — 1.29:1, found by Lighthouse CI's colour-contrast
+     audit (T5.2) at 0.96, not 1.0, on a real page. Pinning the text colour
+     here too, independent of scheme, is the fix: ice is always pale, so
+     text on it needs to always be dark. */
+  color: var(--sp-color-textInk);
   border-left: 3px solid var(--info-line);
   padding: var(--s2) var(--s3);
   border-radius: var(--radius);
