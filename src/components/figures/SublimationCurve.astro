@@ -1,0 +1,58 @@
+---
+/**
+ * docs/CLAUDE-CODE-PROMPT.md T2.4. A phase diagram: pressure vs. temperature,
+ * with water's three phase-boundary curves and the sublimation path (solid
+ * straight to gas, skipping liquid) called out as the one the freeze dryer
+ * holds the food on. Same spec as Packshot/OxygenIndicator: 2px stroke,
+ * ice-100 single fill, one rust accent, patent-drawing flatness.
+ *
+ * Generic physics education — how freeze-drying works, not a claim about a
+ * specific product or batch. No methodology framing needed here the way
+ * OxygenIndicator/PuffyBagTest need it: nobody could read "water sublimates
+ * below the triple point" as Sublime Pantry claiming to have bench-tested
+ * anything.
+ */
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+<figure class={className}>
+  <svg viewBox="0 0 360 260" role="img" aria-labelledby="sublimation-curve-title" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+    <title id="sublimation-curve-title">Water's phase diagram, with the sublimation path freeze-drying uses</title>
+
+    <!-- Axes -->
+    <line x1="50" y1="20" x2="50" y2="220" />
+    <line x1="50" y1="220" x2="340" y2="220" />
+    <text x="10" y="30" font-size="11" stroke="none" fill="currentColor">Pressure</text>
+    <text x="290" y="240" font-size="11" stroke="none" fill="currentColor">Temperature</text>
+
+    <!-- Solid / liquid / gas regions, roughly to scale, filled with ice-100 for solid only -->
+    <path d="M50 220 L110 60 L50 20 Z" fill="var(--sp-color-surface-ice)" opacity="0.5" />
+    <text x="54" y="115" font-size="11" stroke="none" fill="currentColor">Solid</text>
+    <text x="230" y="205" font-size="11" stroke="none" fill="currentColor">Gas</text>
+    <text x="150" y="90" font-size="11" stroke="none" fill="currentColor">Liquid</text>
+
+    <!-- Phase boundary curves -->
+    <path d="M110 60 L340 20" /> <!-- solid-liquid -->
+    <path d="M110 60 Q220 120 340 200" /> <!-- liquid-gas -->
+    <path d="M50 220 Q90 140 110 60" /> <!-- solid-gas boundary, below triple point -->
+
+    <!-- Triple point -->
+    <circle cx="110" cy="60" r="3.5" fill="currentColor" stroke="none" />
+    <text x="122" y="72" font-size="10" stroke="none" fill="currentColor">Triple point</text>
+
+    <!-- The sublimation path: solid straight to gas, the one the freeze dryer holds the food on -->
+    <path d="M65 195 Q85 140 100 90" stroke="var(--sp-color-action-primary)" stroke-width="2.5" stroke-dasharray="1 5" />
+    <text x="20" y="205" font-size="11" stroke="none" fill="var(--sp-color-action-primary)">Sublimation path</text>
+  </svg>
+  <figcaption class="label">
+    Freeze-drying holds the chamber below water's triple point, so the ice in the food sublimates — goes straight from solid to gas — without ever passing through a liquid state.
+  </figcaption>
+</figure>
+
+<style>
+  figure { margin: 0; max-width: 40rem; }
+  svg { width: 100%; height: auto; }
+  figcaption { margin-top: var(--s2); }
+</style>

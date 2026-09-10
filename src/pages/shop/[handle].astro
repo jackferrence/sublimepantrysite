@@ -23,12 +23,15 @@ import Newsletter from '../../components/Newsletter.astro';
 import StickyBuyBar from '../../components/StickyBuyBar.astro';
 import ProductGallery from '../../components/ProductGallery.astro';
 import EditorialToolLink from '../../components/EditorialToolLink.astro';
+import SpecSheet from '../../components/blocks/SpecSheet.astro';
+import WhoFor from '../../components/blocks/WhoFor.astro';
 import {
   LINE_LABEL,
   SHIPPING,
   SHOPIFY_PUBLIC_DOMAIN,
   OWNERSHIP_LABEL,
   ownedEyebrow,
+  MINI_SEALER_OFFER,
 } from '../../lib/commerce';
 import ProductReviews from '../../components/ProductReviews.astro';
 import { getProductReviews } from '../../lib/reviews';
@@ -50,6 +53,22 @@ const articles = await getCollection('articles');
 const related = product.relatedArticles
   .map((id) => articles.find((entry) => entry.id === id))
   .filter((entry): entry is (typeof articles)[number] => Boolean(entry));
+
+/**
+ * docs/CLAUDE-CODE-PROMPT.md T4.4: "Used in these guides" — distinct from
+ * `related` above, which is a hand-curated editorial pointer. This is
+ * derived: any published guide whose `testedProducts[]` (T2.1) names this
+ * exact handle, meaning a real ComparisonTable/HonestyBlock on that guide
+ * actually discusses this SKU. No guide sets `testedProducts` yet (T2.1 —
+ * the fields are new and unused by any published content), so this
+ * renders nothing today; it activates automatically the first time a
+ * guide does.
+ */
+const usedInGuides = articles.filter(
+  (entry) =>
+    entry.data.pillar === 'guides' &&
+    (entry.data.testedProducts ?? []).some((tp) => tp.productHandle === product.handle),
+);
 
 /**
  * Judge.me reviews, fetched at build for this product.
@@ -178,6 +197,10 @@ const faqSchema = {
 
             <p class="buybox-ships"><Icon name="package" size={15} /> {SHIPPING.rule}</p>
 
+            {MINI_SEALER_OFFER.enabled && MINI_SEALER_OFFER.eligibleHandles.includes(product.handle) && (
+              <p class="buybox-offer"><Icon name="check-circle" size={15} /> {MINI_SEALER_OFFER.headline} {MINI_SEALER_OFFER.detail}</p>
+            )}
+
             <div class="commerce-fallback" data-commerce-fallback hidden>
               <p>Live pricing and checkout are temporarily unavailable on this page.</p>
               <a class="btn btn-secondary" href={`https://${SHOPIFY_PUBLIC_DOMAIN}/products/${product.handle}`} rel="noopener" data-sp-event="storefront_fallback_click" data-sp-props={trackProps}>View this product on our Shopify store</a>
@@ -201,6 +224,16 @@ const faqSchema = {
     </div>
 
     <div class="pdp-body">
+      {/* docs/CLAUDE-CODE-PROMPT.md T4.4: "Bundles add a 'Who this kit is
+          for / isn't for' block from metafields." Gated on the product
+          actually having the data (only the two bundle SKUs do, per the
+          commerce.ts note on the whoFor/whoNotFor fields — every line
+          extracted from that product's own existing copy, same discipline
+          as the specs field). */}
+      {product.line === 'bundle' && ((product.whoFor?.length ?? 0) > 0 || (product.whoNotFor?.length ?? 0) > 0) && (
+        <WhoFor whoFor={product.whoFor ?? []} whoNotFor={product.whoNotFor ?? []} />
+      )}
+
       <section class="two-up">
         <div>
           <h2>What's included</h2>
@@ -215,6 +248,29 @@ const faqSchema = {
           </ul>
         </div>
       </section>
+
+      {/* docs/CLAUDE-CODE-PROMPT.md T4.4/T3.7. Only rendered when at least
+          one real spec exists (src/lib/commerce.ts's `specs` field — every
+          value there is copied from a fact this same product already
+          states above, nothing invented) — a product with none yet doesn't
+          get a SpecSheet full of em dashes. */}
+      {product.specs && Object.values(product.specs).some(Boolean) && (
+        <section aria-labelledby="specs-heading">
+          <h2 id="specs-heading">Specs</h2>
+          <SpecSheet productHandle={product.handle} />
+        </section>
+      )}
+
+      {usedInGuides.length > 0 && (
+        <section aria-labelledby="used-in-guides-heading">
+          <h2 id="used-in-guides-heading">Used in these guides</h2>
+          <ul class="used-in-guides-list">
+            {usedInGuides.map((entry) => (
+              <li><a href={articleHref(entry)}>{entry.data.title}</a></li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <section>
         <h2>Highlights</h2>
@@ -298,6 +354,12 @@ const faqSchema = {
     display: flex; align-items: center; gap: .4rem;
     font-size: .9rem; color: var(--ink-soft);
   }
+  .buybox-offer {
+    margin: 0 0 var(--s3);
+    display: flex; align-items: center; gap: .4rem;
+    font-size: .9rem; color: var(--ink-soft);
+  }
+  .buybox-offer strong { color: var(--ink); font-weight: 700; }
 
   .pdp-body { margin-top: var(--s5); }
   .pdp-body section { margin-bottom: var(--s5); }
@@ -308,6 +370,9 @@ const faqSchema = {
   .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s2); }
   .pantry-rationale { padding: var(--s4); border-left: 4px solid var(--brand); background: var(--color-semantic-warm); }
   .pantry-rationale h2 { margin-top: .35rem; }
+  .used-in-guides-list { list-style: none; margin: 0; padding: 0; }
+  .used-in-guides-list li { border-top: 1px solid var(--mist); padding: var(--s2) 0; }
+  .used-in-guides-list li:last-child { border-bottom: 1px solid var(--mist); }
   .related-ledger { list-style: decimal-leading-zero; padding-left: 2.5rem; border-top: 2px solid var(--ink); }
   .related-ledger li { padding: var(--s3) 0 var(--s3) var(--s2); border-bottom: 1px solid var(--mist); }
   .related-ledger h3 { margin: .35rem 0; font-family: var(--font-body); font-size: 1.25rem; }

@@ -14,6 +14,7 @@
  * refers to it.
  */
 import Img from './Img.astro';
+import Packshot from './figures/Packshot.astro';
 import { CATALOG, SHIPPING } from '../lib/commerce';
 
 interface Props {
@@ -34,7 +35,16 @@ const mentioned = CATALOG.filter(
     <ol class="product-continuations">
       {mentioned.map((product) => (
         <li>
-          {product.image && <a class="continuation-image" href={product.detailsHref ?? '/shop'} tabindex="-1" aria-hidden="true"><Img src={product.image} alt="" width={160} height={160} /></a>}
+          <a class="continuation-image" href={product.detailsHref ?? '/shop'} tabindex="-1" aria-hidden="true">
+            {product.image ? (
+              <Img src={product.image} alt="" width={160} height={160} />
+            ) : (
+              /* No product photography yet (docs/DECISIONS.md's fold-forward
+                 note from the retired ART-DIRECTION.md) — a vector packshot
+                 (T2.4) instead of the blank space this rendered before. */
+              <Packshot sku={product.handle} />
+            )}
+          </a>
           <div><span class="kicker">Sold by Sublime Pantry</span><h3><a href={product.detailsHref ?? '/shop'}>{product.title}</a></h3><p>{product.note}</p><p class="meta">{product.displayPrice} · {SHIPPING.shortNote}</p></div>
         </li>
       ))}
@@ -47,7 +57,7 @@ const mentioned = CATALOG.filter(
   .product-continuations { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
   .product-continuations li { display: grid; grid-template-columns: 8rem minmax(0, 1fr); gap: var(--s3); padding: var(--s3) 0; border-bottom: 1px solid var(--mist); }
   .continuation-image { background: var(--surface); }
-  .continuation-image :global(img) { display: block; width: 100%; aspect-ratio: 1; object-fit: contain; }
+  .continuation-image :global(img), .continuation-image :global(svg) { display: block; width: 100%; aspect-ratio: 1; object-fit: contain; }
   .product-continuations h3 { margin: .35rem 0; font-family: var(--font-body); font-size: 1.2rem; }
   .product-continuations p { margin: 0 0 .5rem; color: var(--ink-soft); }
   @media (max-width: 520px) { .product-continuations li { grid-template-columns: 6rem minmax(0, 1fr); gap: var(--s2); } }

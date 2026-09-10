@@ -119,7 +119,7 @@ import Newsletter from '../../components/Newsletter.astro';
     .del-btn {
       background: none; border: 0; padding: .4rem .3rem; margin: -.4rem -.3rem;
       color: var(--brand); font: inherit; font-size: .85rem;
-      text-decoration: underline; cursor: pointer; min-height: 24px;
+      text-decoration: underline; cursor: pointer; min-height: var(--sp-size-targetMin);
     }
     .empty-note[hidden] { display: none; }
     .tool-actions { display: flex; flex-wrap: wrap; gap: var(--s2); margin-top: var(--s3); }
@@ -135,6 +135,9 @@ import Newsletter from '../../components/Newsletter.astro';
     @media (max-width: 639px) {
       .table-scroll { overflow-x: visible; box-shadow: none; }
       .tool-table { min-width: 0; }
+      /* stylelint-disable-next-line unit-disallowed-list -- the standard
+         visually-hidden technique, same exception as public/styles/base.css
+         .sr-only (T1.4). */
       .tool-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
       .tool-table tbody, .tool-table tr, .tool-table td { display: block; width: 100%; }
       .tool-table tr {

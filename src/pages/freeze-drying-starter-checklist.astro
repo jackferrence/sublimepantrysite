@@ -111,10 +111,16 @@ import { CHECKLIST_SECTIONS, CHECKLIST_RULE } from '../lib/checklist';
     :global(.site-footer),
     :global(.newsletter),
     :global(.breadcrumbs) { display: none !important; }
+    /* stylelint-disable declaration-property-value-disallowed-list --
+       @media print, matching the plain-black/white convention
+       public/styles/base.css's own print block already uses (T1.3):
+       printed pages read black-on-white regardless of the brand palette,
+       so these are deliberately not token references. */
     .checklist-note { display: block !important; border: 1px solid #000; padding: .5rem; }
     .checklist-page { padding: 0; }
     .checklist-grid { gap: .5rem; }
     .checklist-card { break-inside: avoid; border: 1px solid #999; }
+    /* stylelint-enable declaration-property-value-disallowed-list */
     a[href]::after { content: none !important; }
   }
 </style>

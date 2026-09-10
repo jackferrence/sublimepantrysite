@@ -19,6 +19,16 @@ export function publicImage(path: string): string | undefined {
 /** Approved outlined artwork, unchanged including its built-in clearspace.
  * BrandBlock and Mark render these files; never derive logo color from tokens.
  * Roman SP is the single selected monogram. White artwork is for dark grounds.
+ *
+ * Per the docs/CLAUDE-CODE-PROMPT.md rebuild (docs/DECISIONS.md): this file
+ * and its asset kit already satisfy BRAND.md § The ghost — the ink-ice /
+ * ink-rust / rust-ice wordmark variants below already bake the offset
+ * "ghost" second copy into the supplied artwork itself, which is exactly
+ * what Appendix B specifies for the logo files. Nothing here needed to
+ * change for the three-tier token migration (T1.2): these are static asset
+ * paths, not CSS custom properties, and the light/white variant pairing
+ * already covers the new automatic prefers-color-scheme dark mode without
+ * a code change — dark grounds already select `wordmarkDark`.
  */
 const LOGOS = '/brand/approved';
 export const BRAND = {

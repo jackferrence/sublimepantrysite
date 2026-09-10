@@ -1,0 +1,45 @@
+---
+/**
+ * docs/CLAUDE-CODE-PROMPT.md T3.11 / Appendix B. Bodoni 500, step-3,
+ * .sp-ghost, hairline above/below, max 20 words — the only place besides
+ * the H1 the ghost appears.
+ *
+ * Takes `text` as a prop rather than a slot: the ghost is a CSS ::after
+ * with `content: attr(data-ghost-text)` (see the .sp-ghost rule generated
+ * into public/styles/tokens.css by scripts/generate-tokens.mjs), which
+ * needs the exact same plain text available as an attribute value — that
+ * is only reliable from a prop, not from arbitrary slotted markup.
+ */
+interface Props {
+  text: string;
+}
+const { text } = Astro.props;
+
+const wordCount = text.trim().split(/\s+/).filter(Boolean).length;
+if (wordCount > 20) {
+  throw new Error(
+    `PullQuote: "${text}" is ${wordCount} words — docs/CLAUDE-CODE-PROMPT.md T3.11 caps this at 20.`,
+  );
+}
+---
+<figure class="pull-quote">
+  <blockquote>
+    <p class="sp-ghost" data-ghost-text={text}>{text}</p>
+  </blockquote>
+</figure>
+
+<style>
+  .pull-quote {
+    margin: var(--s5) 0;
+    padding-block: var(--s3);
+    border-block: 1px solid var(--mist);
+  }
+  .pull-quote blockquote { margin: 0; }
+  .pull-quote p {
+    font-family: var(--sp-font-family-display);
+    font-weight: 500;
+    font-size: var(--sp-font-size-step-3);
+    line-height: var(--sp-font-lineHeight-displayWrap);
+    margin: 0;
+  }
+</style>

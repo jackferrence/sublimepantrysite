@@ -8,8 +8,17 @@ const { size = 60 } = Astro.props;
   <img class="brand-monogram" src={BRAND.mark} alt="" width="1080" height="700" fetchpriority="high" />
 </span>
 <style>
+  /* min-block-size mirrors the `size` prop's own default (60) — the CSS
+     fallback for the same number the inline --mobile-logo-height style
+     variable above computes from at runtime, not an independent spacing
+     choice. The wordmark's clamp() lower bound is BRAND.md § Typeface's
+     stated rule ("never narrower than 120px"); its upper bound is this
+     component's own designed maximum. Neither is on the 8px space scale
+     because neither is a spacing value. */
+  /* stylelint-disable unit-disallowed-list */
   .brand-lockup { display: flex; align-items: center; min-block-size: 60px; }
   .brand-wordmark { display: block; inline-size: clamp(120px, 16vw, 190px); block-size: auto; }
+  /* stylelint-enable unit-disallowed-list */
   .brand-monogram { display: none; inline-size: auto; block-size: var(--mobile-logo-height); }
   @media (max-width: 719px) {
     .brand-wordmark { display: none; }

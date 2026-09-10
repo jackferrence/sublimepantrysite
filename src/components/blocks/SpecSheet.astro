@@ -1,0 +1,67 @@
+---
+/**
+ * docs/CLAUDE-CODE-PROMPT.md T3.7. A <dl> of label/value pairs, values
+ * tabular, hairline between rows, values right-aligned at >=480px. Used on
+ * product pages (T4.4) and inline in guides.
+ *
+ * Reads `product.specs` (src/lib/commerce.ts) rather than taking arbitrary
+ * props: every value in that field is copied from a fact the product record
+ * already states elsewhere, and nothing here is allowed to say more than
+ * that record does. A missing spec renders "—", never a guess —
+ * `foodSafeCert` is the standing example: no catalog record states one, so
+ * every SpecSheet on the site currently shows "—" for it, truthfully.
+ */
+import { CATALOG } from '../../lib/commerce.ts';
+
+const SPEC_LABELS: Record<string, string> = {
+  mil: 'Mil',
+  dimensions: 'Dimensions',
+  capacityCc: 'Capacity / cc',
+  sealType: 'Seal type',
+  bagSizeFits: 'Fits',
+  foodSafeCert: 'Food-safe cert',
+};
+const SPEC_ORDER = ['dimensions', 'mil', 'capacityCc', 'sealType', 'bagSizeFits', 'foodSafeCert'] as const;
+
+interface Props {
+  productHandle: string;
+}
+const { productHandle } = Astro.props;
+const product = CATALOG.find((p) => p.handle === productHandle);
+
+if (!product) {
+  throw new Error(`SpecSheet: no CATALOG product for handle "${productHandle}"`);
+}
+const specs: Record<string, string | undefined> = product.specs ?? {};
+// Computed here, not inline in the template below: `as Record<string, ...>`
+// inside a .astro template expression is ambiguous with JSX and astro check
+// fails to parse it there.
+const rows = SPEC_ORDER.map((key) => ({ label: SPEC_LABELS[key], value: specs[key] ?? '—' }));
+---
+<dl class="spec-sheet">
+  {rows.map((row) => (
+    <div class="spec-row">
+      <dt>{row.label}</dt>
+      <dd>{row.value}</dd>
+    </div>
+  ))}
+</dl>
+
+<style>
+  .spec-sheet { margin: var(--s3) 0; }
+  .spec-row {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--s2);
+    padding-block: var(--s1);
+    border-bottom: 1px solid var(--mist);
+    font-variant-numeric: tabular-nums;
+  }
+  .spec-row dt { margin: 0; color: var(--ink-soft); }
+  .spec-row dd { margin: 0; text-align: right; }
+
+  @media (max-width: 479px) {
+    .spec-row { flex-direction: column; gap: .15rem; }
+    .spec-row dd { text-align: left; }
+  }
+</style>

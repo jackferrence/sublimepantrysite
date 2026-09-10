@@ -13,7 +13,7 @@
  * one file.
  */
 import Icon from './Icon.astro';
-import { LAUNCH_OFFER, SHIPPING } from '../lib/commerce';
+import { LAUNCH_OFFER, SHIPPING, MINI_SEALER_OFFER } from '../lib/commerce';
 
 // The attribute is `discount-codes` (kebab-case). HTML lowercases attribute
 // names, so a camelCase `discountCodes` renders as `discountcodes` and the
@@ -30,6 +30,9 @@ const cartDiscountCodes = LAUNCH_OFFER.enabled ? LAUNCH_OFFER.code : undefined;
     <p><Icon name="package" size={15} /> {SHIPPING.shortNote}</p>
     {LAUNCH_OFFER.enabled && (
       <p><Icon name="check-circle" size={15} /> Code {LAUNCH_OFFER.code} applied at checkout</p>
+    )}
+    {MINI_SEALER_OFFER.enabled && (
+      <p><Icon name="package" size={15} /> {MINI_SEALER_OFFER.headline} {MINI_SEALER_OFFER.detail}</p>
     )}
   </div>
 </shopify-cart>
@@ -55,7 +58,7 @@ const cartDiscountCodes = LAUNCH_OFFER.enabled ? LAUNCH_OFFER.code : undefined;
     color: var(--surface);
     border: 2px solid transparent;
     border-radius: var(--radius);
-    min-height: 44px;
+    min-height: var(--sp-size-control);
     font: 600 1rem var(--font-body);
   }
   shopify-cart::part(secondary-button),
@@ -65,7 +68,7 @@ const cartDiscountCodes = LAUNCH_OFFER.enabled ? LAUNCH_OFFER.code : undefined;
     fill: var(--ink);
     border: 2px solid var(--ink);
     border-radius: var(--radius);
-    min-height: 44px;
+    min-height: var(--sp-size-control);
   }
   shopify-cart::part(discount-code) {
     border: 1px solid var(--mist);

@@ -126,6 +126,35 @@ export interface CatalogProduct {
    * inventory does the work; this says what a shopper can do about it.
    */
   stockNote?: string;
+  /**
+   * Structured specs for the SpecSheet component (docs/CLAUDE-CODE-PROMPT.md
+   * T3.7/T4.4). Every value here is copied from a fact this same record
+   * already states elsewhere (`note`, `whatsIncluded`, `faq`) — nothing is
+   * invented for this field. `foodSafeCert` is deliberately absent from
+   * every record: no catalog copy anywhere states a certification, so
+   * SpecSheet renders "—" for it rather than a claim nobody wrote down.
+   * docs/CLAUDE-CODE-PROMPT.md T6.2 lists filling real Shopify metafields
+   * (including foodSafeCert, if true) as a Jack-owned manual task.
+   */
+  specs?: {
+    mil?: string;
+    dimensions?: string;
+    capacityCc?: string;
+    sealType?: string;
+    bagSizeFits?: string;
+  };
+  /**
+   * docs/CLAUDE-CODE-PROMPT.md T4.4: "who this kit is for / isn't for",
+   * bundle products only. Same discipline as `specs` above — every line
+   * is a fact or a direct logical consequence of a fact this same
+   * record's own `note`/`highlights`/`faq` already states (e.g. "the set
+   * includes a sealer" -> "skip it if you already own one" is the same
+   * inference the Season Set's own FAQ already draws about itself;
+   * applied here to both bundles since both literally include a sealer).
+   * Nothing here asserts a fact no catalog copy supports.
+   */
+  whoFor?: string[];
+  whoNotFor?: string[];
 }
 
 /** Shop section order. Only groups with products in them are rendered. */
@@ -198,6 +227,7 @@ const CATALOG_RECORDS: CatalogProduct[] = [
       },
     ],
     relatedArticles: ['storage-containers', 'storage-failure', 'chewy-candy'],
+    specs: { mil: '4.3', dimensions: '6" × 6"', capacityCc: '100cc', sealType: 'Heat seal' },
   },
   {
     handle: 'snack-bags-6x6-100-pack-absorbers',
@@ -241,6 +271,7 @@ const CATALOG_RECORDS: CatalogProduct[] = [
       },
     ],
     relatedArticles: ['storage-containers', 'storage-failure', 'chewy-candy'],
+    specs: { mil: '4.3', dimensions: '6" × 6"', capacityCc: '100cc', sealType: 'Heat seal' },
   },
   {
     handle: '100cc-oxygen-absorber-refill-100-count',
@@ -284,6 +315,7 @@ const CATALOG_RECORDS: CatalogProduct[] = [
       },
     ],
     relatedArticles: ['storage-failure', 'complete-batch-workflow', 'storage-containers'],
+    specs: { capacityCc: '100cc', bagSizeFits: 'Pint bag and smaller — matched to the 6" × 6" snack bags' },
   },
   {
     handle: 'mini-heat-sealer-for-mylar-bags',
@@ -323,6 +355,7 @@ const CATALOG_RECORDS: CatalogProduct[] = [
       },
     ],
     relatedArticles: ['complete-batch-workflow', 'storage-failure', 'storage-containers'],
+    specs: { sealType: 'Hand-held HM-150' },
   },
   {
     handle: 'starter-set-50-bags-50-absorbers-sealer',
@@ -367,6 +400,15 @@ const CATALOG_RECORDS: CatalogProduct[] = [
       },
     ],
     relatedArticles: ['complete-batch-workflow', 'storage-failure', 'storage-containers'],
+    specs: { mil: '4.3', dimensions: '6" × 6"', capacityCc: '100cc', sealType: 'Hand-held HM-150' },
+    whoFor: [
+      'You are sealing your first fifty bags and do not already own a sealer',
+      'You want the absorber size already matched to the bag, with nothing to work out',
+      'You would rather place one order than shop bags, absorbers and a sealer separately',
+    ],
+    whoNotFor: [
+      'You already own a heat sealer — the bag pack alone is the cheaper route',
+    ],
   },
   {
     handle: 'season-set-100-bags-100-absorbers-sealer',
@@ -411,6 +453,16 @@ const CATALOG_RECORDS: CatalogProduct[] = [
       },
     ],
     relatedArticles: ['complete-batch-workflow', 'storage-failure', 'storage-containers'],
+    specs: { mil: '4.3', dimensions: '6" × 6"', capacityCc: '100cc', sealType: 'Hand-held HM-150' },
+    whoFor: [
+      'You are sealing a hundred bags and running several foods to find out which sizes you use',
+      'You want the absorber size already matched to the bag, with nothing to work out',
+      'You would rather place one order than shop bags, absorbers and a sealer separately',
+    ],
+    whoNotFor: [
+      'You already own a heat sealer — the bag packs on their own are the cheaper route',
+      'You only need fifty bags or fewer — see the Starter Set',
+    ],
   },
   {
     handle: 'quart-bags-8x12-50-pack-300cc-absorbers',
@@ -451,6 +503,7 @@ const CATALOG_RECORDS: CatalogProduct[] = [
       },
     ],
     relatedArticles: ['storage-containers', 'storage-failure', 'complete-batch-workflow'],
+    specs: { mil: '4.3', dimensions: '8" × 12"', capacityCc: '300cc', sealType: 'Heat seal' },
   },
   {
     handle: '300cc-oxygen-absorber-refill-100-count',
@@ -491,6 +544,7 @@ const CATALOG_RECORDS: CatalogProduct[] = [
       },
     ],
     relatedArticles: ['storage-failure', 'complete-batch-workflow', 'storage-containers'],
+    specs: { capacityCc: '300cc', bagSizeFits: 'Quart bag — matched to the 8" × 12" quart bags' },
   },
 ];
 
@@ -593,4 +647,34 @@ export const LAUNCH_OFFER = {
   percentOff: 10,
   headline: 'New here? Take 10% off your first order with WELCOME10.',
   detail: 'Applied at checkout.',
+} as const;
+
+/**
+ * The free-sealer offer, mirrored from the live Shopify discount
+ * (`FREESEAL20`, a "Buy X get Y" code) rather than typed from memory — the
+ * threshold, the eligible products and the free item all come from what is
+ * actually configured in Shopify, checked 2026-09-10.
+ *
+ * Unlike LAUNCH_OFFER, this is not passed to `<shopify-cart discount-codes>`.
+ * WELCOME10 already occupies that slot, and stacking two codes there without
+ * first confirming they are set to combine in Shopify risks a silently wrong
+ * total — worse than a shopper having to type the code once at checkout. This
+ * is informational only: it tells a shopper the offer exists and what
+ * qualifies; Shopify's own checkout is what validates and applies it.
+ */
+export const MINI_SEALER_OFFER = {
+  enabled: true,
+  code: 'FREESEAL20',
+  minimumSpend: 20,
+  /** Handles Shopify's `customerBuys` scopes this discount to. */
+  eligibleHandles: [
+    'snack-bags-6x6-50-pack-absorbers',
+    'snack-bags-6x6-100-pack-absorbers',
+    '100cc-oxygen-absorber-refill-100-count',
+    'starter-set-50-bags-50-absorbers-sealer',
+    'season-set-100-bags-100-absorbers-sealer',
+  ] as readonly string[],
+  freeHandle: 'mini-heat-sealer-for-mylar-bags',
+  headline: 'Spend $20 on bags or absorbers, get a Mini Heat Sealer free.',
+  detail: 'Enter code FREESEAL20 at checkout. One per customer.',
 } as const;

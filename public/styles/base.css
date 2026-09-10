@@ -16,6 +16,15 @@
 @font-face{font-family:"Source Sans 3";font-style:normal;font-weight:400 700;font-display:swap;src:url("/fonts/source-sans-3-latin-ext-normal.woff2") format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
 @font-face{font-family:"Source Sans 3";font-style:italic;font-weight:400 700;font-display:swap;src:url("/fonts/source-sans-3-latin-italic.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 @font-face{font-family:"Source Sans 3";font-style:italic;font-weight:400 700;font-display:swap;src:url("/fonts/source-sans-3-latin-ext-italic.woff2") format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+/* Literata: article prose, .lead. Has an optical-size axis like Bodoni Moda —
+   leave font-optical-sizing: auto on so it takes advantage of it. */
+@font-face{font-family:"Literata Variable";font-style:normal;font-weight:200 900;font-display:swap;src:url("/fonts/literata-variable-latin.woff2") format("woff2-variations");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Literata Variable";font-style:normal;font-weight:200 900;font-display:swap;src:url("/fonts/literata-variable-latin-ext.woff2") format("woff2-variations");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Literata Variable";font-style:italic;font-weight:200 900;font-display:swap;src:url("/fonts/literata-variable-latin-italic.woff2") format("woff2-variations");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Literata Variable";font-style:italic;font-weight:200 900;font-display:swap;src:url("/fonts/literata-variable-latin-ext-italic.woff2") format("woff2-variations");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+/* Archivo: micro labels only (.label / Eyebrow). Weight axis only, no opsz. */
+@font-face{font-family:"Archivo Variable";font-style:normal;font-weight:100 900;font-display:swap;src:url("/fonts/archivo-variable-latin.woff2") format("woff2-variations");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Archivo Variable";font-style:normal;font-weight:100 900;font-display:swap;src:url("/fonts/archivo-variable-latin-ext.woff2") format("woff2-variations");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
 
 /* --- Tokens ------------------------------------------------------------ */
 :root {
@@ -59,13 +68,25 @@
   --wrap: var(--size-content);
   --s1: .5rem; --s2: 1rem; --s3: 1.5rem; --s4: 2rem; --s5: 3rem; --s6: 4rem; --s7: 5rem;
   --radius: var(--radius-panel);
-  --shadow-hover: 0 16px 32px -20px rgba(34, 29, 25, .35);
+  --shadow-hover: 0 16px 32px -20px var(--sp-color-shadowHover);
 }
 
 /* --- Reset ------------------------------------------------------------- */
 *, *::before, *::after { box-sizing: border-box; }
 
-html { -webkit-text-size-adjust: 100%; }
+html {
+  /* stylelint-disable-next-line property-no-vendor-prefix -- no unprefixed
+     equivalent exists; this is deliberate Safari/iOS support. */
+  -webkit-text-size-adjust: 100%;
+  /* Dark mode ships on prefers-color-scheme only, no toggle — see BRAND.md
+     § Palette. This is what makes native form controls, scrollbars, etc.
+     follow it too, not just the tokens. */
+  color-scheme: light dark;
+  /* The header is sticky (Header.astro, min-height: 72px) — per ground rule
+     8 / WCAG 2.2 "focus not obscured", a keyboard user tabbing to an anchor
+     target must not land underneath it. */
+  scroll-padding-top: 72px;
+}
 
 body {
   margin: 0;
@@ -92,6 +113,9 @@ img, video { height: auto; }
 
 /* --- Accessibility utilities ------------------------------------------- */
 .sr-only {
+  /* stylelint-disable-next-line unit-disallowed-list -- the standard
+     visually-hidden technique needs a real, non-zero 1px box for VoiceOver;
+     it is not a spacing value and has no token. */
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }
@@ -124,28 +148,95 @@ section.module { padding-block: var(--s5); }
 }
 .section-head h2 { margin: 0; }
 
-/* --- Typography -------------------------------------------------------- */
-h1, h2, h3, h4 { font-family: var(--font-display); color: var(--ink); font-weight: 550; font-optical-sizing: auto; }
-h1 { font-size: clamp(2.75rem, 7vw, 5.75rem); line-height: .96; letter-spacing: -.025em; margin: 0 0 var(--s3); text-wrap: balance; }
-h2 { font-size: clamp(2rem, 4.2vw, 3.25rem); line-height: 1.05; }
-h2 { font-size: var(--h2); line-height: 1.15; margin: var(--s5) 0 var(--s2); }
-h3 { font-size: var(--h3); line-height: 1.25; margin: var(--s4) 0 var(--s1); }
-h4 { font-size: 1.1rem; line-height: 1.3; margin: var(--s3) 0 var(--s1); }
+/* --- Typography ---------------------------------------------------------
+   Per BRAND.md § Typeface: Bodoni Moda for h1-h5 (never under 20px, never
+   below weight 500 under 28px — h5 at --sp-font-size-step-2 is the smallest
+   Bodoni ever renders). h6 is Source Sans 3, not Bodoni, because there is no
+   smaller Bodoni step below h5. Weights and tracking come from the
+   font.weight.display-* / font.tracking.* tokens (tokens/global.tokens.json),
+   not hand-picked per heading. */
+h1, h2, h3, h4, h5 {
+  font-family: var(--sp-font-family-display);
+  color: var(--sp-color-text-body);
+  font-optical-sizing: auto;
+  text-wrap: balance;
+}
+h1 {
+  font-size: var(--sp-font-size-step-6);
+  font-weight: var(--sp-font-weight-display-h1-mobile);
+  line-height: var(--sp-font-lineHeight-display);
+  letter-spacing: var(--sp-font-tracking-displayLarge);
+  margin: 0 0 var(--s3);
+}
+@media (min-width: 720px) {
+  h1 { font-weight: var(--sp-font-weight-display-h1); }
+}
+h2 {
+  font-size: var(--sp-font-size-step-4);
+  font-weight: var(--sp-font-weight-display-h2);
+  line-height: var(--sp-font-lineHeight-displayWrap);
+  letter-spacing: var(--sp-font-tracking-displayLarge);
+  margin: var(--s5) 0 var(--s2);
+}
+h3 {
+  font-size: var(--sp-font-size-step-3);
+  font-weight: var(--sp-font-weight-display-h3);
+  line-height: var(--sp-font-lineHeight-displayWrap);
+  margin: var(--s4) 0 var(--s1);
+}
+h4 {
+  font-size: var(--sp-font-size-step-2);
+  font-weight: var(--sp-font-weight-display-h3);
+  line-height: var(--sp-font-lineHeight-displayWrap);
+  margin: var(--s3) 0 var(--s1);
+}
+h5 {
+  font-size: var(--sp-font-size-step-2);
+  font-weight: var(--sp-font-weight-display-h5);
+  line-height: var(--sp-font-lineHeight-displayWrap);
+  letter-spacing: var(--sp-font-tracking-displaySmall);
+  margin: var(--s3) 0 var(--s1);
+}
+h6 {
+  font-family: var(--sp-font-family-ui);
+  color: var(--sp-color-text-body);
+  font-size: var(--sp-font-size-step-1);
+  font-weight: 600;
+  line-height: var(--sp-font-lineHeight-displayWrap);
+  margin: var(--s3) 0 var(--s1);
+}
 
 p { margin: 0 0 var(--s2); }
 
-.lede { font-size: 1.2rem; line-height: 1.5; color: var(--ink-soft); max-width: 60ch; }
+/* .lede/.kicker are the names already in use across the shipped site;
+   .lead/.label are the docs/CLAUDE-CODE-PROMPT.md T1.3 spec names, added
+   here as an additive alias so new components can adopt the exact spec
+   without a simultaneous, unverified rename of every existing consumer of
+   .lede/.kicker (tracked as follow-up in docs/DECISIONS.md). */
+.lede, .lead {
+  font-family: var(--sp-font-family-prose);
+  font-size: var(--sp-font-size-step-1);
+  line-height: var(--sp-font-lineHeight-prose);
+  color: var(--ink-soft);
+  max-width: 60ch;
+  font-optical-sizing: auto;
+}
 
-.kicker {
+.kicker, .label {
   display: block;
-  font-family: var(--font-body);
-  font-size: var(--kicker);
+  font-family: var(--sp-font-family-label);
+  font-size: var(--sp-font-size-step--2);
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: .08em;
+  letter-spacing: var(--sp-font-tracking-label);
   color: var(--brand);
   margin-bottom: var(--s1);
 }
+
+/* T1.3 UI-language alias: .ui is Source Sans 3, same face .kicker/.meta
+   already use via --font-body — added so new component code can say .ui
+   without knowing that's the current default body face. */
+.ui { font-family: var(--sp-font-family-ui); }
 
 .meta { font-size: .88rem; color: var(--ink-soft); margin: 0; }
 
@@ -178,7 +269,7 @@ figcaption { font-size: .88rem; color: var(--ink-soft); margin-top: var(--s1); }
 .table-scroll {
   overflow-x: auto;
   margin: var(--s3) 0;
-  box-shadow: inset -12px 0 12px -12px rgba(34, 29, 25, .28);
+  box-shadow: inset -12px 0 12px -12px var(--sp-color-shadowInset);
 }
 
 table {
@@ -252,7 +343,7 @@ caption { caption-side: bottom; font-size: .88rem; color: var(--ink-soft); paddi
 /* --- Buttons ----------------------------------------------------------- */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
-  min-height: 44px;
+  min-height: var(--sp-size-control);
   padding: .8rem 1.5rem;
   border-radius: var(--radius-control);
   font: 600 1rem var(--font-body);
@@ -267,7 +358,7 @@ caption { caption-side: bottom; font-size: .88rem; color: var(--ink-soft); paddi
 .btn-secondary:hover { background: var(--brand-tint); color: var(--ink); }
 .btn-text {
   display: inline-flex; align-items: center;
-  border: 0; padding: 0; min-height: 44px; background: none;
+  border: 0; padding: 0; min-height: var(--sp-size-control); background: none;
   color: var(--brand); text-decoration: underline; text-underline-offset: 3px;
 }
 /* Inside prose a .btn-text is running text, not a control — no 44px box. */
@@ -299,12 +390,34 @@ p .btn-text, li .btn-text { display: inline; min-height: 0; }
 /* --- Notices ----------------------------------------------------------- */
 .notice {
   background: var(--info-bg);
+  /* --info-bg (--color-brand-ice) is a GLOBAL-tier value, not a semantic
+     surface — it is the logo's own pale blue, deliberately the same hex in
+     both colour schemes (see BRAND.md § Palette: "logo ground only", not a
+     surface a scheme should tint). The inherited body text colour (--ink)
+     IS scheme-aware, and once T1.2 turned dark mode on site-wide, that
+     mismatch made this box render near-white text on the same pale-blue
+     ground in dark mode — 1.29:1, found by Lighthouse CI's colour-contrast
+     audit (T5.2) at 0.96, not 1.0, on a real page. Pinning the text colour
+     here too, independent of scheme, is the fix: ice is always pale, so
+     text on it needs to always be dark. */
+  color: var(--sp-color-textInk);
   border-left: 3px solid var(--info-line);
   padding: var(--s2) var(--s3);
   border-radius: var(--radius);
   margin: var(--s3) 0;
 }
 .notice > :last-child { margin-bottom: 0; }
+/* A link inside a .notice box (src/pages/shop.astro's shipping notice is a
+   real instance) is NOT covered by the fix above: the site-wide `a { color:
+   var(--brand) }` rule is more specific to the anchor than `.notice`'s own
+   color is, and --brand IS scheme-aware (dark mode: #C97A45), so it hit the
+   exact same "scheme-aware colour on a scheme-invariant ice ground" bug —
+   2.21:1 in dark mode, found the same way (T5.2's Lighthouse run) as the
+   first .notice bug, just on a different page. Pin the link colour to the
+   light-mode rust specifically (--sp-color-rust, a global, non-scheme-aware
+   token: 4.54:1 on ice, just clears AA) rather than the scheme-varying
+   semantic action colour. */
+.notice a { color: var(--sp-color-rust); }
 
 /* A correction is not an explainer. Same frame, the one accent on the rule, so a
    reader scanning a page cannot mistake a retracted claim for methodology. */
@@ -313,23 +426,43 @@ p .btn-text, li .btn-text { display: inline; min-height: 0; }
   border-left-color: var(--brand);
 }
 
-/* --- Forms ------------------------------------------------------------- */
+/* --- Forms -------------------------------------------------------------
+   docs/CLAUDE-CODE-PROMPT.md T3.1: "Input/Select (44px, 1px border-strong,
+   focus ring, label above, error text in status-error with an inline icon
+   and aria-describedby)". Label-above and the focus ring (the global
+   :focus-visible rule above, which already applies here) were already
+   true of every form on the site; the border was --mist (the hairline
+   colour, meant for decorative rules) rather than the semantic
+   --sp-color-border-strong a form control actually needs — fixed below.
+   Error state is new: no form on the site had one before this pass. */
 label { font-weight: 600; }
 
 input[type="email"], input[type="text"], input[type="number"], input[type="date"],
 select, textarea {
   width: 100%;
-  min-height: 44px;
+  min-height: var(--sp-size-control);
   padding: .6rem .7rem;
   font: 400 1rem var(--font-body);
   color: var(--ink);
   background: var(--surface);
-  border: 1px solid var(--mist);
+  border: 1px solid var(--sp-color-border-strong);
   border-radius: var(--radius-control);
 }
-input[type="checkbox"] { min-width: 22px; min-height: 22px; accent-color: var(--brand); }
+input[type="checkbox"] { min-width: var(--sp-size-targetMin); min-height: var(--sp-size-targetMin); accent-color: var(--brand); }
 /* The label is the tap target for a checkbox, so it carries the 44px. */
-label:has(> input[type="checkbox"]) { display: flex; min-height: 44px; align-items: center; }
+label:has(> input[type="checkbox"]) { display: flex; min-height: var(--sp-size-control); align-items: center; }
+
+/* An input/select in an error state (pair with aria-invalid="true" and
+   aria-describedby pointing at the .field-error's id — colour is never
+   the only signal, the icon and the text both carry it independently). */
+:is(input, select, textarea)[aria-invalid="true"] { border-color: var(--sp-color-status-danger); }
+.field-error {
+  display: flex; align-items: flex-start; gap: .4rem;
+  margin-top: .35rem;
+  color: var(--sp-color-status-danger);
+  font-size: .875rem;
+}
+.field-error svg { flex: none; margin-top: .1rem; }
 
 /* --- Article body ------------------------------------------------------ */
 .article-body > p, .article-body > ul, .article-body > ol { max-width: var(--measure); }
@@ -361,9 +494,16 @@ label:has(> input[type="checkbox"]) { display: flex; min-height: 44px; align-ite
   }
 }
 
-/* --- Print ------------------------------------------------------------- */
+/* --- Print --------------------------------------------------------------
+   Per docs/CLAUDE-CODE-PROMPT.md T1.3: hide chrome, expand collapsed content,
+   black on white, show a link's URL after it, keep headings with the text
+   that follows them. */
 @media print {
   .site-header, .site-footer, .newsletter, shopify-cart, .breadcrumbs { display: none !important; }
-  body { background: #fff; }
+  body { background: white; color: black; }
   a { text-decoration: none; color: inherit; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: .85em; color: black; }
+  details { display: block; }
+  details > summary { display: none; }
+  h1, h2, h3 { break-after: avoid; }
 }

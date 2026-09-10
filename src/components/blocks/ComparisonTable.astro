@@ -1,0 +1,87 @@
+---
+/**
+ * docs/CLAUDE-CODE-PROMPT.md T3.3. A real <table> built from a guide's
+ * `testedProducts[]` (src/content.config.ts): mil, capacity/cc, price per
+ * unit, seal type, food-safe cert, our note. Horizontal scroll on mobile —
+ * deliberately not the card-collapse pattern the site's older
+ * `.table-cards` system uses elsewhere (public/styles/base.css lines
+ * ~317-335): docs/CLAUDE-CODE-PROMPT.md T3.3 asks for scroll, not collapse,
+ * and this is new content with no existing consumer to keep compatible, so
+ * built to the new spec directly rather than reconciled with the old one.
+ */
+import { CATALOG } from '../../lib/commerce.ts';
+
+interface TestedProduct {
+  productHandle: string;
+  mil?: string;
+  capacityCc?: string;
+  pricePerUnit?: string;
+  sealType?: string;
+  foodSafeCert?: string;
+  note: string;
+}
+interface Props {
+  testedProducts: TestedProduct[];
+  /** The "why it matters" row under the header. */
+  whyItMatters?: string;
+}
+const { testedProducts, whyItMatters } = Astro.props;
+---
+{testedProducts.length > 0 && (
+  <div class="comparison-table-wrap" tabindex="0" role="region" aria-label="Product comparison">
+    <table class="comparison-table">
+      <caption>What we compared, and why it's here</caption>
+      <thead>
+        <tr>
+          <th scope="col">Product</th>
+          <th scope="col">Mil</th>
+          <th scope="col">Capacity / cc</th>
+          <th scope="col">Price per unit</th>
+          <th scope="col">Seal type</th>
+          <th scope="col">Food-safe cert</th>
+          <th scope="col">Our note</th>
+        </tr>
+        {whyItMatters && (
+          <tr class="why-it-matters">
+            <td colspan="7">{whyItMatters}</td>
+          </tr>
+        )}
+      </thead>
+      <tbody>
+        {testedProducts.map((item) => {
+          const product = CATALOG.find((p) => p.handle === item.productHandle);
+          return (
+            <tr>
+              <th scope="row">{product?.shortTitle ?? item.productHandle}</th>
+              <td>{item.mil ?? '—'}</td>
+              <td>{item.capacityCc ?? '—'}</td>
+              <td>{item.pricePerUnit ?? '—'}</td>
+              <td>{item.sealType ?? '—'}</td>
+              <td>{item.foodSafeCert ?? '—'}</td>
+              <td>{item.note}</td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  </div>
+)}
+
+<style>
+  .comparison-table-wrap { overflow-x: auto; margin-block: var(--s4); }
+  .comparison-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  .comparison-table th, .comparison-table td {
+    padding: var(--s1) var(--s2);
+    border-bottom: 1px solid var(--mist);
+    text-align: left;
+    white-space: nowrap;
+  }
+  .comparison-table thead th { position: sticky; top: 0; background: var(--paper); }
+  .comparison-table .why-it-matters td {
+    font-style: italic;
+    color: var(--ink-soft);
+    white-space: normal;
+    border-bottom: 1px solid var(--mist);
+  }
+  .comparison-table caption { caption-side: bottom; font-size: .88rem; color: var(--ink-soft); padding-top: var(--s1); text-align: left; }
+</style>

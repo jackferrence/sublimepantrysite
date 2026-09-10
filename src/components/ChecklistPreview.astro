@@ -50,8 +50,8 @@ const remaining =
   .sheet {
     background: var(--surface);
     border: 1px solid var(--mist);
-    border-radius: 4px;
-    box-shadow: 0 10px 24px -18px rgba(34, 29, 25, .5);
+    border-radius: var(--sp-radius-panel);
+    box-shadow: 0 10px 24px -18px var(--sp-color-shadowStrong);
     padding: var(--s3);
     width: 100%;
     max-width: 30rem;
@@ -88,7 +88,7 @@ const remaining =
     width: .68rem; height: .68rem;
     margin-top: .18rem;
     border: 1px solid var(--ink-soft);
-    border-radius: 2px;
+    border-radius: var(--sp-radius-control);
   }
   .sheet-more { margin: var(--s2) 0 0; font-size: .68rem; color: var(--ink-soft); }
 </style>

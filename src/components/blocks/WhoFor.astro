@@ -1,0 +1,47 @@
+---
+/**
+ * docs/CLAUDE-CODE-PROMPT.md T3.6. Two short lists from a guide's
+ * `whoFor[]` / `whoNotFor[]` (src/content.config.ts), placed directly under
+ * the byline. Prose lists, no icons, no card — the honesty device
+ * docs/design-research.md §4 calls out ("who this is for / isn't for at the
+ * top of guides").
+ */
+interface Props {
+  whoFor: string[];
+  whoNotFor: string[];
+}
+const { whoFor, whoNotFor } = Astro.props;
+---
+{(whoFor.length > 0 || whoNotFor.length > 0) && (
+  <div class="who-for">
+    {whoFor.length > 0 && (
+      <div>
+        <p class="label">This is for you if</p>
+        <ul>{whoFor.map((item) => <li>{item}</li>)}</ul>
+      </div>
+    )}
+    {whoNotFor.length > 0 && (
+      <div>
+        <p class="label">Skip this if</p>
+        <ul>{whoNotFor.map((item) => <li>{item}</li>)}</ul>
+      </div>
+    )}
+  </div>
+)}
+
+<style>
+  .who-for {
+    display: grid;
+    gap: var(--s3);
+    margin-block: var(--s3);
+    padding-block: var(--s3);
+    border-top: 1px solid var(--mist);
+    border-bottom: 1px solid var(--mist);
+  }
+  .who-for ul { margin: var(--s1) 0 0; padding-inline-start: 1.2em; }
+  .who-for li + li { margin-top: .35rem; }
+
+  @media (min-width: 720px) {
+    .who-for { grid-template-columns: 1fr 1fr; }
+  }
+</style>

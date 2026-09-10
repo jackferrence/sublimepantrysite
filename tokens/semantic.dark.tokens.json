@@ -1,0 +1,39 @@
+{
+  "$description": "Sublime Pantry — semantic (tier 2, dark) tokens. Same shape as semantic.light.tokens.json; applied only inside @media (prefers-color-scheme: dark). New with this rebuild — docs/design-research.md §0 calls for shipping dark mode on prefers-color-scheme with no toggle. NOT yet contrast-audited against tokens/CONTRAST.md thresholds (7:1 body/muted, 4.5:1 other) — that is docs/CLAUDE-CODE-PROMPT.md T5.6, still open. Do not treat these values as verified until that audit runs.",
+  "color": {
+    "surface": {
+      "page": { "$type": "color", "$value": "{color.inkNight}" },
+      "raised": { "$type": "color", "$value": "{color.raisedNight}" },
+      "warm": { "$type": "color", "$value": "{color.warmNight}" },
+      "inset": { "$type": "color", "$value": "{color.rustSoftNight}" },
+      "ice": { "$type": "color", "$value": "{color.iceNight}" },
+      "inverse": { "$type": "color", "$value": "{color.paperNight}" }
+    },
+    "text": {
+      "body": { "$type": "color", "$value": "{color.paperNight}" },
+      "muted": { "$type": "color", "$value": "{color.mutedNight}" },
+      "inverse": { "$type": "color", "$value": "{color.inkNight}" },
+      "inverseMuted": { "$type": "color", "$value": "{color.textMuted}" }
+    },
+    "border": {
+      "hairline": { "$type": "color", "$value": "{color.hairlineNight}" },
+      "strong": { "$type": "color", "$value": "{color.mutedNight}" },
+      "focus": { "$type": "color", "$value": "{color.rustNight}" },
+      "focusOnInverse": { "$type": "color", "$value": "{color.iceNight}" }
+    },
+    "action": {
+      "primary": { "$type": "color", "$value": "{color.rustNight}" },
+      "primaryHover": { "$type": "color", "$value": "{color.rustNightHover}" },
+      "primaryText": { "$type": "color", "$value": "{color.inkNight}" },
+      "secondaryBorder": { "$type": "color", "$value": "{color.rustNight}" }
+    },
+    "status": {
+      "info": { "$type": "color", "$value": "{color.infoNight}" },
+      "success": { "$type": "color", "$value": "{color.successNight}" },
+      "danger": { "$type": "color", "$value": "{color.dangerNight}" },
+      "warn": { "$type": "color", "$value": "{color.rustNight}" },
+      "indicatorPink": { "$type": "color", "$value": "{color.indicatorPink}" },
+      "indicatorBlue": { "$type": "color", "$value": "{color.indicatorBlue}" }
+    }
+  }
+}

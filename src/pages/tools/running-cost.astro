@@ -413,11 +413,11 @@ const eiaMonthly = cite(MONTHLY_US.sourceUrl);
     @media (min-width: 720px) { .field-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
     .field label { display: block; margin-bottom: .35rem; font-weight: 600; font-size: .95rem; }
     .field input,
-    .field select { width: 100%; min-height: 44px; }
+    .field select { width: 100%; min-height: var(--sp-size-control); }
     .field-help { margin: .4rem 0 0; font-size: .85rem; color: var(--ink-soft); }
 
     .form-note { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2); margin-top: var(--s3); }
-    #recalc-btn { min-height: 44px; }
+    #recalc-btn { min-height: var(--sp-size-control); }
 
     .result-heading { margin: var(--s4) 0 var(--s2); font-size: 1.05rem; }
     .stat-row { display: grid; gap: var(--s2); grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -443,7 +443,7 @@ const eiaMonthly = cite(MONTHLY_US.sourceUrl);
     }
 
     .disclosure-block { margin-top: var(--s4); }
-    .disclosure-block summary { cursor: pointer; font-weight: 600; min-height: 44px; padding: .6rem 0; }
+    .disclosure-block summary { cursor: pointer; font-weight: 600; min-height: var(--sp-size-control); padding: .6rem 0; }
 
     .verdict {
       display: inline-block; padding: .1rem .45rem; border-radius: var(--radius);
@@ -463,7 +463,7 @@ const eiaMonthly = cite(MONTHLY_US.sourceUrl);
     .attribution { margin: var(--s3) 0 0; font-size: .85rem; color: var(--ink-soft); }
 
     .embed-block { margin-top: var(--s5); }
-    #embed-btn { min-height: 44px; }
+    #embed-btn { min-height: var(--sp-size-control); }
     .embed-code {
       width: 100%; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .8rem;
       padding: var(--s2); border: 1px solid var(--mist); border-radius: var(--radius);
@@ -479,6 +479,9 @@ const eiaMonthly = cite(MONTHLY_US.sourceUrl);
     @media (max-width: 719px) {
       .table-scroll { overflow-x: visible; box-shadow: none; }
       .tool-table, .claims-table { min-width: 0; }
+      /* stylelint-disable-next-line unit-disallowed-list -- the standard
+         visually-hidden technique, same exception as public/styles/base.css
+         .sr-only (T1.4). */
       .tool-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
       .tool-table tbody, .tool-table tr, .tool-table td, .tool-table th[scope='row'] { display: block; width: 100%; }
       .tool-table tr {
