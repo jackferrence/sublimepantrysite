@@ -22,10 +22,27 @@ interface Props {
 const { eager = false } = Astro.props;
 const RUNTIME = 'https://cdn.shopify.com/storefront/web-components.js';
 ---
-<shopify-store store-domain={SHOPIFY_STORE_DOMAIN} country="US" language="en"></shopify-store>
+<!--
+  transition:persist keeps this exact element (and its internal Storefront
+  client) alive across a client-side navigation. Without it, Astro tears the
+  node down and recreates it on every page, and child <shopify-context>
+  elements on the new page end up querying a half-initialized store — the SDK
+  throws "buildQueryContextTree is not a function" and every product page
+  reached via an in-app link falls back to "pricing temporarily unavailable".
+-->
+<shopify-store store-domain={SHOPIFY_STORE_DOMAIN} country="US" language="en" transition:persist="shopify-store"></shopify-store>
 
 {eager ? (
-  <script type="module" is:inline src={RUNTIME}></script>
+  <script is:inline define:vars={{ RUNTIME }}>
+    (function () {
+      if (window.__spShopifyRuntime) return;
+      window.__spShopifyRuntime = true;
+      var s = document.createElement('script');
+      s.type = 'module';
+      s.src = RUNTIME;
+      document.head.appendChild(s);
+    })();
+  </script>
 ) : (
   <script is:inline define:vars={{ RUNTIME }}>
     (function () {

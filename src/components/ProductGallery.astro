@@ -63,16 +63,142 @@ const galleryId = `gallery-${productName.toLowerCase().replace(/[^a-z0-9]+/g, '-
           event.preventDefault(); select(next); buttons[next].focus();
         });
       });
+      /**
+       * Open/close morph: the clicked frame's photo visibly grows into the
+       * lightbox position instead of the dialog popping open on a flat photo.
+       * Standard FLIP — read the source rect before the dialog exists, let the
+       * dialog lay out the destination, then animate the delta away with WAAPI
+       * (not CSS transitions: we need a promise for "the shrink finished,
+       * now actually close" on the way out, which transitionend on a native
+       * <dialog> close is unreliable to chain against).
+       */
+      const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const morphEase = 'cubic-bezier(.16,1,.3,1)';
+      let lastSourceImg: HTMLImageElement | null = null;
+      // True for the ~420ms the open-morph is in flight. If the cursor is
+      // already resting on the photo when the dialog opens (the click that
+      // triggered it, unmoved), the loupe's CSS transform would otherwise
+      // compete with the morph's WAAPI transform and pop to full scale the
+      // instant the morph hands control back — jarring instead of smooth.
+      let morphing = false;
+
+      function rectDelta(from: DOMRect, to: DOMRect) {
+        return {
+          x: from.left + from.width / 2 - (to.left + to.width / 2),
+          y: from.top + from.height / 2 - (to.top + to.height / 2),
+          scale: to.width ? from.width / to.width : 1,
+        };
+      }
+
+      function playMorph(from: DOMRect, to: DOMRect, reverse: boolean) {
+        if (reduceMotion) return Promise.resolve();
+        const d = rectDelta(from, to);
+        const start = `translate(${d.x}px, ${d.y}px) scale(${d.scale})`;
+        const end = 'translate(0, 0) scale(1)';
+        const frames = reverse ? [{ transform: end }, { transform: start }] : [{ transform: start }, { transform: end }];
+        const anim = enlarged.animate(frames, { duration: 420, easing: morphEase, fill: 'both' });
+        // A WAAPI animation outranks the CSS transition the loupe needs once
+        // the dialog is open, so hand control back to the cascade the moment
+        // the morph settles rather than leaving `transform` pinned forever.
+        return anim.finished.then(() => anim.cancel()).catch(() => anim.cancel());
+      }
+
       gallery.querySelectorAll<HTMLAnchorElement>('[data-gallery-zoom]').forEach(link => {
         link.addEventListener('click', event => {
           event.preventDefault(); previousFocus = link;
+          lastSourceImg = link.querySelector('img');
+          const sourceRect = lastSourceImg?.getBoundingClientRect() ?? null;
           enlarged.src = link.href;
           enlarged.alt = link.querySelector('img')?.alt ?? '';
           gallery.querySelector('[data-gallery-caption]')!.textContent = link.closest('figure')?.querySelector('figcaption')?.textContent ?? '';
+          resetZoom();
           dialog.showModal();
+          if (sourceRect) {
+            morphing = true;
+            requestAnimationFrame(() => requestAnimationFrame(() => {
+              playMorph(sourceRect, enlarged.getBoundingClientRect(), false).then(() => { morphing = false; });
+            }));
+          }
         });
       });
-      dialog.addEventListener('close', () => previousFocus?.focus());
+
+      /** Reversed on the way out: animate the shrink, then actually close. */
+      async function closeWithMorph() {
+        const destRect = lastSourceImg?.getBoundingClientRect() ?? null;
+        if (destRect) await playMorph(destRect, enlarged.getBoundingClientRect(), true);
+        dialog.close();
+      }
+
+      const closeButton = dialog.querySelector<HTMLButtonElement>('form button');
+      closeButton?.addEventListener('click', (event) => { event.preventDefault(); closeWithMorph(); });
+      dialog.addEventListener('cancel', (event) => { event.preventDefault(); closeWithMorph(); });
+      dialog.addEventListener('close', () => { resetZoom(); previousFocus?.focus(); });
+
+      /**
+       * Loupe zoom, inside the open dialog. A fine (mouse) pointer gets
+       * continuous magnification that tracks the cursor, the way you'd move a
+       * loupe over a swatch — genuinely useful here since the catalog is
+       * packaging material (mylar thickness, seal texture) a buyer wants to
+       * judge up close. A coarse (touch) pointer taps to zoom in at that
+       * point, then drags to pan; tapping again zooms back out.
+       */
+      const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+      let zoomed = false;
+      let panOrigin = { x: 0, y: 0 };
+
+      function resetZoom() {
+        zoomed = false;
+        enlarged.classList.remove('zoomed');
+        enlarged.style.setProperty('--zoom-x', '50%');
+        enlarged.style.setProperty('--zoom-y', '50%');
+      }
+
+      function setZoomPoint(clientX: number, clientY: number) {
+        const rect = enlarged.getBoundingClientRect();
+        const x = Math.min(100, Math.max(0, ((clientX - rect.left) / rect.width) * 100));
+        const y = Math.min(100, Math.max(0, ((clientY - rect.top) / rect.height) * 100));
+        enlarged.style.setProperty('--zoom-x', `${x}%`);
+        enlarged.style.setProperty('--zoom-y', `${y}%`);
+      }
+
+      if (fine) {
+        enlarged.addEventListener('pointerenter', () => { if (!morphing) enlarged.classList.add('zoomed'); });
+        enlarged.addEventListener('pointerleave', () => enlarged.classList.remove('zoomed'));
+        // Belt and suspenders on the zoom-in itself: a dialog that opens with
+        // the cursor already resting over the photo (a click that didn't
+        // move afterward) never crosses the image's boundary, so the
+        // `pointerenter` above never fires. The first `pointermove` covers it.
+        enlarged.addEventListener('pointermove', (event) => {
+          if (morphing) return;
+          enlarged.classList.add('zoomed');
+          setZoomPoint(event.clientX, event.clientY);
+        });
+      } else {
+        let dragDistance = 0;
+        enlarged.addEventListener('pointerdown', (event) => {
+          dragDistance = 0;
+          panOrigin = { x: event.clientX, y: event.clientY };
+          if (!zoomed) {
+            zoomed = true;
+            enlarged.classList.add('zoomed');
+            setZoomPoint(event.clientX, event.clientY);
+          }
+          enlarged.setPointerCapture(event.pointerId);
+        });
+        enlarged.addEventListener('pointermove', (event) => {
+          if (!zoomed || event.buttons === 0) return;
+          const rect = enlarged.getBoundingClientRect();
+          const dx = ((event.clientX - panOrigin.x) / rect.width) * -100;
+          const dy = ((event.clientY - panOrigin.y) / rect.height) * -100;
+          dragDistance += Math.hypot(event.clientX - panOrigin.x, event.clientY - panOrigin.y);
+          panOrigin = { x: event.clientX, y: event.clientY };
+          const current = { x: parseFloat(enlarged.style.getPropertyValue('--zoom-x')) || 50, y: parseFloat(enlarged.style.getPropertyValue('--zoom-y')) || 50 };
+          enlarged.style.setProperty('--zoom-x', `${Math.min(100, Math.max(0, current.x + dx))}%`);
+          enlarged.style.setProperty('--zoom-y', `${Math.min(100, Math.max(0, current.y + dy))}%`);
+        });
+        // A tap (no meaningful drag) toggles back out; an actual drag was a pan.
+        enlarged.addEventListener('pointerup', () => { if (zoomed && dragDistance < 8) resetZoom(); });
+      }
     });
   }
   initGalleries();
@@ -93,9 +219,28 @@ const galleryId = `gallery-${productName.toLowerCase().replace(/[^a-z0-9]+/g, '-
   .gallery-missing { min-height: 20rem; display: grid; align-content: center; padding: var(--s4); background: var(--color-semantic-warm); border-block: 1px solid var(--ink); }
   .gallery-missing p { max-width: 34ch; color: var(--ink-soft); }
   .gallery-dialog { width: min(90vw, 78rem); max-height: 92dvh; padding: 1rem; border: 1px solid var(--ink); background: var(--paper); }
-  .gallery-dialog::backdrop { background: rgb(0 0 0 / .7); }
+  .gallery-dialog::backdrop { background: rgb(0 0 0 / .7); transition: background-color .3s ease; }
   .gallery-dialog form { position: sticky; top: 0; display: flex; justify-content: end; }
   .gallery-dialog img { width: 100%; height: auto; object-fit: contain; }
   .gallery-dialog p { font-size: .9rem; }
+  @starting-style { .gallery-dialog[open]::backdrop { background: rgb(0 0 0 / 0); } }
+
+  /* The loupe: a fine pointer gets continuous magnification tracking the
+     cursor; a coarse pointer taps to anchor the zoom, then drags to pan. The
+     anchor point is a CSS custom property so JS only ever writes two numbers,
+     never fights the transform. */
+  [data-gallery-large] {
+    --zoom-x: 50%; --zoom-y: 50%;
+    transform-origin: var(--zoom-x) var(--zoom-y);
+    transition: transform .18s linear;
+    cursor: zoom-in;
+    touch-action: pan-y;
+  }
+  [data-gallery-large].zoomed { transform: scale(2.4); cursor: zoom-out; touch-action: none; }
+  @media (hover: hover) and (pointer: fine) { [data-gallery-large] { transition: transform .08s linear; } }
+  @media (prefers-reduced-motion: reduce) {
+    [data-gallery-large] { transition: none; }
+    .gallery-dialog::backdrop { transition: none; }
+  }
   @media print { .gallery { display: none; } }
 </style>

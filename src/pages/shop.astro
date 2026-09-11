@@ -11,6 +11,15 @@
  * Availability is the part that cannot be left to hydration. `stockedCatalog()`
  * resolves it at build from Shopify and fails closed, so a card that offers to
  * sell you something is a card Shopify confirmed we can sell. See lib/stock.ts.
+ *
+ * `data-astro-reload` on the product links below is load-bearing, not
+ * decorative: a client-side (View Transitions) navigation away from a page
+ * that already has a live `<shopify-context>` — this one does, one per card —
+ * corrupts the Storefront web components' shared query state for whatever
+ * page comes next. The next product page's buy button silently falls back to
+ * "pricing temporarily unavailable". Forcing a full navigation here sidesteps
+ * it. Remove only once Shopify's web-components runtime is confirmed safe
+ * across soft navigations.
  */
 import PageLayout from '../layouts/PageLayout.astro';
 import Icon from '../components/Icon.astro';
@@ -71,7 +80,7 @@ const groups = LINE_ORDER.map((line) => ({
 
             <div class="product-card-body">
               <span class="kicker">{ownedEyebrow(product)}</span>
-              <h3><a href={product.detailsHref ?? `https://${SHOPIFY_PUBLIC_DOMAIN}/products/${product.handle}`}>{product.title}</a></h3>
+              <h3><a href={product.detailsHref ?? `https://${SHOPIFY_PUBLIC_DOMAIN}/products/${product.handle}`} data-astro-reload={product.detailsHref ? true : undefined}>{product.title}</a></h3>
               <p class="product-card-note">{product.note}</p>
 
               {product.inStock ? (
@@ -119,6 +128,7 @@ const groups = LINE_ORDER.map((line) => ({
                   <a
                     class="btn-text"
                     href={product.detailsHref}
+                    data-astro-reload
                     data-sp-event="product_card_click"
                     data-sp-props={JSON.stringify({ product_handle: product.handle })}
                   >Details</a>

@@ -210,7 +210,7 @@ const faqSchema = {
           <h2>What you'll still need</h2>
           <ul>
             {product.whatYoullNeed.map((item) => (
-              <li>{item.href ? <a href={item.href}>{item.label}</a> : item.label}</li>
+              <li>{item.href ? <a href={item.href} data-astro-reload={item.href.startsWith('/shop/') || undefined}>{item.label}</a> : item.label}</li>
             ))}
           </ul>
         </div>
