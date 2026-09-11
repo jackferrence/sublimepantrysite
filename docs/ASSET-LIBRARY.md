@@ -28,7 +28,7 @@ An empty result renders nothing. That is correct behaviour, not a bug to paper o
 | Widths | 16:9: 400/800/1600 · 4:5: 400/800/1600 · 1:1: 400/800/1600 |
 | Subject | `camping`, `trail`, `pouch`, `meal`, `rehydration` |
 | Restrictions | `not-product-imagery`, `editorial-illustration-only` |
-| Used by | *unplaced* |
+| Used by | article: trail-meal-water |
 
 ### `camp-pouch-freeze-dried-vegetables`
 
@@ -44,7 +44,7 @@ An empty result renders nothing. That is correct behaviour, not a bug to paper o
 | Widths | 16:9: 400/800/1600 · 4:5: 400/800/1600 · 1:1: 400/800/1600 |
 | Subject | `camping`, `trail`, `pouch`, `vegetables` |
 | Restrictions | `not-product-imagery`, `editorial-illustration-only` |
-| Used by | *unplaced* |
+| Used by | article: three-day-trail-menu |
 
 ## equipment (2)
 
@@ -72,12 +72,12 @@ An empty result renders nothing. That is correct behaviour, not a bug to paper o
 |---|---|
 | Alt | Two home freeze dryers side by side, one with its chamber door open on eight stacked trays of part-dried red fruit. |
 | Source | `stock` |
-| Credit | Stock photo — not a Sublime Pantry test unit |
+| Credit | Stock photo — not a Sublime Pantry test unit — not one of the machines reviewed here |
 | Ratios | `16:9`, `4:5`, `1:1` |
 | Intrinsic | 3845×5767 |
 | Widths | 16:9: 400/800/1600 · 4:5: 400/800/1600 · 1:1: 400/800/1600 |
 | Subject | `freeze-dryer`, `vacuum-pump`, `trays`, `fruit`, `machines` |
-| Restrictions | `not-our-equipment` |
+| Restrictions | `not-our-equipment`, `not-a-reviewed-model` |
 | Used by | article: home-freeze-dryers |
 
 ## food (3)
@@ -96,7 +96,7 @@ An empty result renders nothing. That is correct behaviour, not a bug to paper o
 | Widths | 16:9: 400/800/1600 · 4:5: 400/800/1600 · 1:1: 400/800/1600 |
 | Subject | `strawberry`, `fruit` |
 | Restrictions | `provenance-unverified` |
-| Used by | *unplaced* |
+| Used by | article: fruit-vs-vegetables-vs-meat |
 
 ### `freeze-dried-blueberries-pile`
 

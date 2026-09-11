@@ -480,9 +480,11 @@ test('touch targets clear 44px and the small-screen layout drops horizontal scro
 
 test('Not published is styled as a result, not as an error', () => {
   // A red error state would tell a reader the tool broke. It did not; the
-  // research is simply silent, and that is the answer.
+  // research is simply silent, and that is the answer. The brand-tinted
+  // background (not a colored accent border, which reads as an AI-generated
+  // callout card) is what carries "this is a considered result."
   const html = PAGE();
-  assert.match(html, /\.not-published\s*\{[^}]*border-left:\s*3px solid var\(--brand\)/);
+  assert.match(html, /\.not-published\s*\{[^}]*background:\s*var\(--brand-tint\)/);
   assert.ok(!/class="error"/.test(plannerPanel(html)));
 });
 

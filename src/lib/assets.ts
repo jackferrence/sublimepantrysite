@@ -61,7 +61,12 @@ export type AssetRestriction =
   /** Admitted with its source unconfirmed. Labelled conservatively until a
    *  licence record turns up. Surfaced in docs/ASSET-LIBRARY.md rather than
    *  buried in a field. */
-  | 'provenance-unverified';
+  | 'provenance-unverified'
+  /** The unit visible in frame carries a legible third brand that is not one
+   *  of the machines the page reviews or compares. `not-our-equipment` alone
+   *  reads as "not tested by us," which a skimming reader can still misparse
+   *  as "one of the compared machines, just not our unit." */
+  | 'not-a-reviewed-model';
 
 export interface Asset {
   id: string;                 // stable kebab-case, never renamed
@@ -121,7 +126,11 @@ const MANIFEST: Omit<Asset, 'usedBy'>[] = [
     ratios: ['16:9', '4:5', '1:1'],
     intrinsic: { w: 3845, h: 5767 },
     subject: ['freeze-dryer', 'vacuum-pump', 'trays', 'fruit', 'machines'],
-    restrictions: ['not-our-equipment'],
+    // The visible unit is branded ESTBRIGHT — not Harvest Right, Blue Alpine,
+    // or Stay Fresh, the machines /compare/home-freeze-dryers actually
+    // reviews. "not a Sublime Pantry test unit" alone lets a skimming reader
+    // assume it's one of those three; it is not.
+    restrictions: ['not-our-equipment', 'not-a-reviewed-model'],
   },
 
   // ---- camping ---------------------------------------------------------
@@ -318,6 +327,7 @@ const MANIFEST: Omit<Asset, 'usedBy'>[] = [
 const RESTRICTION_NOTE: Partial<Record<AssetRestriction, string>> = {
   'not-our-equipment': 'not a Sublime Pantry test unit',
   'not-product-imagery': 'not Sublime Pantry packaging',
+  'not-a-reviewed-model': 'not one of the machines reviewed here',
 };
 
 /** The visible caption: credit first, then any note its restrictions oblige. */
