@@ -195,8 +195,13 @@ const menuId = (label: string) => `nav-menu-${label.toLowerCase()}`;
   /* Below the drawer breakpoint the search box is the first thing in the
      drawer, so a second search control in the bar is redundant — and at 360px
      it is what pushes the header past the viewport. */
-  .search-toggle { display: none; }
-  @media (min-width: 900px) { .search-toggle { display: inline-flex; } }
+  /* Scoped through .header-actions on purpose: `.icon-button` sets
+     display:inline-flex further down this stylesheet, and at equal
+     specificity the later rule wins. Without this scoping the search icon
+     rendered at every width, duplicating the drawer's own search box and, at
+     360px, pushing the header past the viewport. */
+  .header-actions .search-toggle { display: none; }
+  @media (min-width: 900px) { .header-actions .search-toggle { display: inline-flex; } }
 
   .site-nav { display: none; margin-inline-start: auto; }
   .site-nav > ul { display: flex; gap: var(--s3); list-style: none; margin: 0; padding: 0; }
@@ -235,7 +240,6 @@ const menuId = (label: string) => `nav-menu-${label.toLowerCase()}`;
     list-style: none;
     background: var(--surface);
     border: 1px solid var(--mist); border-radius: var(--radius);
-    box-shadow: var(--shadow-hover);
   }
   .nav-menu li { margin: 0; }
   .nav-menu a {

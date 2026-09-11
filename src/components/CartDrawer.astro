@@ -57,6 +57,7 @@ const cartDiscountCodes = LAUNCH_OFFER.enabled ? LAUNCH_OFFER.code : undefined;
     border-radius: var(--radius);
     min-height: 44px;
     font: 600 1rem var(--font-body);
+    text-transform: none;
   }
   shopify-cart::part(secondary-button),
   shopify-cart::part(tertiary-button) {
@@ -78,7 +79,13 @@ const cartDiscountCodes = LAUNCH_OFFER.enabled ? LAUNCH_OFFER.code : undefined;
     shopify-cart::part(dialog) {
       margin: auto 0 0;
       max-width: 100%;
-      height: auto;
+      /* Not `height: auto`: the dialog is `position: fixed` with `top: 0` and
+         an implicit `bottom: 0` from the UA's top-layer default, and a box
+         positioned between two set insets stretches to fill the gap under
+         `auto` regardless of content. `fit-content` forces intrinsic sizing
+         instead, so a short cart gets a short sheet rather than a mostly
+         empty one capped at max-height. */
+      height: fit-content;
       max-height: 85dvh;
       border-left: 0;
       border-top: 1px solid var(--mist);
@@ -144,11 +151,32 @@ const cartDiscountCodes = LAUNCH_OFFER.enabled ? LAUNCH_OFFER.code : undefined;
     });
   }
 
+  /**
+   * The component exposes no `part` for the line row itself — only for pieces
+   * inside it (`line-image`, `line-heading`, `line-price`, `line-options`).
+   * Observed shadow DOM, September 10 2026: the row is an internal
+   * `div.line-item`, not a `part`. Try selectors in order of how much of a
+   * public contract they are — a real `part` first, should Shopify ever add
+   * one; the internal class next, since it is what actually renders today;
+   * `line-heading` (a genuine `part`, one per line) as a fallback that
+   * survives the class being renamed; a bare `li` last. Each candidate is
+   * tried alone so a match can never be double-counted against another tier.
+   */
   function countLines(cart: Element): number | null {
     const root = (cart as any).shadowRoot as ShadowRoot | null;
     if (!root) return null;
-    const rows = root.querySelectorAll('[part~="line-item"], [part~="cart-line"], li');
-    return rows.length || null;
+    const candidates = [
+      '[part~="line-item"]',
+      '[part~="cart-line"]',
+      '.line-item',
+      '[part~="line-heading"]',
+      'li',
+    ];
+    for (const selector of candidates) {
+      const n = root.querySelectorAll(selector).length;
+      if (n > 0) return n;
+    }
+    return null;
   }
 
   /**
@@ -194,6 +222,30 @@ const cartDiscountCodes = LAUNCH_OFFER.enabled ? LAUNCH_OFFER.code : undefined;
         el.setAttribute('aria-label', name);
       }
     }
+    // Same rule as above, for a different gap: when a product's Shopify image
+    // has no alt text set in Admin, the component stringifies the missing
+    // value instead of omitting the attribute, so the image ships the literal
+    // word "null" to a screen reader. Only that exact broken value is
+    // replaced, with the line's own heading text (already shown alongside the
+    // image, so this doesn't invent a description) — a real alt from Shopify
+    // is never touched.
+    for (const line of root.querySelectorAll('[part~="line-image"]')) {
+      const img = line.querySelector('img');
+      const heading = line.parentElement?.querySelector('[part~="line-heading"]');
+      const name = heading?.textContent?.trim();
+      if (img && name && (img.getAttribute('alt') === 'null' || !img.getAttribute('alt'))) {
+        img.setAttribute('alt', name);
+      }
+    }
+    // The checkout button's label is "CHECKOUT" as literal text, not a CSS
+    // text-transform — so it is the one visible control on the site that
+    // does not match the sentence-case voice everywhere else (Add to cart,
+    // Get the checklist). Rewritten only when the text is exactly that
+    // default, so a future copy change from Shopify is never fought.
+    const checkoutButton = root.querySelector('[part~="primary-button"]');
+    if (checkoutButton && checkoutButton.textContent?.trim() === 'CHECKOUT') {
+      checkoutButton.textContent = 'Checkout';
+    }
   }
 
   function sync() {
@@ -236,20 +288,27 @@ const cartDiscountCodes = LAUNCH_OFFER.enabled ? LAUNCH_OFFER.code : undefined;
       attach();
     }
 
-    document.querySelectorAll<HTMLElement>('[data-sp-cart-open]').forEach((button) => {
-      if (button.dataset.spBound) return;
-      button.dataset.spBound = '1';
-      button.addEventListener('click', () => (cart as any).showModal?.());
-    });
-
-    document.querySelectorAll<HTMLElement>('[data-sp-cart-add]').forEach((button) => {
-      if (button.dataset.spBoundAdd) return;
-      button.dataset.spBoundAdd = '1';
-      button.addEventListener('click', () => {
-        writeFallback(readFallback() + 1);
-        setTimeout(sync, 400);
+    // Delegated on `document`, not bound per-button: the shop hub and product
+    // page render their buy buttons inside a `<shopify-context><template>`,
+    // which Shopify clones into the live DOM asynchronously after fetching
+    // product data. A one-time querySelectorAll here ran before that clone
+    // existed, so `data-sp-cart-add` buttons on /shop never received a
+    // listener and the fallback counter silently stopped incrementing for
+    // them. Delegation only needs the button to exist at click time, which it
+    // always does by the time someone can click it.
+    if (!(document as any).__spCartDelegated) {
+      (document as any).__spCartDelegated = true;
+      document.addEventListener('click', (event) => {
+        const target = event.target as HTMLElement;
+        if (target.closest('[data-sp-cart-open]')) {
+          (document.getElementById('sublime-cart') as any)?.showModal?.();
+        }
+        if (target.closest('[data-sp-cart-add]')) {
+          writeFallback(readFallback() + 1);
+          setTimeout(sync, 400);
+        }
       });
-    });
+    }
   }
 
   document.addEventListener('astro:page-load', init);

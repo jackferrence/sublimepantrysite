@@ -76,7 +76,7 @@ test('§8: the global navigation says what its controls do', () => {
   ]) {
     assert.ok(home.includes(name), `${why} — expected "${name}"`);
   }
-  assert.match(home, /placeholder="Search machines, batch problems and storage/);
+  assert.match(home, /placeholder="Search guides, tools and packaging/);
   // The no-results line names what to try instead of quoting the failed query.
   const bundles = readFileSync(join(root, 'dist/index.html'), 'utf8');
   assert.ok(
