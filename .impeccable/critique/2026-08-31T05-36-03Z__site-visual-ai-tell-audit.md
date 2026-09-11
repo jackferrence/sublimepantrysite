@@ -7,6 +7,7 @@ p0_count: 0
 p1_count: 1
 timestamp: 2026-08-31T05-36-03Z
 slug: site-visual-ai-tell-audit
+closed: true
 ---
 ## Design Health Score
 

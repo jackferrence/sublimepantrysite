@@ -7,6 +7,7 @@ p0_count: 1
 p1_count: 2
 timestamp: 2026-08-31T15-46-22Z
 slug: site-vs-playbook-compliance-ai-slop-recheck
+closed: true
 ---
 ## Design Health Score
 
