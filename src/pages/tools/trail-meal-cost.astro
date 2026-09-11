@@ -74,8 +74,8 @@ const defaultPer500 = costPer500Kcal(defaultResult.totalUsd, DEFAULT_CALORIES) a
       <h1>{title}</h1>
       <p class="short">
         <strong>The short version:</strong> at the reference recipe’s ingredient cost and a retail-priced
-        pouch, a home freeze-dried dinner lands near {usd(defaultResult.totalUsd)} before electricity —
-        roughly {usd(defaultPer500)} per 500 kcal — against {usd(Math.min(...POUCH_SCORES.map((s) => s.costPer500KcalUsd)))} to
+        pouch, a home freeze-dried dinner lands near {usd(defaultResult.totalUsd)} before electricity,
+        roughly {usd(defaultPer500)} per 500 kcal, against {usd(Math.min(...POUCH_SCORES.map((s) => s.costPer500KcalUsd)))} to
         {' '}{usd(Math.max(...POUCH_SCORES.map((s) => s.costPer500KcalUsd)))} per 500 kcal for the three commercial pouches below at
         their brand-site prices on {PRICE_DATE}. Weight per 500 kcal needs one number nobody publishes:
         your own measured yield.
@@ -121,7 +121,7 @@ const defaultPer500 = costPer500Kcal(defaultResult.totalUsd, DEFAULT_CALORIES) a
             <p class="help" id="packaging-help">
               One pouch, one meal. The published quantity breaks run from
               {' '}{usdPrecise(PACKAGING_OPTIONS[2].perPouchUsd)} to
-              {' '}{usdPrecise(PACKAGING_OPTIONS[0].perPouchUsd)} for the identical bag — a
+              {' '}{usdPrecise(PACKAGING_OPTIONS[0].perPouchUsd)} for the identical bag, a
               {' '}{PACKAGING_SPREAD_MULTIPLE}× spread, same vendor, same day [{cite(U.pfRetail)}][{cite(U.pfWholesale)}].
             </p>
             <div class="chips" role="group" aria-label="Published pouch prices">
@@ -151,7 +151,7 @@ const defaultPer500 = costPer500Kcal(defaultResult.totalUsd, DEFAULT_CALORIES) a
             />
             <p class="help" id="calories-help">
               Used for both per-500-kcal figures. Prefilled from label arithmetic on the reference
-              recipe’s five listings — about {DEFAULT_CALORIES} kcal. Not a lab result.
+              recipe’s five listings: about {DEFAULT_CALORIES} kcal. Not a lab result.
             </p>
           </div>
 

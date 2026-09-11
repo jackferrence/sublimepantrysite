@@ -62,8 +62,8 @@ const eiaMonthly = cite(MONTHLY_US.sourceUrl);
       <h1>Freeze Dryer Running Cost Calculator</h1>
       <p class="lede">
         <strong>The short version:</strong> a freeze-drying cycle costs kilowatt-hours times your rate, and nothing
-        else. At the one published kWh figure in this category that a reader can actually check — {CHECKABLE_KWH.kwh} kWh
-        for a 24-hour cycle [{sf}] — and the EIA US residential average for {MONTHLY_US.period} [{eiaMonthly}], that is
+        else. Take the one published kWh figure in this category that a reader can actually check ({CHECKABLE_KWH.kwh} kWh
+        for a 24-hour cycle [{sf}]) against the EIA US residential average for {MONTHLY_US.period} [{eiaMonthly}], and that is
         about {usd(initial.perBatch)} a batch. Change either number below and the arithmetic changes with it.
       </p>
       <p>
@@ -97,7 +97,7 @@ const eiaMonthly = cite(MONTHLY_US.sourceUrl);
               aria-describedby="kwh-help"
             />
             <p class="field-help" id="kwh-help">
-              Prefilled with {CHECKABLE_KWH.kwh} kWh — the only published energy figure in this category whose publisher
+              Prefilled with {CHECKABLE_KWH.kwh} kWh, the only published energy figure in this category whose publisher
               stated both the rate and the duration behind it, so you can check it [{sf}]. It is a {CHECKABLE_KWH.docType}
               figure, generic rather than model-specific. If you have metered your own machine, use your number instead.
             </p>
@@ -117,7 +117,7 @@ const eiaMonthly = cite(MONTHLY_US.sourceUrl);
               aria-describedby="rate-help"
             />
             <p class="field-help" id="rate-help">
-              Prefilled with {MONTHLY_US.cents} ¢/kWh — EIA’s US residential average for {MONTHLY_US.period},
+              Prefilled with {MONTHLY_US.cents} ¢/kWh, EIA’s US residential average for {MONTHLY_US.period},
               released {MONTHLY_US.releaseDate}, {MONTHLY_US.yoyChange} year on year [{eiaMonthly}]. Your own bill beats
               any average here.
             </p>
@@ -135,7 +135,7 @@ const eiaMonthly = cite(MONTHLY_US.sourceUrl);
             <p class="field-help" id="state-help">
               Choosing a row writes its value into the rate box above, which is what the arithmetic uses. Rows marked
               2024 annual come from EIA’s annual state table; the June 2026 row is monthly and national. The two
-              vintages are not interchangeable — see the four-numbers table below. With JavaScript off, type the rate
+              vintages are not interchangeable: see the four-numbers table below. With JavaScript off, type the rate
               in directly.
             </p>
           </div>
@@ -202,7 +202,7 @@ const eiaMonthly = cite(MONTHLY_US.sourceUrl);
         </p>
       </div>
       <p class="meta">
-        That is the entire model. It covers electricity and nothing else — not bags, not absorbers, not pump oil, not
+        That is the entire model. It covers electricity and nothing else: not bags, not absorbers, not pump oil, not
         the machine. Two brands publish per-load dollar figures with bags or pump oil folded in; those are not
         comparable to this number, and the table below says which.
       </p>

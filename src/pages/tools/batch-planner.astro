@@ -513,7 +513,7 @@ const batches = batchesNeeded(DEFAULT_FRESH_LB, DEFAULT_MACHINE);
       as a number so it does not read as the tool failing.
     */
     .not-published {
-      background: var(--surface); border: 1px solid var(--mist); border-left: 3px solid var(--brand);
+      background: var(--brand-tint); border: 1px solid var(--mist);
       border-radius: var(--radius); padding: var(--s2) var(--s3); margin: .35rem 0;
     }
     .not-published-inline { color: var(--ink-soft); font-style: italic; }
@@ -667,7 +667,7 @@ const batches = batchesNeeded(DEFAULT_FRESH_LB, DEFAULT_MACHINE);
         if (unit !== 'lb') {
           set(
             'batches-result',
-            '<p class="not-published">Batch capacity is published in pounds. Switch the unit to pounds to see batch counts — no source publishes a density that would convert cups to pounds for this food.</p>',
+            '<p class="not-published">Batch capacity is published in pounds. Switch the unit to pounds to see batch counts: no source publishes a density that would convert cups to pounds for this food.</p>',
           );
         } else {
           const rows = batchesNeeded(fresh, machine)

@@ -1,6 +1,9 @@
 {
   "title": "Building a three-day trail menu from your own freeze dryer",
   "description": "Sourced calorie and weight bands, published rehydration figures where they exist, and a three-day menu that marks every calculated number as calculated.",
+  "image": {
+    "assetId": "camp-pouch-freeze-dried-vegetables"
+  },
   "kicker": "trail",
   "pillar": "guides",
   "section": "Camping",
