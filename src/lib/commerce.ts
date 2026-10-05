@@ -19,8 +19,12 @@ import { productMedia } from './product-media.ts';
 export const SHOPIFY_STORE_DOMAIN =
   'zd-store-01m146jmxxhw739y7t7y11s669-paky1ta3.myshopify.com';
 
-/** Public Shopify domain (checkout/customer-facing). */
-export const SHOPIFY_PUBLIC_DOMAIN = 'shop.sublimepantry.com';
+/* There is deliberately no constant for `shop.sublimepantry.com` here.
+ *
+ * That hostname is where Shopify serves checkout, and Shopify builds those URLs
+ * itself. The site never links to it: the Shopify theme storefront behind it is
+ * not a shopping surface, and every page of it redirects back to this site (see
+ * docs/SHOPIFY-ADMIN-SETUP.md, "Storefront redirect"). */
 
 /** A product photograph, with its provenance stated. */
 export interface ProductImage {

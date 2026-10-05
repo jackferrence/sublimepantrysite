@@ -29,10 +29,10 @@ import {
   LINE_ORDER,
   LINE_LABEL,
   SHIPPING,
-  SHOPIFY_PUBLIC_DOMAIN,
   ownedEyebrow,
 } from '../lib/commerce';
 import { stockedCatalog, NOT_STOCKED_LABEL, stockNoteFor } from '../lib/stock';
+import { SUPPORT_EMAIL } from '../lib/paths';
 
 const catalog = await stockedCatalog();
 
@@ -80,7 +80,7 @@ const groups = LINE_ORDER.map((line) => ({
 
             <div class="product-card-body">
               <span class="kicker">{ownedEyebrow(product)}</span>
-              <h3><a href={product.detailsHref ?? `https://${SHOPIFY_PUBLIC_DOMAIN}/products/${product.handle}`} data-astro-reload={product.detailsHref ? true : undefined}>{product.title}</a></h3>
+              <h3><a href={product.detailsHref ?? '/shop'} data-astro-reload={product.detailsHref ? true : undefined}>{product.title}</a></h3>
               <p class="product-card-note">{product.note}</p>
 
               {product.inStock ? (
@@ -111,8 +111,8 @@ const groups = LINE_ORDER.map((line) => ({
                   <p class="product-ships"><Icon name="package" size={15} /> {SHIPPING.shortNote}</p>
 
                   <div class="commerce-fallback" data-commerce-fallback hidden>
-                    <p>Live pricing is temporarily unavailable.</p>
-                    <a class="btn btn-secondary" href={`https://${SHOPIFY_PUBLIC_DOMAIN}/products/${product.handle}`} rel="noopener">View this product on our Shopify store</a>
+                    <p>Live pricing is temporarily unavailable. Reload to try again, or email <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.</p>
+                    <button class="btn btn-secondary" type="button" onclick="location.reload()">Reload this page</button>
                   </div>
                 </div>
               ) : (

@@ -281,3 +281,52 @@ above the $45.00 threshold. Confirmed end to end by real order #1001.
 product, then add their CDN URLs to `images[]` in `src/lib/commerce.ts` with
 `source: 'own'`. The product page captions manufacturer images and leaves our
 own uncaptioned, so provenance stays honest automatically.
+
+## Storefront redirect — send `shop.sublimepantry.com` back to the site
+
+`shop.sublimepantry.com` has to exist: Shopify serves checkout from it. But the
+theme storefront on that hostname is not a shopping surface, and the checkout
+header (store name / logo) and the "Continue shopping" links all point at it.
+Shopify does not let a Basic-plan store change where those links go, so the fix
+is to make the theme itself bounce every page back to `www.sublimepantry.com`.
+
+Checkout (`/checkouts/...`), cart permalinks, the Storefront API (`/api/...`)
+and `/products.json` are not rendered by the theme, so none of them is affected.
+
+**Online Store → Themes → (live theme) → ⋯ → Edit code → `layout/theme.liquid`.**
+Paste this as the first thing inside `<head>`:
+
+```liquid
+{%- comment -%} Headless store: the theme storefront is not a shopping surface. {%- endcomment -%}
+{%- unless request.design_mode -%}
+  {%- liquid
+    assign sp_site = 'https://www.sublimepantry.com'
+    assign sp_target = sp_site | append: '/shop'
+    if request.page_type == 'index'
+      assign sp_target = sp_site | append: '/'
+    elsif request.page_type == 'product'
+      assign sp_target = sp_site | append: '/shop/' | append: product.handle
+    elsif request.path contains 'privacy-policy'
+      assign sp_target = sp_site | append: '/privacy'
+    elsif request.path contains 'terms-of-service'
+      assign sp_target = sp_site | append: '/terms'
+    elsif request.path contains '/policies/'
+      assign sp_target = sp_site | append: '/shipping-returns'
+    endif
+  -%}
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="{{ sp_target }}">
+  <meta http-equiv="refresh" content="0; url={{ sp_target }}">
+  <script>window.location.replace({{ sp_target | json }});</script>
+{%- endunless -%}
+```
+
+`request.design_mode` keeps the theme editor usable. A product handle with no
+page on the site lands on the site's 404, which links to `/shop`.
+
+Verify afterwards:
+
+- `https://shop.sublimepantry.com/` lands on `https://www.sublimepantry.com/`.
+- `https://shop.sublimepantry.com/products/season-set-100-bags-100-absorbers-sealer` lands on the matching `/shop/...` page.
+- Add to cart on the site, go to checkout, click **Sublime Pantry** in the checkout header: it lands on the site, not the theme.
+- Checkout itself still loads and still takes a discount code.

@@ -41,7 +41,7 @@ Analytics provider: **Plausible** (cookieless, `script.outbound-links.js`, loade
 | `cart_open` | Cart | "View cart" / "View your cart" buttons | `placement`, `path` | Site |
 | `checkout_handoff` | Checkout | Click on the checkout link inside `<shopify-cart>` | `path` | Site — **handoff only, not a purchase** |
 | `storefront_unavailable` | Reliability | Shopify's purchase block failed to render within 6s | `product_handle`, `path` | Site — **watch this one** |
-| `storefront_fallback_click` | Reliability | Reader takes the fallback link to the Shopify product page | `product_handle`, `sku`, `destination`, `path` | Site |
+| `storefront_fallback_click` | Reliability | Reader takes the fallback support-email link when the purchase block fails | `product_handle`, `sku`, `destination`, `path` | Site |
 | `affiliate_outbound_click` | Monetisation | Click on any `rel="sponsored"` link | `destination`, `path` | Site |
 | `tool_promo_click` | Engagement | Batch Log promo on the homepage | `destination`, `path` | Site |
 | `tool_discovery_click` | Engagement | Contextual tool link in an article, comparison or product page | `tool`, `destination`, `path` | Site |

@@ -26,7 +26,6 @@ import EditorialToolLink from '../../components/EditorialToolLink.astro';
 import {
   LINE_LABEL,
   SHIPPING,
-  SHOPIFY_PUBLIC_DOMAIN,
   OWNERSHIP_LABEL,
   ownedEyebrow,
 } from '../../lib/commerce';
@@ -172,15 +171,14 @@ const faqSchema = {
               <div class="buybox-commerce" shopify-loading-placeholder>
                 <p class="buybox-price">{product.displayPrice}</p>
                 <p class="buybox-stock">Checking availability…</p>
-                <a class="btn btn-secondary buybox-button" href={`https://${SHOPIFY_PUBLIC_DOMAIN}/products/${product.handle}`} rel="noopener" data-sp-event="storefront_placeholder_click" data-sp-props={trackProps}>View in our store</a>
               </div>
             </shopify-context>
 
             <p class="buybox-ships"><Icon name="package" size={15} /> {SHIPPING.rule}</p>
 
             <div class="commerce-fallback" data-commerce-fallback hidden>
-              <p>Live pricing and checkout are temporarily unavailable on this page.</p>
-              <a class="btn btn-secondary" href={`https://${SHOPIFY_PUBLIC_DOMAIN}/products/${product.handle}`} rel="noopener" data-sp-event="storefront_fallback_click" data-sp-props={trackProps}>View this product on our Shopify store</a>
+              <p>Live pricing and checkout are temporarily unavailable on this page. Reload to try again, or email <a href={`mailto:${SUPPORT_EMAIL}`} data-sp-event="storefront_fallback_click" data-sp-props={trackProps}>{SUPPORT_EMAIL}</a> and we will take the order directly.</p>
+              <button class="btn btn-secondary" type="button" onclick="location.reload()">Reload this page</button>
             </div>
           </div>
         ) : (
