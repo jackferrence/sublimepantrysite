@@ -10,6 +10,16 @@ import { SUPPORT_EMAIL } from '../lib/paths';
 
 interface Props {
   title: string;
+  /**
+   * The <title> tag, when it should differ from the on-page headline.
+   *
+   * Headlines here are written as editorial titles ("Freeze-drying eggs."),
+   * which is right for an H1 and wrong for a search result: Search Console
+   * showed page-one impressions with no clicks on exactly those pages. This
+   * states the question the page answers, in the words a searcher uses. The H1,
+   * Open Graph title and structured data keep `title`.
+   */
+  seoTitle?: string;
   description: string;
   path: string; // e.g. "/" or "/guides/complete-batch-workflow"
   ogType?: 'website' | 'article';
@@ -26,13 +36,22 @@ interface Props {
   noindex?: boolean;
 }
 
-const { title, description, path, ogType = 'website', jsonLd = [], commerce = false, noindex = false } = Astro.props;
+const { title, seoTitle, description, path, ogType = 'website', jsonLd = [], commerce = false, noindex = false } = Astro.props;
 
 const site = 'https://www.sublimepantry.com';
-const canonicalPath = path === '/' ? '/' : `${path.replace(/\/$/, '')}/`;
+// No trailing slash. The site builds with `trailingSlash: 'never'`, the sitemap
+// lists `/about`, and Google reports every indexed URL in that form. The
+// canonical used to say `/about/`, so each page named a different URL from the
+// one the sitemap and the index agreed on.
+const canonicalPath = path === '/' ? '/' : path.replace(/\/$/, '');
 const canonical = new URL(canonicalPath, site).href;
 const pageUrl = canonical;
-const pageTitle = `${title} | Sublime Pantry`;
+// The brand suffix is dropped when it would push the tag past what a result
+// shows (about 60 characters); a truncated question is worth less than the
+// brand name, which the result's site line already carries.
+const baseTitle = seoTitle ?? title;
+const suffixed = `${baseTitle} | Sublime Pantry`;
+const pageTitle = suffixed.length <= 60 ? suffixed : baseTitle;
 const ogImage = new URL(ogImagePath(path), site).href;
 
 const organizationGraph = [

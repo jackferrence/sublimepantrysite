@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-05",
+  "subject": "Center trays still wet? Cut one piece first",
+  "preview": "Plus: why mil is not a barrier number, and what a silent state rule means.",
+  "items": [
+    {
+      "heading": "Center trays still wet? Cut the thickest piece first",
+      "body": "Cut the thickest piece from a center tray in half and look at the middle. Cool, bendy or dark means it is still wet, and one wet piece sends the whole load back in. The cycle ends on its own schedule, and its sensors read the trays that are already dry while dense pieces stay wet inside. Add dry time in 2 to 4 hour increments, then re-run the cut test. Extension services insist on this: freeze-drying does not kill pathogens, so a marginal batch of low-acid or protein food that sat warm and moist is a discard, not a rescue.",
+      "sourceLabel": "Batch not fully dry in the center trays",
+      "sourceHref": "/troubleshooting/batch-not-dry"
+    },
+    {
+      "heading": "Mil is thickness, not barrier",
+      "body": "The mil count on a bag label does not tell you its oxygen barrier. Mil is a thickness measurement and nothing more. Barrier is reported separately as OTR (oxygen transmission rate) and WVTR (water vapor transmission rate), and those figures track the foil or metallized layer inside the laminate. In the published datasheets, metallized PET at 2.5, 3.5 and 5.0 mil all carry the same OTR and WVTR figures. What mil does predict is puncture and burst within a product line, and the stack your sealer has to fuse. Sublime Pantry has not bench-tested any of these bags; this is what the manufacturers publish.",
+      "sourceLabel": "What bag thickness actually means",
+      "sourceHref": "/guides/what-bag-thickness-actually-means"
+    },
+    {
+      "heading": "A state page that never mentions freeze-drying is not a yes",
+      "body": "If your state's cottage food page is silent on freeze-drying, do not read that as permission or as prohibition. Our directory of 51 US jurisdictions, checked 2026-09-06, found 23 whose published material names freeze-drying and 28 where it does not. Silence means opposite things in different states. Where a rule publishes a closed list of allowed products, as Ohio's does, an unnamed product is outside the list. Where the boundary is a food characteristic, as in Tennessee or Minnesota, an unnamed process is not thereby excluded. Put the question to your own state agency in writing and keep the reply.",
+      "sourceLabel": "Where to find your state's cottage food authority",
+      "sourceHref": "/guides/state-cottage-food-authority"
+    }
+  ],
+  "closing": {
+    "text": "When you add dry time, write the final hours down so the next identical batch does not need rediscovery. Our Batch Log is built for that.",
+    "label": "Batch Log",
+    "href": "/tools/batch-log"
+  }
+}

@@ -83,7 +83,7 @@ test('the full shape carries every declared field and no others', () => {
     'mainEntityOfPage', 'name', 'prepTime', 'recipeCategory', 'recipeIngredient',
     'recipeInstructions', 'recipeYield', 'totalTime',
   ]);
-  assert.equal(out.author.url, 'https://www.sublimepantry.com/about/');
+  assert.equal(out.author.url, 'https://www.sublimepantry.com/about');
 });
 
 /* ------------------------------------------------------------------------- *

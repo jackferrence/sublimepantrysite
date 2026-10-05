@@ -89,7 +89,7 @@ const jsonLd: Record<string, unknown>[] = [
     '@type': 'Article',
     headline: d.title,
     description: d.description,
-    author: { '@type': 'Person', name: d.author, url: `${site}/about/` },
+    author: { '@type': 'Person', name: d.author, url: `${site}/about` },
     publisher: { '@id': `${site}/#organization` },
     datePublished: publishedIso,
     dateModified: updatedIso,
@@ -140,7 +140,7 @@ if (d.pillar === 'compare' && d.comparisonCriteria) {
   });
 }
 ---
-<BaseLayout title={d.title} description={d.description} path={path} ogType="article" jsonLd={jsonLd}>
+<BaseLayout title={d.title} seoTitle={d.seoTitle} description={d.description} path={path} ogType="article" jsonLd={jsonLd}>
   <article class="article">
     <div class="wrap"><div class="article-head">
       <Breadcrumbs items={crumbs} />

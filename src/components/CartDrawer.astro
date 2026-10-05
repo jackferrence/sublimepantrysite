@@ -15,13 +15,17 @@
 import Icon from './Icon.astro';
 import { LAUNCH_OFFER, SHIPPING } from '../lib/commerce';
 
-// The attribute is `discount-codes` (kebab-case). HTML lowercases attribute
-// names, so a camelCase `discountCodes` renders as `discountcodes` and the
-// component silently ignores it — the cart then opens at full price.
-const cartDiscountCodes = LAUNCH_OFFER.enabled ? LAUNCH_OFFER.code : undefined;
+// No code is attached to the cart. The welcome offer is a buy-X-get-Y code that
+// only applies when the sealer and $20 of qualifying products are both in the
+// cart; attached to any other cart, checkout reports it as not applicable. The
+// buyer enters it. See LAUNCH_OFFER in src/lib/commerce.ts.
+//
+// If a percentage code is ever attached here again: the attribute is
+// `discount-codes` (kebab-case). HTML lowercases attribute names, so a
+// camelCase `discountCodes` renders as `discountcodes` and is silently ignored.
 ---
 <aside aria-label="Cart">
-<shopify-cart id="sublime-cart" target="_top" discount-codes={cartDiscountCodes}>
+<shopify-cart id="sublime-cart" target="_top">
   <div slot="empty">
     <p>Your cart is empty.</p>
     <p><a href="/shop">See the packaging catalog</a></p>
@@ -29,7 +33,7 @@ const cartDiscountCodes = LAUNCH_OFFER.enabled ? LAUNCH_OFFER.code : undefined;
   <div slot="extension" class="cart-extension">
     <p><Icon name="package" size={15} /> {SHIPPING.shortNote}</p>
     {LAUNCH_OFFER.enabled && (
-      <p><Icon name="check-circle" size={15} /> Code {LAUNCH_OFFER.code} applied at checkout</p>
+      <p><Icon name="check-circle" size={15} /> <a href="/newsletter">{LAUNCH_OFFER.cartNote}</a></p>
     )}
   </div>
 </shopify-cart>

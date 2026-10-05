@@ -62,6 +62,19 @@ const related = product.relatedArticles
 const reviews = await getProductReviews(product);
 
 const path = `/shop/${product.handle}`;
+
+/**
+ * A product we have never stocked stays out of the index.
+ *
+ * Keyed on `stockNote`, which is authored on the catalog entry and present only
+ * for products that have never been on a shelf, and deliberately NOT on live
+ * availability: that fails closed, so a build where Shopify was unreachable
+ * would otherwise noindex the whole shop. Search Console showed both
+ * never-stocked pages collecting impressions for something nobody can buy.
+ * Remove `stockNote` from the entry the day the product is stocked and the
+ * page is indexable again on the next deploy.
+ */
+const neverStocked = Boolean(product.stockNote);
 const trackProps = JSON.stringify({ product_handle: product.handle, sku: product.sku });
 const productToolHref = product.line === 'snack'
   ? '/tools/trail-meal-cost'
@@ -123,6 +136,7 @@ const faqSchema = {
 ---
 <PageLayout
   title={product.shortTitle}
+  seoTitle={product.title}
   description={product.note}
   path={path}
   breadcrumbs={[
@@ -133,6 +147,7 @@ const faqSchema = {
   width="wrap"
   jsonLd={[productSchema, faqSchema]}
   commerce
+  noindex={neverStocked}
 >
   <div data-sp-view="product_view" data-sp-props={trackProps}>
     <div class="pdp-top">

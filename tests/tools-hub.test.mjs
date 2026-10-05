@@ -16,7 +16,7 @@
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { TOOLS, liveTools, homepageTool } from '../src/lib/tools.ts';
@@ -109,7 +109,29 @@ test('the newsletter page describes the email before asking for an address', () 
   const inputs = [...main.matchAll(/<input[^>]*name="([^"]+)"[^>]*>/g)].map((m) => m[1]);
   const visible = inputs.filter((n) => !['form-name', 'lead_magnet', 'source_path', 'bot-field'].includes(n));
   assert.deepEqual(visible.sort(), ['email', 'marketing_consent'], `unexpected fields: ${visible.join(', ')}`);
-  // And it claims no back issues, because there are none.
-  assert.match(t, /no back issues to read yet/i);
+  // It claims exactly the back issues that exist. An issue counts as sent only
+  // when its file carries a sentDate; anything else is a sample and is
+  // labelled as one.
+  const issueDir = 'src/content/issues';
+  const issues = existsSync(issueDir)
+    ? readdirSync(issueDir).filter((f) => f.endsWith('.json')).map((f) => JSON.parse(readFileSync(`${issueDir}/${f}`, 'utf8')))
+    : [];
+  const sent = issues.filter((issue) => issue.sentDate);
+  if (sent.length === 0) {
+    assert.match(t, /no back issues to read yet/i);
+    assert.doesNotMatch(t, /Past issues/);
+  } else {
+    assert.match(t, /Past issues/);
+    assert.doesNotMatch(t, /no back issues to read yet/i);
+  }
+  for (const issue of issues.filter((i) => !i.sentDate)) {
+    const issuePage = text(page(`newsletter/${issue.date}.html`));
+    assert.match(issuePage, /Sample issue, not yet sent/, `${issue.date} is unsent and must say so`);
+    assert.doesNotMatch(issuePage, /Sent [A-Z][a-z]+ \d/, `${issue.date} is unsent and must not claim a send date`);
+  }
+  for (const issue of issues) {
+    const html2 = page(`newsletter/${issue.date}.html`);
+    assert.match(html2, /<meta name="robots" content="noindex, follow"/, `${issue.date} must stay out of the index`);
+  }
   assert.ok(!/Read past issues/.test(text(page('index.html'))), 'the footer links an archive that does not exist');
 });

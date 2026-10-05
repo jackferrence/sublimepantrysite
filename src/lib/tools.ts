@@ -82,7 +82,7 @@ export function getTool(slug: string): Tool {
   return tool;
 }
 export function toolPath(slug: string): string { return getTool(slug).href; }
-export function toolUrl(tool: Tool): string { return `${SITE_ORIGIN}${tool.href}/`; }
+export function toolUrl(tool: Tool): string { return `${SITE_ORIGIN}${tool.href}`; }
 export function embedUrl(tool: Tool): string { return `${toolUrl(tool)}?embed=1`; }
 const escapeAttribute = (value: string): string => value.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 export function embedSnippet(tool: Tool): string {

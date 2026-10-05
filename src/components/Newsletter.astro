@@ -14,7 +14,7 @@
  * card's real conversion rate unreadable.
  */
 import { normalizePath } from '../lib/paths';
-import { SHIPPING } from '../lib/commerce';
+import { LAUNCH_OFFER, SHIPPING } from '../lib/commerce';
 
 interface Props {
   compact?: boolean;
@@ -50,6 +50,9 @@ const Wrapper = compact ? 'div' : 'section';
       <span class="kicker">Free starter checklist</span>
       <h2 id="newsletter-heading">{title}</h2>
       <p class="newsletter-lede">Get the printable Starter Checklist, then <strong>The Dry Batch</strong> weekly. {SHIPPING.itemNote}</p>
+      {LAUNCH_OFFER.enabled && (
+        <p class="newsletter-offer"><strong>{LAUNCH_OFFER.headline}</strong> {LAUNCH_OFFER.detail}</p>
+      )}
     </>
   )}
 
