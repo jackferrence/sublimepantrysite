@@ -1,0 +1,62 @@
+---
+/**
+ * One issue of The Dry Batch, as it went out.
+ *
+ * Kept out of the index and the sitemap on purpose. An issue restates what the
+ * guides already say, in fewer words; indexed, it would compete in search with
+ * the articles it was written from. Its job is the one the newsletter page
+ * promised: let a reader judge the writing before giving an address.
+ */
+import PageLayout from '../../layouts/PageLayout.astro';
+import Newsletter from '../../components/Newsletter.astro';
+import { allIssues, issueHref, issueLabel, longDate, type Issue } from '../../lib/issues';
+
+export async function getStaticPaths() {
+  const issues = await allIssues();
+  return issues.map((issue) => ({ params: { date: issue.data.date }, props: { issue } }));
+}
+
+interface Props { issue: Issue }
+const { issue } = Astro.props;
+const d = issue.data;
+const path = issueHref(issue);
+---
+<PageLayout
+  title={d.subject}
+  description={`The Dry Batch, ${longDate(d.date)}. ${d.preview}`}
+  path={path}
+  breadcrumbs={[
+    { label: 'Newsletter', href: '/newsletter' },
+    { label: longDate(d.date), href: path },
+  ]}
+  noindex
+>
+  <span class="kicker">The Dry Batch · {longDate(d.date)}</span>
+  <h1>{d.subject}</h1>
+  <p class="meta">{issueLabel(issue)}. This is the email as written, with each item linked to the article it came from.</p>
+
+  {d.items.map((item) => (
+    <section class="issue-item">
+      <h2>{item.heading}</h2>
+      <p>{item.body}</p>
+      <p><a href={item.sourceHref}>{item.sourceLabel}</a></p>
+    </section>
+  ))}
+
+  {d.closing && (
+    <p class="issue-closing">{d.closing.text} <a href={d.closing.href}>{d.closing.label}</a></p>
+  )}
+
+  <p class="meta">Educational content, not food-safety or legal advice for your situation. Sublime Pantry sells packaging; where a product we sell is mentioned, it is ours.</p>
+
+  <section class="signup" aria-labelledby="issue-signup-heading">
+    <h2 id="issue-signup-heading" class="sr-only">Subscribe to The Dry Batch</h2>
+    <Newsletter heading="Get the checklist and the weekly email" />
+  </section>
+</PageLayout>
+
+<style>
+  .issue-item { margin: var(--s4) 0; }
+  .issue-closing { margin: var(--s4) 0; }
+  .signup { margin: var(--s5) 0 var(--s4); }
+</style>

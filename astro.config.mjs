@@ -39,7 +39,9 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      filter: (page) => !EXCLUDED.has(toPathname(page)),
+      // Issue pages (/newsletter/<date>) carry a noindex and are left out too:
+      // they restate the guides and must not compete with them in search.
+      filter: (page) => !EXCLUDED.has(toPathname(page)) && !toPathname(page).startsWith('/newsletter/'),
       serialize(item) {
         const lastmod = lastmodFor(item.url, lastmodSources);
         if (lastmod) {

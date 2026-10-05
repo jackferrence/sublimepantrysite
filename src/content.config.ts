@@ -116,4 +116,39 @@ const articles = defineCollection({
   ),
 });
 
-export const collections = { articles };
+/**
+ * Issues of The Dry Batch, as sent.
+ *
+ * One file per issue, named for its Monday date. The text is the email's text,
+ * not a rewrite of it: an archive that reads differently from what subscribers
+ * received is a second publication nobody edits.
+ *
+ * `sentDate` is the claim that the issue went to subscribers, and it is set
+ * only after it did. An issue without one renders as a sample and is never
+ * described as sent or as a past issue.
+ *
+ * Every item names the published article it came from. An issue restates what
+ * the site already says; it does not introduce a fact.
+ */
+const issues = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/issues' }),
+  schema: z.object({
+    date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+    sentDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+    subject: z.string(),
+    preview: z.string(),
+    items: z
+      .array(
+        z.object({
+          heading: z.string(),
+          body: z.string(),
+          sourceLabel: z.string(),
+          sourceHref: z.string().regex(/^\/(guides|troubleshooting|compare|recipes|tools)\//),
+        }).strict(),
+      )
+      .min(1),
+    closing: z.object({ text: z.string(), label: z.string(), href: z.string().startsWith('/') }).strict().optional(),
+  }).strict(),
+});
+
+export const collections = { articles, issues };
