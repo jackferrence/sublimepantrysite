@@ -50,10 +50,14 @@ test('no-primary-source rule downgrades DRAFT_PR to SOURCED_BRIEF', () => {
   const packet = loadFixture('evidence-packet.sample.json');
   // Use riskClass: standard so the elevated-topic rule doesn't also fire
   // and mask which rule is responsible for the downgrade.
+  // accessDate is pinned to today: freshnessUrgency scores sources against
+  // Date.now(), so the fixture's fixed dates age out after 30 days, the score
+  // drops below the DRAFT_PR threshold, and the rule under test never fires.
+  const today = new Date().toISOString().slice(0, 10);
   const noPrimary = {
     ...packet,
     riskClass: 'standard',
-    sources: packet.sources.map((s) => ({ ...s, tier: 'secondary' })),
+    sources: packet.sources.map((s) => ({ ...s, tier: 'secondary', accessDate: today })),
   };
   const decision = scoreOpportunity(noPrimary, { alreadyPublishedToday: false });
   assert.equal(decision.outcome, 'SOURCED_BRIEF');
