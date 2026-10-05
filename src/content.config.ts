@@ -44,6 +44,15 @@ const articles = defineCollection({
   loader: glob({ pattern: '**/*.json', base: './src/content/articles' }),
   schema: z.object({
     title: z.string(),
+    /**
+     * The <title> tag, when the headline is not what a searcher would type.
+     *
+     * `title` stays the H1 and the structured-data headline. This is the
+     * search-result line only: the question the page answers, in plain words,
+     * 60 characters or fewer so it is not truncated. It may not claim anything
+     * the page does not deliver.
+     */
+    seoTitle: z.string().max(60).optional(),
     description: z.string(),
     kicker: z.string(),
     pillar: z.enum(['guides', 'troubleshooting', 'compare', 'recipes']),

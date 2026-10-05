@@ -4,8 +4,9 @@
  *
  * Renders nothing unless LAUNCH_OFFER.enabled is true, so the site cannot
  * advertise a discount code that does not exist in Shopify. No countdowns, no
- * scarcity, no modals — a chip, placed where the price is, on the product page
- * and in the cart. It appears nowhere else.
+ * scarcity, no modals — a chip that states the subscriber offer and links to
+ * the signup page. The code itself is delivered by the welcome email; see
+ * LAUNCH_OFFER in src/lib/commerce.ts for why it is not printed here.
  */
 import { LAUNCH_OFFER } from '../lib/commerce';
 
@@ -19,8 +20,7 @@ const props = JSON.stringify({ placement, promo_code: LAUNCH_OFFER.code });
 ---
 {LAUNCH_OFFER.enabled && (
   <p class="offer-chip" data-sp-view="promo_view" data-sp-props={props}>
-    Code <strong data-sp-event="promo_click" data-sp-props={props}>{LAUNCH_OFFER.code}</strong>
-    {' '}— {LAUNCH_OFFER.percentOff}% off, applied at checkout
+    <a href="/newsletter" data-sp-event="promo_click" data-sp-props={props}>{LAUNCH_OFFER.headline}</a>
   </p>
 )}
 

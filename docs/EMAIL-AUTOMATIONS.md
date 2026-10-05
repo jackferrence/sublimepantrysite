@@ -1,5 +1,21 @@
 # Email automations
 
+> **Updated 2026-10-05. Read this before anything below.** Two decisions have
+> overtaken parts of this document:
+>
+> 1. **The welcome offer is the free sealer, not a percentage.** `WELCOME10` was
+>    deactivated in Shopify on 2026-10-05. `FREESEAL20` is the only live code:
+>    a free Mini Heat Sealer with $20 or more of snack bags or absorber refills,
+>    once per customer, not valid on the Starter Set or Season Set. Every
+>    mention of `WELCOME10` below is historical. See `LAUNCH_OFFER` in
+>    `src/lib/commerce.ts`.
+> 2. **The welcome series lives in Klaviyo**, flow `WhsCcA` ("The Dry Batch —
+>    Welcome Series"), rewritten 2026-10-05 as three emails: the checklist and
+>    the code, the center-tray cut test, and absorber sizing with what the shop
+>    stocks. It is still a draft, and the sending domain
+>    `newsletter.sublimepantry.com` is still unverified. `LAUNCH_OFFER.enabled`
+>    stays `false` until that flow is live.
+
 Engine: **Shopify Email / Shopify Messaging** (already installed on the store).
 Entry conditions are **customer tags**, written by `netlify/functions/lead-capture.mjs` and by Shopify Flow. See `docs/CUSTOMER-LIFECYCLE.md` and `docs/SHOPIFY-FLOW-WORKFLOWS.md`.
 

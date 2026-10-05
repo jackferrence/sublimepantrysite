@@ -9,6 +9,7 @@
   "properties": {
     "slug": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
     "title": { "type": "string", "minLength": 8 },
+    "seoTitle": { "type": "string", "minLength": 8, "maxLength": 60 },
     "description": { "type": "string", "minLength": 20 },
     "kicker": { "type": "string" },
     "pillar": { "type": "string", "enum": ["guides", "troubleshooting", "compare"] },

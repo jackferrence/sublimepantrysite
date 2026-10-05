@@ -71,7 +71,7 @@ export function recipeJsonLd(source: RecipeSource, ctx: RecipeContext): Record<s
     '@type': 'Recipe',
     name: source.title,
     description: source.description,
-    author: { '@type': 'Person', name: source.author, url: `${ctx.site}/about/` },
+    author: { '@type': 'Person', name: source.author, url: `${ctx.site}/about` },
     datePublished: ctx.publishedIso,
     mainEntityOfPage: ctx.pageUrl,
     ...(source.image ? { image: [new URL(source.image.src, ctx.site).href] } : {}),

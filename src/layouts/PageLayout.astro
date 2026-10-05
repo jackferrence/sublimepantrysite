@@ -16,6 +16,8 @@ interface Crumb {
 
 interface Props {
   title: string;
+  /** The <title> tag when it should differ from the headline; see BaseLayout. */
+  seoTitle?: string;
   description: string;
   path: string;
   breadcrumbs: Crumb[];
@@ -29,6 +31,7 @@ interface Props {
 
 const {
   title,
+  seoTitle,
   description,
   path,
   breadcrumbs,
@@ -41,7 +44,7 @@ const {
 
 const crumbs = [{ label: 'Home', href: '/' }, ...breadcrumbs];
 ---
-<BaseLayout title={title} description={description} path={path} ogType={ogType} jsonLd={jsonLd} commerce={commerce} noindex={noindex}>
+<BaseLayout title={title} seoTitle={seoTitle} description={description} path={path} ogType={ogType} jsonLd={jsonLd} commerce={commerce} noindex={noindex}>
   <div class:list={[width === 'wrap' ? 'wrap' : 'prose', 'page-body']}>
     <Breadcrumbs items={crumbs} />
     <slot />

@@ -585,16 +585,46 @@ export const SHIPPING = {
  * "orders of $45 or more ship free", which was true of the rule but false as a
  * promise attached to *this* offer: a 10% discount is applied before the
  * threshold is evaluated, so the discount itself can push an order under the
- * bar it is being advertised alongside. That is not specific to $45 — it
- * recurs at any threshold, because the discount always moves the total the
- * threshold is testing. The offer is 10% off. The shipping rule is stated
- * separately, from SHIPPING, where it is not conditioned on a promotion.
+ * bar it is being advertised alongside.
+ *
+ * Replaced again 2026-10-05, on the owner's decision: one welcome offer, and it
+ * is the free sealer. WELCOME10 was deactivated in Shopify (it reads EXPIRED;
+ * it had never been used) and FREESEAL20 is the only live code:
+ *
+ *   - Buy X get Y. $20 or more of Snack Bags 6×6 (50 or 100) or the 100cc
+ *     Absorber Refill, and one Mini Heat Sealer in the same cart is 100% off.
+ *   - The Starter Set and Season Set were removed from the qualifying products
+ *     the same day. Both already contain a sealer, and with them in the list
+ *     the code handed out a second one.
+ *   - Once per customer, one use per order, no end date.
+ *
+ * Two things follow from the mechanics, and both are why this object is shaped
+ * differently from the percentage offer it replaces:
+ *
+ *   1. The code is NOT passed to the cart. A buy-X-get-Y code only does
+ *      anything when the sealer is in the cart beside $20 of qualifying
+ *      products; attached to any other cart, checkout reports it as not
+ *      applicable, which reads as a broken promotion. The buyer enters it.
+ *   2. The code is delivered by the welcome email, not printed on the site.
+ *      It is a subscriber offer. The site states the offer and where the code
+ *      comes from.
+ *
+ * `enabled` is false and MUST stay false until the Klaviyo welcome series is
+ * live (flow WhsCcA, which is still a draft, behind a sending domain that is
+ * still unverified). Until it sends, a signup would be promised a code that
+ * never arrives. Flip this the day the first welcome email is confirmed
+ * delivered, not before.
  */
 export const LAUNCH_OFFER = {
-  enabled: true,
-  code: 'WELCOME10',
-  /** 10% off every product. Not scoped — see the note above. */
-  percentOff: 10,
-  headline: 'New here? Take 10% off your first order with WELCOME10.',
-  detail: 'Applied at checkout.',
+  enabled: false,
+  code: 'FREESEAL20',
+  /** Minimum spend on qualifying bags or refills, in dollars. */
+  minimumSpend: 20,
+  /** The one sentence. Shown beside the signup form. */
+  headline: 'Subscribers get a free Mini Heat Sealer with a first order of $20 or more in bags or absorber refills.',
+  /** The conditions, stated wherever the headline is. */
+  detail:
+    'The code arrives in your welcome email. Add the sealer to your cart and enter the code at checkout. One use per customer; not valid on the Starter Set or Season Set, which already include a sealer.',
+  /** For the cart, where there is room for one line and no code to print. */
+  cartNote: 'New here? Subscribers get a free Mini Heat Sealer on a first order of $20+.',
 } as const;

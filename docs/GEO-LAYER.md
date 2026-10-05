@@ -86,11 +86,6 @@ producing no dates is exactly the failure that would otherwise ship unnoticed.
   content gap, and closing it means writing real steps, not generating them.
 - **No article declares an `image`.** Every `Article` ships without an `image`
   property and every hero renders nothing. Part B wires the slots.
-- **Sitemap `loc` and page `<link rel=canonical>` disagree about the trailing
-  slash.** The sitemap advertises `/about`; the page's canonical says
-  `/about/`. `trailingSlash: 'never'` in the Astro config agrees with the
-  sitemap, so the canonical is the odd one out. Not changed here: it needs a
-  decision about redirects at the edge, not a find-and-replace.
 - **`sameAs` is empty.** Correct today; fill it the day a maintained profile
   exists.
 
