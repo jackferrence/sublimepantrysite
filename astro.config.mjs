@@ -4,6 +4,7 @@ import { readArticleDates, readGitDates, lastmodFor, toPathname } from './src/li
 import { writeFileSync, readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { ASSETS, caption, widthsFor } from './src/lib/assets.ts';
+import { CATALOG } from './src/lib/commerce.ts';
 
 // Resolved once per build, not once per URL: one git pass and one directory
 // read, shared across every entry. See src/lib/lastmod.ts for why a missing
@@ -13,7 +14,14 @@ const lastmodSources = { articles: readArticleDates(), git: readGitDates() };
 // Paths robots.txt disallows. Listing a disallowed URL in the sitemap asks a
 // crawler to fetch something we have told it not to fetch, and the two files
 // disagreeing is worse than either restriction on its own.
-const EXCLUDED = new Set(['/thanks']);
+//
+// Never-stocked product pages carry a noindex (see src/pages/shop/[handle].astro)
+// and are left out for the same reason: a sitemap that lists a page the page
+// itself says not to index is two files disagreeing.
+const EXCLUDED = new Set([
+  '/thanks',
+  ...CATALOG.filter((product) => product.stockNote).map((product) => `/shop/${product.handle}`),
+]);
 
 let dated = 0;
 let undatedPaths = [];
