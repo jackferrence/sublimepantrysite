@@ -170,7 +170,7 @@ const CATALOG_RECORDS: CatalogProduct[] = [
     image: '',
     imageAlt: '',
     detailsHref: '/shop/snack-bags-6x6-50-pack-absorbers',
-    displayPrice: '$18.99 USD',
+    displayPrice: '$24.99 USD',
     category: 'Packaging',
     images: [],
     line: 'snack',
@@ -213,7 +213,7 @@ const CATALOG_RECORDS: CatalogProduct[] = [
     image: '',
     imageAlt: '',
     detailsHref: '/shop/snack-bags-6x6-100-pack-absorbers',
-    displayPrice: '$31.99 USD',
+    displayPrice: '$42.99 USD',
     category: 'Packaging',
     images: [],
     line: 'snack',
@@ -299,7 +299,7 @@ const CATALOG_RECORDS: CatalogProduct[] = [
     image: '',
     imageAlt: '',
     detailsHref: '/shop/mini-heat-sealer-for-mylar-bags',
-    displayPrice: '$21.99 USD',
+    displayPrice: '$16.99 USD',
     category: 'Sealing',
     images: [],
     line: 'tools',
@@ -338,7 +338,7 @@ const CATALOG_RECORDS: CatalogProduct[] = [
     image: '',
     imageAlt: '',
     detailsHref: '/shop/starter-set-50-bags-50-absorbers-sealer',
-    displayPrice: '$35.99 USD',
+    displayPrice: '$34.99 USD',
     category: 'Packaging',
     images: [],
     line: 'bundle',
@@ -382,7 +382,7 @@ const CATALOG_RECORDS: CatalogProduct[] = [
     image: '',
     imageAlt: '',
     detailsHref: '/shop/season-set-100-bags-100-absorbers-sealer',
-    displayPrice: '$47.99 USD',
+    displayPrice: '$49.99 USD',
     category: 'Packaging',
     images: [],
     line: 'bundle',
@@ -552,7 +552,7 @@ export const SHIPPING = {
    *
    * It used to read "the kit clears the $45 threshold, discount included",
    * which was true only of the $74.99 boxed set. That product is archived, and
-   * at the current range the top price is the Season Set at $47.99: it is the
+   * at the current range the top price is the Season Set at $49.99: it is the
    * only item that clears $45 on its own, and nothing clears it after a
    * discount. So this states the condition instead of asserting it is met.
    */
