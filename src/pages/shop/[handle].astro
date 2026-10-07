@@ -95,22 +95,69 @@ const productToolHref = product.line === 'snack'
  * more optimistic value here.
  */
 const price = product.displayPrice.replace(/[^0-9.]/g, '');
+
+/**
+ * Image, shipping and returns for the offer.
+ *
+ * Google only shows a product as a merchant listing (price, shipping and
+ * returns beside the result) when the structured data carries an image, and it
+ * reads shipping and returns from here when there is no Merchant Center feed.
+ * Without them the page is eligible for a plain product snippet at best.
+ *
+ * Nothing here is a new claim. Every value restates what /shipping-returns
+ * already publishes, which in turn mirrors the Shopify settings:
+ *   - Shipping: the rate for THIS item ordered on its own. The flat rate
+ *     applies below the threshold and nothing at or above it, so the figure is
+ *     derived from the item's price and SHIPPING, never typed in.
+ *   - Handling: 1-2 business days. Transit time is not published anywhere on
+ *     the site, so it is not stated here either.
+ *   - Returns: 30 days, by mail, United States. Who pays return postage is not
+ *     stated on the policy page, so `returnFees` is left out.
+ * If the policy page changes, change this in the same commit.
+ */
+const schemaImages = (product.images.length ? product.images.map((image) => image.src) : [product.image])
+  .filter(Boolean)
+  .map((src) => new URL(src, Astro.site).href);
+const shipsFreeAlone = Number(price) >= SHIPPING.freeThreshold;
 const productSchema: Record<string, unknown> = {
   '@context': 'https://schema.org',
   '@type': 'Product',
   name: product.title,
   description: product.note,
   sku: product.sku,
+  ...(schemaImages.length ? { image: schemaImages } : {}),
   brand: { '@type': 'Brand', name: 'PackFreshUSA' },
   offers: {
     '@type': 'Offer',
     url: new URL(path, Astro.site).href,
     priceCurrency: 'USD',
     price,
+    itemCondition: 'https://schema.org/NewCondition',
     availability: product.inStock
       ? 'https://schema.org/InStock'
       : 'https://schema.org/OutOfStock',
     seller: { '@type': 'Organization', name: 'Sublime Pantry' },
+    shippingDetails: {
+      '@type': 'OfferShippingDetails',
+      shippingRate: {
+        '@type': 'MonetaryAmount',
+        value: shipsFreeAlone ? '0' : SHIPPING.flatRate.toFixed(2),
+        currency: 'USD',
+      },
+      shippingDestination: { '@type': 'DefinedRegion', addressCountry: 'US' },
+      deliveryTime: {
+        '@type': 'ShippingDeliveryTime',
+        handlingTime: { '@type': 'QuantitativeValue', minValue: 1, maxValue: 2, unitCode: 'DAY' },
+      },
+    },
+    hasMerchantReturnPolicy: {
+      '@type': 'MerchantReturnPolicy',
+      applicableCountry: 'US',
+      returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
+      merchantReturnDays: 30,
+      returnMethod: 'https://schema.org/ReturnByMail',
+      merchantReturnLink: new URL('/shipping-returns', Astro.site).href,
+    },
   },
 };
 
